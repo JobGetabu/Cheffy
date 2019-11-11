@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.app.cheffyuser">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".custom_order.OrderCompleteActivity"></activity>
+        <activity android:name=".custom_order.CustomOrderPostActivity" />
+        <activity android:name=".custom_order.CustomOrderActivity" />
+        <activity android:name=".cart.activities.CustomOrderCheckoutActivity" />
+        <activity android:name=".cart.activities.CustomOrderListActivity" />
+        <activity android:name=".profile.activities.ShippingActivity" />
+        <activity android:name=".profile.activities.UserPaymentActivity" />
+        <activity android:name=".home.activities.ReceiptDetailsActivity" />
+        <activity android:name=".home.activities.FoodAddToCartActivity" />
+        <activity android:name=".home.activities.FoodDetails" />
+        <activity android:name=".home.UploadFoodReceiptActivity" />
+        <activity android:name=".home.UploadFoodKitchenImageActivity" />
+        <activity android:name=".home.UploadFoodPlateImageActivity" />
+        <activity android:name=".home.PostFoodActivity" />
+        <activity android:name=".create_account.UserActivity" />
+        <activity android:name=".create_account.VerifyActivity" />
+        <activity android:name=".create_account.CreateAccountActivity" />
+        <activity android:name=".cart.FoodTrackingActivity" />
+        <activity android:name=".cart.activities.AddCardActivity" />
+        <activity android:name=".cart.activities.ItemCartActivity" />
+        <activity
+            android:name=".BottomNavActivity"
+            android:label="@string/title_activity_bottom_nav" />
+        <activity android:name=".cart.activities.PaymentActivity" />
+        <activity android:name=".profile.activities.EditProfileActivity" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+    </application>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+</manifest>

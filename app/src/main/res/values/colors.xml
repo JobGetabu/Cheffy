@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#EA1D2C</color>
+    <color name="colorPrimaryDark">#EA1D2C</color>
+    <color name="colorAccent">#EA1D2C</color>
+    <color name="black">#3B3B3B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="backgroundgray">#F4F3F3</color>
+    <color name="gray">#707070</color>
+
+    <color name="light_gray">#F8F8F8</color>
+
+    <color name="red">#EA1D2C</color>
+    <color name="lightblack">#5d5d5d</color>
+    <color name="background_activity">#FAFAFA</color>
+    <color name="line">#DBDBE7</color>
+
+    <color name="transparent_black">#88000000</color>
+
+    <color name="green">#14DB85</color>
+
+
+    <color name="shimmer_background">#dddddd</color>
+
+</resources>
