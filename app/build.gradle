@@ -44,6 +44,12 @@ android {
 }
 
 dependencies {
+    def okhttp3_version = "3.14.1"
+    def retrofit2_version = "2.6.0"
+    def lifecycle_version = "2.1.0"
+    def kotlinCoroutineVersion = "1.0.1"
+
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -89,9 +95,15 @@ dependencies {
 
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    //implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+
+    //Okhttp3
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3_version"
+
+    //http logger
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
 
     //glide
     implementation 'com.github.bumptech.glide:glide:3.7.0'
@@ -104,5 +116,12 @@ dependencies {
 
     //droidnet internet
     implementation 'com.job:droidnet:2.0.0'
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    //Kotlin Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
 
 }
