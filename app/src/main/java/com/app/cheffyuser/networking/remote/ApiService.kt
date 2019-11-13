@@ -9,7 +9,7 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    @GET("user")
+    @POST("user")
     suspend fun createUserAccount(@Body signupRequest: SignupRequest): SignupResponse
 
     @get:GET("user")

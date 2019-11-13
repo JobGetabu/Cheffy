@@ -21,13 +21,13 @@ data class SignupResponse(
     val token: String? = null,
     @SerializedName("result")
     @Expose
-    val loginResult: LoginResult? = null,
+    val signupResult: SignupResult? = null,
     @SerializedName("status")
     @Expose
     val status: Int? = null
 )
 
-data class LoginResult(
+data class SignupResult(
     @SerializedName("id")
     @Expose
     val id: Int? = null,
@@ -46,7 +46,19 @@ data class LoginResult(
     @SerializedName("user_type")
     @Expose
     val user_type: String? = null,
-    @SerializedName("verification_status")
+    @SerializedName("verification_email_status")
     @Expose
-    val verification_status: Any? = null
+    val verification_email_status: String? = null,
+    @SerializedName("verification_phone_status")
+    @Expose
+    val verification_phone_status: String? = null,
+    @SerializedName("createdAt")
+    @Expose
+    val createdAt: String? = null
 )
+
+data class LoginRequest(
+    val login: String,
+    val password: String
+)
+

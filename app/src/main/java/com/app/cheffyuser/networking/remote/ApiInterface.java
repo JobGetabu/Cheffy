@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 /*
 * @deprecated
-* use {@link #}
+* use {@link ApiService}
 *
 * TODO: delete after refactoring functionality to new interface
  */
