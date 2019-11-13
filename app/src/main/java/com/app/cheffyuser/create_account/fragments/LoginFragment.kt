@@ -4,7 +4,6 @@ package com.app.cheffyuser.create_account.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,8 +21,6 @@ import com.app.cheffyuser.networking.Constant
 import com.app.cheffyuser.networking.remote.ApiClient
 import com.app.cheffyuser.networking.remote.ApiInterface
 import com.app.cheffyuser.utils.createSnack
-import com.labters.lottiealertdialoglibrary.DialogTypes
-import com.labters.lottiealertdialoglibrary.LottieAlertDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -76,14 +73,7 @@ class LoginFragment : BaseFragment() {
             return
         }
 
-        var alertDialog = LottieAlertDialog.Builder(activity, DialogTypes.TYPE_LOADING)
-            .setTitle("Setting you up...")
-            .setDescription("Please Wait")
-            .build()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
-
-        val builder = LottieAlertDialog.Builder(activity, DialogTypes.TYPE_ERROR)
+        val dialog = showDialogue("Loggin in", "Please wait ...")
 
 
         val loginData = LoginData(email, password)
@@ -95,7 +85,7 @@ class LoginFragment : BaseFragment() {
 
                 if (response.body() != null && response.isSuccessful) {
 
-                    alertDialog.dismiss()
+                    dialog?.dismiss()
                     Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show()
 
                     Timber.d("Success1 ${response.body()!!.token}")
@@ -148,19 +138,13 @@ class LoginFragment : BaseFragment() {
                     Toast.makeText(context, "User or password is invalid!", Toast.LENGTH_SHORT)
                         .show()
 
-                    //TODO: Remove this repeated block
-                    alertDialog.changeDialog(builder)
-                    Handler().postDelayed({ alertDialog.dismiss() }, 3000)
-                    alertDialog.setCancelable(true)
+                    errorDialogue("Error","User or password is invalid!",dialog!!)
                 }
             }
 
             override fun onFailure(call: Call<LoginData>, t: Throwable) {
 
-                alertDialog.changeDialog(builder)
-                Handler().postDelayed({ alertDialog.dismiss() }, 3000)
-                Timber.d(t.localizedMessage)
-                alertDialog.setCancelable(true)
+                errorDialogue("Error","An error occurred!",dialog!!)
 
             }
         })

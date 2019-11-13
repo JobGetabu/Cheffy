@@ -47,12 +47,12 @@ open class BaseFragment : Fragment(), DroidListener {
 
     //region Dialogues
 
-    fun showDialogue(title: String = "", descriptions: String): LottieAlertDialog? {
+    fun showDialogue(title: String = "", descriptions: String = ""): LottieAlertDialog? {
         activity?.let {
 
             var alertDialog = LottieAlertDialog.Builder(it, DialogTypes.TYPE_LOADING)
-                .setTitle("Setting you up...")
-                .setDescription("Please Wait")
+                .setTitle(title)
+                .setDescription(descriptions)
                 .build()
             alertDialog.setCancelable(false)
             alertDialog.show()
@@ -65,30 +65,36 @@ open class BaseFragment : Fragment(), DroidListener {
         alertDialog.dismiss()
     }
 
-    fun errorDialogue(alertDialog: LottieAlertDialog) {
+    fun errorDialogue(title: String = "Error", descriptions: String = "", alertDialog: LottieAlertDialog?) {
         activity?.let {
             val builder = LottieAlertDialog.Builder(it, DialogTypes.TYPE_ERROR)
-            alertDialog.changeDialog(builder)
-            Handler().postDelayed({ alertDialog.dismiss() }, 3000)
-            alertDialog.setCancelable(true)
+                .setTitle(title)
+                .setDescription(descriptions)
+            alertDialog?.changeDialog(builder)
+            Handler().postDelayed({ alertDialog?.dismiss() }, 3000)
+            alertDialog?.setCancelable(true)
         }
     }
 
-    fun successDialogue(alertDialog: LottieAlertDialog) {
+    fun successDialogue(title: String = "Success", descriptions: String = "", alertDialog: LottieAlertDialog?) {
         activity?.let {
             val builder = LottieAlertDialog.Builder(it, DialogTypes.TYPE_SUCCESS)
-            alertDialog.changeDialog(builder)
-            Handler().postDelayed({ alertDialog.dismiss() }, 3000)
-            alertDialog.setCancelable(true)
+                .setTitle(title)
+                .setDescription(descriptions)
+            alertDialog?.changeDialog(builder)
+            Handler().postDelayed({ alertDialog?.dismiss() }, 3000)
+            alertDialog?.setCancelable(true)
         }
     }
 
-    fun warningDialogue(alertDialog: LottieAlertDialog) {
+    fun warningDialogue(title: String = "Warning", descriptions: String = "", alertDialog: LottieAlertDialog?) {
         activity?.let {
             val builder = LottieAlertDialog.Builder(it, DialogTypes.TYPE_WARNING)
-            alertDialog.changeDialog(builder)
-            Handler().postDelayed({ alertDialog.dismiss() }, 3000)
-            alertDialog.setCancelable(true)
+                .setTitle(title)
+                .setDescription(descriptions)
+            alertDialog?.changeDialog(builder)
+            Handler().postDelayed({ alertDialog?.dismiss() }, 3000)
+            alertDialog?.setCancelable(true)
         }
     }
 
