@@ -29,9 +29,9 @@
         <activity android:name=".home.UploadFoodKitchenImageActivity" />
         <activity android:name=".home.UploadFoodPlateImageActivity" />
         <activity android:name=".home.PostFoodActivity" />
-        <activity android:name=".create_account.UserActivity" />
-        <activity android:name=".create_account.VerifyActivity" />
-        <activity android:name=".create_account.CreateAccountActivity" />
+        <activity android:name=".create_account.activities.UserActivity" />
+        <activity android:name=".create_account.activities.VerifyActivity" />
+        <activity android:name=".create_account.activities.CreateAccountActivity" />
         <activity android:name=".cart.FoodTrackingActivity" />
         <activity android:name=".cart.activities.AddCardActivity" />
         <activity android:name=".cart.activities.ItemCartActivity" />

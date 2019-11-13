@@ -1,4 +1,4 @@
-package com.app.cheffyuser.create_account.login_signup;
+package com.app.cheffyuser.create_account.fragments;
 
 
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.app.cheffyuser.R;
-import com.app.cheffyuser.create_account.VerifyActivity;
+import com.app.cheffyuser.create_account.activities.VerifyActivity;
 
 /**
  * A simple {@link Fragment} subclass.

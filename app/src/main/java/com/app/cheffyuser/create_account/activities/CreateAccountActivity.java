@@ -1,4 +1,4 @@
-package com.app.cheffyuser.create_account;
+package com.app.cheffyuser.create_account.activities;
 
 import android.os.Bundle;
 
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.app.cheffyuser.R;
-import com.app.cheffyuser.create_account.login_signup.TabsAdapter;
+import com.app.cheffyuser.create_account.adapter.TabsAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class CreateAccountActivity extends AppCompatActivity {

@@ -1,8 +1,11 @@
-package com.app.cheffyuser.create_account.login_signup;
+package com.app.cheffyuser.create_account.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+
+import com.app.cheffyuser.create_account.fragments.LoginFragment;
+import com.app.cheffyuser.create_account.fragments.SignUpFragment;
 
 
 public class TabsAdapter extends FragmentStatePagerAdapter {

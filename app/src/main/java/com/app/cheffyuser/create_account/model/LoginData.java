@@ -20,8 +20,6 @@ public class LoginData {
     @SerializedName("password")
     private String password;
 
-
-
     @SerializedName("message")
     private String message;
 

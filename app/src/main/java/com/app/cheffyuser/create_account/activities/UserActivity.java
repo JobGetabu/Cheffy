@@ -1,4 +1,4 @@
-package com.app.cheffyuser.create_account;
+package com.app.cheffyuser.create_account.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,23 +9,33 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.cheffyuser.R;
 
-public class VerifyActivity extends AppCompatActivity {
 
-    Button btnContinue;
+public class UserActivity extends AppCompatActivity {
 
+    Button btnSignup;
+    String type="driver";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_verify);
+        setContentView(R.layout.activity_user);
 
-        btnContinue=findViewById(R.id.btn_continue);
+        btnSignup=findViewById(R.id.btn_sign_up);
 
-        btnContinue.setOnClickListener(new View.OnClickListener() {
+
+
+
+        btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(VerifyActivity.this,UserActivity.class);
+
+
+
+                Intent intent=new Intent(UserActivity.this,CreateAccountActivity.class);
                 startActivity(intent);
+
             }
         });
     }
 }
+
+

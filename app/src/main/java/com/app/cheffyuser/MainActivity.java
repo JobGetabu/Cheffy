@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.app.cheffyuser.create_account.CreateAccountActivity;
+import com.app.cheffyuser.create_account.activities.CreateAccountActivity;
 
 public class MainActivity extends AppCompatActivity {
 

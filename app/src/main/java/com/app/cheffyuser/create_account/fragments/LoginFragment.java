@@ -1,4 +1,4 @@
-package com.app.cheffyuser.create_account.login_signup;
+package com.app.cheffyuser.create_account.fragments;
 
 
 import android.app.ProgressDialog;
@@ -24,7 +24,6 @@ import com.app.cheffyuser.create_account.model.UserModel;
 import com.app.cheffyuser.networking.Constant;
 import com.app.cheffyuser.networking.remote.ApiClient;
 import com.app.cheffyuser.networking.remote.ApiInterface;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 

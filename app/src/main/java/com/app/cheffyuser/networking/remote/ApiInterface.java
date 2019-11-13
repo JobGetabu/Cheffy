@@ -16,6 +16,7 @@ import retrofit2.http.Query;
 * @deprecated
 * use {@link #}
 *
+* TODO: delete after refactoring functionality to new interface
  */
 @Deprecated
 public interface ApiInterface {

@@ -6,6 +6,13 @@ import com.app.cheffyuser.networking.Constant;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/*
+ * @deprecated
+ * use {@link #RetrofitBuilder}
+ *
+ * TODO: delete after refactoring functionality to new class
+ */
+@Deprecated
 public class ApiClient {
 
     private static final String BASE_URL = Constant.BASE_URL;

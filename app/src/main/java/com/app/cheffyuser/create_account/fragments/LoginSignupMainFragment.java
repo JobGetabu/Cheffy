@@ -1,4 +1,4 @@
-package com.app.cheffyuser.create_account.login_signup;
+package com.app.cheffyuser.create_account.fragments;
 
 
 import android.os.Bundle;
