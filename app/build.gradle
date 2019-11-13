@@ -117,6 +117,15 @@ dependencies {
     //droidnet internet
     implementation 'com.job:droidnet:2.0.0'
 
+    //lottie
+    implementation 'com.airbnb.android:lottie:2.8.0'
+
+    //loader
+    implementation 'com.github.mayuce:LottieAlertDialog:1.1'
+
+    //runtime permissions
+    implementation 'com.karumi:dexter:5.0.0'
+
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
