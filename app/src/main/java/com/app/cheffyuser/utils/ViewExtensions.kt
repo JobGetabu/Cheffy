@@ -1,5 +1,6 @@
 package com.app.cheffyuser.utils
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
@@ -146,5 +147,25 @@ class SquareLayout : RelativeLayout {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec)
     }
+}
+
+fun createSnack(ctx: Activity, v: View = ctx.findViewById<View>(android.R.id.content), txt: String) {
+    Snackbar.make(v, txt, Snackbar.LENGTH_LONG).show()
+}
+
+fun createSnack(ctx: Activity, txt: String, txtAction: String, action: View.OnClickListener) {
+    Snackbar.make(ctx.findViewById<View>(android.R.id.content), txt, Snackbar.LENGTH_LONG)
+        .setAction(txtAction, action)
+        .show()
+}
+
+fun createSnack(ctx: Activity, txt: String, txtAction: String, isDefinate: Boolean, action: View.OnClickListener) {
+    Snackbar.make(ctx.findViewById<View>(android.R.id.content), txt, Snackbar.LENGTH_INDEFINITE)
+        .setAction(txtAction, action)
+        .show()
+}
+
+fun createShortSnack(ctx: Activity, txt: String) {
+    Snackbar.make(ctx.findViewById<View>(android.R.id.content), txt, Snackbar.LENGTH_SHORT).show()
 }
 

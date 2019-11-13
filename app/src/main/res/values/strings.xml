@@ -6,9 +6,6 @@
 
     <string name="dummy_text">Grilled salmon Genius Kitchen has a massive collection of recipes that are submitted, rated and reviewed by people who are passionate about food. From</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-
-
     <string name="text">Season salmon fillets with lemon pepper, garlic powder, and salt. In a small bowl, stir together soy sauce, brown sugar, water, and vegetable oil until sugar is dissolved. Preheat grill for medium heat. Lightly oil grill grate.</string>
     <string name="the_food_at_mashiko_is_amazing_everyone_else_already_said_everything_about_the_food_so_there_isn_t_much_to_add_it_really_is_what_everyone_says">The food at Mashiko is amazing. Everyone else already said everything about the food so there isn\'t much to add. It really is what everyone says</string>
     <string name="add_delivery_note">Add delivery note</string>
@@ -17,6 +14,11 @@
     <string name="shipping">Shipping</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="you_not_connected">You\'re not connected</string>
+    <string name="signout">Logout</string>
+    <string name="you_re_almost_set">You\'re almost set</string>
+    <string name="retry">Retry</string>
+
 </resources>
