@@ -12,7 +12,12 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-
+/*
+* @deprecated
+* use {@link #}
+*
+ */
+@Deprecated
 public interface ApiInterface {
 
 //    @GET("plate")
