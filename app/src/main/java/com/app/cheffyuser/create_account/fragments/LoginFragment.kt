@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -21,6 +20,7 @@ import com.app.cheffyuser.networking.remote.ApiClient
 import com.app.cheffyuser.networking.remote.ApiInterface
 import com.app.cheffyuser.networking.remote.Status
 import com.app.cheffyuser.utils.createSnack
+import kotlinx.android.synthetic.main.fragment_login.*
 
 
 /**
@@ -29,8 +29,6 @@ import com.app.cheffyuser.utils.createSnack
 class LoginFragment : BaseFragment() {
 
     private var apiInterface: ApiInterface? = null
-    private var etEmail: EditText? = null
-    private var etPassword: EditText? = null
 
     private val userModel: List<UserModel>? = null
     private val userData: List<Data>? = null
@@ -46,8 +44,7 @@ class LoginFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_login, container, false)
-        etEmail = view.findViewById(R.id.et_email)
-        etPassword = view.findViewById(R.id.et_password)
+
         val btnLogin = view.findViewById<Button>(R.id.btn_login)
 
         // btnLogin.setShadowLayer(24,100,100, Color.RED);
@@ -59,8 +56,8 @@ class LoginFragment : BaseFragment() {
 
     private fun login() {
 
-        val email = etEmail?.text.toString().trim { it <= ' ' }
-        val password = etPassword?.text.toString().trim { it <= ' ' }
+        val email = etEmail?.editText.toString().trim()
+        val password = etPassword?.editText.toString().trim()
 
         apiInterface = ApiClient.getApiClient().create(ApiInterface::class.java)
 

@@ -129,6 +129,12 @@ dependencies {
     //runtime permissions
     implementation 'com.karumi:dexter:5.0.0'
 
+    // Facebook sdk
+    implementation 'com.facebook.android:facebook-android-sdk:5.1.1'
+
+    // Google login sdk
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$arch_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_version"
