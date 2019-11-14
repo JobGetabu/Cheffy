@@ -47,7 +47,7 @@ open class BaseFragment : Fragment(), DroidListener {
 
     //region Dialogues
 
-    fun showDialogue(title: String = "", descriptions: String = ""): LottieAlertDialog? {
+    fun showDialogue(title: String = "", descriptions: String = "Please wait..."): LottieAlertDialog? {
         activity?.let {
 
             var alertDialog = LottieAlertDialog.Builder(it, DialogTypes.TYPE_LOADING)

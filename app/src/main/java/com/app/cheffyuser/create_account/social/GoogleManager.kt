@@ -10,6 +10,12 @@ class GoogleManager(
     account: GoogleSignInAccount,
     private val listener: GoogleLoginListener
 ) {
+
+    companion object {
+        private val PROVIDER = "google"
+    }
+
+
     private val tokenManager = CheffyApp.instance!!.tokenManager
 
     interface GoogleLoginListener {
@@ -87,7 +93,4 @@ class GoogleManager(
         }
     }
 
-    companion object {
-        private val PROVIDER = "google"
-    }
 }

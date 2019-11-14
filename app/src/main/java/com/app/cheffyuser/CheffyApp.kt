@@ -8,6 +8,7 @@ import com.app.cheffyuser.utils.AppExecutors
 import com.app.cheffyuser.utils.ReleaseLogTree
 import com.app.cheffyuser.utils.TokenManager
 import com.droidnet.DroidNet
+import com.facebook.FacebookSdk
 import timber.log.Timber
 
 class CheffyApp : MultiDexApplication() {
@@ -35,7 +36,11 @@ class CheffyApp : MultiDexApplication() {
 
         //TODO Crashlytics reporting
         //TODO Map Access token - google/mapbox
-        //TODO Init fb sdk
+
+
+        //Init fb sdk
+        FacebookSdk.sdkInitialize(applicationContext)
+
         //TODO Init Firebase notifications
 
         //plant timber

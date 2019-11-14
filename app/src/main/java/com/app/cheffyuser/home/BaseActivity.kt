@@ -37,7 +37,7 @@ open class BaseActivity : AppCompatActivity(), DroidListener {
 
     //region Dialogues
 
-    fun showDialogue(title: String = "", descriptions: String = ""): LottieAlertDialog {
+    fun showDialogue(title: String = "", descriptions: String = "Please wait..."): LottieAlertDialog {
         var alertDialog = LottieAlertDialog.Builder(this, DialogTypes.TYPE_LOADING)
             .setTitle(title)
             .setDescription(descriptions)

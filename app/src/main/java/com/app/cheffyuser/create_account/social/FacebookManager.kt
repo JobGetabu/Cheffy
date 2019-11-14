@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.app.cheffyuser.networking.remote.ApiService
-import com.app.cheffyuser.utils.TokenManager
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -14,10 +12,13 @@ import retrofit2.Call
 import java.util.*
 
 class FacebookManager(
-    internal var context: Context,
-    private val apiService: ApiService,
-    private val tokenManager: TokenManager
+    internal var context: Context
 ) {
+
+    companion object {
+        private val PROVIDER = "facebook"
+    }
+
     private val callbackManager: CallbackManager?
     private var listener: FacebookLoginListener? = null
 
@@ -61,7 +62,8 @@ class FacebookManager(
             //Get the user
             fetchUser(AccessToken.getCurrentAccessToken())
         } else {
-            LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList("public_profile", "email"))
+            LoginManager.getInstance()
+                .logInWithReadPermissions(activity, Arrays.asList("public_profile", "email"))
         }
 
     }
@@ -76,7 +78,8 @@ class FacebookManager(
                 if (body.has("email")) {
                     email = body.getString("email")
                 } else {
-                    email = firstName.toLowerCase() + '.'.toString() + lastName.toLowerCase() + "@facebook.com"
+                    email =
+                        firstName.toLowerCase() + '.'.toString() + lastName.toLowerCase() + "@facebook.com"
                 }
                 val photoUrl = "https://graph.facebook.com/$id/picture?type=large"
 
@@ -132,8 +135,4 @@ class FacebookManager(
         LoginManager.getInstance().logOut()
     }
 
-    companion object {
-        private val TAG = "FacebookManager"
-        private val PROVIDER = "facebook"
-    }
 }
