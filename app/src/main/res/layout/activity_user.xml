@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -43,45 +43,42 @@
                 android:id="@+id/layout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/layout1"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="35dp"
-                    android:fontFamily="@font/sailec_medium"
-                    android:hint="Your Name"
-                    android:inputType="phone"
-                    android:padding="16dp"
-                    android:textColorHint="@color/black"
-                    android:textSize="16dp" />
-            </LinearLayout>
+                    app:passwordToggleContentDescription="@string/contentdesc"
+                    app:passwordToggleDrawable="@drawable/ic_text_show"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/grey_60">
 
-            <LinearLayout
-                android:id="@+id/layout3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layout2"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="35dp"
-                android:orientation="horizontal">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Your Name"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:drawableRight="@drawable/ic_text_show"
-                    android:ems="10"
-                    android:fontFamily="@font/sailec_medium"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    android:padding="16dp"
-                    android:textColorHint="@color/black" />
+                    app:passwordToggleContentDescription="@string/contentdesc"
+                    app:passwordToggleDrawable="@drawable/ic_text_show"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/grey_60">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -89,10 +86,9 @@
                 android:id="@+id/layout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/layout3"
-                android:layout_marginLeft="22dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -144,7 +140,7 @@
                         android:id="@+id/btn_sign_up"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/button_round_1"
+                        android:background="@drawable/btn_bg_default"
                         android:elevation="10dp"
                         android:fontFamily="@font/sailec_medium"
                         android:text="Sign up"
@@ -156,6 +152,6 @@
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

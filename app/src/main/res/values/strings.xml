@@ -20,5 +20,10 @@
     <string name="signout">Logout</string>
     <string name="you_re_almost_set">You\'re almost set</string>
     <string name="retry">Retry</string>
+    <string name="password">Password</string>
+    <string name="contentdesc">content description</string>
+    <string name="email_address">Email address</string>
+    <string name="change_email">Change Email</string>
+    <string name="forget_password">Forget Password?</string>
 
 </resources>

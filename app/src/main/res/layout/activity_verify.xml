@@ -138,7 +138,7 @@
                             android:id="@+id/btn_continue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/button_round_1"
+                            android:background="@drawable/btn_bg_default"
                             android:elevation="10dp"
                             android:ems="10"
                             android:fontFamily="@font/sailec_medium"
@@ -167,7 +167,7 @@
                         android:background="@drawable/round_border"
                         android:elevation="10dp"
                         android:fontFamily="@font/sailec_medium"
-                        android:text="Change Email"
+                        android:text="@string/change_email"
                         android:textAllCaps="false"
                         android:textColor="#090909"
                         android:textSize="18sp" />

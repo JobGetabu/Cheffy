@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -18,13 +18,18 @@
             android:layout_margin="16dp"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_email"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Email address"
-                android:inputType="textEmailAddress" />
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email_address"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -38,15 +43,21 @@
             android:layout_marginBottom="16dp"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_password"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableRight="@drawable/ic_text_show"
-                android:ems="10"
-                android:hint="Password"
-                android:inputType="textPassword" />
+                app:passwordToggleContentDescription="@string/contentdesc"
+                app:passwordToggleDrawable="@drawable/ic_text_show"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/grey_60">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
@@ -61,25 +72,20 @@
             android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
-
-            <com.balysv.materialripple.MaterialRippleLayout
-                style="@style/RippleStyleWhite"
+            <Button
+                android:id="@+id/btn_login"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/round_rect_white">
-
-                <Button
-                    android:id="@+id/btn_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_round_1"
-                    android:elevation="10dp"
-                    android:fontFamily="@font/sailec_medium"
-                    android:text="Log in"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </com.balysv.materialripple.MaterialRippleLayout>
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg_default"
+                android:elevation="16dp"
+                android:fontFamily="@font/sailec_medium"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:shadowColor="@color/btn_shadow"
+                android:text="Log in"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -88,15 +94,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout3"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:orientation="vertical">
 
-            <TextView
+            <com.balysv.materialripple.MaterialRippleLayout
+                style="@style/RippleStyleWhite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:text="Forget Password?"
-                android:textColor="@color/red" />
+                android:background="@drawable/round_rect_white">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/forget_password"
+                    android:textColor="@color/red" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
         </LinearLayout>
 
         <LinearLayout

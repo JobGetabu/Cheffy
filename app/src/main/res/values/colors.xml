@@ -2,7 +2,11 @@
 <resources>
     <color name="colorPrimary">#EA1D2C</color>
     <color name="colorPrimaryDark">#EA1D2C</color>
-    <color name="colorAccent">#EA1D2C</color>
+    <color name="colorAccent">#E72233</color>
+
+    <color name="red_dark">#4C0C13</color>
+    <color name="btn_shadow">#FC8C8D</color>
+
     <color name="black">#3B3B3B</color>
     <color name="white">#FFFFFF</color>
     <color name="backgroundgray">#F4F3F3</color>
@@ -16,10 +20,48 @@
     <color name="line">#DBDBE7</color>
 
     <color name="transparent_black">#88000000</color>
-
     <color name="green">#14DB85</color>
-
-
     <color name="shimmer_background">#dddddd</color>
+
+    <!--default colors theme-->
+    <color name="bgColor">@color/white</color>
+    <color name="bgColorBar">@color/white</color>
+    <color name="textPrimaryColor">@color/black</color>
+    <color name="textSecondaryColor">#9D9C9D</color>
+    <color name="myWhiteColor">@color/grey_1</color>
+    <color name="metaTextColor">@color/textSecondaryColor</color>
+    <color name="metaNavTextColor">@color/black</color>
+    <color name="drawableColor">@color/black</color>
+    <color name="drawableNavColor">@color/white</color>
+    <color name="drawableSecondaryColor">@color/grey_60</color>
+    <color name="btnColor">@color/white</color>
+
+
+    <color name="grey_1">#f7f7f7</color>
+    <color name="grey_3">#ebeef5</color>
+    <color name="grey_5">#f2f2f2</color>
+    <color name="grey_10">#e6e6e6</color>
+    <color name="grey_20">#cccccc</color>
+    <color name="grey_40">#999999</color>
+    <color name="grey_60">#666666</color>
+    <color name="grey_80">#37474F</color>
+    <color name="grey_90">#263238</color>
+    <color name="grey_95">#1a1a1a</color>
+    <color name="grey_100_">#0d0d0d</color>
+
+    <color name="red_50">#FFEBEE</color>
+    <color name="red_100">#FFCDD2</color>
+    <color name="red_200">#EF9A9A</color>
+    <color name="red_300">#E57373</color>
+    <color name="red_400">#EF5350</color>
+    <color name="red_500">#F44336</color>
+    <color name="red_600">#E53935</color>
+    <color name="red_700">#D32F2F</color>
+    <color name="red_800">#C62828</color>
+    <color name="red_900">#B71C1C</color>
+    <color name="red_A100">#FF8A80</color>
+    <color name="red_A200">#FF5252</color>
+    <color name="red_A400">#FF1744</color>
+    <color name="red_A700">#D50000</color>
 
 </resources>
