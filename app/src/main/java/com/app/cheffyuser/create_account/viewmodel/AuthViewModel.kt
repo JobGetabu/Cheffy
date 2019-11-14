@@ -1,17 +1,22 @@
 package com.app.cheffyuser.create_account.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
+import com.app.cheffyuser.create_account.model.SignupRequest
+import com.app.cheffyuser.create_account.model.SignupResponse
 import com.app.cheffyuser.create_account.repository.AuthRepository
+import com.app.cheffyuser.networking.remote.Resource
+import kotlinx.coroutines.Dispatchers
 
 class AuthViewModel : ViewModel() {
     val repository: AuthRepository = AuthRepository()
 
-    //sample get data with new coroutines with retrofit 2.6.0
-    /*
-    val firstTodo = liveData(Dispatchers.IO) {
-        val retrivedTodo = repository.getTodo(1)
-
-        emit(retrivedTodo)
+    fun createAccount(signupRequest: SignupRequest): LiveData<Resource<SignupResponse>>{
+        return liveData(Dispatchers.IO) {
+            val data = repository.createUserAccount(signupRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
     }
-     */
 }
