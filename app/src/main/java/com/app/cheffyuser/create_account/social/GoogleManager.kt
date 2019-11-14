@@ -36,6 +36,11 @@ class GoogleManager(
 
     }
 
+    /*
+   * This should be an API call to save user returned by google to our backend
+   * Retrieve Token
+   *
+   * */
     private fun getTokenFromBackend(
         firstName: String,
         lastName: String,
