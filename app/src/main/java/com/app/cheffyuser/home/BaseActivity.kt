@@ -2,11 +2,13 @@ package com.app.cheffyuser.home
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.droidnet.DroidListener
 import com.droidnet.DroidNet
 import com.labters.lottiealertdialoglibrary.DialogTypes
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog
+import timber.log.Timber
 
 /*
 
@@ -33,6 +35,11 @@ open class BaseActivity : AppCompatActivity(), DroidListener {
     override fun onDestroy() {
         super.onDestroy()
         mDroidNet.removeInternetConnectivityChangeListener(this)
+    }
+
+    fun close(v: View) {
+        Timber.i("$v")
+        onBackPressed()
     }
 
     //region Dialogues
