@@ -10,7 +10,7 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 object RetrofitBuilder {
-    private val BASE_URL = "https://api.thecheffy.com/"
+    private val BASE_URL = "https://mycheffy.herokuapp.com/"
 
     private val client = buildClient()
     val retrofit = buildRetrofit(client)
@@ -22,6 +22,7 @@ object RetrofitBuilder {
 
         val builder = OkHttpClient.Builder()
             .connectTimeout(5, TimeUnit.MINUTES) // connect timeout
+            .readTimeout(5, TimeUnit.MINUTES)
             .addInterceptor { chain ->
                 var request = chain.request()
 
