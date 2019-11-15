@@ -37,7 +37,6 @@
                 android:gravity="right"
                 android:layout_margin="10dp"
                 android:background="@drawable/circlebutton"
-
                 android:orientation="vertical">
 
                 <com.like.LikeButton
@@ -65,12 +64,13 @@
         android:textSize="18sp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_below="@+id/foodname"
         android:orientation="horizontal"
         android:weightSum="6"
         android:gravity="center"
-        android:layout_height="wrap_content">
+        >
 
         <ImageView
             android:layout_width="0dp"
@@ -88,7 +88,7 @@
             android:fontFamily="@font/sailec_regular"
             android:text="4.9(200)"
             android:textColor="@android:color/black"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:layout_width="0dp"
@@ -105,7 +105,7 @@
             android:fontFamily="@font/sailec_regular"
             android:text="15-20 min"
             android:textColor="@android:color/black"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
         <ImageView
             android:layout_width="0dp"
@@ -122,7 +122,7 @@
             android:fontFamily="@font/sailec_regular"
             android:text="Delivery"
             android:textColor="@android:color/black"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
 
 
