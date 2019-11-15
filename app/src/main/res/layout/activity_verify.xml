@@ -59,7 +59,7 @@
                         android:layout_marginRight="30dp"
                         android:fontFamily="@font/sailec_medium"
                         android:gravity="center"
-                        android:text="Enter 4- digit code\nyou have sent received your email" />
+                        android:text="Enter 4- digit code\nwe have sent received in your email" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -147,6 +147,8 @@
                             android:ems="10"
                             android:fontFamily="@font/sailec_medium"
                             android:text="Continue"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
@@ -166,12 +168,15 @@
                     android:orientation="vertical">
 
                     <Button
+                        android:id="@+id/btnChange"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/round_border"
+                        android:background="@drawable/btn_bg_border"
                         android:elevation="10dp"
                         android:fontFamily="@font/sailec_medium"
                         android:text="@string/change_email"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
                         android:textAllCaps="false"
                         android:textColor="#090909"
                         android:textSize="18sp" />
@@ -190,12 +195,15 @@
                     android:orientation="vertical">
 
                     <Button
+                        android:id="@+id/btnCancel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/round_border"
+                        android:background="@drawable/btn_bg_border"
                         android:elevation="10dp"
                         android:fontFamily="@font/sailec_medium"
                         android:text="Cancel"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
                         android:textAllCaps="false"
                         android:textColor="#090909"
                         android:textSize="18sp" />

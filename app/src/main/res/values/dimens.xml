@@ -2,5 +2,22 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
 
     <dimen name="design_bottom_navigation_height" tools:override="true">72dp</dimen>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <integer name="anim_duration_very_long">1500</integer>
+    <integer name="anim_duration_long">500</integer>
+    <integer name="anim_duration_medium">300</integer>
+
+    <!-- The duration (in milliseconds) of a short animation. -->
+    <integer name="config_shortAnimTime">200</integer>
+
+    <!-- The duration (in milliseconds) of a medium-length animation. -->
+    <integer name="config_mediumAnimTime">400</integer>
+
+    <!-- The duration (in milliseconds) of a long animation. -->
+    <integer name="config_longAnimTime">500</integer>
+
+    <!-- The duration (in milliseconds) of the activity open/close and fragment open/close animations. -->
+    <integer name="activityShortDur">150</integer>
+    <integer name="config_activityDefaultDur">220</integer>
+
 </resources>

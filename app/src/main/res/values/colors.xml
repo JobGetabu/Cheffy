@@ -8,6 +8,7 @@
     <color name="btn_shadow">#FC8C8D</color>
 
     <color name="black">#3B3B3B</color>
+    <color name="realblack">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="backgroundgray">#F4F3F3</color>
     <color name="gray">#707070</color>
@@ -63,5 +64,10 @@
     <color name="red_A200">#FF5252</color>
     <color name="red_A400">#FF1744</color>
     <color name="red_A700">#D50000</color>
+
+    <color name="blue_grey_600">#546E7A</color>
+
+    <color name="contentDividerLine">#e0e0e0</color>
+    <color name="contentDividerLineDark">#A2A2A2</color>
 
 </resources>
