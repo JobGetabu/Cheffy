@@ -29,5 +29,8 @@
     <string name="email_address">Email address</string>
     <string name="change_email">Change Email</string>
     <string name="forget_password">Forget Password?</string>
+    <string name="cancel">Cancel</string>
+    <string name="choose_new_pass">Choose a new password</string>
+    <string name="new_pass">New Password</string>
 
 </resources>

@@ -21,7 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".create_account.activities.ForgotPasswordActivity"></activity>
+        <activity android:name=".create_account.activities.SetPasswordActivity"></activity>
+        <activity android:name=".create_account.activities.VerifyEmailActivity" />
+        <activity android:name=".create_account.activities.ForgotPasswordActivity" />
         <activity android:name=".home.BaseActivity" />
         <activity android:name=".custom_order.OrderCompleteActivity" />
         <activity android:name=".custom_order.CustomOrderPostActivity" />
@@ -48,17 +50,16 @@
             android:label="@string/title_activity_bottom_nav" />
         <activity android:name=".cart.activities.PaymentActivity" />
         <activity android:name=".profile.activities.EditProfileActivity" />
-
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.MainActivity"
-            android:screenOrientation="portrait">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <!--
             The API key for Google Maps-based APIs is defined as a string resource.
             (See the file "res/values/google_maps_api.xml").
@@ -66,7 +67,7 @@
             You need a different API key for each encryption key, including the release key that is used to
             sign the APK for publishing.
             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-       -->
+        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

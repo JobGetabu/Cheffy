@@ -18,13 +18,18 @@
             android:layout_margin="16dp"
             android:orientation="vertical">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Email address"
-                android:inputType="textEmailAddress"
-                android:paddingLeft="5dp" />
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email_address"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -62,26 +67,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout3"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:text="Forget Password?"
-                android:textColor="@color/red" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/layout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout4"
+            android:layout_below="@id/layout3"
             android:orientation="vertical">
 
             <TextView

@@ -102,11 +102,13 @@
 
             <com.balysv.materialripple.MaterialRippleLayout
                 style="@style/RippleStyleWhite"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_rect_white">
 
                 <TextView
+                    android:id="@+id/forgotPassword"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/forget_password"

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.R
+import com.app.cheffyuser.create_account.activities.ForgotPasswordActivity
 import com.app.cheffyuser.create_account.model.SignupRequest
 import com.app.cheffyuser.create_account.model.UserType
 import com.app.cheffyuser.create_account.social.FacebookManager
@@ -77,6 +78,10 @@ class LoginFragment : BaseFragment() {
 
         googleLogin.setOnClickListener {
             googleLogin()
+        }
+
+        forgotPassword.setOnClickListener {
+            startActivity(ForgotPasswordActivity.newIntent(activity!!))
         }
     }
 
