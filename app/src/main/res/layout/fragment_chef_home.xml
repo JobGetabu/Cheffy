@@ -122,7 +122,7 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="4"
-                tools:listitem="@layout/custom_food_item_for_horizontal"
+                tools:listitem="@layout/single_fooditem_horizontal"
                 />
 
             <TextView
@@ -149,7 +149,7 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="4"
-                tools:listitem="@layout/custom_food_item_for_horizontal"
+                tools:listitem="@layout/single_fooditem_horizontal"
                 />
 
             <TextView

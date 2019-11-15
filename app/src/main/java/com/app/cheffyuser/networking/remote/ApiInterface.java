@@ -37,11 +37,6 @@ public interface ApiInterface {
     @GET("/category")
     Call<List<FoodCategoryModel>> categoryList();
 
-
-//    @GET("/plate/near?latitude=-5.0328144&longitude=-42.8150343&radius=10")
-//    Call<List<FoodNearByModel>> foodNearBy();
-
-   // @GET("/plate/near?latitude={lat}&longitude={lon}&radius={radius}")
     @GET("/plate/near")
     Call <List<FoodNearByModel>> getFoodNearBy(@Query("latitude") String lat,
                                                @Query("longitude") String lon,
