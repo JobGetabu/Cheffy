@@ -1,4 +1,4 @@
-package com.app.cheffyuser.home;
+package com.app.cheffyuser.home.activities;
 
 import android.content.Context;
 import android.content.Intent;

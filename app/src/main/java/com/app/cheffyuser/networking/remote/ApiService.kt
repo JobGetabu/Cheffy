@@ -23,7 +23,7 @@ interface ApiService {
         @Query("latitude") lat: String,
         @Query("longitude") lon: String,
         @Query("radius") radius: String
-    ): FoodNearByModel
+    ): MutableList<FoodNearByModel>
 
     //endregion
 

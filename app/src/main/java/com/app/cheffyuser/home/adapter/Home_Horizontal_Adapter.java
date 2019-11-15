@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.cheffyuser.R;
-import com.app.cheffyuser.home.PostFoodActivity;
+import com.app.cheffyuser.home.activities.PostFoodActivity;
 import com.app.cheffyuser.home.model.Home_Horizontal_Model;
 
 import java.util.List;
