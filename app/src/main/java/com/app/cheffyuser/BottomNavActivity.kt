@@ -1,4 +1,4 @@
-package com.app.cheffyuserk
+package com.app.cheffyuser
 
 import android.content.Intent
 import android.location.Location
@@ -80,6 +80,13 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             }
             false
         }
+
+    override fun onStart() {
+        super.onStart()
+
+        //Request location update
+        requestMyCurrentLocation()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

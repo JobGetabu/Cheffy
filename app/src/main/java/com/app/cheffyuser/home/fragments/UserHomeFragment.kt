@@ -17,6 +17,7 @@ import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.remote.Status
 import com.app.cheffyuser.utils.createSnack
 import kotlinx.android.synthetic.main.fragment_chef_home.*
+import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass.
@@ -46,6 +47,10 @@ class UserHomeFragment : BaseFragment() {
     private fun uiStuff() {
         setUpNearbyList()
 
+    }
+
+    fun detectedLocation(){
+        Timber.d("Location: lat=>  ${vm.mCurrentLatitude} lon=>${vm.mCurrentLongtitide} address=>${vm.mAddressText}")
     }
 
     fun setUpNearbyList() {

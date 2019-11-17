@@ -4,6 +4,11 @@ package com.app.cheffyuser.networking;
 Created by Noor Mohammed Anik
 */
 
+/**
+ * TODO: tob be deleted in the favour of
+ * global {@link com.app.cheffyuser.utils.Constants} class
+ *
+ */
 public class Constant {
 
     public static final String BASE_URL = "https://api.thecheffy.com";
