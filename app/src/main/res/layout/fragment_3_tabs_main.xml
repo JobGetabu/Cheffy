@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/food_details_tab_layout"
         android:layout_width="match_parent"
@@ -17,9 +16,10 @@
         app:tabSelectedTextColor="@color/red"
         app:tabTextAppearance="@style/CustomTextAppearanceTab"
         app:tabTextColor="@color/black" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/food_view_pager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/food_details_tab_layout"/>
+        android:layout_below="@id/food_details_tab_layout" />
 </RelativeLayout>

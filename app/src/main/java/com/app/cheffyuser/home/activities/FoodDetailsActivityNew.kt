@@ -5,36 +5,29 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
 import androidx.viewpager.widget.ViewPager
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.adapter.Main3TabsAdapter
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_food_details_new.*
 
-class FoodDetailsActivity : BaseActivity() {
+class FoodDetailsActivityNew : BaseActivity() {
 
     companion object {
         fun newIntent(context: Context): Intent =
-            Intent(context, FoodDetailsActivity::class.java)
+            Intent(context, FoodDetailsActivityNew::class.java)
     }
-
-    private val tabLayout: TabLayout? = null
-    private val viewPager: ViewPager? = null
-    internal lateinit var imgFullImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_food_details)
+        setContentView(R.layout.activity_food_details_new)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-        imgFullImage = findViewById(R.id.full_imageview)
 
-
-        val tabLayout = findViewById<TabLayout>(R.id.food_details_tab_layout)
         tabLayout.addTab(tabLayout.newTab().setText("The Plate"))
         tabLayout.addTab(tabLayout.newTab().setText("Kitchen"))
         tabLayout.addTab(tabLayout.newTab().setText("Receipts"))
@@ -51,15 +44,15 @@ class FoodDetailsActivity : BaseActivity() {
                 viewPager.currentItem = tab.position
 
                 if (tab.position == 0) {
-                    imgFullImage.setImageResource(R.drawable.details_background)
+                    top_im.setImageResource(R.drawable.details_background)
                 }
 
                 if (tab.position == 1) {
-                    imgFullImage.setImageResource(R.drawable.image_kitchen)
+                    top_im.setImageResource(R.drawable.image_kitchen)
                 }
 
                 if (tab.position == 2) {
-                    imgFullImage.setImageResource(R.drawable.reciept)
+                    top_im.setImageResource(R.drawable.reciept)
                 }
             }
 
