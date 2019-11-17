@@ -41,6 +41,11 @@ android {
         preDexLibraries true
     }
 
+    //to enable kt parcelables
+    androidExtensions {
+        experimental = true
+    }
+
 }
 
 dependencies {

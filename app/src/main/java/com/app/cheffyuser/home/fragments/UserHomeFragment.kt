@@ -25,6 +25,7 @@ import timber.log.Timber
 class UserHomeFragment : BaseFragment() {
 
     private lateinit var foodNearbyAdapter: FoodNearbyAdapter
+    private lateinit var foodNearbyAdapter2: FoodNearbyAdapter
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(getActivity()!!).get(HomeViewModel::class.java)
@@ -45,7 +46,9 @@ class UserHomeFragment : BaseFragment() {
     }
 
     private fun uiStuff() {
+        detectedLocation()
         setUpNearbyList()
+        setUpNewList()
 
     }
 
@@ -53,7 +56,7 @@ class UserHomeFragment : BaseFragment() {
         Timber.d("Location: lat=>  ${vm.mCurrentLatitude} lon=>${vm.mCurrentLongtitide} address=>${vm.mAddressText}")
     }
 
-    fun setUpNearbyList() {
+    private fun setUpNearbyList() {
         nearbylist.setHasFixedSize(true)
 
         vm.fetchNearByFood().observe(this, Observer {
@@ -88,4 +91,41 @@ class UserHomeFragment : BaseFragment() {
         })
 
     }
+
+    private fun setUpNewList() {
+        newlist.setHasFixedSize(true)
+
+        vm.fetchNearByFood().observe(this, Observer {
+            val datas = it.data
+
+            when (it.status) {
+                Status.ERROR -> {
+                    //TODO: stop shimmer effect in view
+                    //TODO: send manged logs to crashlytics in production
+                    createSnack(ctx = activity!!, txt = "No nearby foods")
+
+                }
+                Status.SUCCESS -> {
+                    datas.let {
+                        foodNearbyAdapter2 = FoodNearbyAdapter(context!!, datas,
+                            object : RecyclerItemClickListener {
+                                override fun modelClick(model: Any){
+                                    model as FoodNearByModel
+                                    createSnack(ctx = activity!!, txt = "clicked ${model.name}")
+                                }
+                            })
+                    }
+
+                    newlist.adapter = foodNearbyAdapter2
+                }
+                Status.LOADING -> {
+                    //TODO: stop shimmer effect in view
+                    //still loading data
+                }
+            }
+
+        })
+
+    }
+
 }
