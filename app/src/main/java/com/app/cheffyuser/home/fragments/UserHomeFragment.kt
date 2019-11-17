@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.R
+import com.app.cheffyuser.home.activities.FoodDetailsActivity
 import com.app.cheffyuser.home.adapter.FoodNearbyAdapter
 import com.app.cheffyuser.home.adapter.FoodPopularAdapter
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
@@ -55,6 +56,8 @@ class UserHomeFragment : BaseFragment() {
         setUpNewList()
         setPopularList()
 
+        hideKeyboard(activity!!)
+
     }
 
     fun detectedLocation(){
@@ -82,6 +85,7 @@ class UserHomeFragment : BaseFragment() {
                                 override fun modelClick(model: Any){
                                     model as PlatesResponse
                                     createSnack(ctx = activity!!, txt = "clicked ${model.name}")
+                                    startActivity(FoodDetailsActivity.newIntent(context!!))
                                 }
                             })
                     }
@@ -117,6 +121,7 @@ class UserHomeFragment : BaseFragment() {
                                 override fun modelClick(model: Any){
                                     model as PlatesResponse
                                     createSnack(ctx = activity!!, txt = "clicked ${model.name}")
+                                    startActivity(FoodDetailsActivity.newIntent(context!!))
                                 }
                             })
                     }
@@ -152,6 +157,7 @@ class UserHomeFragment : BaseFragment() {
                                 override fun modelClick(model: Any){
                                     model as PlatesResponse
                                     createSnack(ctx = activity!!, txt = "clicked ${model.name}")
+                                    startActivity(FoodDetailsActivity.newIntent(context!!))
                                 }
                             })
                     }
@@ -165,7 +171,6 @@ class UserHomeFragment : BaseFragment() {
             }
 
         })
-
     }
 
 }

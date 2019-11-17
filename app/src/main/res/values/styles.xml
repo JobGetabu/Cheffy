@@ -54,4 +54,28 @@
         <item name="mrl_rippleAlpha">0.2</item>
     </style>
 
+
+    <style name="DetailPages.Theme" parent="BaseTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:actionModeBackground">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="SplashTheme" parent="BaseTheme">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <!--<item name="android:background">@drawable/splash</item>-->
+        <!--Fullscreen settings-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 </resources>

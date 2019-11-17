@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_activity"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".home.activities.FoodDetailsActivity">
+
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:fitsSystemWindows="true"
+        app:contentScrim="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_collapseMode="parallax">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/toolbar"
+                android:layout_width="0dp"
+                android:layout_height="?actionBarSize"
+                android:translationZ="16dp"
+                android:layout_marginTop="26dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@android:color/transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/close"
+                        android:layout_width="40dp"
+                        android:layout_height="?actionBarSize"
+                        android:layout_marginStart="8dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerInside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:tint="@color/white"
+                        app:srcCompat="@drawable/ic_left"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:onClick="close"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        style="@style/Toolbar.Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginEnd="32dp"
+                        android:text="Details"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageButton
+                        android:id="@+id/close"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:scaleType="centerInside"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:tint="@color/colorAccent"
+                        android:background="@drawable/circlebutton"
+                        app:srcCompat="@drawable/ic_favorite_border_fill_24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:onClick="close"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.github.florent37.shapeofview.shapes.RoundRectView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="7"
+                android:elevation="4dp"
+                android:fitsSystemWindows="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:shape_roundRect_bottomLeftRadius="30dp"
+                app:shape_roundRect_bottomRightRadius="30dp"
+                app:shape_roundRect_topLeftRadius="0dp"
+                app:shape_roundRect_topRightRadius="0dp">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/full_imageview"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/details_background" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- YOUR CONTENT -->
+
+            </com.github.florent37.shapeofview.shapes.RoundRectView>
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/header_cover_image"
+                android:background="@color/background_activity">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="0.75" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1.25"
+                        android:background="@color/background_activity"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sailec_medium"
+                            android:text="Cheffy Bit"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="6">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="0.4"
+                                android:tint="@color/colorPrimary"
+                                app:srcCompat="@drawable/ic_star" />
+
+                            <TextView
+                                android:id="@+id/ratings"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.6"
+                                android:fontFamily="@font/sailec_regular"
+                                android:text="4.9(200)"
+                                android:textColor="@android:color/black"
+                                android:textSize="10sp" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="0.4"
+                                app:srcCompat="@drawable/ic_time" />
+
+                            <TextView
+                                android:id="@+id/times"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.7"
+                                android:fontFamily="@font/sailec_regular"
+                                android:text="15-20 min"
+                                android:textColor="@android:color/black"
+                                android:textSize="10sp" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="0.4"
+                                app:srcCompat="@drawable/ic_delivery" />
+
+                            <TextView
+                                android:id="@+id/deliverytext"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.5"
+                                android:fontFamily="@font/sailec_regular"
+                                android:text="Delivery"
+                                android:textColor="@android:color/black"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:layout_weight="0.15"
+                                android:src="@drawable/map_pin" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.85"
+                                android:fontFamily="@font/sailec_regular"
+                                android:text="2179 Brooklyn Street"
+                                android:textColor="@android:color/black"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.app.cheffyuser.create_account.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.app.cheffyuser.R
@@ -9,6 +10,11 @@ import com.app.cheffyuser.utils.GenericTextWatcherListener
 import kotlinx.android.synthetic.main.activity_verify.*
 
 class VerifyActivity : BaseActivity(), GenericTextWatcherListener {
+
+    companion object {
+        fun newIntent(context: Context): Intent =
+            Intent(context, VerifyActivity::class.java)
+    }
 
     private var finalWatcher: GenericTextWatcher? = null
 

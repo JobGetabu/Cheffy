@@ -1,48 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".home.activities.FoodDetailsActivity">
 
     <!--header items start-->
 
-
     <RelativeLayout
-        android:onClick="gotochef"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <RelativeLayout
             android:id="@+id/header_cover_image"
             android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:background="@color/white">
 
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:cardCornerRadius="20dp"
-                android:background="@color/white"
-
-                android:fitsSystemWindows="true"
                 android:layout_marginTop="-20dp"
-
-                tools:style="@style/CardView"
-                app:cardElevation="5dp">
+                android:background="@color/white"
+                android:fitsSystemWindows="true"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp"
+                tools:style="@style/CardView">
 
 
                 <ImageView
                     android:id="@+id/full_imageview"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:src="@drawable/details_background"
                     android:scaleType="fitXY"
-                    />
+                    android:src="@drawable/details_background" />
 
 
                 <ImageView
@@ -125,15 +123,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="0.75"/>
+                    android:layout_weight="0.75" />
 
 
                 <LinearLayout
-                    android:background="@color/background_activity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.25"
                     android:layout_marginTop="5dp"
+                    android:layout_weight="1.25"
+                    android:background="@color/background_activity"
                     android:orientation="vertical">
 
 
@@ -155,11 +153,11 @@
 
                         <ImageView
                             android:layout_width="0dp"
-                            android:layout_marginRight="5dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
                             android:layout_weight="0.4"
-                            app:srcCompat="@drawable/ic_star"
-                            android:tint="@color/colorPrimary" />
+                            android:tint="@color/colorPrimary"
+                            app:srcCompat="@drawable/ic_star" />
 
                         <TextView
                             android:id="@+id/ratings"
@@ -173,8 +171,8 @@
 
                         <ImageView
                             android:layout_width="0dp"
-                            android:layout_marginRight="5dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
                             android:layout_weight="0.4"
                             app:srcCompat="@drawable/ic_time" />
 
@@ -215,11 +213,11 @@
                         android:weightSum="2">
 
                         <ImageView
-                            android:layout_marginRight="5dp"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
                             android:layout_weight="0.15"
-                            android:src="@drawable/map_pin"/>
+                            android:src="@drawable/map_pin" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -239,48 +237,45 @@
         </RelativeLayout>
 
 
-
         <RelativeLayout
             android:layout_width="100dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="-50dp"
+            android:layout_height="100dp"
             android:layout_below="@+id/header_cover_image"
-            android:layout_height="100dp">
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="-50dp">
 
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
                 android:background="@color/white"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="5dp">
-
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="center"
                     android:padding="10dp"
+                    android:scaleType="center"
                     android:src="@drawable/dummy_chef" />
-
-
             </androidx.cardview.widget.CardView>
+
         </RelativeLayout>
     </RelativeLayout>
 
     <!--header items end-->
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:fillViewport="true"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:background="@color/background_activity"
-            android:layout_height="match_parent">
+            android:orientation="vertical">
 
 
             <include
@@ -290,6 +285,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

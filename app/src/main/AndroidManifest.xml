@@ -40,7 +40,9 @@
         <activity android:name=".profile.activities.UserPaymentActivity" />
         <activity android:name=".home.activities.ReceiptDetailsActivity" />
         <activity android:name=".home.activities.FoodAddToCartActivity" />
-        <activity android:name=".home.activities.FoodDetails" />
+        <activity android:name=".home.activities.FoodDetailsActivity"
+            android:theme="@style/DetailPages.Theme"
+            />
         <activity android:name=".home.activities.UploadFoodReceiptActivity" />
         <activity android:name=".home.activities.UploadFoodKitchenImageActivity" />
         <activity android:name=".home.activities.UploadFoodPlateImageActivity" />
