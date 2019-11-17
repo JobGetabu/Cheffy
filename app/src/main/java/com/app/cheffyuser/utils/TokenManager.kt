@@ -3,9 +3,18 @@ package com.app.cheffyuser.utils
 import android.content.SharedPreferences
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.create_account.model.AccessToken
+import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.utils.Constants.PREF_ACCESS_TOKEN
 import com.app.cheffyuser.utils.Constants.PREF_APP_VERSION
+import com.app.cheffyuser.utils.Constants.PREF_CURRENT_ADDRESS
+import com.app.cheffyuser.utils.Constants.PREF_CURRENT_LAT
+import com.app.cheffyuser.utils.Constants.PREF_CURRENT_LOCATION
+import com.app.cheffyuser.utils.Constants.PREF_CURRENT_LON
 import com.app.cheffyuser.utils.Constants.PREF_FIREBASE_TOKEN
+import com.app.cheffyuser.utils.Constants.PREF_LAST_ADDRESS
+import com.app.cheffyuser.utils.Constants.PREF_LAST_LAT
+import com.app.cheffyuser.utils.Constants.PREF_LAST_LOCATION
+import com.app.cheffyuser.utils.Constants.PREF_LAST_LON
 import com.app.cheffyuser.utils.Constants.PREF_LAUNCH_TIMES
 import com.app.cheffyuser.utils.Constants.PREF_PHONE_NUMBER
 import com.app.cheffyuser.utils.Constants.PREF_REFRESH_TOKEN
@@ -56,6 +65,36 @@ class TokenManager(private val prefs: SharedPreferences) {
         editor.putString(PREF_REFRESH_TOKEN, token.accessToken)
         editor.apply()
     }
+
+    fun saveLastKnownLocation(address: String, lat: Double?, lon: Double?) {
+        editor.putBoolean(PREF_LAST_LOCATION, true)
+        editor.putString(PREF_LAST_ADDRESS, address)
+        editor.putString(PREF_LAST_LAT, lat!!.toString())
+        editor.putString(PREF_LAST_LON, lon!!.toString())
+        editor.apply()
+    }
+
+    fun saveCurrentLocation(address: String, lat: Double?, lon: Double?) {
+        editor.putBoolean(PREF_CURRENT_LOCATION, true)
+        editor.putString(PREF_CURRENT_ADDRESS, address)
+        editor.putString(PREF_CURRENT_LAT, lat!!.toString())
+        editor.putString(PREF_CURRENT_LON, lon!!.toString())
+        editor.apply()
+    }
+
+    var mCurrentLocation: CurrentLocation
+        get() = CurrentLocation(
+            prefs.getString(PREF_CURRENT_ADDRESS, "Unnamed Road"),
+            prefs.getString(PREF_CURRENT_LAT, "0")?.toDouble(),
+            prefs.getString(PREF_CURRENT_LON, "0")?.toDouble()
+        )
+        set(mCurrentLocation) {
+            editor.putBoolean(PREF_CURRENT_LOCATION, true)
+            editor.putString(PREF_CURRENT_ADDRESS, mCurrentLocation.address)
+            editor.putString(PREF_CURRENT_LAT, mCurrentLocation.lat!!.toString())
+            editor.putString(PREF_CURRENT_LON, mCurrentLocation.lon!!.toString())
+            editor.apply()
+        }
 
     var launchTimes: Int
         get() {

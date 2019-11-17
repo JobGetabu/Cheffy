@@ -1,15 +1,22 @@
 package com.app.cheffyuser.home.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.repository.HomeRepository
 import com.app.cheffyuser.networking.remote.Resource
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 
 class HomeViewModel : ViewModel() {
     private val repository: HomeRepository = HomeRepository()
+
+    var mCurrentLocation: MediatorLiveData<LatLng?> = MediatorLiveData()
+    var mCurrentLongtitide: MediatorLiveData<Double?> = MediatorLiveData()
+    var mCurrentLatitude: MediatorLiveData<Double?> = MediatorLiveData()
+    var mAddressText: MediatorLiveData<String?> = MediatorLiveData()
 
     fun fetchNearByFood(
         lat: String = "-5.03284353",

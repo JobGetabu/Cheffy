@@ -120,6 +120,9 @@ dependencies {
     //droidnet internet
     implementation 'com.job:droidnet:2.0.0'
 
+    //droid location
+    implementation 'com.github.JobGetabu:DroidLocation:v3.0.0'
+
     //lottie
     implementation 'com.airbnb.android:lottie:2.8.0'
 
