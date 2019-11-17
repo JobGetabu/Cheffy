@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.R
-import com.app.cheffyuser.home.BaseFragment
 import com.app.cheffyuser.home.adapter.FoodNearbyAdapter
+import com.app.cheffyuser.home.adapter.FoodPopularAdapter
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
-import com.app.cheffyuser.home.model.FoodNearByModel
+import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.remote.Status
 import com.app.cheffyuser.utils.createSnack
@@ -26,6 +26,7 @@ class UserHomeFragment : BaseFragment() {
 
     private lateinit var foodNearbyAdapter: FoodNearbyAdapter
     private lateinit var foodNearbyAdapter2: FoodNearbyAdapter
+    private lateinit var foodPopularAdapter: FoodPopularAdapter
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(getActivity()!!).get(HomeViewModel::class.java)
@@ -46,9 +47,13 @@ class UserHomeFragment : BaseFragment() {
     }
 
     private fun uiStuff() {
+
+        address_txt.requestFocus()
+
         detectedLocation()
         setUpNearbyList()
         setUpNewList()
+        setPopularList()
 
     }
 
@@ -59,7 +64,8 @@ class UserHomeFragment : BaseFragment() {
     private fun setUpNearbyList() {
         nearbylist.setHasFixedSize(true)
 
-        vm.fetchNearByFood().observe(this, Observer {
+        //TODO: pass in location coordinates
+        vm.fetchFoodNearbyLocation().observe(this, Observer {
             val datas = it.data
 
             when (it.status) {
@@ -74,7 +80,7 @@ class UserHomeFragment : BaseFragment() {
                         foodNearbyAdapter = FoodNearbyAdapter(context!!, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any){
-                                    model as FoodNearByModel
+                                    model as PlatesResponse
                                     createSnack(ctx = activity!!, txt = "clicked ${model.name}")
                                 }
                             })
@@ -95,13 +101,12 @@ class UserHomeFragment : BaseFragment() {
     private fun setUpNewList() {
         newlist.setHasFixedSize(true)
 
-        vm.fetchNearByFood().observe(this, Observer {
+        vm.fetchFoodNewest().observe(this, Observer {
             val datas = it.data
 
             when (it.status) {
                 Status.ERROR -> {
                     //TODO: stop shimmer effect in view
-                    //TODO: send manged logs to crashlytics in production
                     createSnack(ctx = activity!!, txt = "No nearby foods")
 
                 }
@@ -110,13 +115,48 @@ class UserHomeFragment : BaseFragment() {
                         foodNearbyAdapter2 = FoodNearbyAdapter(context!!, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any){
-                                    model as FoodNearByModel
+                                    model as PlatesResponse
                                     createSnack(ctx = activity!!, txt = "clicked ${model.name}")
                                 }
                             })
                     }
 
                     newlist.adapter = foodNearbyAdapter2
+                }
+                Status.LOADING -> {
+                    //TODO: stop shimmer effect in view
+                    //still loading data
+                }
+            }
+
+        })
+
+    }
+
+    private fun setPopularList() {
+        popularlist.setHasFixedSize(true)
+
+        vm.fetchFoodPopular().observe(this, Observer {
+            val datas = it.data
+
+            when (it.status) {
+                Status.ERROR -> {
+                    //TODO: stop shimmer effect in view
+                    createSnack(ctx = activity!!, txt = "No nearby foods")
+
+                }
+                Status.SUCCESS -> {
+                    datas.let {
+                        foodPopularAdapter = FoodPopularAdapter(context!!, datas,
+                            object : RecyclerItemClickListener {
+                                override fun modelClick(model: Any){
+                                    model as PlatesResponse
+                                    createSnack(ctx = activity!!, txt = "clicked ${model.name}")
+                                }
+                            })
+                    }
+
+                    popularlist.adapter = foodPopularAdapter
                 }
                 Status.LOADING -> {
                     //TODO: stop shimmer effect in view

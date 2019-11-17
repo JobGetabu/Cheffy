@@ -1,12 +1,13 @@
-package com.app.cheffyuser;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.app.cheffyuser.home.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.app.cheffyuser.R;
 import com.app.cheffyuser.create_account.activities.CreateAccountActivity;
 
 public class MainActivity extends AppCompatActivity {

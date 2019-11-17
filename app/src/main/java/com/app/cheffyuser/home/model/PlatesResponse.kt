@@ -1,8 +1,19 @@
 package com.app.cheffyuser.home.model
 import android.annotation.SuppressLint
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import android.os.Parcelable
+import kotlinx.android.parcel.RawValue
+
+/**
+ *
+ *
+ * TODO:
+ * Remove the @RawValue annotations once
+ * the null responses return their data in the future
+ * Consult API team
+ *
+ */
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -34,7 +45,7 @@ data class PlatesResponse(
     @SerializedName("ReceiptImages")
     val receiptImages: List<ReceiptImage?>? = null,
     @SerializedName("reviews")
-    val reviews: List<Any?>? = null,
+    val reviews: List<Reviews>? = null,
     @SerializedName("sell_count")
     val sellCount: Int? = null
 ) : Parcelable {
@@ -53,11 +64,11 @@ data class PlatesResponse(
     @Parcelize
     data class Chef(
         @SerializedName("address")
-        val address: List<Any?>? = null,
+        val address: @RawValue List<Any?>? = null,
         @SerializedName("auth_token")
-        val authToken: Any? = null,
+        val authToken: @RawValue Any? = null,
         @SerializedName("country_code")
-        val countryCode: Any? = null,
+        val countryCode: String? = null,
         @SerializedName("createdAt")
         val createdAt: String? = null,
         @SerializedName("email")
@@ -65,7 +76,7 @@ data class PlatesResponse(
         @SerializedName("id")
         val id: Int? = null,
         @SerializedName("imagePath")
-        val imagePath: Any? = null,
+        val imagePath: @RawValue Any? = null,
         @SerializedName("location_lat")
         val locationLat: String? = null,
         @SerializedName("location_lon")
@@ -75,21 +86,21 @@ data class PlatesResponse(
         @SerializedName("password")
         val password: String? = null,
         @SerializedName("phone_no")
-        val phoneNo: Any? = null,
+        val phoneNo: @RawValue Any? = null,
         @SerializedName("restaurant_name")
-        val restaurantName: Any? = null,
+        val restaurantName: String? = null,
         @SerializedName("status")
-        val status: Any? = null,
+        val status: @RawValue Any? = null,
         @SerializedName("stripe_id")
-        val stripeId: Any? = null,
+        val stripeId: @RawValue Any? = null,
         @SerializedName("updatedAt")
         val updatedAt: String? = null,
         @SerializedName("user_ip")
-        val userIp: Any? = null,
+        val userIp: @RawValue Any? = null,
         @SerializedName("user_type")
         val userType: String? = null,
         @SerializedName("verification_code")
-        val verificationCode: Any? = null,
+        val verificationCode: @RawValue Any? = null,
         @SerializedName("verification_email_status")
         val verificationEmailStatus: String? = null,
         @SerializedName("verification_email_token")
@@ -97,7 +108,7 @@ data class PlatesResponse(
         @SerializedName("verification_phone_status")
         val verificationPhoneStatus: String? = null,
         @SerializedName("verification_phone_token")
-        val verificationPhoneToken: Any? = null
+        val verificationPhoneToken: @RawValue Any? = null
     ) : Parcelable
 
     @SuppressLint("ParcelCreator")
@@ -143,4 +154,25 @@ data class PlatesResponse(
         @SerializedName("url")
         val url: String? = null
     ) : Parcelable
+
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class Reviews(
+        @SerializedName("comment")
+        val comment: String? = null,
+        @SerializedName("rating")
+        val rating: Int? = null,
+        @SerializedName("user")
+        val user: User? = null
+    ) : Parcelable {
+        @SuppressLint("ParcelCreator")
+        @Parcelize
+        data class User(
+            @SerializedName("id")
+            val id: Int? = null,
+            @SerializedName("name")
+            val name: String? = null
+        ) : Parcelable
+    }
+
 }

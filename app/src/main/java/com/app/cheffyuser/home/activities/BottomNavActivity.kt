@@ -1,4 +1,4 @@
-package com.app.cheffyuser
+package com.app.cheffyuser.home.activities
 
 import android.content.Intent
 import android.location.Location
@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import ax.synt.droidlocation.DroidLocationAppCompatActivity
 import ax.synt.droidlocation.DroidLocationRequestBuilder
+import com.app.cheffyuser.CheffyApp
+import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.TabsFragment
 import com.app.cheffyuser.custom_order.CustomOrderActivity
 import com.app.cheffyuser.food_category.FoodCategoryFragment

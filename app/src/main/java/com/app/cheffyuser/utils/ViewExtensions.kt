@@ -40,7 +40,7 @@ fun ImageView.loadUrl(url: Int) {
 fun ImageView.loadUrl(url: String?) {
     Glide.with(context)
         .load(url)
-        .apply(RequestOptions().placeholder(R.drawable.avatar_placeholder))
+        .apply(RequestOptions().placeholder(R.drawable.upload_thumbnail))
         .thumbnail(0.05f)
         .into(this)
 }
@@ -48,7 +48,7 @@ fun ImageView.loadUrl(url: String?) {
 fun ImageView.loadUrl(url: String?,tinted: Boolean) {
     Glide.with(context)
         .load(url)
-        .apply(RequestOptions().placeholder(R.drawable.avatar_placeholder))
+        .apply(RequestOptions().placeholder(R.drawable.upload_thumbnail))
         .thumbnail(0.05f)
         .into(this)
 
@@ -76,7 +76,7 @@ fun ImageView.loadUrlTransformToCircle(url: String?) {
 fun CircularImageView.loadUrl(url: String?) {
     Glide.with(context)
         .load(url)
-        .apply(RequestOptions().placeholder(R.drawable.avatar_placeholder))
+        .apply(RequestOptions().placeholder(R.drawable.upload_thumbnail))
         .thumbnail(0.05f)
         .into(this)
 }

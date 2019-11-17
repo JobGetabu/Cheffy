@@ -8,7 +8,7 @@
     android:layout_marginTop="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         app:cardElevation="10dp"
@@ -21,9 +21,9 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/foodimage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/foodimage"
                 android:src="@drawable/upload_thumbnail"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"/>
@@ -34,31 +34,29 @@
                 android:layout_height="40dp"
                 android:layout_alignBottom="@id/foodimage"
                 android:layout_alignEnd="@id/foodimage"
-                android:gravity="right"
+                android:gravity="center"
                 android:layout_margin="10dp"
-                android:background="@drawable/circlebutton"
-                android:orientation="vertical">
+                android:background="@drawable/circlebutton">
 
                 <com.like.LikeButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     app:anim_scale_factor="1"
-                    app:icon_size="10dp"
+                    app:icon_size="20dp"
                     app:icon_type="heart"
                     app:liked="true" />
             </LinearLayout>
 
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/foodname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/card"
         android:fontFamily="@font/sailec_medium"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
+        android:paddingStart="5dp"
+        android:layout_marginTop="12dp"
         android:text="Grilled salmon"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
@@ -80,10 +78,10 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/ratings"
+            android:id="@+id/food_ratings"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1.6"
             android:fontFamily="@font/sailec_regular"
             android:text="4.9(200)"
@@ -100,7 +98,7 @@
             android:id="@+id/times"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1.7"
             android:fontFamily="@font/sailec_regular"
             android:text="15-20 min"
@@ -117,7 +115,7 @@
             android:id="@+id/deliverytext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1.5"
             android:fontFamily="@font/sailec_regular"
             android:text="Delivery"

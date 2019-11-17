@@ -1,4 +1,4 @@
-package com.app.cheffyuser.home
+package com.app.cheffyuser.home.activities
 
 import android.os.Bundle
 import android.os.Handler

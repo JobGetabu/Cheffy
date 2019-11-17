@@ -31,7 +31,7 @@ public class Food_Menu_Adapter2 extends RecyclerView.Adapter<Food_Menu_Adapter2.
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_food_item_for_vertical,parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_fooditem_vertical,parent, false);
         return new Holder(view);
     }
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.app.cheffyuser.R
-import com.app.cheffyuser.home.BaseActivity
+import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.utils.GenericTextWatcher
 import com.app.cheffyuser.utils.GenericTextWatcherListener
 import kotlinx.android.synthetic.main.activity_verify_email.*

@@ -30,7 +30,7 @@
         <activity android:name=".create_account.activities.SetPasswordActivity" />
         <activity android:name=".create_account.activities.VerifyEmailActivity" />
         <activity android:name=".create_account.activities.ForgotPasswordActivity" />
-        <activity android:name=".home.BaseActivity" />
+        <activity android:name=".home.activities.BaseActivity" />
         <activity android:name=".custom_order.OrderCompleteActivity" />
         <activity android:name=".custom_order.CustomOrderPostActivity" />
         <activity android:name=".custom_order.CustomOrderActivity" />
@@ -52,7 +52,7 @@
         <activity android:name=".cart.activities.AddCardActivity" />
         <activity android:name=".cart.activities.ItemCartActivity" />
         <activity
-            android:name=".BottomNavActivity"
+            android:name=".home.activities.BottomNavActivity"
             android:label="@string/title_activity_bottom_nav"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -65,7 +65,7 @@
         <activity android:name=".cart.activities.PaymentActivity" />
         <activity android:name=".profile.activities.EditProfileActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".home.activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MainActivity" />
         <!--

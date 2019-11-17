@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.app.cheffyuser.R
-import com.app.cheffyuser.home.BaseActivity
+import com.app.cheffyuser.home.activities.BaseActivity
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 
 class ForgotPasswordActivity : BaseActivity() {

@@ -2,6 +2,7 @@ package com.app.cheffyuser.home.repository
 
 import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.home.model.FoodNearByModel
+import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.networking.remote.ApiService
 import com.app.cheffyuser.networking.remote.Resource
 import com.app.cheffyuser.networking.remote.ResponseHandler
@@ -29,9 +30,43 @@ class HomeRepository {
         radius: String
     ): Resource<MutableList<FoodNearByModel>> {
         return try {
-            val response = apiService.getFoodNearBy(lat,lon,radius)
+            val response = apiService.getFoodNearBy(lat, lon, radius)
             responseHandler.handleSuccess(response)
-        }catch (e: Exception) {
+        } catch (e: Exception) {
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun fetchFoodPopular(): Resource<MutableList<PlatesResponse>> {
+        return try {
+            val response = apiService.getFoodPopular()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun fetchFoodNewest(): Resource<MutableList<PlatesResponse>> {
+        return try {
+            val response = apiService.getFoodNewest()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun fetchFoodNearbyLocation(
+        lat: String,
+        lon: String,
+        radiusMiles: String
+    ): Resource<MutableList<PlatesResponse>> {
+        return try {
+            val response = apiService.getFoodNearbyLocation(lat, lon, radiusMiles)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
             Timber.tag("HTTP").e(e, "")
             responseHandler.handleException(e)
         }

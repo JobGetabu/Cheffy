@@ -1,4 +1,4 @@
-package com.app.cheffyuser.home
+package com.app.cheffyuser.home.fragments
 
 
 import android.os.Bundle

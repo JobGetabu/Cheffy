@@ -11,7 +11,7 @@ import com.app.cheffyuser.R
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.utils.loadUrl
 
-class FoodNearbyAdapter(
+class FoodPopularAdapter(
     private val context: Context,
     private val foodNearbyModels: MutableList<PlatesResponse>?,
     private val clickListener: RecyclerItemClickListener
@@ -21,7 +21,7 @@ class FoodNearbyAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.single_fooditem_horizontal, parent, false)
+        val view = inflater.inflate(R.layout.single_fooditem_vertical, parent, false)
         return ViewHolder(view, clickListener)
 
     }

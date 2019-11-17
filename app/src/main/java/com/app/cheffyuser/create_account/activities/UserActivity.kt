@@ -3,7 +3,7 @@ package com.app.cheffyuser.create_account.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.app.cheffyuser.BottomNavActivity
+import com.app.cheffyuser.home.activities.BottomNavActivity
 import com.app.cheffyuser.R
 import kotlinx.android.synthetic.main.activity_user.*
 

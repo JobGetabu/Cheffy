@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.app.cheffyuser.home.model.FoodNearByModel
+import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.repository.HomeRepository
 import com.app.cheffyuser.networking.remote.Resource
 import com.google.android.gms.maps.model.LatLng
@@ -22,11 +23,40 @@ class HomeViewModel : ViewModel() {
         lat: String = "-5.03284353",
         lon: String = "-42.8176576",
         radius: String = "10"
-    ): LiveData<Resource<MutableList<FoodNearByModel>>>{
-        return liveData(Dispatchers.IO){
-            val data = repository.fetchNearByFood(lat,lon,radius)
+    ): LiveData<Resource<MutableList<FoodNearByModel>>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.fetchNearByFood(lat, lon, radius)
             emit(Resource.loading(null))
             emit(data)
         }
     }
+
+    fun fetchFoodPopular(): LiveData<Resource<MutableList<PlatesResponse>>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.fetchFoodPopular()
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun fetchFoodNewest(): LiveData<Resource<MutableList<PlatesResponse>>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.fetchFoodNewest()
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun fetchFoodNearbyLocation(
+        lat: String = "-5.03284353",
+        lon: String = "-42.8176576",
+        radius: String = "10"
+    ): LiveData<Resource<MutableList<PlatesResponse>>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.fetchFoodNearbyLocation(lat, lon, radius)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
 }
