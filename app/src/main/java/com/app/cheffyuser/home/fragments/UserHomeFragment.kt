@@ -16,6 +16,7 @@ import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.remote.Status
+import com.app.cheffyuser.utils.Constants.PLATES_RESPONSE_EXTRA
 import com.app.cheffyuser.utils.createSnack
 import kotlinx.android.synthetic.main.fragment_chef_home.*
 import timber.log.Timber
@@ -60,7 +61,7 @@ class UserHomeFragment : BaseFragment() {
 
     }
 
-    fun detectedLocation(){
+    fun detectedLocation() {
         Timber.d("Location: lat=>  ${vm.mCurrentLatitude} lon=>${vm.mCurrentLongtitide} address=>${vm.mAddressText}")
     }
 
@@ -82,10 +83,13 @@ class UserHomeFragment : BaseFragment() {
                     datas.let {
                         foodNearbyAdapter = FoodNearbyAdapter(context!!, datas,
                             object : RecyclerItemClickListener {
-                                override fun modelClick(model: Any){
+                                override fun modelClick(model: Any) {
                                     model as PlatesResponse
                                     createSnack(ctx = activity!!, txt = "clicked ${model.name}")
-                                    startActivity(FoodDetailsActivity.newIntent(context!!))
+
+                                    startActivity(FoodDetailsActivity.newIntent(context!!).apply {
+                                        putExtra(PLATES_RESPONSE_EXTRA, model)
+                                    })
                                 }
                             })
                     }
@@ -118,10 +122,13 @@ class UserHomeFragment : BaseFragment() {
                     datas.let {
                         foodNearbyAdapter2 = FoodNearbyAdapter(context!!, datas,
                             object : RecyclerItemClickListener {
-                                override fun modelClick(model: Any){
+                                override fun modelClick(model: Any) {
                                     model as PlatesResponse
                                     createSnack(ctx = activity!!, txt = "clicked ${model.name}")
-                                    startActivity(FoodDetailsActivity.newIntent(context!!))
+
+                                    startActivity(FoodDetailsActivity.newIntent(context!!).apply {
+                                        putExtra(PLATES_RESPONSE_EXTRA, model)
+                                    })
                                 }
                             })
                     }
@@ -141,7 +148,7 @@ class UserHomeFragment : BaseFragment() {
     private fun setPopularList() {
         popularlist.setHasFixedSize(true)
 
-        vm.fetchFoodPopular().observe(this, Observer {
+        vm.fetchFoodPopular().observe(this, Observer { it ->
             val datas = it.data
 
             when (it.status) {
@@ -154,10 +161,13 @@ class UserHomeFragment : BaseFragment() {
                     datas.let {
                         foodPopularAdapter = FoodPopularAdapter(context!!, datas,
                             object : RecyclerItemClickListener {
-                                override fun modelClick(model: Any){
+                                override fun modelClick(model: Any) {
                                     model as PlatesResponse
                                     createSnack(ctx = activity!!, txt = "clicked ${model.name}")
-                                    startActivity(FoodDetailsActivity.newIntent(context!!))
+
+                                    startActivity(FoodDetailsActivity.newIntent(context!!).apply {
+                                        putExtra(PLATES_RESPONSE_EXTRA, model)
+                                    })
                                 }
                             })
                     }

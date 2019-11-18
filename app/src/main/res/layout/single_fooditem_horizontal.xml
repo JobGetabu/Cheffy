@@ -40,67 +40,14 @@
         android:textColor="@color/realblack"
         android:textSize="18sp" />
 
-    <LinearLayout
+
+    <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/foodname"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="6">
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        layout="@layout/common_star_time_delivey"/>
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_star" />
-
-        <TextView
-            android:id="@+id/food_ratings"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_weight="1.6"
-            android:fontFamily="@font/sailec_regular"
-            android:text="4.9(200)"
-            android:textColor="@color/realblack"
-            android:textSize="10sp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            app:srcCompat="@drawable/ic_time" />
-
-        <TextView
-            android:id="@+id/times"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1.7"
-            android:fontFamily="@font/sailec_regular"
-            android:text="15-20 min"
-            android:textColor="@color/realblack"
-            android:textSize="10sp" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            app:srcCompat="@drawable/ic_delivery" />
-
-        <TextView
-            android:id="@+id/deliverytext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1.5"
-            android:fontFamily="@font/sailec_regular"
-            android:text="Delivery"
-            android:textColor="@color/realblack"
-            android:textSize="10sp" />
-
-    </LinearLayout>
 </LinearLayout>
 
 

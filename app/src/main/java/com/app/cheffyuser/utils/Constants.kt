@@ -34,4 +34,9 @@ object Constants {
     const val PREF_FIREBASE_TOKEN = "PREF_FIREBASE_TOKEN"
     const val PREF_LAUNCH_TIMES = "PREF_LAUNCH_TIMES"
     const val PREF_APP_VERSION = "PREF_APP_VERSION"
+
+    //intent extras
+    const val PLATES_RESPONSE_EXTRA = "PLATES_RESPONSE_EXTRA"
+
+
 }

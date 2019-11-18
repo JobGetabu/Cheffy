@@ -128,7 +128,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/reciept"
+                        android:src="@drawable/details_background"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="w,375:231"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -184,92 +184,44 @@
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
-                        <LinearLayout
+                        <include
+                            layout="@layout/common_star_time_delivey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:weightSum="6">
+                            android:layout_weight="1"
+                            android:paddingEnd="4dp">
 
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
-                                android:layout_weight="0.4"
+                            <ImageButton
+                                android:id="@+id/im_btn"
+                                android:layout_width="18dp"
+                                android:layout_height="0dp"
+                                android:background="@android:color/transparent"
+                                android:contentDescription="@string/contentdesc"
+                                android:scaleType="fitCenter"
                                 android:tint="@color/colorPrimary"
-                                app:srcCompat="@drawable/ic_star" />
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/ratings"
+                                app:srcCompat="@drawable/map_pin" />
 
                             <TextView
                                 android:id="@+id/ratings"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1.6"
-                                android:fontFamily="@font/sailec_regular"
-                                android:text="4.9(200)"
-                                android:textColor="@android:color/black"
-                                android:textSize="10sp" />
-
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
-                                android:layout_weight="0.4"
-                                app:srcCompat="@drawable/ic_time" />
-
-                            <TextView
-                                android:id="@+id/times"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1.7"
-                                android:fontFamily="@font/sailec_regular"
-                                android:text="15-20 min"
-                                android:textColor="@android:color/black"
-                                android:textSize="10sp" />
-
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
-                                android:layout_weight="0.4"
-                                app:srcCompat="@drawable/ic_delivery" />
-
-                            <TextView
-                                android:id="@+id/deliverytext"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1.5"
-                                android:fontFamily="@font/sailec_regular"
-                                android:text="Delivery"
-                                android:textColor="@android:color/black"
-                                android:textSize="10sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
-
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="5dp"
-                                android:layout_weight="0.15"
-                                android:src="@drawable/map_pin" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1.85"
+                                android:layout_marginStart="2dp"
                                 android:fontFamily="@font/sailec_regular"
                                 android:text="2179 Brooklyn Street"
                                 android:textColor="@android:color/black"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/im_btn"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                        </LinearLayout>
-
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </LinearLayout>
 

@@ -1,4 +1,5 @@
 package com.app.cheffyuser.home.model
+
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -174,5 +175,26 @@ data class PlatesResponse(
             val name: String? = null
         ) : Parcelable
     }
+
+    override fun toString(): String {
+        return "PlatesResponse(" +
+                "category=$category, " +
+                "categoryId=$categoryId, " +
+                "chef=$chef, " +
+                "createdAt=$createdAt, " +
+                "deliveryTime=$deliveryTime, " +
+                "description=$description, " +
+                "id=$id, " +
+                "ingredients=$ingredients, " +
+                "kitchenImages=$kitchenImages, " +
+                "name=$name, " +
+                "plateImages=$plateImages, " +
+                "price=$price, " +
+                "receiptImages=$receiptImages, " +
+                "reviews=$reviews, " +
+                "sellCount=$sellCount" +
+                ")"
+    }
+
 
 }
