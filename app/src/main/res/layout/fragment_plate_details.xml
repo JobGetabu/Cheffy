@@ -23,8 +23,8 @@
             android:lineSpacingExtra="5dp"
             android:text="@string/text"
             android:textAlignment="viewStart"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="14sp" />
 
 
         <LinearLayout
@@ -41,7 +41,7 @@
                 android:fontFamily="@font/sailec_medium"
                 android:text="Ingredients"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/textPrimaryColor"
                 android:textSize="17sp" />
 
             <TextView
@@ -51,7 +51,7 @@
                 android:fontFamily="@font/sailec_medium"
                 android:text="Purchase date"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/textPrimaryColor"
                 android:textSize="17sp" />
 
 
@@ -147,32 +147,36 @@
         <Button
             android:id="@+id/viewReceipt"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_round_2"
             android:fontFamily="@font/sailec_medium"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
-            android:text="View All"
+            android:textAllCaps="false"
+            android:text="@string/view_all"
             android:textColor="@android:color/white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sailec_medium"
-            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="Other Plate"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_plate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp" />
+            tools:listitem="@layout/single_foodother_plate"
+            tools:itemCount="2"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:paddingStart="5dp" />
 
 
         <LinearLayout

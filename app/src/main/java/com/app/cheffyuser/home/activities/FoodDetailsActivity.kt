@@ -7,7 +7,6 @@ import android.view.WindowManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.app.cheffyuser.CheffyApp
-import com.app.cheffyuser.R
 import com.app.cheffyuser.home.adapter.DetailMainbarAdapter
 import com.app.cheffyuser.home.fragments.KitchenFragment
 import com.app.cheffyuser.home.fragments.PlateFragment
@@ -20,6 +19,8 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_food_details.*
 import timber.log.Timber
 import kotlin.math.abs
+
+
 
 class FoodDetailsActivity : BaseActivity() {
 
@@ -37,7 +38,7 @@ class FoodDetailsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_food_details)
+        setContentView(com.app.cheffyuser.R.layout.activity_food_details)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -53,6 +54,7 @@ class FoodDetailsActivity : BaseActivity() {
         //get passed data
         vm.platesResponse.value =
             intent.getParcelableExtra(Constants.PLATES_RESPONSE_EXTRA)
+
 
 
     }
@@ -81,15 +83,15 @@ class FoodDetailsActivity : BaseActivity() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
-                        top_im.setImageResource(R.drawable.upload_thumbnail)
+                        top_im.setImageResource(com.app.cheffyuser.R.drawable.upload_thumbnail)
                     }
 
                     1 -> {
-                        top_im.setImageResource(R.drawable.image_kitchen)
+                        top_im.setImageResource(com.app.cheffyuser.R.drawable.image_kitchen)
                     }
 
                     2 -> {
-                        top_im.setImageResource(R.drawable.reciept)
+                        top_im.setImageResource(com.app.cheffyuser.R.drawable.reciept)
                     }
                 }
             }
@@ -118,7 +120,7 @@ class FoodDetailsActivity : BaseActivity() {
     }
 
 
-    val onOffsetChangedListener =
+    private val onOffsetChangedListener =
         AppBarLayout.OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
 
             Timber.d("appbar verticalOffset => $verticalOffset")

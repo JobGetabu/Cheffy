@@ -20,4 +20,6 @@
     <integer name="activityShortDur">150</integer>
     <integer name="config_activityDefaultDur">220</integer>
 
+    <dimen name="margins">16dp</dimen>
+
 </resources>

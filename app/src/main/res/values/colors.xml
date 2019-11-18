@@ -16,7 +16,7 @@
     <color name="light_gray">#F8F8F8</color>
 
     <color name="red">#EA1D2C</color>
-    <color name="lightblack">#5d5d5d</color>
+    <color name="lightblack">#3b3b3b</color>
     <color name="background_activity">#FAFAFA</color>
     <color name="line">#DBDBE7</color>
 
@@ -25,10 +25,10 @@
     <color name="shimmer_background">#dddddd</color>
 
     <!--default colors theme-->
-    <color name="bgColor">@color/white</color>
+    <color name="bgColor">@color/background_activity</color>
     <color name="bgColorBar">@color/white</color>
-    <color name="textPrimaryColor">@color/black</color>
-    <color name="textSecondaryColor">#9D9C9D</color>
+    <color name="textPrimaryColor">#090909</color>
+    <color name="textSecondaryColor">#3b3b3b</color>
     <color name="myWhiteColor">@color/grey_1</color>
     <color name="metaTextColor">@color/textSecondaryColor</color>
     <color name="metaNavTextColor">@color/black</color>
@@ -36,6 +36,7 @@
     <color name="drawableNavColor">@color/white</color>
     <color name="drawableSecondaryColor">@color/grey_60</color>
     <color name="btnColor">@color/white</color>
+    <color name="appgreen">#09b72b</color>
 
 
     <color name="grey_1">#f7f7f7</color>
