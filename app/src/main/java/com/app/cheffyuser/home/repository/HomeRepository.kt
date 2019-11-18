@@ -58,6 +58,16 @@ class HomeRepository {
         }
     }
 
+    suspend fun fetchRelatedFood(foodId: Int): Resource<MutableList<PlatesResponse>> {
+        return try {
+            val response = apiService.getRelatedFood(foodId)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
     suspend fun fetchFoodNearbyLocation(
         lat: String,
         lon: String,

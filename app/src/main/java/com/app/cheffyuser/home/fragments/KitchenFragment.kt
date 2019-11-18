@@ -1,24 +1,18 @@
 package com.app.cheffyuser.home.fragments
 
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.app.cheffyuser.R
-import com.app.cheffyuser.home.adapter.ReviewDetailbarAdapter
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_sub2_tabs.*
 
 
 /**
  * A simple [Fragment] subclass.
+ *
+ * Check implementation in  [PlateFragment]
  */
-class KitchenFragment : BaseFragment() {
+class KitchenFragment : PlateFragment() {
 
 
-    override fun onCreateView(
+ /*   override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -46,6 +40,6 @@ class KitchenFragment : BaseFragment() {
         viewpager.offscreenPageLimit = 2
 
         tab_layout.setupWithViewPager(viewpager)
-    }
+    }*/
 
 }

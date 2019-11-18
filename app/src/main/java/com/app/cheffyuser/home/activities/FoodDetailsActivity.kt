@@ -56,8 +56,17 @@ class FoodDetailsActivity : BaseActivity() {
         vm.platesResponse.value =
             intent.getParcelableExtra(Constants.PLATES_RESPONSE_EXTRA)
 
+        uiStuff()
 
 
+    }
+
+    private fun uiStuff() {
+        bottomlay.setOnClickListener {
+
+            //TODO: Add check and verifications
+            startActivity(FoodAddToCartActivity.newIntent(this))
+        }
     }
 
     private fun initTablayout() {

@@ -14,8 +14,12 @@ import kotlinx.android.synthetic.main.fragment_sub2_tabs.*
 
 /**
  * A simple [Fragment] subclass.
+ *
+ * since the other fragment are the same as these
+ * lets reuse this and save resources. (Resource pointer)
+ *
  */
-class PlateFragment : BaseFragment() {
+open class PlateFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

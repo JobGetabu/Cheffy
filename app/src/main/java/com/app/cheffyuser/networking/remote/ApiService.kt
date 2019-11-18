@@ -32,6 +32,9 @@ interface ApiService {
     @GET("plate/?popular")
     suspend fun getFoodNewest(): MutableList<PlatesResponse>
 
+    @GET("plate/{foodId}/related")
+    suspend fun getRelatedFood(@Path("foodId") foodId: Int): MutableList<PlatesResponse>
+
     @GET("plate/")
     suspend fun getFoodNearbyLocation(
         @Query("latitude") lat: String,
