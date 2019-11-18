@@ -5,11 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
-import androidx.viewpager.widget.ViewPager
+import androidx.lifecycle.ViewModelProviders
+import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.adapter.Main3TabsAdapter
+import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.utils.TokenManager
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_food_details.*
 
 class FoodDetailsActivity : BaseActivity() {
 
@@ -18,9 +21,12 @@ class FoodDetailsActivity : BaseActivity() {
             Intent(context, FoodDetailsActivity::class.java)
     }
 
-    private val tabLayout: TabLayout? = null
-    private val viewPager: ViewPager? = null
-    internal lateinit var imgFullImage: ImageView
+    private val tokenManager: TokenManager = CheffyApp.instance!!.tokenManager
+
+    private val vm: HomeViewModel by lazy {
+        ViewModelProviders.of(this).get(HomeViewModel::class.java)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,49 +37,64 @@ class FoodDetailsActivity : BaseActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-        imgFullImage = findViewById(R.id.full_imageview)
+        showSystemUI()
 
-
-        val tabLayout = findViewById<TabLayout>(R.id.food_details_tab_layout)
         tabLayout.addTab(tabLayout.newTab().setText("The Plate"))
         tabLayout.addTab(tabLayout.newTab().setText("Kitchen"))
         tabLayout.addTab(tabLayout.newTab().setText("Receipts"))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
-
-        val viewPager = findViewById<View>(R.id.food_view_pager) as ViewPager
         val tabsAdapter = Main3TabsAdapter(supportFragmentManager, tabLayout.tabCount)
-        viewPager.adapter = tabsAdapter
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        viewpager.adapter = tabsAdapter
+        viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager.currentItem = tab.position
+                viewpager.currentItem = tab.position
 
                 if (tab.position == 0) {
-                    imgFullImage.setImageResource(R.drawable.details_background)
+                    top_im.setImageResource(R.drawable.upload_thumbnail)
                 }
 
                 if (tab.position == 1) {
-                    imgFullImage.setImageResource(R.drawable.image_kitchen)
+                    top_im.setImageResource(R.drawable.image_kitchen)
                 }
 
                 if (tab.position == 2) {
-                    imgFullImage.setImageResource(R.drawable.reciept)
+                    top_im.setImageResource(R.drawable.reciept)
                 }
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
 
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-
-            }
+            override fun onTabReselected(tab: TabLayout.Tab) {}
         })
-
-
     }
 
 
+    /**
+     * TODO: Add focus change listener to show and hide the
+     *       bottom View cart entry
+     *
+     */
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        showSystemUI()
+    }
+
+    // Shows the system bars by removing all the flags
+    // except for the ones that make the content appear under the system bars.
+    private fun showSystemUI() {
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        showSystemUI()
+    }
 }

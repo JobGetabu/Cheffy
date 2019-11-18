@@ -38,7 +38,7 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
     private var mAddressText: String? = null
     private var isCon: Boolean = true
 
-    val tokenManager: TokenManager = CheffyApp.instance!!.tokenManager
+    private val tokenManager: TokenManager = CheffyApp.instance!!.tokenManager
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(this).get(HomeViewModel::class.java)

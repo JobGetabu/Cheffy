@@ -59,4 +59,10 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    //region foodDetails data
+
+
+
+    //endregion
+
 }

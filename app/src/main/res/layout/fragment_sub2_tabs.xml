@@ -5,18 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/details_review_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_gray"
-        android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabSelectedTextColor="@color/red"
         app:tabTextAppearance="@style/CustomTextAppearanceTab"
         app:tabTextColor="@color/black" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/details_review_viewpager"
         android:layout_width="match_parent"
