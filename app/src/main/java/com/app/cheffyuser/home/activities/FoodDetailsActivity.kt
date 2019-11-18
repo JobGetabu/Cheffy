@@ -13,6 +13,7 @@ import com.app.cheffyuser.home.fragments.KitchenFragment
 import com.app.cheffyuser.home.fragments.PlateFragment
 import com.app.cheffyuser.home.fragments.ReceiptFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.utils.Constants
 import com.app.cheffyuser.utils.TokenManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
@@ -48,6 +49,12 @@ class FoodDetailsActivity : BaseActivity() {
         showSystemUI()
 
         initTablayout()
+
+        //get passed data
+        vm.platesResponse.value =
+            intent.getParcelableExtra(Constants.PLATES_RESPONSE_EXTRA)
+
+
     }
 
     private fun initTablayout() {

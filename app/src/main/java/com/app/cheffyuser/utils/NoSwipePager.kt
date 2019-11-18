@@ -37,6 +37,5 @@ class NoSwipePager(context: Context, attrs: AttributeSet) : ViewPager(context, a
 
     companion object {
         private var enabled: Boolean = false
-            get() = field
     }
 }
