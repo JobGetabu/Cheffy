@@ -176,7 +176,7 @@
             tools:listitem="@layout/single_foodother_plate"
             tools:itemCount="2"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:paddingStart="5dp" />
+            android:layout_marginStart="5dp" />
 
 
         <LinearLayout

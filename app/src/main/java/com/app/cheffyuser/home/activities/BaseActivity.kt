@@ -87,6 +87,14 @@ open class BaseActivity : AppCompatActivity(), DroidListener {
 
     //endregion
 
+    fun hideSystemNavOnly(){
+        window.decorView.systemUiVisibility = (
+               View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                )
+    }
+
     fun hideSystemUI() {
         // Enables regular immersive mode.
         // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.

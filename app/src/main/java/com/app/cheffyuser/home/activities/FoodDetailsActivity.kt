@@ -48,6 +48,7 @@ class FoodDetailsActivity : BaseActivity() {
         appBarLayout.addOnOffsetChangedListener(onOffsetChangedListener)
 
         showSystemUI()
+        hideSystemNavOnly()
 
         initTablayout()
 
