@@ -28,7 +28,6 @@
             android:textColor="@color/textPrimaryColor"
             android:textSize="14sp" />
 
-
         <include layout="@layout/single_ingredient_layout" />
 
         <Button
@@ -111,9 +110,11 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/buy_btn"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:transitionName="slider1"
                 android:layout_weight="1"
                 android:background="@drawable/colorbuttonshadow"
                 android:fontFamily="@font/sailec_regular"

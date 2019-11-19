@@ -62,7 +62,7 @@ class IngredienceAdapter(
 
             name.text = model?.name
             date.text = model?.purchaseDate
-            counter.text = "${model?.id})  "
+            counter.text = "$position  "
 
         }
 

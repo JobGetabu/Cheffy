@@ -1,22 +1,23 @@
 package com.app.cheffyuser.home.fragments
 
 
-import android.content.Intent
+import android.app.ActivityOptions
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
+import com.app.cheffyuser.home.activities.FoodAddToCartActivity
 import com.app.cheffyuser.home.activities.ReceiptDetailsActivity
 import com.app.cheffyuser.home.adapter.Food_plate_adapter
 import com.app.cheffyuser.home.adapter.IngredienceAdapter
 import com.app.cheffyuser.home.model.Food_Plate_Model
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.utils.Constants
 import kotlinx.android.synthetic.main.fragment_plate_details.*
 import kotlinx.android.synthetic.main.single_ingredient_layout.*
 import java.util.*
@@ -74,17 +75,6 @@ class PlateDetailsFragment : BaseFragment() {
         )
         recyclerView!!.adapter = adapter
 
-        val button = view.findViewById<Button>(R.id.viewReceipt)
-        button.setOnClickListener {
-            startActivity(
-                Intent(
-                    activity,
-                    ReceiptDetailsActivity::class.java
-                )
-            )
-        }
-
-
         return view
     }
 
@@ -96,6 +86,40 @@ class PlateDetailsFragment : BaseFragment() {
 
         setIngredienceList()
 
+        viewReceipt.setOnClickListener {
+            goToReceiptActivity()
+        }
+
+        buy_btn.setOnClickListener {
+            goToFoodAddToCart()
+        }
+
+    }
+
+    private fun goToFoodAddToCart() {
+        val pair1: android.util.Pair<View, String> = android.util.Pair.create(buy_btn, "slider1")
+
+        val activityOptions = ActivityOptions.makeSceneTransitionAnimation(
+            activity!!, pair1
+        )
+
+        val intent = FoodAddToCartActivity.newIntent(context!!)
+        intent.putExtra(Constants.PLATES_RESPONSE_EXTRA, vm.platesResponse.value)
+
+        startActivity(intent)
+    }
+
+    private fun goToReceiptActivity() {
+        val pair1: android.util.Pair<View, String> = android.util.Pair.create(ingredient_layout, "slider")
+
+        val activityOptions = ActivityOptions.makeSceneTransitionAnimation(
+            activity!!, pair1
+        )
+
+        val intent = ReceiptDetailsActivity.newIntent(context!!)
+        intent.putExtra(Constants.PLATES_RESPONSE_EXTRA, vm.platesResponse.value)
+
+        startActivity(intent, activityOptions.toBundle())
     }
 
     private fun setIngredienceList() {
