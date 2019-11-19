@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
@@ -154,8 +154,8 @@
             android:fontFamily="@font/sailec_medium"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
-            android:textAllCaps="false"
             android:text="@string/view_all"
+            android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
         <TextView
@@ -173,10 +173,10 @@
             android:id="@+id/recyclerview_plate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/single_foodother_plate"
-            tools:itemCount="2"
+            android:layout_marginStart="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_marginStart="5dp" />
+            tools:itemCount="2"
+            tools:listitem="@layout/single_foodother_plate" />
 
 
         <LinearLayout
