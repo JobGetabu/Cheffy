@@ -8,13 +8,51 @@
     android:background="@android:color/white"
     android:paddingBottom="15dp">
 
-    <include
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:elevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/addphone_close"
+                android:layout_width="40dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                app:layout_constraintStart_toStartOf="parent"
+                android:tint="@color/black"
+                app:srcCompat="@drawable/ic_left"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:onClick="close"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                style="@style/Toolbar.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="Custom Order"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:layout_below="@id/toolbar">
 
         <LinearLayout
@@ -25,9 +63,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/btn_post_custom_order"
-                android:layout_below="@+id/toolbar"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
@@ -45,6 +81,7 @@
                         android:backgroundTint="#14DB85"
                         android:visibility="visible"
                         app:borderWidth="0dp"
+                        app:elevation="0dp"
                         app:fabSize="mini"
                         app:srcCompat="@drawable/file_plus" />
 
@@ -53,8 +90,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
                         android:fontFamily="@font/sailec_regular"
-                        android:gravity="center"
-                        android:paddingLeft="30dp"
+                        android:gravity="start"
+                        android:paddingStart="30dp"
                         android:text="You Post Custom Order" />
 
                 </LinearLayout>
@@ -90,10 +127,6 @@
                             android:layout_height="wrap_content"
                             app:srcCompat="@drawable/red_white_line" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/red_white_line" />
 
                     </LinearLayout>
 
@@ -119,6 +152,7 @@
                         android:backgroundTint="@color/white"
                         android:visibility="visible"
                         app:borderWidth="0dp"
+                        app:elevation="0dp"
                         app:fabSize="mini"
                         app:srcCompat="@drawable/ic_custom_chef" />
 
@@ -127,8 +161,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
                         android:fontFamily="@font/sailec_regular"
-                        android:gravity="end"
-                        android:paddingLeft="20dp"
+                        android:gravity="start"
+                        android:paddingStart="30dp"
                         android:text="Chef Recieve Order Request" />
 
                 </LinearLayout>
@@ -164,10 +198,6 @@
                             android:layout_height="wrap_content"
                             app:srcCompat="@drawable/red_white_line" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/red_white_line" />
 
                     </LinearLayout>
 
@@ -193,6 +223,7 @@
                         android:backgroundTint="@color/green"
                         android:visibility="visible"
                         app:borderWidth="0dp"
+                        app:elevation="0dp"
                         app:fabSize="mini"
                         app:srcCompat="@drawable/box" />
 
@@ -201,7 +232,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
                         android:fontFamily="@font/sailec_regular"
-                        android:gravity="end"
+                        android:gravity="start"
+                        android:paddingStart="30dp"
                         android:text="You Accept or Reject Order" />
 
                 </LinearLayout>
@@ -237,10 +269,6 @@
                             android:layout_height="wrap_content"
                             app:srcCompat="@drawable/red_white_line" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/red_white_line" />
 
                     </LinearLayout>
 
@@ -266,6 +294,7 @@
                         android:backgroundTint="@color/green"
                         android:visibility="visible"
                         app:borderWidth="0dp"
+                        app:elevation="0dp"
                         app:fabSize="mini"
                         app:srcCompat="@drawable/ic_credit_card_white" />
 
@@ -274,7 +303,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
                         android:fontFamily="@font/sailec_regular"
-                        android:gravity="center"
+                        android:gravity="start"
+                        android:paddingStart="30dp"
                         android:text="Checkout Order" />
 
                 </LinearLayout>
@@ -310,10 +340,6 @@
                             android:layout_height="wrap_content"
                             app:srcCompat="@drawable/red_white_line" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/red_white_line" />
 
                     </LinearLayout>
 
@@ -329,6 +355,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
+                    android:layout_marginBottom="8dp"
                     android:weightSum="1">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -338,6 +365,7 @@
                         android:backgroundTint="@color/white"
                         android:visibility="visible"
                         app:borderWidth="0dp"
+                        app:elevation="0dp"
                         app:fabSize="mini"
                         app:srcCompat="@drawable/ic_custom_delivery_red" />
 
@@ -346,7 +374,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.6"
                         android:fontFamily="@font/sailec_regular"
-                        android:gravity="center"
+                        android:gravity="start"
+                        android:paddingStart="30dp"
                         android:text="Delivery Order" />
 
                 </LinearLayout>
@@ -354,14 +383,13 @@
 
             <Button
                 android:id="@+id/btn_post_custom_order"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:layout_above="@+id/fab_close"
-                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@color/colorPrimaryDark"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/btn_bg_default"
                 android:elevation="10dp"
                 android:fontFamily="@font/sailec_regular"
                 android:text="Post Custom Order"
@@ -372,8 +400,6 @@
                 android:id="@+id/fab_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:background="@color/colorPrimaryDark"
                 android:backgroundTint="@color/colorPrimaryDark"
@@ -382,6 +408,6 @@
                 app:fabSize="mini"
                 app:srcCompat="@drawable/ic_close_white" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

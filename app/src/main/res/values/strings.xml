@@ -33,5 +33,7 @@
     <string name="choose_new_pass">Choose a new password</string>
     <string name="new_pass">New Password</string>
     <string name="view_all">View All</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="upload_your_food_picture">Upload your food picture</string>
 
 </resources>
