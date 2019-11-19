@@ -117,6 +117,7 @@
                 android:background="@drawable/round_border6">
 
                 <Button
+                    android:id="@+id/uploadpicture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

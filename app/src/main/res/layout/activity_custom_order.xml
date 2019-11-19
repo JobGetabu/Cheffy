@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/bottom_sheet_behavior"
     android:background="@android:color/white"
-    android:paddingBottom="15dp">
+    android:paddingBottom="15dp"
+    tools:context=".custom_order.CustomOrderActivity">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/toolbar"
