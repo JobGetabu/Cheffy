@@ -35,5 +35,12 @@
     <string name="view_all">View All</string>
     <string name="upload_image">Upload Image</string>
     <string name="upload_your_food_picture">Upload your food picture</string>
+    <string name="logout">Logout</string>
+    <string name="settings">Settings</string>
+    <string name="take_photo">Take a Photo</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="next">Next</string>
+    <string name="retake">Retake</string>
 
 </resources>
