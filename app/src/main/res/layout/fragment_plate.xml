@@ -26,11 +26,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/hd"
+                    android:id="@+id/foodname"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
-                    android:layout_weight="1.5"
                     android:fontFamily="@font/sailec_medium"
                     android:text="Grilled salmon"
                     android:textColor="@color/textPrimaryColor"
@@ -74,6 +73,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
+                    android:id="@+id/foodprice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sailec_medium"
@@ -82,7 +82,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/hd" />
+                    app:layout_constraintTop_toBottomOf="@id/foodname" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

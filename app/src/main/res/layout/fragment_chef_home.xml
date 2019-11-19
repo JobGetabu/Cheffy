@@ -21,14 +21,17 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
+            android:transitionName="slider"
             android:background="@drawable/background_style"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="3">
 
-            <ImageView
+            <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="25dp"
+                android:layout_height="24dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
                 android:layout_weight="0.4"
                 android:src="@drawable/map_pin"
                 android:tint="@color/colorPrimary" />

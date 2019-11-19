@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.adapter.ReviewDetailbarAdapter
+import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_plate.*
 import kotlinx.android.synthetic.main.fragment_sub2_tabs.*
 
 
@@ -20,6 +23,10 @@ import kotlinx.android.synthetic.main.fragment_sub2_tabs.*
  *
  */
 open class PlateFragment : BaseFragment() {
+
+    private val vm: HomeViewModel by lazy {
+        ViewModelProviders.of(getActivity()!!).get(HomeViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +41,12 @@ open class PlateFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         initTablayout()
+
+
+        foodname.text = vm.platesResponse.value?.name
+        times.text = "${vm.platesResponse.value!!.deliveryTime!!.minus(5)}-${vm.platesResponse.value?.deliveryTime} min"
+        foodprice.text = "$"+vm.platesResponse.value?.price
+
     }
 
 

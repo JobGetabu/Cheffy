@@ -1,6 +1,7 @@
 package com.app.cheffyuser.home.fragments
 
 
+import android.app.ActivityOptions
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -85,11 +86,8 @@ class UserHomeFragment : BaseFragment() {
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse
-                                    createSnack(ctx = activity!!, txt = "clicked ${model.name}")
 
-                                    startActivity(FoodDetailsActivity.newIntent(context!!).apply {
-                                        putExtra(PLATES_RESPONSE_EXTRA, model)
-                                    })
+                                    goToFoodDetails(model)
                                 }
                             })
                     }
@@ -124,11 +122,8 @@ class UserHomeFragment : BaseFragment() {
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse
-                                    createSnack(ctx = activity!!, txt = "clicked ${model.name}")
 
-                                    startActivity(FoodDetailsActivity.newIntent(context!!).apply {
-                                        putExtra(PLATES_RESPONSE_EXTRA, model)
-                                    })
+                                    goToFoodDetails(model)
                                 }
                             })
                     }
@@ -163,11 +158,8 @@ class UserHomeFragment : BaseFragment() {
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse
-                                    createSnack(ctx = activity!!, txt = "clicked ${model.name}")
 
-                                    startActivity(FoodDetailsActivity.newIntent(context!!).apply {
-                                        putExtra(PLATES_RESPONSE_EXTRA, model)
-                                    })
+                                    goToFoodDetails(model)
                                 }
                             })
                     }
@@ -181,6 +173,19 @@ class UserHomeFragment : BaseFragment() {
             }
 
         })
+    }
+
+    private fun goToFoodDetails(model: PlatesResponse){
+        val pair1: android.util.Pair<View, String> = android.util.Pair.create(address_txt, "slider")
+
+        val activityOptions = ActivityOptions.makeSceneTransitionAnimation(
+            activity!!, pair1
+        )
+
+        val intent = FoodDetailsActivity.newIntent(context!!)
+        intent.putExtra(PLATES_RESPONSE_EXTRA, model)
+
+        startActivity(intent, activityOptions.toBundle())
     }
 
 }

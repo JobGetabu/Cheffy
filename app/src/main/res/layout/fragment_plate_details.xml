@@ -17,8 +17,10 @@
         android:padding="10dp">
 
         <TextView
+            android:id="@+id/fooddescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:fontFamily="@font/sailec_light"
             android:lineSpacingExtra="5dp"
             android:text="@string/text"
@@ -27,122 +29,7 @@
             android:textSize="14sp" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/sailec_medium"
-                android:text="Ingredients"
-                android:textAlignment="center"
-                android:textColor="@color/textPrimaryColor"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/sailec_medium"
-                android:text="Purchase date"
-                android:textAlignment="center"
-                android:textColor="@color/textPrimaryColor"
-                android:textSize="17sp" />
-
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sailec_regular"
-                    android:text="1. Tomato"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/gray"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sailec_regular"
-                    android:text="2. Water"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/gray"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sailec_regular"
-                    android:text="3. Egg"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/gray"
-                    android:textSize="15sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sailec_regular"
-                    android:text="8–19–19"
-                    android:textAlignment="center"
-                    android:textColor="@color/gray"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sailec_regular"
-                    android:text="8–19–19"
-                    android:textAlignment="center"
-                    android:textColor="@color/gray"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sailec_regular"
-                    android:text="8–19–19"
-                    android:textAlignment="center"
-                    android:textColor="@color/gray"
-                    android:textSize="15sp" />
-
-
-            </LinearLayout>
-        </LinearLayout>
+        <include layout="@layout/single_ingredient_layout" />
 
         <Button
             android:id="@+id/viewReceipt"
