@@ -77,7 +77,7 @@ data class PlatesResponse(
         @SerializedName("id")
         val id: Int? = null,
         @SerializedName("imagePath")
-        val imagePath: @RawValue Any? = null,
+        val imagePath: String? = null,
         @SerializedName("location_lat")
         val locationLat: String? = null,
         @SerializedName("location_lon")
