@@ -1,5 +1,6 @@
 package com.app.cheffyuser.home.activities
 
+import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
@@ -26,6 +27,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import timber.log.Timber
 
 class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
+
+    companion object {
+        fun newIntent(context: Context): Intent =
+            Intent(context, BottomNavActivity::class.java)
+    }
+
     private var mTextMessage: TextView? = null
     private var fragment: Fragment? = null
     private var bottomNavigationView: BottomNavigationView? = null
