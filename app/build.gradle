@@ -148,8 +148,13 @@ dependencies {
     //http logger
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
 
-    //glide
+    //glide libs
     implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:annotations:4.9.0'
+    implementation('com.github.bumptech.glide:okhttp3-integration:4.0.0') {
+        exclude group: 'glide-parent'
+    }
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     // Circular image
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
@@ -177,6 +182,9 @@ dependencies {
 
     //material rating-bar
     implementation 'me.zhanghai.android.materialratingbar:library:1.3.2'
+
+    //image pix
+    implementation  'com.fxn769:pix:1.4.4'
 
     //runtime permissions
     implementation 'com.karumi:dexter:5.0.0'

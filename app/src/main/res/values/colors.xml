@@ -71,4 +71,8 @@
     <color name="contentDividerLine">#e0e0e0</color>
     <color name="contentDividerLineDark">#A2A2A2</color>
 
+    <!--color pix library override res-->
+    <color name="colorPrimaryPix">@color/colorPrimary</color>
+    <color name="colorPrimaryLightPix">@color/colorPrimaryDark</color>
+
 </resources>

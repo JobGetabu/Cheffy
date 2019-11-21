@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/background_activity"
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
@@ -29,6 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@color/background_activity"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -52,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
                         android:layout_marginEnd="32dp"
-                        android:text="@string/forget_password"
+                        android:text="Receipts"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -76,9 +78,9 @@
                 android:id="@+id/receiptimage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="150dp"
+                android:minHeight="250dp"
                 android:layout_margin="20dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/money_receipt" />
 
         </LinearLayout>

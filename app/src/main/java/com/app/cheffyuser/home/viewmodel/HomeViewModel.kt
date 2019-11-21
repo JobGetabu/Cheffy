@@ -10,6 +10,7 @@ import com.app.cheffyuser.home.repository.HomeRepository
 import com.app.cheffyuser.networking.remote.Resource
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
+import java.util.*
 
 class HomeViewModel : ViewModel() {
     private val repository: HomeRepository = HomeRepository()
@@ -73,5 +74,9 @@ class HomeViewModel : ViewModel() {
 
 
     //endregion
+
+
+    //used in CustomOrder upload screen
+    var imagesUrls: ArrayList<String>? = arrayListOf()
 
 }

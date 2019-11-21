@@ -32,16 +32,26 @@ inline fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT): T
 fun ImageView.loadUrl(url: Int) {
     Glide.with(context)
         .load(url)
-        .thumbnail(0.05f)
+        .thumbnail(0.1f)
         .into(this)
 
+}
+
+
+fun ImageView.loadLocal(url: String?) {
+    Glide.with(context)
+        .asFile()
+        .load(url)
+        .apply(RequestOptions().placeholder(R.drawable.upload_thumbnail).timeout(60000))
+        .thumbnail(0.1f)
+        .into(this)
 }
 
 fun ImageView.loadUrl(url: String?) {
     Glide.with(context)
         .load(url)
-        .apply(RequestOptions().placeholder(R.drawable.upload_thumbnail))
-        .thumbnail(0.05f)
+        .apply(RequestOptions().placeholder(R.drawable.upload_thumbnail).timeout(60000))
+        .thumbnail(0.1f)
         .into(this)
 }
 
@@ -49,7 +59,7 @@ fun ImageView.loadUrl(url: String?,tinted: Boolean) {
     Glide.with(context)
         .load(url)
         .apply(RequestOptions().placeholder(R.drawable.upload_thumbnail))
-        .thumbnail(0.05f)
+        .thumbnail(0.1f)
         .into(this)
 
     this.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary), PorterDuff.Mode.OVERLAY)

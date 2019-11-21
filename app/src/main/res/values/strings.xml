@@ -42,5 +42,7 @@
     <string name="gallery">Gallery</string>
     <string name="next">Next</string>
     <string name="retake">Retake</string>
+    <string name="name_of_your_food">Name of your food</string>
+    <string name="food_description">Food Description</string>
 
 </resources>
