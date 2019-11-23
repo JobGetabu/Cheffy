@@ -177,6 +177,7 @@
                     android:textSize="16sp" />
 
                 <EditText
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
@@ -220,20 +221,23 @@
                 android:scrollbars="none">
 
                 <LinearLayout
+                    android:layout_marginTop="6dp"
                     android:layout_width="match_parent"
+                    android:weightSum="4"
                     android:layout_height="wrap_content">
 
                     <EditText
                         android:id="@+id/et1"
-                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
                         android:layout_marginEnd="2dp"
                         android:background="@drawable/round_border6"
                         android:ems="4"
                         android:maxLength="4"
                         android:fontFamily="@font/sailec_regular"
                         android:hint="4242"
+                        android:textSize="18sp"
                         android:inputType="number"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
@@ -241,15 +245,16 @@
 
                     <EditText
                         android:id="@+id/et2"
-                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
                         android:layout_marginEnd="2dp"
                         android:background="@drawable/round_border6"
                         android:ems="4"
                         android:maxLength="4"
                         android:fontFamily="@font/sailec_regular"
                         android:hint="4242"
+                        android:textSize="18sp"
                         android:inputType="number"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
@@ -257,15 +262,16 @@
 
                     <EditText
                         android:id="@+id/et3"
-                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
                         android:layout_marginEnd="2dp"
                         android:background="@drawable/round_border6"
                         android:ems="4"
                         android:maxLength="4"
                         android:fontFamily="@font/sailec_regular"
                         android:hint="4242"
+                        android:textSize="18sp"
                         android:inputType="number"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
@@ -273,19 +279,23 @@
 
                     <EditText
                         android:id="@+id/et4"
-                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
                         android:layout_marginEnd="2dp"
                         android:background="@drawable/round_border6"
                         android:ems="4"
                         android:maxLength="4"
                         android:fontFamily="@font/sailec_regular"
                         android:hint="4242"
+                        android:textSize="18sp"
                         android:inputType="number"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
                         android:textAlignment="center" />
+
+
+
 
 
                 </LinearLayout>
@@ -321,6 +331,7 @@
                 android:weightSum="2">
 
                 <EditText
+                    android:id="@+id/expiry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
@@ -335,6 +346,7 @@
                     android:padding="10dp" />
 
                 <EditText
+                    android:id="@+id/year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -371,6 +383,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/cvv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
