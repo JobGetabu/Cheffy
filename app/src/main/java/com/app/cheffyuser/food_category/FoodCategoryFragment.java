@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -18,7 +17,6 @@ import com.app.cheffyuser.food_category.adapter.Food_Category_Adapter;
 import com.app.cheffyuser.food_category.model.FoodCategoryModel;
 import com.app.cheffyuser.networking.remote.ApiClient;
 import com.app.cheffyuser.networking.remote.ApiInterface;
-import com.app.cheffyuser.profile.adapter.Food_Menu_Adapter;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
@@ -45,9 +43,6 @@ public class FoodCategoryFragment extends Fragment {
     private GridLayoutManager layoutManager;
     private List<FoodCategoryModel> categoryList;
 
-
-
-
     private ApiInterface apiInterface;
 
 
@@ -67,14 +62,6 @@ public class FoodCategoryFragment extends Fragment {
         layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(layoutManager);
 
-//        categoryList.add(new FoodCategoryModel("Arabian", R.drawable.upload_thumbnail));
-//        categoryList.add(new FoodCategoryModel("Japanese", R.drawable.food_image2));
-//        categoryList.add(new FoodCategoryModel("Asian", R.drawable.img_food_2));
-//        categoryList.add(new FoodCategoryModel("Japanese", R.drawable.food_image3));
-//        categoryList.add(new FoodCategoryModel("Asian", R.drawable.upload_thumbnail));
-//        categoryList.add(new FoodCategoryModel("Arabian", R.drawable.food_image2));
-//        categoryList.add(new FoodCategoryModel("Japanese", R.drawable.upload_thumbnail));
-//        categoryList.add(new FoodCategoryModel("Asian", R.drawable.food_image3));
 
 
         categoryList = new ArrayList<>();
@@ -90,6 +77,8 @@ public class FoodCategoryFragment extends Fragment {
 
     public void fetchData() {
 
+
+        Toast.makeText(getActivity(), "TODO: Add API ", Toast.LENGTH_SHORT).show();
 
         Call<List<FoodCategoryModel>> call = apiInterface.categoryList();
         call.enqueue(new Callback<List<FoodCategoryModel>>() {
@@ -114,7 +103,7 @@ public class FoodCategoryFragment extends Fragment {
             @Override
             public void onFailure(Call<List<FoodCategoryModel>> call, Throwable t) {
 
-                Toast.makeText(getActivity(), "Error : " + t.toString(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }

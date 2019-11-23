@@ -19,6 +19,8 @@ import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.remote.Status
 import com.app.cheffyuser.utils.Constants.PLATES_RESPONSE_EXTRA
 import com.app.cheffyuser.utils.createSnack
+import com.app.cheffyuser.utils.hideView
+import com.app.cheffyuser.utils.showView
 import kotlinx.android.synthetic.main.fragment_chef_home.*
 import timber.log.Timber
 
@@ -68,6 +70,7 @@ class UserHomeFragment : BaseFragment() {
 
     private fun setUpNearbyList() {
         nearbylist.setHasFixedSize(true)
+        main_content.hideView()
 
         //TODO: pass in location coordinates
         vm.fetchFoodNearbyLocation().observe(this, Observer {
@@ -79,8 +82,16 @@ class UserHomeFragment : BaseFragment() {
                     //TODO: send manged logs to crashlytics in production
                     createSnack(ctx = activity!!, txt = "No nearby foods")
 
+                    shimmer_view_container.showView()
+                    main_content.hideView()
+
                 }
                 Status.SUCCESS -> {
+
+                    shimmer_view_container.stopShimmer()
+                    shimmer_view_container.hideView()
+                    main_content.showView()
+
                     datas.let {
                         foodNearbyAdapter = FoodNearbyAdapter(context!!, datas,
                             object : RecyclerItemClickListener {
@@ -97,6 +108,8 @@ class UserHomeFragment : BaseFragment() {
                 Status.LOADING -> {
                     //TODO: stop shimmer effect in view
                     //still loading data
+                    shimmer_view_container.showView()
+                    main_content.hideView()
                 }
             }
 

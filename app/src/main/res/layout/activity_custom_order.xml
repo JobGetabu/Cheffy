@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/bottom_sheet_behavior"
-    android:background="@android:color/white"
+    android:background="@color/background_activity"
     android:paddingBottom="15dp"
     tools:context=".custom_order.CustomOrderActivity">
 

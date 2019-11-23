@@ -19,6 +19,7 @@
     <color name="lightblack">#3b3b3b</color>
     <color name="background_activity">#FAFAFA</color>
     <color name="line">#DBDBE7</color>
+    <color name="demo_dark_transparent">#24000000</color>
 
     <color name="transparent_black">#88000000</color>
     <color name="green">#14DB85</color>

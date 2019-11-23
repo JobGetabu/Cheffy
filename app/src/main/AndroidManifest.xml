@@ -63,18 +63,20 @@
             android:name=".home.activities.BottomNavActivity"
             android:label="@string/title_activity_bottom_nav"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".cart.activities.PaymentActivity" />
         <activity android:name=".profile.activities.EditProfileActivity" />
         <activity
             android:name=".home.activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.MainActivity" />
+            android:theme="@style/AppTheme.MainActivity"/>
         <!--
             The API key for Google Maps-based APIs is defined as a string resource.
             (See the file "res/values/google_maps_api.xml").
