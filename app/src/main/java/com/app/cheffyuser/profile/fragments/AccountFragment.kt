@@ -13,7 +13,7 @@ import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.profile.activities.EditProfileActivity
 import com.app.cheffyuser.profile.adapter.ProfilebarAdapter
-import com.bumptech.glide.Glide
+import com.app.cheffyuser.utils.loadUrl
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_user_main.*
@@ -49,12 +49,7 @@ class AccountFragment : BaseFragment() {
         tv_user_name.text = "Iron Man"
         tv_user_address.text = "Birmingham"
 
-        //Loading profile
-        Glide.with(activity!!)
-            .load("")
-            .placeholder(R.drawable.avatar_placeholder)
-            .error(R.drawable.avatar_placeholder)
-            .into(user_image)
+        user_image.loadUrl("")
 
 
         img_profile_edit.setOnClickListener {

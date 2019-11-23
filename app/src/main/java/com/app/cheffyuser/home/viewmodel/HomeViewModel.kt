@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.repository.HomeRepository
-import com.app.cheffyuser.networking.remote.Resource
+import com.app.cheffyuser.networking.Resource
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import java.util.*
@@ -63,6 +64,15 @@ class HomeViewModel : ViewModel() {
     ): LiveData<Resource<MutableList<PlatesResponse>>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchFoodNearbyLocation(lat, lon, radius)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+
+    fun fetchFoodCategory(): LiveData<Resource<MutableList<FoodCatModel>>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.fetchFoodCategory()
             emit(Resource.loading(null))
             emit(data)
         }

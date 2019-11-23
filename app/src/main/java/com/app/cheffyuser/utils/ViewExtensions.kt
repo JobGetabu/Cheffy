@@ -11,6 +11,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.*
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -38,11 +39,10 @@ fun ImageView.loadUrl(url: Int) {
 }
 
 
-fun ImageView.loadLocal(url: String?) {
+fun ImageView.loadUrl(url: String?, @DrawableRes placeholder: Int) {
     Glide.with(context)
-        .asFile()
         .load(url)
-        .apply(RequestOptions().placeholder(R.drawable.upload_thumbnail).timeout(60000))
+        .apply(RequestOptions().placeholder(placeholder).timeout(60000))
         .thumbnail(0.1f)
         .into(this)
 }

@@ -16,7 +16,6 @@ class FoodPopularAdapter(
     private val foodNearbyModels: MutableList<PlatesResponse>?,
     private val clickListener: RecyclerItemClickListener
 ) : RecyclerView.Adapter<BaseViewHolder>() {
-    private var isLoaderVisible = false
     private lateinit var myHolder: BaseViewHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {

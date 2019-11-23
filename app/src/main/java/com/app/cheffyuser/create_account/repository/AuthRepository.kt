@@ -3,10 +3,10 @@ package com.app.cheffyuser.create_account.repository
 import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.create_account.model.SignupRequest
 import com.app.cheffyuser.create_account.model.SignupResponse
-import com.app.cheffyuser.networking.remote.ApiService
-import com.app.cheffyuser.networking.remote.Resource
-import com.app.cheffyuser.networking.remote.ResponseHandler
-import com.app.cheffyuser.networking.remote.RetrofitBuilder
+import com.app.cheffyuser.networking.ApiService
+import com.app.cheffyuser.networking.Resource
+import com.app.cheffyuser.networking.ResponseHandler
+import com.app.cheffyuser.networking.RetrofitBuilder
 import timber.log.Timber
 
 class AuthRepository {

@@ -37,11 +37,10 @@
 
         <ImageView
             android:layout_width="0dp"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
             android:layout_weight="0.4"
-            android:visibility="invisible"
             android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/user_filter" />
+            app:srcCompat="@drawable/ic_filter_list_black_24dp" />
 
     </LinearLayout>
 

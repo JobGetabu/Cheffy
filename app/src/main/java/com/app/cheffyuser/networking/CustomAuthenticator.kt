@@ -1,4 +1,4 @@
-package com.app.cheffyuser.networking.remote
+package com.app.cheffyuser.networking
 
 
 
@@ -20,7 +20,8 @@ class CustomAuthenticator private constructor(private val tokenManager: TokenMan
 
         val accessToken = tokenManager.token
 
-        val service = RetrofitBuilder.createService(ApiService::class.java)
+        val service =
+            RetrofitBuilder.createService(ApiService::class.java)
         val call = service.refresh(accessToken.refreshToken!! + "a")
         val res = call.execute()
 
@@ -51,7 +52,8 @@ class CustomAuthenticator private constructor(private val tokenManager: TokenMan
         @Synchronized
         fun getInstance(tokenManager: TokenManager): CustomAuthenticator {
             if (INSTANCE == null) {
-                INSTANCE = CustomAuthenticator(tokenManager)
+                INSTANCE =
+                    CustomAuthenticator(tokenManager)
             }
 
             return INSTANCE as CustomAuthenticator

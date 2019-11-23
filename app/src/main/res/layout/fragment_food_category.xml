@@ -3,127 +3,96 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.core.widget.NestedScrollView
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".food_category.FoodCategoryFragment">
+
+    <LinearLayout
+        android:id="@+id/layouyt1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/background_style"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:transitionName="slider"
+            android:weightSum="3">
 
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="0.4"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/map_pin"
+                android:tint="@color/colorPrimary" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/background_style"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
+            <TextView
+                android:id="@+id/address_txt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.2"
+                android:focusedByDefault="true"
+                android:fontFamily="@font/sailec_light"
+                android:text="2179 Brooklyn Street"
+                android:textColor="#3B3B3B"
+                android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="0.4"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/map_pin"
-                    android:layout_height="25dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="2.2"
-                    android:textSize="18sp"
-                    android:textColor="#3B3B3B"
-                    android:text="2179 Brooklyn Street"
-                    android:layout_height="wrap_content" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="0.4"
-                    android:tint="#6E6E6E"
-                    app:srcCompat="@drawable/ic_arrow_right"
-                    android:layout_height="25dp" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/back_style_edittext"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="25dp"
-                    android:layout_weight="0.4"
-                    android:src="@drawable/search" />
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2.2"
-                    android:background="@null"
-                    android:hint="Find a food or Restaurent"
-                    android:textColor="#3B3B3B"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="0.4"
-                    app:srcCompat="@drawable/ic_filter_list_black_24dp"
-                    android:tint="@color/colorPrimary" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmer_view_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical"
-                    app:shimmer_duration="800"
-                    tools:ignore="MissingConstraints">
-
-                    <include
-                        layout="@layout/custom_food_category_shimmer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                </com.facebook.shimmer.ShimmerFrameLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="10dp">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-            </LinearLayout>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="0.4"
+                android:tint="#6E6E6E"
+                app:srcCompat="@drawable/ic_arrow_right" />
 
         </LinearLayout>
 
+        <include
+            layout="@layout/search_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
+    </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/catlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layouyt1"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:itemCount="8"
+        tools:listitem="@layout/single_food_category" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layouyt1"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:shimmer_duration="800"
+        tools:visibility="gone">
+
+        <include
+            layout="@layout/custom_food_category_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </RelativeLayout>

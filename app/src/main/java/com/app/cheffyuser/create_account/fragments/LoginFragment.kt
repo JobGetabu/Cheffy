@@ -18,7 +18,7 @@ import com.app.cheffyuser.create_account.social.FacebookManager
 import com.app.cheffyuser.create_account.social.GoogleManager
 import com.app.cheffyuser.create_account.viewmodel.AuthViewModel
 import com.app.cheffyuser.home.fragments.BaseFragment
-import com.app.cheffyuser.networking.remote.Status
+import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.createSnack
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

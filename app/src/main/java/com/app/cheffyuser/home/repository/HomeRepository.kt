@@ -1,12 +1,13 @@
 package com.app.cheffyuser.home.repository
 
 import com.app.cheffyuser.CheffyApp
+import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.model.PlatesResponse
-import com.app.cheffyuser.networking.remote.ApiService
-import com.app.cheffyuser.networking.remote.Resource
-import com.app.cheffyuser.networking.remote.ResponseHandler
-import com.app.cheffyuser.networking.remote.RetrofitBuilder
+import com.app.cheffyuser.networking.ApiService
+import com.app.cheffyuser.networking.Resource
+import com.app.cheffyuser.networking.ResponseHandler
+import com.app.cheffyuser.networking.RetrofitBuilder
 import timber.log.Timber
 
 class HomeRepository {
@@ -82,5 +83,14 @@ class HomeRepository {
         }
     }
 
+    suspend fun fetchFoodCategory(): Resource<MutableList<FoodCatModel>> {
+        return try {
+            val response = apiService.getFoodCategory()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
 
 }

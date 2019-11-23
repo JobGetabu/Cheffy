@@ -1,8 +1,9 @@
-package com.app.cheffyuser.networking.remote
+package com.app.cheffyuser.networking
 
 import com.app.cheffyuser.create_account.model.AccessToken
 import com.app.cheffyuser.create_account.model.SignupRequest
 import com.app.cheffyuser.create_account.model.SignupResponse
+import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.model.PlatesResponse
 import retrofit2.Call
@@ -41,6 +42,9 @@ interface ApiService {
         @Query("longitude") lon: String,
         @Query("radiusMiles") radiusMiles: String
     ): MutableList<PlatesResponse>
+
+    @GET("category")
+    suspend fun getFoodCategory(): MutableList<FoodCatModel>
 
     //endregion
 

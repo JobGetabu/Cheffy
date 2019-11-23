@@ -16,7 +16,7 @@ import com.app.cheffyuser.home.adapter.FoodPopularAdapter
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
-import com.app.cheffyuser.networking.remote.Status
+import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.Constants.PLATES_RESPONSE_EXTRA
 import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.hideView

@@ -1,4 +1,4 @@
-package com.app.cheffyuser.networking.remote
+package com.app.cheffyuser.networking
 
 import com.app.cheffyuser.utils.AppExecutors
 import com.app.cheffyuser.utils.TokenManager
@@ -13,7 +13,8 @@ object RetrofitBuilder {
     private val BASE_URL = "https://mycheffy.herokuapp.com/"
 
     private val client = buildClient()
-    val retrofit = buildRetrofit(client)
+    val retrofit =
+        buildRetrofit(client)
 
     private fun buildClient(): OkHttpClient {
 
@@ -78,7 +79,11 @@ object RetrofitBuilder {
             }
             request = builder.build()
             chain.proceed(request)
-        }.authenticator(CustomAuthenticator.getInstance(tokenManager)).build()
+        }.authenticator(
+            CustomAuthenticator.getInstance(
+                tokenManager
+            )
+        ).build()
 
         val newRetrofit = retrofit.newBuilder().client(newClient).build()
         return newRetrofit.create(service)

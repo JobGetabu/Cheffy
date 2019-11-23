@@ -6,7 +6,7 @@ import androidx.lifecycle.liveData
 import com.app.cheffyuser.create_account.model.SignupRequest
 import com.app.cheffyuser.create_account.model.SignupResponse
 import com.app.cheffyuser.create_account.repository.AuthRepository
-import com.app.cheffyuser.networking.remote.Resource
+import com.app.cheffyuser.networking.Resource
 import kotlinx.coroutines.Dispatchers
 
 class AuthViewModel : ViewModel() {

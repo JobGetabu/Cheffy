@@ -1,4 +1,4 @@
-package com.app.cheffyuser.networking.remote
+package com.app.cheffyuser.networking
 
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -15,15 +15,27 @@ import java.net.SocketTimeoutException
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {
         fun <T> success(data: T?): Resource<T> {
-            return Resource(Status.SUCCESS, data, null)
+            return Resource(
+                Status.SUCCESS,
+                data,
+                null
+            )
         }
 
         fun <T> error(msg: String, data: T?): Resource<T> {
-            return Resource(Status.ERROR, data, msg)
+            return Resource(
+                Status.ERROR,
+                data,
+                msg
+            )
         }
 
         fun <T> loading(data: T?): Resource<T> {
-            return Resource(Status.LOADING, data, null)
+            return Resource(
+                Status.LOADING,
+                data,
+                null
+            )
         }
     }
 }
@@ -46,9 +58,18 @@ open class ResponseHandler {
 
     fun <T : Any> handleException(e: Exception): Resource<T> {
         return when (e) {
-            is HttpException -> Resource.error(getErrorMessage(e.code()), null)
-            is SocketTimeoutException -> Resource.error(getErrorMessage(ErrorCodes.SocketTimeOut.code), null)
-            else -> Resource.error(getErrorMessage(Int.MAX_VALUE), null)
+            is HttpException -> Resource.error(
+                getErrorMessage(e.code()),
+                null
+            )
+            is SocketTimeoutException -> Resource.error(
+                getErrorMessage(ErrorCodes.SocketTimeOut.code),
+                null
+            )
+            else -> Resource.error(
+                getErrorMessage(Int.MAX_VALUE),
+                null
+            )
         }
     }
 
