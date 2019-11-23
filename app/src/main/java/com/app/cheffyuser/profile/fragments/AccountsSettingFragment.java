@@ -10,11 +10,11 @@ import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 
-import com.app.cheffyuser.home.activities.MainActivity;
 import com.app.cheffyuser.R;
+import com.app.cheffyuser.cart.activities.AddCardActivity;
+import com.app.cheffyuser.home.activities.MainActivity;
 import com.app.cheffyuser.profile.activities.EditProfileActivity;
 import com.app.cheffyuser.profile.activities.ShippingActivity;
-import com.app.cheffyuser.profile.activities.UserPaymentActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,7 +71,7 @@ public class AccountsSettingFragment extends Fragment {
         layoutPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), UserPaymentActivity.class);
+                Intent intent=new Intent(getActivity(), AddCardActivity.class);
                 startActivity(intent);
             }
         });

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.utils.loadUrl
 import com.app.cheffyuser.utils.toast
 import com.bumptech.glide.Glide
 import com.fxn.pix.Options
@@ -53,14 +54,12 @@ class EditProfileActivity : BaseActivity() {
         tv_user_name.text = "Iron Man"
 
         //Loading profile
-        Glide.with(this)
-            .load("")
-            .placeholder(R.drawable.avatar_placeholder)
-            .error(R.drawable.avatar_placeholder)
-            .into(user_image)
-
-
+        user_image.loadUrl("", R.drawable.avatar_placeholder)
         user_image.setOnClickListener {
+            launchPhotoPicker()
+        }
+
+        upload_image.setOnClickListener {
             launchPhotoPicker()
         }
     }
@@ -81,13 +80,19 @@ class EditProfileActivity : BaseActivity() {
                     val file = File(vm.imagesUrls!![0])
                     if (file.exists()) {
                         val myBitmap = BitmapFactory.decodeFile(file.absolutePath)
-                        user_image.setImageBitmap(myBitmap)
+
+                        Glide.with(this)
+                            .asBitmap()
+                            .load(myBitmap)
+                            .placeholder(R.drawable.avatar_placeholder)
+                            .error(R.drawable.avatar_placeholder)
+                            .into(user_image)
 
                         //TODO: to upload api
                     }
                 } catch (e: Exception) {
+                    Timber.e(e)
                 }
-
             }
 
             else -> {

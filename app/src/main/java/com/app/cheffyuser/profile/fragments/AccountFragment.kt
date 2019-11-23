@@ -49,7 +49,7 @@ class AccountFragment : BaseFragment() {
         tv_user_name.text = "Iron Man"
         tv_user_address.text = "Birmingham"
 
-        user_image.loadUrl("")
+        user_image.loadUrl("", R.drawable.avatar_placeholder)
 
 
         img_profile_edit.setOnClickListener {
