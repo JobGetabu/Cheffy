@@ -71,7 +71,6 @@ class AddCardActivity : BaseActivity() {
                 expiry, year -> {
                     card_expiry_label.text = "$expiryno" + "/" + "$yearno"
                 }
-
             }
         }
     }

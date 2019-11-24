@@ -65,8 +65,7 @@ class LoginFragment : BaseFragment() {
         configureGoogleSignIn()
 
         activity?.let {
-            //TODO: Uncomment
-            //facebookManager = FacebookManager(it.applicationContext)
+            facebookManager = FacebookManager(it.applicationContext)
         }
 
     }
@@ -78,6 +77,10 @@ class LoginFragment : BaseFragment() {
 
         googleLogin.setOnClickListener {
             googleLogin()
+        }
+
+        fbLogin.setOnClickListener {
+            facebookLogin()
         }
 
         forgotPassword.setOnClickListener {
@@ -149,6 +152,41 @@ class LoginFragment : BaseFragment() {
         alertDialog = showDialogue(title = "Google Signing in")
     }
 
+
+    private fun facebookLogin(){
+        if (!isConnected) {
+            activity?.let {
+                createSnack(
+                    it, getString(R.string.you_not_connected), getString(R.string.retry),
+                    View.OnClickListener { facebookLogin() })
+            }
+            return
+        }
+
+        //alertDialog = showDialogue(title = "Facebook Signing in")
+
+        facebookManager!!.login(activity!!, object : FacebookManager.FacebookLoginListener {
+            override fun onSuccess() {
+                Toast.makeText(activity!!, "Welcome "  + " !", Toast.LENGTH_SHORT)
+                    .show()
+
+                facebookManager!!.clearSession()
+                alertDialog?.dismiss()
+
+                //TODO
+                // store auth
+
+            }
+
+            override fun onError(message: String) {
+
+                errorDialogue(alertDialog= alertDialog, descriptions = message)
+                Timber.d(message)
+            }
+        })
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Timber.d("onActivityResult: $requestCode")
         if (requestCode == RC_SIGN_IN) {
@@ -176,7 +214,7 @@ class LoginFragment : BaseFragment() {
                         }
 
                         override fun onError(message: String) {
-                            errorDialogue(alertDialog= alertDialog)
+                            errorDialogue(alertDialog= alertDialog, descriptions = message)
                         }
                     })
                 } else {
@@ -190,7 +228,6 @@ class LoginFragment : BaseFragment() {
             facebookManager!!.onActivityResult(requestCode, resultCode, data!!)
         }
         super.onActivityResult(requestCode, resultCode, data)
-
     }
 
 }

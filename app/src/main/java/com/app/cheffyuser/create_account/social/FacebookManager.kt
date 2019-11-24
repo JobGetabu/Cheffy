@@ -9,6 +9,7 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import org.json.JSONException
 import retrofit2.Call
+import timber.log.Timber
 import java.util.*
 
 class FacebookManager(
@@ -113,6 +114,7 @@ class FacebookManager(
         profile_image: String
     ) {
 
+        Timber.d("$firstName $provider")
         //TODO: Make a social login call to backend to retrieve a token
         // activate out listeners here
     }

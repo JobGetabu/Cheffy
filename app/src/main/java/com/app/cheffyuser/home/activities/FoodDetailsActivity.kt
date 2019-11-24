@@ -9,6 +9,7 @@ import android.view.WindowManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.app.cheffyuser.CheffyApp
+import com.app.cheffyuser.cart.activities.ItemCartActivity
 import com.app.cheffyuser.home.adapter.DetailMainbarAdapter
 import com.app.cheffyuser.home.fragments.KitchenFragment
 import com.app.cheffyuser.home.fragments.PlateFragment
@@ -69,7 +70,8 @@ class FoodDetailsActivity : BaseActivity() {
         bottomlay.setOnClickListener {
 
             //TODO: Add check and verifications
-            startActivity(FoodAddToCartActivity.newIntent(this))
+            startActivity(Intent(this, ItemCartActivity::class.java))
+
         }
 
         chefname.setOnClickListener {

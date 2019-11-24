@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.R
+import com.app.cheffyuser.create_account.activities.ForgotPasswordActivity
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.utils.loadUrl
@@ -47,7 +48,8 @@ class EditProfileActivity : BaseActivity() {
 
     private fun uiStuff() {
         btn_change_pss.setOnClickListener {
-            toast("TODO: connect Change password flow", Toast.LENGTH_LONG)
+
+            startActivity(ForgotPasswordActivity.newIntent(this))
         }
 
 

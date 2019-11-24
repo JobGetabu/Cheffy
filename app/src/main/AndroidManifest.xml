@@ -42,7 +42,6 @@
         <activity android:name=".cart.activities.CustomOrderCheckoutActivity" />
         <activity android:name=".cart.activities.CustomOrderListActivity" />
         <activity android:name=".profile.activities.ShippingActivity" />
-        <activity android:name=".profile.activities.UserPaymentActivity" />
         <activity android:name=".home.activities.ReceiptDetailsActivity" />
         <activity android:name=".home.activities.FoodAddToCartActivity" />
         <activity
@@ -76,7 +75,34 @@
         <activity
             android:name=".home.activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.MainActivity"/>
+            android:theme="@style/AppTheme.MainActivity">
+
+        </activity>
+
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="@string/fb_login_protocol_scheme"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@style/FullyTranslucent"
+            tools:replace="android:theme"/>
+
         <!--
             The API key for Google Maps-based APIs is defined as a string resource.
             (See the file "res/values/google_maps_api.xml").

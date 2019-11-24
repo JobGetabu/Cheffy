@@ -1,56 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".cart.activities.ItemCartActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:elevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/addphone_close"
+                android:layout_width="40dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:onClick="close"
+                android:scaleType="centerInside"
+                android:tint="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_left" />
+
+            <TextView
+                style="@style/Toolbar.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="Item Cart"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/Toolbar.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/sailec_medium"
+                android:text="Save"
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:id="@+id/layout1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:background="?attr/selectableItemBackground"
-                    app:srcCompat="@drawable/ic_left"
-
-                    />
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/sailec_medium"
-                    android:gravity="center"
-                    android:text="Item Cart"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
-
-            </LinearLayout>
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/layout2"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_below="@id/layout1"
                 android:layout_weight="2"
                 android:orientation="horizontal">
 
@@ -60,17 +90,14 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:map="http://schemas.android.com/apk/res-auto"
-                        xmlns:tools="http://schemas.android.com/tools"
+                    <fragment
                         android:id="@+id/map"
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginRight="5dp"
-                        tools:context=".cart.activities.ItemCartActivity" />
+                        android:layout_marginEnd="5dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -104,7 +131,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="0.06"
                         android:fontFamily="@font/sailec_regular"
                         android:gravity="center"
@@ -137,21 +164,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/sailec_regular"
-                    android:gravity="right"
+                    android:fontFamily="@font/sailec_medium"
+                    android:gravity="end"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
                     android:paddingRight="10dp"
                     android:text="Add More"
                     android:textColor="#EA1D2C"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/layout3"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
@@ -162,32 +188,87 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/layout4"
-
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_border4"
-                    android:fontFamily="@font/sailec_medium"
-                    android:hint="Promo Code"
-                    android:inputType="textPersonName"
-                    android:padding="8dp" />
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/button_round_1"
+                    android:fontFamily="@font/sailec_medium"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Select Delivery"
+                    android:textColor="#3B3B3B"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_bg_default"
+                        android:fontFamily="@font/sailec_medium"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:text="Delivery"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_bg_border"
+                        android:fontFamily="@font/sailec_medium"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:text="Pickup order"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/realblack" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout5"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/round_border4"
+                    android:fontFamily="@font/sailec_medium"
+                    android:hint="Promo Code"
+                    android:layout_gravity="center"
+                    android:inputType="textCapWords"
+                    android:padding="8dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_bg_default"
                     android:fontFamily="@font/sailec_medium"
                     android:gravity="center"
-                    android:padding="12dp"
+                    android:layout_gravity="center"
                     android:text="Apply"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -196,7 +277,6 @@
                 android:id="@+id/layout6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/layout5"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -208,7 +288,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:orientation="horizontal"
                     android:padding="10dp">
 
@@ -225,7 +304,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/sailec_medium"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:text="$ 360.00"
                         android:textColor="@color/black" />
                 </LinearLayout>
@@ -254,7 +333,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/sailec_medium"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:text="$10.00"
                         android:textColor="@color/black" />
                 </LinearLayout>
@@ -284,7 +363,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/sailec_medium"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:text="$ 370.00"
                         android:textColor="@color/black" />
                 </LinearLayout>
@@ -294,7 +373,6 @@
                 android:id="@+id/layout7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/layout6"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -312,11 +390,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout8"
+                android:id="@+id/add_card_lay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/layout3"
-
                 android:layout_margin="10dp"
                 android:background="@drawable/button_round_1"
                 android:orientation="horizontal"
@@ -330,8 +406,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:drawableLeft="@drawable/credit_card2"
+                        android:layout_marginEnd="16dp"
+                        android:drawableStart="@drawable/credit_card2"
                         android:elevation="5dp" />
                 </LinearLayout>
 
@@ -368,7 +444,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_claps" />
+                        android:drawableStart="@drawable/ic_claps" />
                 </LinearLayout>
 
 
@@ -380,7 +456,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/sailec_medium"
                         android:text="Cash On Delivery"
                         android:textColor="#000000" />
@@ -391,7 +467,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/layout3"
                 android:layout_margin="10dp"
                 android:background="@drawable/round_border2"
                 android:orientation="horizontal"
@@ -405,7 +480,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/paypal" />
+                        android:drawableStart="@drawable/paypal" />
                 </LinearLayout>
 
 
@@ -417,7 +492,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:fontFamily="@font/sailec_medium"
                         android:text="Paypal"
                         android:textColor="#000000" />
@@ -428,7 +503,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/layout8"
                 android:layout_marginBottom="20dp"
                 android:orientation="vertical">
 
@@ -439,10 +513,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="50dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/button_round_4"
-
+                    android:background="@drawable/btn_bg_default"
                     android:elevation="10dp"
-
                     android:fontFamily="@font/sailec_medium"
                     android:text="Check Out"
                     android:textAllCaps="false"
@@ -450,6 +522,6 @@
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
