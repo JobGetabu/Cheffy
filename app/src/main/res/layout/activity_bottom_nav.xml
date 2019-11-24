@@ -13,7 +13,14 @@
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/constant" />
+        android:layout_above="@+id/constant">
+
+        <com.app.cheffyuser.utils.NoSwipePager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

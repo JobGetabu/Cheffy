@@ -14,6 +14,7 @@ import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.TabsFragment
 import com.app.cheffyuser.custom_order.CustomOrderActivity
 import com.app.cheffyuser.food_category.FoodCategoryFragment
+import com.app.cheffyuser.home.adapter.MainbottomAdapter
 import com.app.cheffyuser.home.fragments.UserHomeFragment
 import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
@@ -24,6 +25,7 @@ import com.droidnet.DroidNet
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_bottom_nav.*
 import timber.log.Timber
 
 class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
@@ -56,13 +58,16 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     fragment = UserHomeFragment()
-                    loadFragment(fragment)
+                    //loadFragment(fragment)
+                    pager.currentItem = 0
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_category -> {
 
                     fragment = FoodCategoryFragment()
-                    loadFragment(fragment)
+                    //loadFragment(fragment)
+
+                    pager.currentItem = 1
 
                     return@OnNavigationItemSelectedListener true
                 }
@@ -77,13 +82,17 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
                 R.id.navigation_cart -> {
                     //mTextMessage.setText(R.string.title_notifications);
                     fragment = TabsFragment()
-                    loadFragment(fragment)
+                    //loadFragment(fragment)
+
+                    pager.currentItem = 2
                     return@OnNavigationItemSelectedListener true
                 }
 
                 R.id.nav_account -> {
                     fragment = AccountFragment()
-                    loadFragment(fragment)
+                    //loadFragment(fragment)
+
+                    pager.currentItem = 3
                     return@OnNavigationItemSelectedListener true
                 }
             }
@@ -108,8 +117,18 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
         mTextMessage = findViewById(R.id.message)
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        //loading the default fragment
-        loadFragment(UserHomeFragment())
+        //setup vp
+        pager.setPagingEnabled(false)
+
+        val adapter = MainbottomAdapter(supportFragmentManager)
+        adapter.addFragments(UserHomeFragment())
+        adapter.addFragments(FoodCategoryFragment())
+        adapter.addFragments(TabsFragment())
+        adapter.addFragments(AccountFragment())
+        pager.adapter = adapter
+
+        pager.offscreenPageLimit = 4
+        pager.currentItem = 0
     }
 
 
@@ -160,7 +179,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
         requestAddressServices(location)
         //if geocoder fails
         tokenManager.saveLastKnownLocation("Unnamed Road", mCurrentLatitude, mCurrentLongtitide)
-        tokenManager.mCurrentLocation = CurrentLocation("Unnamed Road", mCurrentLatitude, mCurrentLongtitide)
+        tokenManager.mCurrentLocation =
+            CurrentLocation("Unnamed Road", mCurrentLatitude, mCurrentLongtitide)
     }
 
     override fun onLocationAddressReceived(fullAddress: String?) {
@@ -169,7 +189,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
         vm.mAddressText.value = fullAddress
         tokenManager.saveLastKnownLocation(fullAddress!!, mCurrentLatitude, mCurrentLongtitide)
-        tokenManager.mCurrentLocation = CurrentLocation(fullAddress!!, mCurrentLatitude, mCurrentLongtitide)
+        tokenManager.mCurrentLocation =
+            CurrentLocation(fullAddress!!, mCurrentLatitude, mCurrentLongtitide)
     }
 
     private fun requestMyCurrentLocation() {

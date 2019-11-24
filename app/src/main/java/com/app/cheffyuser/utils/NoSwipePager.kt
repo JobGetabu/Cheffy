@@ -38,4 +38,12 @@ class NoSwipePager(context: Context, attrs: AttributeSet) : ViewPager(context, a
     companion object {
         private var enabled: Boolean = false
     }
+
+    override fun setCurrentItem(item: Int) {
+        super.setCurrentItem(item, enabled)
+    }
+
+    override fun setCurrentItem(item: Int, smoothScroll: Boolean) {
+        super.setCurrentItem(item, enabled)
+    }
 }
