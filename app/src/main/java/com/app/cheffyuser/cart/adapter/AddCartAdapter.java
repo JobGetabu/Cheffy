@@ -35,7 +35,7 @@ public class AddCartAdapter extends RecyclerView.Adapter<AddCartAdapter.MyViewHo
     {
 
         // infalte the item Layout
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_items2, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_cart_order_row, parent, false);
         // set the view's size, margins, paddings and layout parameters
         MyViewHolder vh = new MyViewHolder(view); // pass the view to View Holder
         return vh;
@@ -74,6 +74,7 @@ public class AddCartAdapter extends RecyclerView.Adapter<AddCartAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView txtItemName,txtPrice,txtMinus,txtPlus,txtNumber;
+
         ImageView imgFood;
         public MyViewHolder(View itemView) {
             super(itemView);

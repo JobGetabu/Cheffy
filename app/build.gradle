@@ -43,6 +43,8 @@ android {
 
     buildTypes {
         debug {
+            debuggable true
+
             versionNameSuffix ".debug"
             resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
             //signingConfig signingConfigs.debug          //GET APP signingConfig for debug

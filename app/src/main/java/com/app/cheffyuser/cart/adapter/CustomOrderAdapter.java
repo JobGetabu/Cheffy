@@ -36,7 +36,7 @@ public class CustomOrderAdapter extends RecyclerView.Adapter<CustomOrderAdapter.
     {
 
         // infalte the item Layout
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_order_row_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_custom_order_row, parent, false);
         // set the view's size, margins, paddings and layout parameters
        CustomOrderAdapter.MyViewHolder vh = new CustomOrderAdapter.MyViewHolder(view); // pass the view to View Holder
         return vh;
