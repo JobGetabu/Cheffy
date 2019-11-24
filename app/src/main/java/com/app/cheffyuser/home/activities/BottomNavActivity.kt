@@ -57,16 +57,10 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    fragment = UserHomeFragment()
-                    //loadFragment(fragment)
                     pager.currentItem = 0
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_category -> {
-
-                    fragment = FoodCategoryFragment()
-                    //loadFragment(fragment)
-
                     pager.currentItem = 1
 
                     return@OnNavigationItemSelectedListener true
@@ -80,17 +74,12 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
                 }
 
                 R.id.navigation_cart -> {
-                    //mTextMessage.setText(R.string.title_notifications);
-                    fragment = TabsFragment()
-                    //loadFragment(fragment)
 
                     pager.currentItem = 2
                     return@OnNavigationItemSelectedListener true
                 }
 
                 R.id.nav_account -> {
-                    fragment = AccountFragment()
-                    //loadFragment(fragment)
 
                     pager.currentItem = 3
                     return@OnNavigationItemSelectedListener true
@@ -129,18 +118,6 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
         pager.offscreenPageLimit = 4
         pager.currentItem = 0
-    }
-
-
-    //loadFragment function
-    private fun loadFragment(fragment: Fragment?) {
-        //switching fragment
-        if (fragment != null) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.main_frame, fragment)
-                .commit()
-        }
     }
 
 
