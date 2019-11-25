@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "422836603906",
+    "firebase_url": "https://cheffy-e9f71.firebaseio.com",
+    "project_id": "cheffy-e9f71",
+    "storage_bucket": "cheffy-e9f71.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422836603906:android:fd22a0c16ee91b22616b1b",
+        "android_client_info": {
+          "package_name": "com.app.cheffyuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422836603906-bkgcnl264q6ijh8j0tb87q2baqv55ud7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.cheffyuser",
+            "certificate_hash": "b0eeb1fad7c95f6cc5584d6cbbbd409925043845"
+          }
+        },
+        {
+          "client_id": "422836603906-3ac1i4u8p4ptl51aob4le8hmae76jj9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeHle5CvjUpU8mlK1hpeDGVmpu8kuET6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422836603906-3ac1i4u8p4ptl51aob4le8hmae76jj9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422836603906:android:6f863b9e7bef3bd3616b1b",
+        "android_client_info": {
+          "package_name": "com.cheffy.cheffy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422836603906-3ac1i4u8p4ptl51aob4le8hmae76jj9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeHle5CvjUpU8mlK1hpeDGVmpu8kuET6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422836603906-3ac1i4u8p4ptl51aob4le8hmae76jj9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

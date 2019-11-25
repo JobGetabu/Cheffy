@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/chef_pic"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/user_food2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_chef_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/sailec_medium"
+            android:text="Cheffy Bit"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/txt_price"
+            app:layout_constraintStart_toEndOf="@id/chef_pic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/sailec_medium"
+            android:text="$ 180.0"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/common"
+            layout="@layout/common_star_time_delivey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/chef_pic"
+            app:layout_constraintTop_toBottomOf="@id/txt_chef_name" />
+
+        <Button
+            android:id="@+id/btn_accept"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/roundpressedred"
+            android:fontFamily="@font/sailec_regular"
+            android:text="Accept"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_reject"
+            app:layout_constraintTop_toBottomOf="@id/common" />
+
+        <Button
+            android:id="@+id/btn_reject"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/roundpressedblack"
+            android:fontFamily="@font/sailec_regular"
+            android:text="Reject"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/common"
+
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

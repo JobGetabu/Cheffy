@@ -1,58 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.activities.MainActivity">
+    tools:context=".cart.activities.CustomOrderListActivity">
 
-    <LinearLayout
-        android:id="@+id/layout1"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="?attr/selectableItemBackground"
-        android:orientation="horizontal">
+        android:layout_height="?actionBarSize"
+        android:elevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="?attr/selectableItemBackground"
-            app:srcCompat="@drawable/ic_left"
-
-            />
-
-
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/sailec_regular"
-            android:gravity="center"
-            android:text="Apply Chef Your Order"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:layout_height="match_parent">
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/addphone_close"
+                android:layout_width="40dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:onClick="close"
+                android:scaleType="centerInside"
+                android:tint="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_left" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout1"
+            <TextView
+                style="@style/Toolbar.Black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="Apply Chef Your Order"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        android:orientation="vertical">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:itemCount="7"
+        tools:listitem="@layout/single_custom_order_list_row">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="5dp">
+    </androidx.recyclerview.widget.RecyclerView>
 
-        </androidx.recyclerview.widget.RecyclerView>
-    </LinearLayout>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
