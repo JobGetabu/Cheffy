@@ -40,6 +40,7 @@ object Constants {
 
     //parsed to gson classes
     const val PREF_USER_DATA_CLASS = "PREF_USER_DATA_CLASS"
+    const val PREF_FULLUSER_DATA_CLASS = "PREF_FULLUSER_DATA_CLASS"
     const val PREF_USER_SHIPPING_CLASS = "PREF_USER_SHIPPING_CLASS"
 
 

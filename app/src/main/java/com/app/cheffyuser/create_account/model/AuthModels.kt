@@ -1,8 +1,10 @@
 package com.app.cheffyuser.create_account.model
 
+import android.annotation.SuppressLint
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-
+import kotlinx.android.parcel.Parcelize
 
 
 enum class UserType(type: String) {
@@ -71,9 +73,11 @@ data class LoginResponse(
     val token: String? = null
 )
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class UserData(
     @SerializedName("address")
-    val address: List<Any?>? = null,
+    val address: List<ShippingResponse>? = null,
     @SerializedName("auth_token")
     val authToken: String? = null,
     @SerializedName("country_code")
@@ -118,23 +122,37 @@ data class UserData(
     val verificationPhoneStatus: String? = null,
     @SerializedName("verification_phone_token")
     val verificationPhoneToken: String? = null
-)
+) : Parcelable
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class ProfileResponse(
     @SerializedName("message")
     val message: String? = null,
     @SerializedName("data")
     val `data`: UserData? = null
+) : Parcelable
+
+data class ShippingRequest(
+    @SerializedName("addressLine1")
+    val addressLine1: String? = null,
+    @SerializedName("addressLine2")
+    val addressLine2: String? = null,
+    @SerializedName("city")
+    val city: String? = null,
+    @SerializedName("lat")
+    val lat: String? = null,
+    @SerializedName("lon")
+    val lon: String? = null,
+    @SerializedName("state")
+    val state: String? = null,
+    @SerializedName("zipCode")
+    val zipCode: String? = null
 )
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class ShippingResponse(
-    @SerializedName("message")
-    val message: String? = null,
-    @SerializedName("data")
-    val `data`: List<ShippingData>? = null
-)
-
-data class ShippingData(
     @SerializedName("addressLine1")
     val addressLine1: String? = null,
     @SerializedName("addressLine2")
@@ -155,24 +173,9 @@ data class ShippingData(
     val updatedAt: String? = null,
     @SerializedName("userId")
     val userId: Int? = null,
+    @SerializedName("UserId")
+    val userId2: Int? = null,
     @SerializedName("zipCode")
     val zipCode: String? = null
-)
-
-data class ShippingRequest(
-    @SerializedName("addressLine1")
-    val addressLine1: String? = null,
-    @SerializedName("addressLine2")
-    val addressLine2: String? = null,
-    @SerializedName("city")
-    val city: String? = null,
-    @SerializedName("lat")
-    val lat: String? = null,
-    @SerializedName("lon")
-    val lon: String? = null,
-    @SerializedName("state")
-    val state: String? = null,
-    @SerializedName("zipCode")
-    val zipCode: String? = null
-)
+) : Parcelable
 

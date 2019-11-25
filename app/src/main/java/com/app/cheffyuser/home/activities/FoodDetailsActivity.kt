@@ -8,7 +8,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
-import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.cart.activities.ItemCartActivity
 import com.app.cheffyuser.home.adapter.DetailMainbarAdapter
 import com.app.cheffyuser.home.fragments.KitchenFragment
@@ -17,7 +16,6 @@ import com.app.cheffyuser.home.fragments.ReceiptFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.profile.activities.ChefProfileActivity
 import com.app.cheffyuser.utils.Constants
-import com.app.cheffyuser.utils.TokenManager
 import com.app.cheffyuser.utils.loadUrl
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
@@ -33,8 +31,6 @@ class FoodDetailsActivity : BaseActivity() {
         fun newIntent(context: Context): Intent =
             Intent(context, FoodDetailsActivity::class.java)
     }
-
-    private val tokenManager: TokenManager = CheffyApp.instance!!.tokenManager
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(this).get(HomeViewModel::class.java)

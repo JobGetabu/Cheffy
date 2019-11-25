@@ -5,6 +5,7 @@ import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.create_account.model.AccessToken
 import com.app.cheffyuser.create_account.model.LoginResponse
 import com.app.cheffyuser.create_account.model.ShippingResponse
+import com.app.cheffyuser.create_account.model.UserData
 import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.utils.Constants.PREF_ACCESS_TOKEN
 import com.app.cheffyuser.utils.Constants.PREF_APP_VERSION
@@ -13,6 +14,7 @@ import com.app.cheffyuser.utils.Constants.PREF_CURRENT_LAT
 import com.app.cheffyuser.utils.Constants.PREF_CURRENT_LOCATION
 import com.app.cheffyuser.utils.Constants.PREF_CURRENT_LON
 import com.app.cheffyuser.utils.Constants.PREF_FIREBASE_TOKEN
+import com.app.cheffyuser.utils.Constants.PREF_FULLUSER_DATA_CLASS
 import com.app.cheffyuser.utils.Constants.PREF_LAST_ADDRESS
 import com.app.cheffyuser.utils.Constants.PREF_LAST_LAT
 import com.app.cheffyuser.utils.Constants.PREF_LAST_LOCATION
@@ -68,16 +70,28 @@ class TokenManager(private val prefs: SharedPreferences) {
             saveToken(accessToken)
         }
 
-    var shippingData: ShippingResponse?
+    var shippingData: List<ShippingResponse>?
         get() {
             val shippingString = prefs.getString(PREF_USER_SHIPPING_CLASS, null)
-            val type = object : TypeToken<ShippingResponse>() {}.type
+            val type = object : TypeToken<List<ShippingResponse>>() {}.type
             return gson.fromJson(shippingString, type)
         }
         set(shippingData) {
             val shippingString = gson.toJson(shippingData)
             editor.putString(PREF_USER_SHIPPING_CLASS, shippingString).apply()
         }
+
+    var userData: UserData?
+        get() {
+            val userString = prefs.getString(PREF_FULLUSER_DATA_CLASS, null)
+            val type = object : TypeToken<UserData>() {}.type
+            return gson.fromJson(userString, type)
+        }
+        set(userData) {
+            val shippingString = gson.toJson(userData)
+            editor.putString(PREF_FULLUSER_DATA_CLASS, shippingString).apply()
+        }
+
 
     var email: String?
         get() = prefs.getString(PREF_USER_EMAIL, null)

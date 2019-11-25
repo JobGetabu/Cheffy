@@ -59,11 +59,12 @@ class AccountFragment : BaseFragment() {
 
                 }
                 Status.SUCCESS -> {
+                    tokenManager.userData = datas?.data
 
                     datas.let {
-                        tv_user_name.text = it?.data?.name
-                        tv_user_address.text = "Birmingham"
 
+
+                        tv_user_name.text = it?.data?.name
                         user_image.loadUrl(it?.data?.imagePath, R.drawable.avatar_placeholder)
                     }
                 }
@@ -82,8 +83,10 @@ class AccountFragment : BaseFragment() {
                     createSnack(ctx = activity!!, txt = "Address can't be fetched now")
                 }
                 Status.SUCCESS -> {
+                    tokenManager.shippingData = datas
+
                     datas.let {
-                        tv_user_address.text = "${it?.data?.get(0)?.city} ${it?.data?.get(0)?.state}"
+                        tv_user_address.text = "${it?.get(0)?.city} ${it?.get(0)?.state}"
                     }
                 }
                 Status.LOADING -> {

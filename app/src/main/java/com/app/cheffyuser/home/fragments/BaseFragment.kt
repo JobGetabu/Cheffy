@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.app.cheffyuser.CheffyApp
 import com.droidnet.DroidListener
 import com.droidnet.DroidNet
 import com.labters.lottiealertdialoglibrary.DialogTypes
@@ -26,6 +27,7 @@ import com.labters.lottiealertdialoglibrary.LottieAlertDialog
 open class BaseFragment : Fragment(), DroidListener {
 
     var isConnected: Boolean = false
+    val tokenManager = CheffyApp.instance!!.tokenManager
     private lateinit var mDroidNet: DroidNet
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +54,10 @@ open class BaseFragment : Fragment(), DroidListener {
 
     //region Dialogues
 
-    fun showDialogue(title: String = "", descriptions: String = "Please wait..."): LottieAlertDialog? {
+    fun showDialogue(
+        title: String = "",
+        descriptions: String = "Please wait..."
+    ): LottieAlertDialog? {
         activity?.let {
 
             var alertDialog = LottieAlertDialog.Builder(it, DialogTypes.TYPE_LOADING)
@@ -70,7 +75,11 @@ open class BaseFragment : Fragment(), DroidListener {
         alertDialog.dismiss()
     }
 
-    fun errorDialogue(title: String = "Error", descriptions: String = "", alertDialog: LottieAlertDialog?) {
+    fun errorDialogue(
+        title: String = "Error",
+        descriptions: String = "",
+        alertDialog: LottieAlertDialog?
+    ) {
         activity?.let {
             val builder = LottieAlertDialog.Builder(it, DialogTypes.TYPE_ERROR)
                 .setTitle(title)
@@ -81,7 +90,11 @@ open class BaseFragment : Fragment(), DroidListener {
         }
     }
 
-    fun successDialogue(title: String = "Success", descriptions: String = "", alertDialog: LottieAlertDialog?) {
+    fun successDialogue(
+        title: String = "Success",
+        descriptions: String = "",
+        alertDialog: LottieAlertDialog?
+    ) {
         activity?.let {
             val builder = LottieAlertDialog.Builder(it, DialogTypes.TYPE_SUCCESS)
                 .setTitle(title)
@@ -92,7 +105,11 @@ open class BaseFragment : Fragment(), DroidListener {
         }
     }
 
-    fun warningDialogue(title: String = "Warning", descriptions: String = "", alertDialog: LottieAlertDialog?) {
+    fun warningDialogue(
+        title: String = "Warning",
+        descriptions: String = "",
+        alertDialog: LottieAlertDialog?
+    ) {
         activity?.let {
             val builder = LottieAlertDialog.Builder(it, DialogTypes.TYPE_WARNING)
                 .setTitle(title)

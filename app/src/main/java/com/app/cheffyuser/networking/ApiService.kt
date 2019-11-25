@@ -21,7 +21,7 @@ interface ApiService {
     suspend fun getUser(): ProfileResponse
 
     @GET("shipping")
-    suspend fun getShipping(): ShippingResponse
+    suspend fun getShipping(): List<ShippingResponse>
 
     @POST("shipping")
     suspend fun setShipping(shippingRequest: ShippingRequest): ShippingResponse

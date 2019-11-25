@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.lifecycle.ViewModelProviders
-import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.DetailMainbarAdapter
@@ -14,7 +13,6 @@ import com.app.cheffyuser.home.fragments.PlateFragment
 import com.app.cheffyuser.home.fragments.ReceiptFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.utils.Constants
-import com.app.cheffyuser.utils.TokenManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_chef_profile.*
@@ -27,8 +25,6 @@ class ChefProfileActivity : BaseActivity() {
         fun newIntent(context: Context): Intent =
             Intent(context, ChefProfileActivity::class.java)
     }
-
-    private val tokenManager: TokenManager = CheffyApp.instance!!.tokenManager
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(this).get(HomeViewModel::class.java)

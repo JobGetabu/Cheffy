@@ -52,11 +52,21 @@ class EditProfileActivity : BaseActivity() {
             startActivity(ForgotPasswordActivity.newIntent(this))
         }
 
+        val user = tokenManager.userData
+        val ar = tokenManager.shippingData?.get(0)
 
-        tv_user_name.text = "Iron Man"
+        tv_user_name.text = user?.name
+        tv_phone.setText(user?.phoneNo)
+        etxt_email.setText(user?.email)
+
+        val address = "${ar?.addressLine1} \n ${ar?.addressLine2} \n" +
+                "${ar?.city} ${ar?.state} \n" +
+                "Zipcode: ${ar?.zipCode}"
+
+        etxt_address.setText(address)
 
         //Loading profile
-        user_image.loadUrl("", R.drawable.avatar_placeholder)
+        user_image.loadUrl(user?.imagePath, R.drawable.avatar_placeholder)
         user_image.setOnClickListener {
             launchPhotoPicker()
         }

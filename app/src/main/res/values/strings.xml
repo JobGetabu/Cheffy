@@ -30,6 +30,7 @@
     <string name="contentdesc">content description</string>
     <string name="email_address">Email address</string>
     <string name="change_email">Change Email</string>
+    <string name="change_password">Change password</string>
     <string name="forget_password">Forget Password?</string>
     <string name="cancel">Cancel</string>
     <string name="choose_new_pass">Choose a new password</string>

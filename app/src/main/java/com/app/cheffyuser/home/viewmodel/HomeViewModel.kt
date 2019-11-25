@@ -89,7 +89,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun fetchShipping(): LiveData<Resource<ShippingResponse>> {
+    fun fetchShipping(): LiveData<Resource<List<ShippingResponse>>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchShipping()
             emit(Resource.loading(null))

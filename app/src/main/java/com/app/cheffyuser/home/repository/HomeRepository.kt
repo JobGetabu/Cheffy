@@ -107,7 +107,7 @@ class HomeRepository {
         }
     }
 
-    suspend fun fetchShipping(): Resource<ShippingResponse> {
+    suspend fun fetchShipping(): Resource<List<ShippingResponse>> {
         return try {
             val response = apiServiceAuthed.getShipping()
             responseHandler.handleSuccess(response)

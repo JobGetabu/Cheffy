@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.app.cheffyuser.CheffyApp
 import com.droidnet.DroidListener
 import com.droidnet.DroidNet
 import com.labters.lottiealertdialoglibrary.DialogTypes
@@ -19,6 +20,8 @@ import timber.log.Timber
 open class BaseActivity : AppCompatActivity(), DroidListener {
 
     var isConnected: Boolean = false
+    val tokenManager = CheffyApp.instance!!.tokenManager
+
     private lateinit var mDroidNet: DroidNet
 
     override fun onCreate(savedInstanceState: Bundle?) {
