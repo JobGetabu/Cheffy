@@ -8,6 +8,8 @@ import com.app.cheffyuser.utils.AppExecutors
 import com.app.cheffyuser.utils.ReleaseLogTree
 import com.app.cheffyuser.utils.TokenManager
 import com.droidnet.DroidNet
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import timber.log.Timber
 
 class CheffyApp : MultiDexApplication() {
@@ -40,7 +42,18 @@ class CheffyApp : MultiDexApplication() {
         //Init fb sdk
         //FacebookSdk.sdkInitialize(applicationContext)
 
-        //TODO Init Firebase notifications
+        //Init Firebase notifications
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Timber.w(task.exception)
+                    return@OnCompleteListener
+                }
+                // Get new Instance ID token
+                val token = task.result!!.token
+                tokenManager.setFireBaseToken(token)
+                Timber.d("firebase instantId => $token")
+            })
 
         //plant timber
         if (BuildConfig.DEBUG) {

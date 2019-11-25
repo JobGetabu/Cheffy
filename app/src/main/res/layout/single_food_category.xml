@@ -20,7 +20,7 @@
             android:layout_height="150dp"
             android:minWidth="150dp"
             android:minHeight="150dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/food_image2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

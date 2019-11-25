@@ -3,6 +3,7 @@
 
     <string name="facebook_app_id">552711248798322</string>
     <string name="fb_login_protocol_scheme">fb552711248798322</string>
+    <string name="default_notification_channel_id">ax.synt.dropexpress_client_app.DEFAULT</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
