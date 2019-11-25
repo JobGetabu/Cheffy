@@ -88,12 +88,12 @@
                     android:fontFamily="@font/sailec_medium"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="Hunter Cheffy"
+                    tools:text="User Name"
                     android:textColor="@color/black"
                     android:textSize="30sp" />
 
                 <LinearLayout
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/layout3"
                     android:layout_marginStart="5dp"
@@ -112,7 +112,7 @@
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_marginTop="5dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginBottom="2dp"
                             android:src="@drawable/icon_map_pin_line" />
                     </LinearLayout>
@@ -130,7 +130,7 @@
                             android:fontFamily="@font/sailec_regular"
                             android:gravity="center"
                             android:padding="2dp"
-                            android:text="2179  Brooklyn  Street"
+                            tools:text="2179  Brooklyn  Street"
                             android:textColor="#A7A7A7"
                             android:textSize="16sp" />
                     </LinearLayout>

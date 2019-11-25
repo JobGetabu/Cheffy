@@ -17,8 +17,17 @@ interface ApiService {
     @POST("user/login")
     suspend fun loginUserAccount(@Body loginRequest: LoginRequest): LoginResponse
 
+    @GET("user")
+    suspend fun getUser(): ProfileResponse
+
+    @GET("shipping")
+    suspend fun getShipping(): ShippingResponse
+
+    @POST("shipping")
+    suspend fun setShipping(shippingRequest: ShippingRequest): ShippingResponse
 
     //endregion
+
 
     //region home apis
 

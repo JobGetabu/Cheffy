@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.activities.EditProfileActivity
 import com.app.cheffyuser.profile.adapter.ProfilebarAdapter
+import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.loadUrl
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -46,11 +49,49 @@ class AccountFragment : BaseFragment() {
     private fun uiStuff() {
 
 
-        tv_user_name.text = "Iron Man"
-        tv_user_address.text = "Birmingham"
+        vm.fetchUser().observe(this, Observer { dt ->
+            val datas = dt.data
 
-        user_image.loadUrl("", R.drawable.avatar_placeholder)
+            when (dt.status) {
+                Status.ERROR -> {
 
+                    createSnack(ctx = activity!!, txt = "User can't be fetched now")
+
+                }
+                Status.SUCCESS -> {
+
+                    datas.let {
+                        tv_user_name.text = it?.data?.name
+                        tv_user_address.text = "Birmingham"
+
+                        user_image.loadUrl(it?.data?.imagePath, R.drawable.avatar_placeholder)
+                    }
+                }
+                Status.LOADING -> {
+                    //still loading data
+                }
+            }
+
+        })
+
+        vm.fetchShipping().observe(this, Observer {
+            val datas = it.data
+
+            when (it.status) {
+                Status.ERROR -> {
+                    createSnack(ctx = activity!!, txt = "Address can't be fetched now")
+                }
+                Status.SUCCESS -> {
+                    datas.let {
+                        tv_user_address.text = "${it?.data?.get(0)?.city} ${it?.data?.get(0)?.state}"
+                    }
+                }
+                Status.LOADING -> {
+                    //still loading data
+                }
+            }
+
+        })
 
         img_profile_edit.setOnClickListener {
             val intent = Intent(activity, EditProfileActivity::class.java)

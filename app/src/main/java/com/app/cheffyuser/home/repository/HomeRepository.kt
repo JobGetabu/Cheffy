@@ -1,6 +1,9 @@
 package com.app.cheffyuser.home.repository
 
 import com.app.cheffyuser.CheffyApp
+import com.app.cheffyuser.create_account.model.ProfileResponse
+import com.app.cheffyuser.create_account.model.ShippingRequest
+import com.app.cheffyuser.create_account.model.ShippingResponse
 import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.model.PlatesResponse
@@ -89,6 +92,39 @@ class HomeRepository {
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun fetchUser(): Resource<ProfileResponse> {
+        return try {
+            val response = apiServiceAuthed.getUser()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e,"")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun fetchShipping(): Resource<ShippingResponse> {
+        return try {
+            val response = apiServiceAuthed.getShipping()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e,"")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun setShipping(shippingRequest: ShippingRequest): Resource<ShippingResponse> {
+        return try {
+            val response = apiServiceAuthed.setShipping(shippingRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e,"")
             responseHandler.handleException(e)
         }
     }

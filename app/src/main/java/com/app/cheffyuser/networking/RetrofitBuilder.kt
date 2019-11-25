@@ -28,7 +28,7 @@ object RetrofitBuilder {
                 var request = chain.request()
 
                 val builder1 = request.newBuilder()
-                    .addHeader("Accept", "application/json")
+                    .addHeader("Content-Type", "application/json")
                     .addHeader("Connection", "close")
 
                 request = builder1.build()
@@ -75,7 +75,8 @@ object RetrofitBuilder {
             if (tokenManager.token.accessToken != null) {
                 val token = tokenManager.token.accessToken
                 Timber.d(tokenManager.token.accessToken)
-                builder.addHeader("Authorization", "Bearer $token")
+                builder.addHeader("Content-Type", "application/json")
+                       .addHeader("x-access-token", "$token")
             }
             request = builder.build()
             chain.proceed(request)

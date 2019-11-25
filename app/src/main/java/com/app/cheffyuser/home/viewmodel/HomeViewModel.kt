@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.app.cheffyuser.create_account.model.ProfileResponse
+import com.app.cheffyuser.create_account.model.ShippingRequest
+import com.app.cheffyuser.create_account.model.ShippingResponse
 import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.model.PlatesResponse
@@ -73,6 +76,30 @@ class HomeViewModel : ViewModel() {
     fun fetchFoodCategory(): LiveData<Resource<MutableList<FoodCatModel>>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchFoodCategory()
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun fetchUser(): LiveData<Resource<ProfileResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.fetchUser()
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun fetchShipping(): LiveData<Resource<ShippingResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.fetchShipping()
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun setShipping(shippingRequest: ShippingRequest): LiveData<Resource<ShippingResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.setShipping(shippingRequest)
             emit(Resource.loading(null))
             emit(data)
         }

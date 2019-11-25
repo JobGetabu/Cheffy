@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.create_account.model.AccessToken
 import com.app.cheffyuser.create_account.model.LoginResponse
+import com.app.cheffyuser.create_account.model.ShippingResponse
 import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.utils.Constants.PREF_ACCESS_TOKEN
 import com.app.cheffyuser.utils.Constants.PREF_APP_VERSION
@@ -22,6 +23,7 @@ import com.app.cheffyuser.utils.Constants.PREF_REFRESH_TOKEN
 import com.app.cheffyuser.utils.Constants.PREF_USER_DATA_CLASS
 import com.app.cheffyuser.utils.Constants.PREF_USER_EMAIL
 import com.app.cheffyuser.utils.Constants.PREF_USER_ISLOGIN
+import com.app.cheffyuser.utils.Constants.PREF_USER_SHIPPING_CLASS
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -66,6 +68,16 @@ class TokenManager(private val prefs: SharedPreferences) {
             saveToken(accessToken)
         }
 
+    var shippingData: ShippingResponse?
+        get() {
+            val shippingString = prefs.getString(PREF_USER_SHIPPING_CLASS, null)
+            val type = object : TypeToken<ShippingResponse>() {}.type
+            return gson.fromJson(shippingString, type)
+        }
+        set(shippingData) {
+            val shippingString = gson.toJson(shippingData)
+            editor.putString(PREF_USER_SHIPPING_CLASS, shippingString).apply()
+        }
 
     var email: String?
         get() = prefs.getString(PREF_USER_EMAIL, null)
