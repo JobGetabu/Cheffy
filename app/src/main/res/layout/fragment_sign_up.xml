@@ -111,9 +111,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/round_border_blue"
-                    android:drawableLeft="@drawable/ic_facebook_logo"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="10dp"
+                    android:drawableStart="@drawable/ic_facebook_logo"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
                     android:text="Facebook"
                     android:textColor="@color/white" />
             </com.balysv.materialripple.MaterialRippleLayout>
@@ -131,10 +131,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/round_border"
-                    android:drawableLeft="@drawable/ic_search"
+                    android:drawableStart="@drawable/ic_search"
                     android:fontFamily="@font/sailec_medium"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="10dp"
                     android:text="Google " />
             </com.balysv.materialripple.MaterialRippleLayout>
         </LinearLayout>

@@ -48,7 +48,6 @@
                     android:id="@+id/layout2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/layout1"
                     android:layout_marginTop="30dp"
                     android:orientation="vertical">
 
@@ -125,7 +124,6 @@
                     android:id="@+id/layout3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/layout2"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="30dp"
@@ -160,7 +158,6 @@
                     android:id="@+id/layout4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/layout2"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
@@ -175,10 +172,11 @@
                         android:elevation="10dp"
                         android:fontFamily="@font/sailec_medium"
                         android:text="@string/change_email"
+                        android:onClick="close"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
                         android:textAllCaps="false"
-                        android:textColor="#090909"
+                        android:textColor="@color/textPrimaryColor"
                         android:textSize="18sp" />
 
                 </LinearLayout>
@@ -205,7 +203,7 @@
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
                         android:textAllCaps="false"
-                        android:textColor="#090909"
+                        android:textColor="@color/textPrimaryColor"
                         android:textSize="18sp" />
 
                 </LinearLayout>
