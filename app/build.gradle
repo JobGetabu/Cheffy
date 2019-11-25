@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
 
 // Production keystore
 def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -47,7 +48,7 @@ android {
             debuggable true
 
             versionNameSuffix ".debug"
-            resValue("bool", "FIREBASE_CRASH_ENABLED", "false")
+            resValue("bool", "FIREBASE_CRASH_ENABLED", "true")
             //signingConfig signingConfigs.debug          //GET APP signingConfig for debug
         }
 
@@ -118,6 +119,7 @@ dependencies {
     //firebase
     implementation 'com.google.firebase:firebase-core:17.2.1'
     implementation  'com.google.firebase:firebase-messaging:20.0.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
 
     testImplementation 'junit:junit:4.12'
