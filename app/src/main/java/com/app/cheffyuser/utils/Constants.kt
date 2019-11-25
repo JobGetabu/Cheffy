@@ -38,5 +38,8 @@ object Constants {
     //intent extras
     const val PLATES_RESPONSE_EXTRA = "PLATES_RESPONSE_EXTRA"
 
+    //parsed to gson classes
+    const val PREF_USER_DATA_CLASS = "PREF_USER_DATA_CLASS"
+
 
 }

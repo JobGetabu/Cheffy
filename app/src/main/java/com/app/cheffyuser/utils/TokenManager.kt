@@ -3,6 +3,7 @@ package com.app.cheffyuser.utils
 import android.content.SharedPreferences
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.create_account.model.AccessToken
+import com.app.cheffyuser.create_account.model.LoginResponse
 import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.utils.Constants.PREF_ACCESS_TOKEN
 import com.app.cheffyuser.utils.Constants.PREF_APP_VERSION
@@ -18,8 +19,11 @@ import com.app.cheffyuser.utils.Constants.PREF_LAST_LON
 import com.app.cheffyuser.utils.Constants.PREF_LAUNCH_TIMES
 import com.app.cheffyuser.utils.Constants.PREF_PHONE_NUMBER
 import com.app.cheffyuser.utils.Constants.PREF_REFRESH_TOKEN
+import com.app.cheffyuser.utils.Constants.PREF_USER_DATA_CLASS
 import com.app.cheffyuser.utils.Constants.PREF_USER_EMAIL
 import com.app.cheffyuser.utils.Constants.PREF_USER_ISLOGIN
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 
 /**
@@ -32,6 +36,7 @@ import com.app.cheffyuser.utils.Constants.PREF_USER_ISLOGIN
 class TokenManager(private val prefs: SharedPreferences) {
 
     private val editor: SharedPreferences.Editor = prefs.edit()
+    private val gson: Gson = Gson()
 
     val token: AccessToken
         get() {
@@ -44,6 +49,22 @@ class TokenManager(private val prefs: SharedPreferences) {
 
     val isLoggedIn: Boolean
         get() = prefs.getBoolean(PREF_USER_ISLOGIN, false)
+
+    var user: LoginResponse?
+        get() {
+            val userDataString = prefs.getString(PREF_USER_DATA_CLASS, null)
+            val type = object : TypeToken<LoginResponse>() {}.type
+            return gson.fromJson(userDataString, type)
+        }
+        set(user) {
+            val userDataString = gson.toJson(user)
+            editor.putString(PREF_USER_DATA_CLASS, userDataString).apply()
+
+            val accessToken = AccessToken()
+            accessToken.accessToken = user?.token
+            accessToken.refreshToken = user?.token
+            saveToken(accessToken)
+        }
 
 
     var email: String?

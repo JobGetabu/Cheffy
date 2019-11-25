@@ -1,8 +1,6 @@
 package com.app.cheffyuser.networking
 
-import com.app.cheffyuser.create_account.model.AccessToken
-import com.app.cheffyuser.create_account.model.SignupRequest
-import com.app.cheffyuser.create_account.model.SignupResponse
+import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.model.PlatesResponse
@@ -15,6 +13,10 @@ interface ApiService {
 
     @POST("user")
     suspend fun createUserAccount(@Body signupRequest: SignupRequest): SignupResponse
+
+    @POST("user/login")
+    suspend fun loginUserAccount(@Body loginRequest: LoginRequest): LoginResponse
+
 
     //endregion
 

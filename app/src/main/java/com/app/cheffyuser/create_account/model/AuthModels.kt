@@ -3,6 +3,7 @@ package com.app.cheffyuser.create_account.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+
 enum class UserType(type: String) {
     USER("user"),
     CHEF("chef")
@@ -62,3 +63,58 @@ data class LoginRequest(
     val password: String
 )
 
+data class LoginResponse(
+    @SerializedName("data")
+    val `data`: Data? = null,
+    @SerializedName("token")
+    val token: String? = null
+) {
+    data class Data(
+        @SerializedName("address")
+        val address: List<Any?>? = null,
+        @SerializedName("auth_token")
+        val authToken: String? = null,
+        @SerializedName("country_code")
+        val countryCode: String? = null,
+        @SerializedName("createdAt")
+        val createdAt: String? = null,
+        @SerializedName("email")
+        val email: String? = null,
+        @SerializedName("id")
+        val id: Int? = null,
+        @SerializedName("imagePath")
+        val imagePath: String? = null,
+        @SerializedName("location_lat")
+        val locationLat: String? = null,
+        @SerializedName("location_lon")
+        val locationLon: String? = null,
+        @SerializedName("name")
+        val name: String? = null,
+        @SerializedName("password")
+        val password: String? = null,
+        @SerializedName("phone_no")
+        val phoneNo: String? = null,
+        @SerializedName("restaurant_name")
+        val restaurantName: String? = null,
+        @SerializedName("status")
+        val status: String? = null,
+        @SerializedName("stripe_id")
+        val stripeId: String? = null,
+        @SerializedName("updatedAt")
+        val updatedAt: String? = null,
+        @SerializedName("user_ip")
+        val userIp: String? = null,
+        @SerializedName("user_type")
+        val userType: String? = null,
+        @SerializedName("verification_code")
+        val verificationCode: String? = null,
+        @SerializedName("verification_email_status")
+        val verificationEmailStatus: String? = null,
+        @SerializedName("verification_email_token")
+        val verificationEmailToken: String? = null,
+        @SerializedName("verification_phone_status")
+        val verificationPhoneStatus: String? = null,
+        @SerializedName("verification_phone_token")
+        val verificationPhoneToken: String? = null
+    )
+}

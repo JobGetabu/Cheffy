@@ -9,6 +9,8 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.TypedValue
@@ -171,7 +173,13 @@ object Tools {
 
     fun dpToPx(c: Context, dp: Int): Int {
         val r = c.resources
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), r.displayMetrics))
+        return Math.round(
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp.toFloat(),
+                r.displayMetrics
+            )
+        )
     }
 
     fun dipToPixels(context: Context, dipValue: Float): Float {
@@ -265,7 +273,8 @@ object Tools {
         var deviceID: String? = Build.SERIAL
         if (deviceID == null || deviceID.trim { it <= ' ' }.isEmpty() || deviceID == "unknown") {
             try {
-                deviceID = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+                deviceID =
+                    Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
             } catch (e: Exception) {
             }
 
@@ -357,4 +366,14 @@ object Tools {
             }).check()
     }
 
+    fun shortVibration(ctx: Context) {
+        val v = ctx.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        // Vibrate for 500 milliseconds
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            //deprecated in API 26
+            v.vibrate(500)
+        }
+    }
 }

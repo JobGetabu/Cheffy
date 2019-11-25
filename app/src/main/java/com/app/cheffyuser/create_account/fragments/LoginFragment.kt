@@ -10,13 +10,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.R
 import com.app.cheffyuser.create_account.activities.ForgotPasswordActivity
-import com.app.cheffyuser.create_account.model.SignupRequest
-import com.app.cheffyuser.create_account.model.UserType
+import com.app.cheffyuser.create_account.model.LoginRequest
 import com.app.cheffyuser.create_account.social.FacebookManager
 import com.app.cheffyuser.create_account.social.GoogleManager
 import com.app.cheffyuser.create_account.viewmodel.AuthViewModel
+import com.app.cheffyuser.home.activities.BottomNavActivity
 import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.createSnack
@@ -35,6 +36,7 @@ class LoginFragment : BaseFragment() {
 
     companion object {
         const val EMAIL_EXTRA: String = "EMAIL_EXTRA"
+        const val CHECKOUT_IN_PROGRESS: String = "CHECKOUT_IN_PROGRESS"
         private const val RC_SIGN_IN = 1
     }
 
@@ -42,7 +44,8 @@ class LoginFragment : BaseFragment() {
     private var signInOptions: GoogleSignInOptions? = null
     private var googleSignInClient: GoogleSignInClient? = null
     private var alertDialog: LottieAlertDialog? = null
-
+    private val tm = CheffyApp.instance!!.tokenManager
+    private var checkoutInProgress = false
 
     private val vm: AuthViewModel by lazy {
         ViewModelProviders.of(getActivity()!!).get(AuthViewModel::class.java)
@@ -68,6 +71,7 @@ class LoginFragment : BaseFragment() {
             facebookManager = FacebookManager(it.applicationContext)
         }
 
+        checkoutInProgress = activity!!.intent.getBooleanExtra(CHECKOUT_IN_PROGRESS, false)
     }
 
     private fun uiStaff() {
@@ -89,10 +93,43 @@ class LoginFragment : BaseFragment() {
     }
 
 
+    private fun validate(): Boolean {
+        var valid = true
+
+        val email = etEmail?.editText?.text.toString().trim()
+        val password = etPassword?.editText?.text.toString().trim()
+
+        if (email.isEmpty() or !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etEmail.isErrorEnabled = true
+            etEmail.error = "Enter valid email address"
+            valid = false
+        } else {
+            etEmail.error = null
+            valid = true
+        }
+
+        if (password.length < 6) {
+            etPassword.isErrorEnabled = true
+            etPassword?.error = "at least 6 characters"
+            valid = false
+        } else {
+            etPassword.error = null
+            valid = true
+        }
+
+        Timber.d("validate => $valid ")
+
+        return valid
+    }
+
     private fun login() {
 
-        val email = etEmail?.editText.toString().trim()
-        val password = etPassword?.editText.toString().trim()
+        val email = etEmail?.editText?.text.toString().trim()
+        val password = etPassword?.editText?.text.toString().trim()
+
+        if (!validate()) {
+            return
+        }
 
         if (!isConnected) {
             activity?.let {
@@ -105,20 +142,33 @@ class LoginFragment : BaseFragment() {
 
         val dialog = showDialogue("Logging in", "Please wait ...")
 
-        //test coroutine call
+        val loginReq = LoginRequest(email, password)
 
-        val signupRequest = SignupRequest("name", "$email", UserType.USER, "$password")
-
-        vm.createAccount(signupRequest).observe(this, Observer {
+        vm.loginUser(loginReq).observe(this, Observer {
             when (it.status) {
                 Status.ERROR -> {
                     errorDialogue("Error", "User or password is invalid!", dialog!!)
                 }
                 Status.SUCCESS -> {
                     successDialogue(alertDialog = dialog)
-                    //dialog?.dismiss()
-                    //TODO: Go to next screen
-                    //TODO: Update
+
+                    val res = it.data
+
+                    //save in prefs
+                    tm.user = res
+
+                    if (checkoutInProgress) {
+
+                    } else {
+
+                        startActivity(BottomNavActivity.newIntent(context!!).apply {
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
+                        })
+                    }
+
+                    activity!!.finish()
+
+                    //TODO: test this flow
                 }
                 Status.LOADING -> {
                     //still loading data
@@ -153,7 +203,7 @@ class LoginFragment : BaseFragment() {
     }
 
 
-    private fun facebookLogin(){
+    private fun facebookLogin() {
         if (!isConnected) {
             activity?.let {
                 createSnack(
@@ -167,7 +217,7 @@ class LoginFragment : BaseFragment() {
 
         facebookManager!!.login(activity!!, object : FacebookManager.FacebookLoginListener {
             override fun onSuccess() {
-                Toast.makeText(activity!!, "Welcome "  + " !", Toast.LENGTH_SHORT)
+                Toast.makeText(activity!!, "Welcome " + " !", Toast.LENGTH_SHORT)
                     .show()
 
                 facebookManager!!.clearSession()
@@ -180,7 +230,7 @@ class LoginFragment : BaseFragment() {
 
             override fun onError(message: String) {
 
-                errorDialogue(alertDialog= alertDialog, descriptions = message)
+                errorDialogue(alertDialog = alertDialog, descriptions = message)
                 Timber.d(message)
             }
         })
@@ -214,11 +264,11 @@ class LoginFragment : BaseFragment() {
                         }
 
                         override fun onError(message: String) {
-                            errorDialogue(alertDialog= alertDialog, descriptions = message)
+                            errorDialogue(alertDialog = alertDialog, descriptions = message)
                         }
                     })
                 } else {
-                    errorDialogue(alertDialog= alertDialog)
+                    errorDialogue(alertDialog = alertDialog)
 
                     Timber.d(task1.exception)
                     Timber.e("onActivityResult:failed " + task1.exception!!.message)

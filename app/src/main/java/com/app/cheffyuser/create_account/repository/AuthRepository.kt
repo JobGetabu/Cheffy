@@ -1,6 +1,8 @@
 package com.app.cheffyuser.create_account.repository
 
 import com.app.cheffyuser.CheffyApp
+import com.app.cheffyuser.create_account.model.LoginRequest
+import com.app.cheffyuser.create_account.model.LoginResponse
 import com.app.cheffyuser.create_account.model.SignupRequest
 import com.app.cheffyuser.create_account.model.SignupResponse
 import com.app.cheffyuser.networking.ApiService
@@ -24,12 +26,20 @@ class AuthRepository {
         responseHandler = ResponseHandler()
     }
 
-    suspend fun createUserAccounts(signupRequest: SignupRequest) =
-        apiService.createUserAccount(signupRequest)
-
     suspend fun createUserAccount(signupRequest: SignupRequest): Resource<SignupResponse> {
         return try {
             val response = apiService.createUserAccount(signupRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e,"")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun loginUserAccount(loginRequest: LoginRequest): Resource<LoginResponse> {
+        return try {
+            val response = apiService.loginUserAccount(loginRequest)
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
