@@ -3,7 +3,7 @@ package com.app.cheffyuser.create_account.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class AccessToken {
+class AccessToken() {
     @SerializedName("token_type")
     @Expose
     var tokenType: String? = null
@@ -19,4 +19,9 @@ class AccessToken {
     @SerializedName("refresh_token")
     @Expose
     var refreshToken: String? = null
+
+    constructor(accessToken: String?) : this() {
+        this.accessToken = accessToken
+        this.refreshToken = accessToken
+    }
 }

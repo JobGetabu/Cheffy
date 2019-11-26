@@ -51,7 +51,7 @@
                 android:background="@drawable/round_rect_white">
 
                 <Button
-                    android:id="@+id/txt_next"
+                    android:id="@+id/btn_next"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_bg_default"

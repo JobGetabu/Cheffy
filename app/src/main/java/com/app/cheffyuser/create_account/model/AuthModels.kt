@@ -13,10 +13,7 @@ enum class UserType(type: String) {
 }
 
 data class SignupRequest(
-    val name: String,
-    val email: String,
-    val user_type: UserType,
-    val password: String
+    val email: String
 )
 
 data class SignupResponse(
@@ -179,3 +176,31 @@ data class ShippingResponse(
     val zipCode: String? = null
 ) : Parcelable
 
+
+data class VerifyRequest(
+    val email: String?,
+    val emailToken: String?
+)
+
+data class VerifyResponse(
+    @SerializedName("message")
+    val message: String? = null,
+    @SerializedName("status")
+    val status: Int? = null
+)
+
+data class RegistrationRequest(
+    val email: String?,
+    val name: String?,
+    val password: String?,
+    val userType: String = UserType.USER.name
+)
+
+data class RegistrationResponse(
+    @SerializedName("message")
+    val message: String? = null,
+    @SerializedName("status")
+    val status: String? = null,
+    @SerializedName("result")
+    val `data`: UserData? = null
+)

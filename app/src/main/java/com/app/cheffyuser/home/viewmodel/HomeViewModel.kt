@@ -108,7 +108,6 @@ class HomeViewModel : ViewModel() {
     //region foodDetails data
 
 
-
     var platesResponse: MediatorLiveData<PlatesResponse?> = MediatorLiveData()
 
 
