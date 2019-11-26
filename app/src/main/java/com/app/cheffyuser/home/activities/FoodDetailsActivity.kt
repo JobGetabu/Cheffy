@@ -13,6 +13,7 @@ import com.app.cheffyuser.home.adapter.DetailMainbarAdapter
 import com.app.cheffyuser.home.fragments.KitchenFragment
 import com.app.cheffyuser.home.fragments.PlateFragment
 import com.app.cheffyuser.home.fragments.ReceiptFragment
+import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.profile.activities.ChefProfileActivity
 import com.app.cheffyuser.utils.Constants
@@ -56,6 +57,11 @@ class FoodDetailsActivity : BaseActivity() {
         //get passed data
         vm.platesResponse.value =
             intent.getParcelableExtra(Constants.PLATES_RESPONSE_EXTRA)
+
+        val test: PlatesResponse = vm.platesResponse.value as PlatesResponse
+
+        Timber.d("${test}")
+        Timber.d("plate ID = ${test.id.toString()}")
 
         uiStuff()
 
@@ -172,7 +178,6 @@ class FoodDetailsActivity : BaseActivity() {
     private val onOffsetChangedListener =
         AppBarLayout.OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
 
-            Timber.d("appbar verticalOffset => $verticalOffset")
 
             when {
                 abs(verticalOffset) == appBarLayout.totalScrollRange -> // Collapsed

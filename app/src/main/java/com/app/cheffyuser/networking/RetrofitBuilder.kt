@@ -1,5 +1,6 @@
 package com.app.cheffyuser.networking
 
+import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.utils.AppExecutors
 import com.app.cheffyuser.utils.TokenManager
 import okhttp3.OkHttpClient
@@ -40,8 +41,11 @@ object RetrofitBuilder {
                 appExecutors.mainThread().execute {
                     ///catch unauthenticated users
                     if (response.code() == 401) {
-                        //TODO. Intercept any unauthenticated request in app
-                        //Force to sign in again
+                        //Intercept any unauthenticated request in app
+
+                        val tm = CheffyApp.instance!!.tokenManager
+                        tm.deleteIsLoggedIn()
+                        tm.deleteToken()
                     }
                 }
 
@@ -76,15 +80,12 @@ object RetrofitBuilder {
                 val token = tokenManager.token.accessToken
                 Timber.d(tokenManager.token.accessToken)
                 builder.addHeader("Content-Type", "application/json")
-                       .addHeader("x-access-token", "$token")
+                if (!token.isNullOrEmpty())
+                    builder.addHeader("x-access-token", "$token")
             }
             request = builder.build()
             chain.proceed(request)
-        }.authenticator(
-            CustomAuthenticator.getInstance(
-                tokenManager
-            )
-        ).build()
+        }.build()
 
         val newRetrofit = retrofit.newBuilder().client(newClient).build()
         return newRetrofit.create(service)

@@ -5,6 +5,8 @@ import com.app.cheffyuser.create_account.model.ProfileResponse
 import com.app.cheffyuser.create_account.model.ShippingRequest
 import com.app.cheffyuser.create_account.model.ShippingResponse
 import com.app.cheffyuser.food_category.model.FoodCatModel
+import com.app.cheffyuser.home.model.AddToBasketRequest
+import com.app.cheffyuser.home.model.AddToBasketResponse
 import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.networking.ApiService
@@ -102,7 +104,7 @@ class HomeRepository {
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
-            Timber.tag("HTTP").e(e,"")
+            Timber.tag("HTTP").e(e, "")
             responseHandler.handleException(e)
         }
     }
@@ -113,7 +115,7 @@ class HomeRepository {
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
-            Timber.tag("HTTP").e(e,"")
+            Timber.tag("HTTP").e(e, "")
             responseHandler.handleException(e)
         }
     }
@@ -124,9 +126,25 @@ class HomeRepository {
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
-            Timber.tag("HTTP").e(e,"")
+            Timber.tag("HTTP").e(e, "")
             responseHandler.handleException(e)
         }
     }
+
+    //Region Basket
+
+
+    suspend fun addToBasket(addToBasketRequest: AddToBasketRequest): Resource<List<AddToBasketResponse>> {
+        return try {
+            val response = apiServiceAuthed.addToBasket(addToBasketRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    //end Region
 
 }

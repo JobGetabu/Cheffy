@@ -1,7 +1,6 @@
 package com.app.cheffyuser.networking
 
 
-
 import com.app.cheffyuser.utils.TokenManager
 import okhttp3.Authenticator
 import okhttp3.Request
@@ -10,7 +9,13 @@ import okhttp3.Route
 
 import java.io.IOException
 
-class CustomAuthenticator private constructor(private val tokenManager: TokenManager) : Authenticator {
+/**
+ * Cheffy Apis don't currently support Refreshing token
+ * for now
+ *
+ */
+class CustomAuthenticator private constructor(private val tokenManager: TokenManager) :
+    Authenticator {
 
     @Throws(IOException::class)
     override fun authenticate(route: Route?, response: Response): Request? {
@@ -29,7 +34,8 @@ class CustomAuthenticator private constructor(private val tokenManager: TokenMan
             val newAccessToken = res.body()
             tokenManager.saveToken(newAccessToken!!)
 
-            return response.request().newBuilder().header("Authorization", "Bearer " + res.body()!!.accessToken!!)
+            return response.request().newBuilder()
+                .header("x-access-token", res.body()!!.accessToken!!)
                 .build()
         } else {
             return null

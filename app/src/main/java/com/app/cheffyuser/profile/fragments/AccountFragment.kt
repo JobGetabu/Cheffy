@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
@@ -28,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_user_main.*
 class AccountFragment : BaseFragment() {
 
     private val vm: HomeViewModel by lazy {
-        ViewModelProviders.of(getActivity()!!).get(HomeViewModel::class.java)
+        ViewModelProviders.of(activity!!).get(HomeViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -55,7 +56,8 @@ class AccountFragment : BaseFragment() {
             when (dt.status) {
                 Status.ERROR -> {
 
-                    createSnack(ctx = activity!!, txt = "User can't be fetched now")
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = activity!!, txt = "User can't be fetched now")
 
                 }
                 Status.SUCCESS -> {
@@ -80,13 +82,16 @@ class AccountFragment : BaseFragment() {
 
             when (it.status) {
                 Status.ERROR -> {
-                    createSnack(ctx = activity!!, txt = "Address can't be fetched now")
+
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = activity!!, txt = "Address can't be fetched now")
                 }
                 Status.SUCCESS -> {
                     tokenManager.shippingData = datas
 
                     datas.let {
-                        tv_user_address.text = "${it?.get(0)?.city} ${it?.get(0)?.state}"
+                        if (!datas.isNullOrEmpty())
+                            tv_user_address.text = "${it?.get(0)?.city} ${it?.get(0)?.state}"
                     }
                 }
                 Status.LOADING -> {

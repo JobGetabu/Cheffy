@@ -2,6 +2,8 @@ package com.app.cheffyuser.networking
 
 import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.food_category.model.FoodCatModel
+import com.app.cheffyuser.home.model.AddToBasketRequest
+import com.app.cheffyuser.home.model.AddToBasketResponse
 import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.model.PlatesResponse
 import retrofit2.Call
@@ -58,6 +60,13 @@ interface ApiService {
     suspend fun getFoodCategory(): MutableList<FoodCatModel>
 
     //endregion
+
+    //Region Basket API
+
+    @POST("basket")
+    suspend fun addToBasket(@Body addToBasketRequest: AddToBasketRequest): List<AddToBasketResponse>
+
+    //end region
 
     @POST("refresh")
     @FormUrlEncoded
