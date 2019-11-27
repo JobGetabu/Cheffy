@@ -47,12 +47,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/save_btn"
                 style="@style/Toolbar.Black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/sailec_medium"
-                android:onClick="close"
                 android:text="Save"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -65,7 +65,7 @@
 
 
     <fragment
-        android:id="@+id/map"
+        android:id="@+id/mMap"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -89,8 +89,8 @@
         android:textColor="@color/textPrimaryColor"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/map"
-        app:layout_constraintTop_toTopOf="@+id/map" />
+        app:layout_constraintStart_toEndOf="@id/mMap"
+        app:layout_constraintTop_toTopOf="@+id/mMap" />
 
 
     <TextView
@@ -108,10 +108,11 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@id/map"
+        app:layout_constraintStart_toEndOf="@id/mMap"
         app:layout_constraintTop_toBottomOf="@+id/primary_txt" />
 
     <TextView
+        android:id="@+id/edit_location"
         style="@style/Toolbar.Black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -124,7 +125,7 @@
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/map"
+        app:layout_constraintStart_toEndOf="@+id/mMap"
         app:layout_constraintTop_toBottomOf="@+id/primary_txt2" />
 
 
@@ -139,7 +140,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/map">
+        app:layout_constraintTop_toBottomOf="@id/mMap">
 
         <LinearLayout
             android:layout_width="match_parent"

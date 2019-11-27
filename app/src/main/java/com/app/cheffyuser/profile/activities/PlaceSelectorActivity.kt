@@ -66,7 +66,7 @@ class PlaceSelectorActivity : AppCompatActivity() {
         places_autocomplete_edit_text.requestFocus()
 
         if (isDrop) {
-            extraplace_title.text = "Add Default Pickup"
+            extraplace_title.text = "Add Shipping Drop-off"
         }
 
         placesAdapter = PlacesPredAdapter(this, placesClient, object : RecyclerPlaceClickListener {

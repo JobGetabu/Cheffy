@@ -131,20 +131,13 @@ data class ProfileResponse(
 ) : Parcelable
 
 data class ShippingRequest(
-    @SerializedName("addressLine1")
-    val addressLine1: String? = null,
-    @SerializedName("addressLine2")
-    val addressLine2: String? = null,
-    @SerializedName("city")
-    val city: String? = null,
-    @SerializedName("lat")
-    val lat: String? = null,
-    @SerializedName("lon")
-    val lon: String? = null,
-    @SerializedName("state")
-    val state: String? = null,
-    @SerializedName("zipCode")
-    val zipCode: String? = null
+    var addressLine1: String? = null,
+    var addressLine2: String? = null,
+    var city: String? = null,
+    var lat: String? = null,
+    var lon: String? = null,
+    var state: String? = null,
+    var zipCode: String? = null
 )
 
 @SuppressLint("ParcelCreator")

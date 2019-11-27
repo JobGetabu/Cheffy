@@ -232,8 +232,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
         val newFragment = NoNetworkDialogue()
         newFragment.setOnNetListener(object : NoNetListener {
             override fun onNetComeBack() {
-                toast("Recreate this activity")
-                recreate()
+                toast("TODO: test if Recreate this activity is actually necessary")
+                //recreate()
             }
         })
 

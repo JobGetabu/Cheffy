@@ -86,4 +86,12 @@
         <item name="android:visibility">gone</item>
     </style>
 
+    <style name="RippleStyleDefault">
+        <item name="mrl_rippleOverlay">true</item>
+        <item name="mrl_rippleColor">@color/trans_greyish</item>
+        <item name="mrl_rippleDimension">10dp</item>
+        <item name="mrl_rippleHover">true</item>
+        <item name="mrl_rippleAlpha">0.2</item>
+    </style>
+
 </resources>

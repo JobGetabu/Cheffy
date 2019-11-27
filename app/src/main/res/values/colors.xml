@@ -76,4 +76,8 @@
     <color name="colorPrimaryPix">@color/colorPrimary</color>
     <color name="colorPrimaryLightPix">@color/colorPrimaryDark</color>
 
+    <color name="trans_bluish">#1203FF64</color>
+    <color name="trans_greyish">#12038DCF</color>
+    <color name="trans_primbluish">#1295413A</color>
+
 </resources>
