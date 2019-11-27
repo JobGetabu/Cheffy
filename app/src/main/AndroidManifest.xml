@@ -36,6 +36,7 @@
         <activity android:name=".create_account.activities.SetPasswordActivity" />
         <activity android:name=".create_account.activities.VerifyEmailActivity" />
         <activity android:name=".create_account.activities.ForgotPasswordActivity" />
+        <activity android:name=".profile.activities.PlaceSelectorActivity"/>
         <activity android:name=".home.activities.BaseActivity" />
         <activity android:name=".custom_order.OrderCompleteActivity" />
         <activity android:name=".custom_order.CustomOrderPostActivity" />

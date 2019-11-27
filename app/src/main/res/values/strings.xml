@@ -48,5 +48,7 @@
     <string name="name_of_your_food">Name of your food</string>
     <string name="food_description">Food Description</string>
     <string name="cannot_connect">Can\'t connect</string>
+    <string name="primary_text">primary text</string>
+    <string name="secondary_text">secondary text</string>
 
 </resources>

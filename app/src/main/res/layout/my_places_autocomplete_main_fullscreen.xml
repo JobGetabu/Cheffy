@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgColor"
+        android:layoutDirection="locale"
+        android:textDirection="locale"
+        tools:context=".profile.activities.PlaceSelectorActivity"
+        tools:ignore="UnusedAttribute">
+
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/bgColorBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bgColorBar">
+
+            <ImageButton
+                    android:id="@+id/toolbar_close"
+                    android:layout_width="40dp"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginStart="8dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_left" />
+
+            <TextView
+                    android:id="@+id/extraplace_title"
+                    style="@style/Toolbar.Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:text="Search your location"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <View
+            android:id="@+id/toolbar_searchshadow"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@drawable/places_autocomplete_toolbar_shadow"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/toolbar_search"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/bgColor"
+            android:elevation="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_searchshadow">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bgColorBar"
+                android:elevation="16dp">
+
+            <ImageButton
+                    android:id="@+id/confirm_back"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/quantum_ic_arrow_back_grey600_24"
+                    android:tint="@color/grey_60"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                    android:id="@+id/places_autocomplete_edit_text"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@color/bgColorBar"
+                    android:hint="@string/places_autocomplete_search_hint"
+                    android:imeOptions="flagNoExtractUi|actionSearch"
+                    android:inputType="textNoSuggestions"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textColorHint="@color/textSecondaryColor"
+                    android:textCursorDrawable="@null"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/confirm_close"
+                    app:layout_constraintStart_toEndOf="@id/confirm_back"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                    android:id="@+id/confirm_close"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/drawableSecondaryColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_close" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ProgressBar
+            android:id="@+id/dest_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateDuration="100"
+            android:indeterminateTint="@color/black"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_search" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/places_autocomplete_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dest_progress"
+            tools:itemCount="3"
+            tools:listitem="@layout/drop_item"
+            tools:visibility="visible" />
+
+    <ImageView
+            android:id="@+id/jhgfgoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/contentdesc"
+            android:src="@drawable/places_powered_by_google_light"
+            app:layout_constraintTop_toBottomOf="@id/places_autocomplete_list" />
+</androidx.constraintlayout.widget.ConstraintLayout>
