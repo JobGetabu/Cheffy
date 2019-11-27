@@ -86,7 +86,7 @@ class UserHomeFragment : BaseFragment() {
                     shimmer_view_container.showView()
                     main_content.hideView()
 
-                    checkNetwork()
+                    //checkNetwork()
                 }
                 Status.SUCCESS -> {
 

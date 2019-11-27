@@ -95,6 +95,11 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
         //Request location update
         requestMyCurrentLocation()
+
+
+        if (!isCon) {
+            checkNetwork()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -203,8 +208,18 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             //do Stuff with internet
         } else {
             //no internet
-
+            netIsOff()
         }
+    }
+
+    private fun netIsOff() {
+        //show the activity
+
+        if (vm.isFirstLaunch == 1) {
+            checkNetwork()
+            vm.isFirstLaunch += 1
+        }
+
     }
 
     private fun checkNetwork() {

@@ -18,6 +18,7 @@ import java.util.*
 
 class HomeViewModel : ViewModel() {
     private val repository: HomeRepository = HomeRepository()
+    var isFirstLaunch = 1
 
     var mCurrentLocation: MediatorLiveData<LatLng?> = MediatorLiveData()
     var mCurrentLongtitide: MediatorLiveData<Double?> = MediatorLiveData()
@@ -117,7 +118,7 @@ class HomeViewModel : ViewModel() {
 
     //fragment bundles
     var isForNet: Boolean = false
-    var tt: String = "Can\\'t connect"
+    var tt: String = "Can't connect"
     var desc: String = "Check your internet connection and try again"
     var actionTxt: String = "Try Again"
 

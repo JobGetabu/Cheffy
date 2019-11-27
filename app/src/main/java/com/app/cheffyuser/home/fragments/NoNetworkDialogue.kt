@@ -50,11 +50,10 @@ class NoNetworkDialogue : DialogFragment(), DroidListener {
                 if (isCon!!)
                     dismiss()
                 else
-                    createSnack(activity!!, txt = "No internet connection")
+                    createSnack(activity!!, txt = activity?.getString(R.string.you_not_connected)!!)
             }
 
             // add logic to call server again
-
 
         }
 
