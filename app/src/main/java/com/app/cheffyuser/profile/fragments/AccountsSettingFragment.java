@@ -31,49 +31,36 @@ public class AccountsSettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_accounts_setting, container, false);
+        View view = inflater.inflate(R.layout.fragment_accounts_setting, container, false);
 
-        LinearLayout layoutProfileEdit=view.findViewById(R.id.layout_profile_edit);
-        LinearLayout layoutPayment=view.findViewById(R.id.layout_payment);
-        LinearLayout layoutShipping=view.findViewById(R.id.layout_shipping);
-        LinearLayout layoutLogout=view.findViewById(R.id.layout_logout);
+        LinearLayout layoutProfileEdit = view.findViewById(R.id.layout_profile_edit);
+        LinearLayout layoutPayment = view.findViewById(R.id.layout_payment);
+        LinearLayout layoutShipping = view.findViewById(R.id.layout_shipping);
+        LinearLayout layoutLogout = view.findViewById(R.id.layout_logout);
 
 
+        layoutLogout.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
 
-        layoutLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
-
-            }
         });
 
 
-        layoutProfileEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), EditProfileActivity.class);
-                startActivity(intent);
+        layoutProfileEdit.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+            startActivity(intent);
 
-            }
         });
 
 
-        layoutShipping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), ShippingActivity.class);
-                startActivity(intent);
-            }
+        layoutShipping.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), ShippingActivity.class);
+            startActivity(intent);
         });
 
-        layoutPayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), AddCardActivity.class);
-                startActivity(intent);
-            }
+        layoutPayment.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddCardActivity.class);
+            startActivity(intent);
         });
         return view;
     }

@@ -25,6 +25,7 @@ class NoNetworkDialogue : DialogFragment(), DroidListener {
     private var des: TextView? = null
     private var mDroidNet: DroidNet? = null
     private var isCon: Boolean? = false
+    private var noNetListener: NoNetListener? = null
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(getActivity()!!).get(HomeViewModel::class.java)
@@ -35,7 +36,7 @@ class NoNetworkDialogue : DialogFragment(), DroidListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        root_view = inflater.inflate(R.layout.no_data_layout, container, false)
+        root_view = inflater.inflate(R.layout.no_net_layout, container, false)
         nonet_btn = root_view!!.findViewById(R.id.btn_try)
         titleTxt = root_view!!.findViewById(R.id.title)
         des = root_view!!.findViewById(R.id.description)
@@ -47,8 +48,10 @@ class NoNetworkDialogue : DialogFragment(), DroidListener {
         nonet_btn!!.setOnClickListener {
 
             if (vm.isForNet) {
-                if (isCon!!)
+                if (isCon!!){
                     dismiss()
+                    noNetListener!!.onNetComeBack()
+                }
                 else
                     createSnack(activity!!, txt = activity?.getString(R.string.you_not_connected)!!)
             }
@@ -58,6 +61,10 @@ class NoNetworkDialogue : DialogFragment(), DroidListener {
         }
 
         return root_view
+    }
+
+    fun setOnNetListener(noNetListener: NoNetListener){
+        this.noNetListener = noNetListener
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

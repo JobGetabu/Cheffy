@@ -16,12 +16,14 @@ import com.app.cheffyuser.cart.TabsFragment
 import com.app.cheffyuser.custom_order.CustomOrderActivity
 import com.app.cheffyuser.food_category.FoodCategoryFragment
 import com.app.cheffyuser.home.adapter.MainbottomAdapter
+import com.app.cheffyuser.home.fragments.NoNetListener
 import com.app.cheffyuser.home.fragments.NoNetworkDialogue
 import com.app.cheffyuser.home.fragments.UserHomeFragment
 import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.profile.fragments.AccountFragment
 import com.app.cheffyuser.utils.TokenManager
+import com.app.cheffyuser.utils.toast
 import com.droidnet.DroidListener
 import com.droidnet.DroidNet
 import com.google.android.gms.location.LocationRequest
@@ -219,7 +221,6 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             checkNetwork()
             vm.isFirstLaunch += 1
         }
-
     }
 
     private fun checkNetwork() {
@@ -229,6 +230,13 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
         val fragmentManager = supportFragmentManager
         val newFragment = NoNetworkDialogue()
+        newFragment.setOnNetListener(object : NoNetListener {
+            override fun onNetComeBack() {
+                toast("Recreate this activity")
+                recreate()
+            }
+        })
+
         val transaction = fragmentManager.beginTransaction()
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit()
