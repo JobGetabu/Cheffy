@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.FoodDetailsActivity
 import com.app.cheffyuser.home.adapter.FoodNearbyAdapter
@@ -78,13 +80,13 @@ class UserHomeFragment : BaseFragment() {
 
             when (it.status) {
                 Status.ERROR -> {
-                    //TODO: stop shimmer effect in view
-                    //TODO: send manged logs to crashlytics in production
-                    createSnack(ctx = activity!!, txt = "No nearby foods")
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = activity!!, txt = "No nearby foods")
 
                     shimmer_view_container.showView()
                     main_content.hideView()
 
+                    checkNetwork()
                 }
                 Status.SUCCESS -> {
 
@@ -188,7 +190,7 @@ class UserHomeFragment : BaseFragment() {
         })
     }
 
-    private fun goToFoodDetails(model: PlatesResponse){
+    private fun goToFoodDetails(model: PlatesResponse) {
         val pair1: android.util.Pair<View, String> = android.util.Pair.create(address_txt, "slider")
 
         val activityOptions = ActivityOptions.makeSceneTransitionAnimation(
@@ -199,6 +201,19 @@ class UserHomeFragment : BaseFragment() {
         intent.putExtra(PLATES_RESPONSE_EXTRA, model)
 
         startActivity(intent, activityOptions.toBundle())
+    }
+
+    private fun checkNetwork() {
+
+        //access bundle from viewmodel to change
+        vm.isForNet = true
+
+        val fragmentManager = childFragmentManager
+        val newFragment = NoNetworkDialogue()
+        val transaction = fragmentManager.beginTransaction()
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit()
+
     }
 
 }

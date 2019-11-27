@@ -6,6 +6,7 @@ import android.location.Location
 import android.os.Bundle
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import ax.synt.droidlocation.DroidLocationAppCompatActivity
 import ax.synt.droidlocation.DroidLocationRequestBuilder
@@ -15,6 +16,7 @@ import com.app.cheffyuser.cart.TabsFragment
 import com.app.cheffyuser.custom_order.CustomOrderActivity
 import com.app.cheffyuser.food_category.FoodCategoryFragment
 import com.app.cheffyuser.home.adapter.MainbottomAdapter
+import com.app.cheffyuser.home.fragments.NoNetworkDialogue
 import com.app.cheffyuser.home.fragments.UserHomeFragment
 import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
@@ -203,6 +205,19 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             //no internet
 
         }
+    }
+
+    private fun checkNetwork() {
+
+        //access bundle from viewmodel to change
+        vm.isForNet = true
+
+        val fragmentManager = supportFragmentManager
+        val newFragment = NoNetworkDialogue()
+        val transaction = fragmentManager.beginTransaction()
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+        transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit()
+
     }
 
 }

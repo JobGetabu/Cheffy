@@ -107,14 +107,18 @@ class HomeViewModel : ViewModel() {
 
     //region foodDetails data
 
-
     var platesResponse: MediatorLiveData<PlatesResponse?> = MediatorLiveData()
-
 
     //endregion
 
 
     //used in CustomOrder upload screen
     var imagesUrls: ArrayList<String>? = arrayListOf()
+
+    //fragment bundles
+    var isForNet: Boolean = false
+    var tt: String = "Can\\'t connect"
+    var desc: String = "Check your internet connection and try again"
+    var actionTxt: String = "Try Again"
 
 }
