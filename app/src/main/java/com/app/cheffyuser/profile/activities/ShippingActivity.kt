@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.create_account.model.ShippingRequest
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.model.DropdownItem
 import com.app.cheffyuser.utils.createSnack
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -35,6 +38,7 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
 
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var map: GoogleMap
+    private var ship: ShippingRequest? = null
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(this).get(HomeViewModel::class.java)
@@ -64,6 +68,9 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
         save_btn.setOnClickListener {
             saveAndClose()
         }
+
+        //set up location
+        ship = tokenManager.shippingData2
     }
 
     private fun saveAndClose() {
@@ -74,8 +81,40 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
             return
         }
 
-        //TODO: push shipping data to server
+        if (ship == null){
+            createSnack(
+                this, txt = "Please pick a location")
+            return
+        }
 
+        if (ship?.lon.isNullOrEmpty()){
+            createSnack(
+                this, txt = "Please pick a location")
+            return
+        }
+
+        val dialog = showDialogue("Setting shipping location", "Please wait ...")
+
+        //TODO: push shipping data to server
+        vm.setShipping(ship!!).observe(this, Observer {
+            when (it.status) {
+                Status.ERROR -> {
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = this, txt = "Error setting shipping")
+
+                    errorDialogue("Error", "Please try again later", dialog)
+                    //checkNetwork()
+                }
+                Status.SUCCESS -> {
+
+                    successDialogue(alertDialog = dialog)
+                    finish()
+                }
+                Status.LOADING -> {
+
+                }
+            }
+        })
 
     }
 
@@ -102,23 +141,23 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun setupDefaultPickup(dd: DropdownItem) {
 
-        val ship = ShippingRequest()
+        ship = ShippingRequest()
 
         primary_txt.text = "${dd.primaryText}"
         primary_txt2.text = "${dd.secondaryText}"
 
         etAddress.editText?.setText("${dd.place?.address}")
 
-        ship.zipCode = etzip.editText?.text.toString()
-        ship.addressLine1 = etAddress.editText?.toString()
-        ship.addressLine2 = etAddress2.editText?.toString()
-        ship.city = "${dd.place?.address}"
-        ship.lat = "${dd.place?.latLng?.latitude}"
-        ship.lon = "${dd.place?.latLng?.longitude}"
+        ship?.zipCode = etzip.editText?.text.toString()
+        ship?.addressLine1 = etAddress.editText?.toString()
+        ship?.addressLine2 = etAddress2.editText?.toString()
+        ship?.city = "${dd.place?.address}"
+        ship?.lat = "${dd.place?.latLng?.latitude}"
+        ship?.lon = "${dd.place?.latLng?.longitude}"
 
         tokenManager.shippingData2 = ship
 
-        val loc = LatLng(ship.lat!!.toDouble(), ship.lon!!.toDouble() )
+        val loc = LatLng(ship?.lat!!.toDouble(), ship?.lon!!.toDouble())
         setupMarker(loc)
 
     }
@@ -128,19 +167,19 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
 
     }
 
-   private fun setupMarker(loc: LatLng){
-       map.addMarker(
-           MarkerOptions().position(loc)
-               .title("Marker in Sydney")
-       )
+    private fun setupMarker(loc: LatLng) {
+        map.addMarker(
+            MarkerOptions().position(loc)
+                .title("Marker in Sydney")
+        )
 
-       val position = CameraPosition.Builder()
-           .target(loc)
-           .zoom(16F)
-           .tilt(20.0F)
-           .build()
+        val position = CameraPosition.Builder()
+            .target(loc)
+            .zoom(16F)
+            .tilt(20.0F)
+            .build()
 
-       map.animateCamera(CameraUpdateFactory.newCameraPosition(position))
-   }
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(position))
+    }
 
 }

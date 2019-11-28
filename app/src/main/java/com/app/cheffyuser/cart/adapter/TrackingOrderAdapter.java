@@ -35,7 +35,7 @@ public class TrackingOrderAdapter extends RecyclerView.Adapter<TrackingOrderAdap
     {
 
         // infalte the item Layout
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tracking_row_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_track_order_row, parent, false);
         // set the view's size, margins, paddings and layout parameters
         TrackingOrderAdapter.MyViewHolder vh = new TrackingOrderAdapter.MyViewHolder(view); // pass the view to View Holder
         return vh;
@@ -59,6 +59,7 @@ public class TrackingOrderAdapter extends RecyclerView.Adapter<TrackingOrderAdap
             public void onClick(View view) {
                 // display a toast with person name on item click
                 Toast.makeText(context, foodItemList[position], Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -73,13 +74,13 @@ public class TrackingOrderAdapter extends RecyclerView.Adapter<TrackingOrderAdap
     //create class
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView txtItemName,txtPrice,txtMinus,txtPlus,txtNumber;
+        TextView txtItemName,txtPrice;
         ImageView imgFood;
         public MyViewHolder(View itemView) {
             super(itemView);
             // get the reference of item view's
             txtItemName =  itemView.findViewById(R.id.txt_item_name);
-            txtPrice=  itemView.findViewById(R.id.txt_price);
+            txtPrice=  itemView.findViewById(R.id.txt_price_text);
             imgFood =  itemView.findViewById(R.id.img_food);
         }
     }

@@ -82,11 +82,11 @@ class TokenManager(private val prefs: SharedPreferences) {
     var shippingData2: ShippingRequest?
         get() {
             val shippingString = prefs.getString(PREF_USER_SHIPPINGREQ_CLASS, null)
-            val type = object : TypeToken<List<ShippingResponse>>() {}.type
+            val type = object : TypeToken<ShippingRequest>() {}.type
             return gson.fromJson(shippingString, type)
         }
-        set(shippingData) {
-            val shippingString = gson.toJson(shippingData)
+        set(shippingData2) {
+            val shippingString = gson.toJson(shippingData2)
             editor.putString(PREF_USER_SHIPPINGREQ_CLASS, shippingString).apply()
         }
 
