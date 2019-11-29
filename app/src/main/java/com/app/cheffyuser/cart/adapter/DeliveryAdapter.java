@@ -38,7 +38,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
     {
 
         // infalte the item Layout
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.delivery_row_items, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_delivery_row, parent, false);
         // set the view's size, margins, paddings and layout parameters
        DeliveryAdapter.MyViewHolder vh = new DeliveryAdapter.MyViewHolder(view); // pass the view to View Holder
         return vh;
@@ -46,7 +46,6 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myHolder, final int position) {
-        myHolder.txtItemName.setText(foodItemList[position]);
 
         myHolder.txtItemName.setText(foodItemList[position]);
         myHolder.txtPrice.setText("$"+foodPriceList[position]);
@@ -65,27 +64,6 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
         });
     }
 
-
-//    @Override
-//    public void onBindViewHolder(@NonNull AddCartAdapter.MyViewHolder myHolder, final int position) {
-//
-//        myHolder.txtItemName.setText(foodItemList[position]);
-//
-//        myHolder.txtItemName.setText(foodItemList[position]);
-//        myHolder.txtPrice.setText("$"+foodPriceList[position]);
-//
-//
-//        myHolder.imgFood.setImageResource(imgList[position]);
-//        // implement setOnClickListener event on item view.
-//        myHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // display a toast with person name on item click
-//                Toast.makeText(context, foodItemList[position], Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
-
     //for item count
     @Override
     public int getItemCount() {
@@ -96,16 +74,13 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
     //create class
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView txtItemName,txtPrice,txtMinus,txtPlus,txtNumber;
+        TextView txtItemName,txtPrice;
         ImageView imgFood;
         public MyViewHolder(View itemView) {
             super(itemView);
             // get the reference of item view's
             txtItemName =  itemView.findViewById(R.id.txt_item_name);
-            txtPrice=  itemView.findViewById(R.id.txt_price);
-            txtMinus =  itemView.findViewById(R.id.txt_minus);
-            txtPlus =  itemView.findViewById(R.id.txt_plus);
-            txtNumber =  itemView.findViewById(R.id.txt_number);
+            txtPrice=  itemView.findViewById(R.id.txt_price_text);
             imgFood =  itemView.findViewById(R.id.img_food);
         }
     }
