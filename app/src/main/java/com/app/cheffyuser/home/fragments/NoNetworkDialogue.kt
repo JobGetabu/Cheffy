@@ -47,14 +47,12 @@ class NoNetworkDialogue : DialogFragment(), DroidListener {
 
         nonet_btn!!.setOnClickListener {
 
-            if (vm.isForNet) {
-                if (isCon!!){
-                    dismiss()
-                    noNetListener!!.onNetComeBack()
-                }
-                else
-                    createSnack(activity!!, txt = activity?.getString(R.string.you_not_connected)!!)
-            }
+            if (isCon!!) {
+                dismiss()
+                noNetListener!!.onNetComeBack()
+            } else
+                createSnack(activity!!, txt = activity?.getString(R.string.you_not_connected)!!)
+
 
             // add logic to call server again
 
@@ -63,7 +61,7 @@ class NoNetworkDialogue : DialogFragment(), DroidListener {
         return root_view
     }
 
-    fun setOnNetListener(noNetListener: NoNetListener){
+    fun setOnNetListener(noNetListener: NoNetListener) {
         this.noNetListener = noNetListener
     }
 
@@ -85,15 +83,25 @@ class NoNetworkDialogue : DialogFragment(), DroidListener {
     override fun onInternetConnectivityChanged(isConnected: Boolean) {
         isCon = isConnected
         if (isConnected) {
-            if (isAdded) {
+
+
+            /*if (isAdded) {
                 if (isVisible) {
                     try {
-                        dismiss()
+                        this?.dismiss()
                     } catch (x: IllegalStateException) {
                         Timber.e(x)
                     }
                 }
+            }*/
+
+
+            try {
+                this?.dismiss()
+            } catch (x: Exception) {
+                Timber.e(x)
             }
+
         }
     }
 

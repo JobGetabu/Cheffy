@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
@@ -202,18 +201,4 @@ class UserHomeFragment : BaseFragment() {
 
         startActivity(intent, activityOptions.toBundle())
     }
-
-    private fun checkNetwork() {
-
-        //access bundle from viewmodel to change
-        vm.isForNet = true
-
-        val fragmentManager = childFragmentManager
-        val newFragment = NoNetworkDialogue()
-        val transaction = fragmentManager.beginTransaction()
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit()
-
-    }
-
 }

@@ -1,17 +1,18 @@
 package com.app.cheffyuser.cart.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.cheffyuser.R;
+import com.app.cheffyuser.cart.activities.MapTrackActivity;
 
 public class TrackingOrderAdapter extends RecyclerView.Adapter<TrackingOrderAdapter.MyViewHolder>{
 
@@ -58,8 +59,9 @@ public class TrackingOrderAdapter extends RecyclerView.Adapter<TrackingOrderAdap
             @Override
             public void onClick(View view) {
                 // display a toast with person name on item click
-                Toast.makeText(context, foodItemList[position], Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(context, foodItemList[position], Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, MapTrackActivity.class);
+                context.startActivity(intent);
             }
         });
     }

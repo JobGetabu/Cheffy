@@ -14,7 +14,6 @@ class IngredienceAdapter(
     private val context: Context,
     private val ingredients: MutableList<PlatesResponse.Ingredient?>?
 ) : RecyclerView.Adapter<BaseViewHolder>() {
-    private var isLoaderVisible = false
     private lateinit var myHolder: BaseViewHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -38,7 +37,7 @@ class IngredienceAdapter(
 
     private fun getItem(position: Int): PlatesResponse.Ingredient? {
         return if (position != RecyclerView.NO_POSITION)
-            ingredients!![position]
+            ingredients?.get(position)
         else
             null
     }
@@ -56,7 +55,9 @@ class IngredienceAdapter(
 
         override fun onBind(position: Int) {
             super.onBind(position)
-            this.model = ingredients!![position]
+            if (ingredients.isNullOrEmpty()) return
+
+            this.model = ingredients?.get(position)
 
             // set whatever you want. for instance;
 

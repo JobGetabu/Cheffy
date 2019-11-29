@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -98,10 +99,12 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
         //Request location update
         requestMyCurrentLocation()
 
-
-        if (!isCon) {
-            checkNetwork()
-        }
+        //delay a sec to see there's net
+        Handler().postDelayed({
+            if (!isCon) {
+                netIsOff()
+            }
+        },5000)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -206,18 +209,12 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
     //endregion
     override fun onInternetConnectivityChanged(isConnected: Boolean) {
         isCon = isConnected
-        if (isConnected) {
-            //do Stuff with internet
-        } else {
-            //no internet
-            netIsOff()
-        }
+        Timber.d("net state=> $isConnected")
     }
 
     private fun netIsOff() {
-        //show the activity
-
         if (vm.isFirstLaunch == 1) {
+
             checkNetwork()
             vm.isFirstLaunch += 1
         }
