@@ -156,6 +156,7 @@ class LoginFragment : BaseFragment() {
 
                     //save in prefs
                     tm.user = res
+                    tm.setIsLoggedIn()
 
                     if (checkoutInProgress) {
 

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="5dp"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/foodimage"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/upload_thumbnail" />
+
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignEnd="@id/foodimage"
+                android:layout_alignBottom="@id/foodimage"
+                android:layout_margin="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background_activity">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/circlebutton"
+                        android:padding="5dp"
+                        android:tint="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_heart_unfilled" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/foodname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/sailec_medium"
+        android:paddingStart="5dp"
+        android:text="Grilled salmon"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:paddingEnd="4dp">
+
+                    <ImageButton
+                        android:id="@+id/im_btn2"
+                        android:layout_width="16dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/contentdesc"
+                        android:scaleType="fitCenter"
+                        android:tint="@color/grey_60"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/times"
+                        app:srcCompat="@drawable/ic_time" />
+
+                    <TextView
+                        android:id="@+id/times"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:fontFamily="@font/sailec_regular"
+                        android:text="15-20 min"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/im_btn2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+
+                    <ImageButton
+                        android:id="@+id/im_btn3"
+                        android:layout_width="16dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/contentdesc"
+                        android:scaleType="fitCenter"
+                        android:tint="@color/grey_60"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/deliverytext"
+                        app:srcCompat="@drawable/ic_delivery" />
+
+                    <TextView
+                        android:id="@+id/deliverytext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:fontFamily="@font/sailec_regular"
+                        android:text="Delivery"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/im_btn3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+

@@ -14,6 +14,7 @@ import ax.synt.droidlocation.DroidLocationRequestBuilder
 import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.TabsFragment
+import com.app.cheffyuser.create_account.fragments.NeedToLoginFragment
 import com.app.cheffyuser.custom_order.CustomOrderActivity
 import com.app.cheffyuser.food_category.FoodCategoryFragment
 import com.app.cheffyuser.home.adapter.MainbottomAdapter
@@ -86,7 +87,13 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
                 R.id.nav_account -> {
 
-                    pager.currentItem = 3
+                    if (tokenManager.isLoggedIn) {
+
+                        pager.currentItem = 3
+                    } else {
+                        pager.currentItem = 4
+                    }
+
                     return@OnNavigationItemSelectedListener true
                 }
             }
@@ -104,7 +111,7 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             if (!isCon) {
                 netIsOff()
             }
-        },5000)
+        }, 5000)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,6 +133,7 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
         adapter.addFragments(FoodCategoryFragment())
         adapter.addFragments(TabsFragment())
         adapter.addFragments(AccountFragment())
+        adapter.addFragments(NeedToLoginFragment())
         pager.adapter = adapter
 
         pager.offscreenPageLimit = 4

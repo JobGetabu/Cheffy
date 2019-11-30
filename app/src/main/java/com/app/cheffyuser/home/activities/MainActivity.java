@@ -2,7 +2,6 @@ package com.app.cheffyuser.home.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,25 +22,19 @@ public class MainActivity extends AppCompatActivity {
         btnLogin=findViewById(R.id.btn_login);
         btnSignup=findViewById(R.id.btn_signup);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnLogin.setOnClickListener(v -> {
 
-                Intent intent =new Intent(MainActivity.this, CreateAccountActivity.class);
-                startActivity(intent);
-            }
+            Intent intent =new Intent(MainActivity.this, CreateAccountActivity.class);
+            startActivity(intent);
         });
 
 
 
-        btnSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnSignup.setOnClickListener(v -> {
 
-                Intent intent =new Intent(MainActivity.this, CreateAccountActivity.class);
-                startActivity(intent);
+            Intent intent =new Intent(MainActivity.this, CreateAccountActivity.class);
+            startActivity(intent);
 
-            }
         });
 
 

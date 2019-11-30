@@ -119,6 +119,8 @@ class TokenManager(private val prefs: SharedPreferences) {
         val editor = prefs.edit()
         editor.putString(PREF_ACCESS_TOKEN, token.accessToken)
         editor.putString(PREF_REFRESH_TOKEN, token.accessToken)
+
+        setIsLoggedIn()
         editor.apply()
     }
 
