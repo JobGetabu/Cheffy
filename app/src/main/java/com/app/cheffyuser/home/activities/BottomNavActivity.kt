@@ -242,9 +242,16 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             }
         })
 
-        val transaction = fragmentManager.beginTransaction()
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-        transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit()
+        try {
+            val transaction = fragmentManager.beginTransaction()
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit()
+
+        }catch (e: IllegalStateException){
+            //Occurs on very fast switching
+            Timber.e(e)
+        }
+
 
     }
 

@@ -53,17 +53,19 @@ class EditProfileActivity : BaseActivity() {
         }
 
         val user = tokenManager.userData
-        val ar = tokenManager.shippingData?.get(0)
 
         tv_user_name.text = user?.name
         tv_phone.setText(user?.phoneNo)
         etxt_email.setText(user?.email)
 
-        val address = "${ar?.addressLine1} \n ${ar?.addressLine2} \n" +
-                "${ar?.city} ${ar?.state} \n" +
-                "Zipcode: ${ar?.zipCode}"
+        if (!tokenManager.shippingData.isNullOrEmpty()) {
+            val ar = tokenManager.shippingData?.get(0)
+            val address = "${ar?.addressLine1} \n ${ar?.addressLine2} \n" +
+                    "${ar?.city} ${ar?.state} \n" +
+                    "Zipcode: ${ar?.zipCode}"
 
-        etxt_address.setText(address)
+            etxt_address.setText(address)
+        }
 
         //Loading profile
         user_image.loadUrl(user?.imagePath, R.drawable.avatar_placeholder)

@@ -68,7 +68,7 @@ class TokenManager(private val prefs: SharedPreferences) {
             saveToken(accessToken)
         }
 
-    var shippingData: List<ShippingResponse>?
+    var shippingData: List<ShippingResponse?>?
         get() {
             val shippingString = prefs.getString(PREF_USER_SHIPPING_CLASS, null)
             val type = object : TypeToken<List<ShippingResponse>>() {}.type
