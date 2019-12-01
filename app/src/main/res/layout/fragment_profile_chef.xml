@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/recyclerview_food_menu"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-    app:spanCount="2"
-    tools:listitem="@layout/single_fav_fooditem">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_food_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/single_fav_fooditem"/>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:shimmer_duration="800"
+        tools:visibility="visible">
+
+        <include
+            layout="@layout/custom_food_category_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</LinearLayout>
+
+
+
 

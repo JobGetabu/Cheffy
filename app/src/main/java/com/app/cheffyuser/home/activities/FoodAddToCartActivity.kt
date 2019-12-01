@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
@@ -21,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_food_add_to_cart.*
 import kotlinx.android.synthetic.main.item_loading.*
 
 
-class FoodAddToCartActivity : AppCompatActivity() {
+class FoodAddToCartActivity : BaseActivity() {
 
     private lateinit var relatedAdapter: FoodOtherSelectedAdapter
 

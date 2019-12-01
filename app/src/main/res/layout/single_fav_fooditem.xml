@@ -16,7 +16,7 @@
         app:cardCornerRadius="6dp"
         app:cardElevation="10dp">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -26,42 +26,50 @@
                 android:layout_height="120dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/upload_thumbnail" />
+                android:src="@drawable/upload_thumbnail"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.github.florent37.shapeofview.shapes.CircleView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_alignEnd="@id/foodimage"
-                android:layout_alignBottom="@id/foodimage"
                 android:layout_margin="10dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/background_activity">
+                    android:background="@color/background_activity"
+                    android:clickable="true"
+                    android:focusable="true">
 
-                    <ImageView
+                    <com.varunest.sparkbutton.SparkButton
+                        android:id="@+id/spark_button"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:background="@drawable/circlebutton"
-                        android:padding="5dp"
-                        android:tint="@color/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_heart_unfilled" />
+                        app:sparkbutton_activeImage="@drawable/ic_heart_filled"
+                        app:sparkbutton_iconSize="20dp"
+                        app:sparkbutton_inActiveImage="@drawable/ic_heart_unfilled"
+                        app:sparkbutton_primaryColor="@color/realblack"
+                        app:sparkbutton_secondaryColor="@color/colorAccent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.github.florent37.shapeofview.shapes.CircleView>
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
