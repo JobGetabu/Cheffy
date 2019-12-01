@@ -27,7 +27,7 @@ class ViewAnimations {
             view.startAnimation(a)
         }
 
-        fun expandAction(v: View): Animation {
+        private fun expandAction(v: View): Animation {
             v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT)
             val targtetHeight = v.measuredHeight
 
@@ -73,6 +73,16 @@ class ViewAnimations {
 
             animation.duration = (initialHeight / v.context.resources.displayMetrics.density).toLong()
             v.startAnimation(animation)
+        }
+
+        fun toggleArrow(view: View): Boolean {
+            return if (view.rotation == 0F) {
+                view.animate().setDuration(200).rotation(180F)
+                true
+            } else {
+                view.animate().setDuration(200).rotation(0F)
+                false
+            }
         }
     }
 

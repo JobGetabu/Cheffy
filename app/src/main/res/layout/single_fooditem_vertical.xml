@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginRight="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginTop="5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginRight="5dp"
+    android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="match_parent"
-        app:cardElevation="10dp"
-        android:foreground="?android:attr/selectableItemBackground"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="6dp">
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -24,19 +24,22 @@
                 android:id="@+id/foodimage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/upload_thumbnail"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:src="@drawable/upload_thumbnail" />
 
             <com.github.florent37.shapeofview.shapes.CircleView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignEnd="@id/foodimage"
+                android:layout_alignBottom="@id/foodimage"
+                android:layout_margin="10dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_alignBottom="@id/foodimage"
-                android:layout_alignEnd="@id/foodimage"
                 android:gravity="center"
-                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -44,19 +47,23 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:background="@color/background_activity">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:background="@drawable/circlebutton"
-                        android:padding="5dp"
-                        android:tint="@color/colorPrimary"
+                    <com.varunest.sparkbutton.SparkButton
+                        android:id="@+id/spark_button"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_heart_unfilled" />
+                        app:sparkbutton_activeImage="@drawable/ic_heart_filled"
+                        app:sparkbutton_iconSize="24dp"
+                        app:sparkbutton_inActiveImage="@drawable/ic_heart_unfilled"
+                        app:sparkbutton_primaryColor="@color/realblack"
+                        app:sparkbutton_secondaryColor="@color/colorAccent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.github.florent37.shapeofview.shapes.CircleView>
@@ -68,9 +75,9 @@
         android:id="@+id/foodname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/sailec_medium"
         android:paddingStart="5dp"
-        android:layout_marginTop="12dp"
         android:text="Grilled salmon"
         android:textColor="@android:color/black"
         android:textSize="18sp" />

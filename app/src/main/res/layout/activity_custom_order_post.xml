@@ -96,7 +96,7 @@
                 android:background="@drawable/round_border6"
                 android:fontFamily="@font/sailec_light"
                 android:gravity="top"
-                android:hint="Grilled salmon  Genius Kitchen has a massive collection of recipes that are submitted, rated and reviewed by people who are passionate about food. From international cuisines ... "
+                android:hint="@string/dummy_text"
                 android:inputType="text|textMultiLine"
                 android:padding="10dp"
                 android:textSize="14sp" />

@@ -65,17 +65,42 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
+                <com.github.florent37.shapeofview.shapes.CircleView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:background="@drawable/circlebutton"
-                    android:padding="5dp"
-                    android:tint="@color/colorPrimary"
+                    android:layout_margin="10dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_heart_filled" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/background_activity"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <com.varunest.sparkbutton.SparkButton
+                            android:id="@+id/spark_button"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:sparkbutton_activeImage="@drawable/ic_heart_filled"
+                            app:sparkbutton_iconSize="20dp"
+                            app:sparkbutton_inActiveImage="@drawable/ic_heart_unfilled"
+                            app:sparkbutton_primaryColor="@color/realblack"
+                            app:sparkbutton_secondaryColor="@color/colorAccent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.github.florent37.shapeofview.shapes.CircleView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

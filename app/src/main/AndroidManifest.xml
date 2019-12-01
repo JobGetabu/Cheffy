@@ -29,9 +29,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".cart.activities.MapTrackActivity"
+        <activity
+            android:name=".cart.activities.MapTrackActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/DetailPages.Theme"/>
+            android:theme="@style/DetailPages.Theme" />
         <activity
             android:name=".profile.activities.ChefProfileActivity"
             android:screenOrientation="portrait"
@@ -61,7 +62,11 @@
         <activity android:name=".create_account.activities.VerifyActivity" />
         <activity android:name=".create_account.activities.CreateAccountActivity" />
         <activity android:name=".cart.FoodTrackingActivity" />
-        <activity android:name=".cart.activities.AddCardActivity" />
+        <activity
+            android:name=".cart.activities.AddCardActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+
         <activity android:name=".cart.activities.ItemCartActivity" />
         <activity
             android:name=".home.activities.BottomNavActivity"

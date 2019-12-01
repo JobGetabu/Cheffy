@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.florent37.shapeofview.shapes.RoundRectView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="100dp"
+    android:minHeight="60dp"
+    android:orientation="vertical"
+    app:shape_roundRect_borderColor="#C7C7C7"
+    app:shape_roundRect_borderWidth="1dp"
+    app:shape_roundRect_bottomLeftRadius="60dp"
+    app:shape_roundRect_bottomRightRadius="60dp"
+    app:shape_roundRect_topLeftRadius="60dp"
+    app:shape_roundRect_topRightRadius="60dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_activity">
+
+        <ImageView
+            android:id="@+id/minus_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/contentdesc"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_remove_black_24dp" />
+
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/sailec_medium"
+            android:text="9"
+            android:textAlignment="center"
+            android:textColor="@color/realblack"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/minus_img"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/plus_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/contentdesc"
+            android:focusable="true"
+            android:tint="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/counter"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.github.florent37.shapeofview.shapes.RoundRectView>

@@ -1,305 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F8"
+    android:background="@color/background_activity"
     android:fillViewport="true"
     tools:context=".home.activities.FoodAddToCartActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:elevation="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/addphone_close"
+                android:layout_width="40dp"
+                android:layout_height="?actionBarSize"
+                android:layout_marginStart="8dp"
+                android:background="@android:color/transparent"
+                android:onClick="close"
+                android:scaleType="centerInside"
+                android:tint="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_left" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/foodname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/sailec_medium"
+        android:text="Grilled salmon"
+        android:textColor="@color/textPrimaryColor"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <TextView
+        android:id="@+id/fooddescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/sailec_light"
+        android:text="@string/dummy_text"
+        android:textColor="@color/textSecondaryColor"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/foodname" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedscroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/multi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fooddescription">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="10dp">
+            app:layout_constraintBottom_toTopOf="@id/multi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fooddescription">
 
-
-            <LinearLayout
-                android:id="@+id/layout1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-
-                android:orientation="horizontal">
-
-                <ImageView
-
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:background="?attr/selectableItemBackground"
-                    card_view:srcCompat="@drawable/ic_left"
-
-                    />
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/sailec_medium"
-                    android:gravity="center"
-                    android:paddingRight="30dp"
-                    android:text="Item Cart"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
 
             <TextView
-                android:id="@+id/foodname"
+                android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/sailec_medium"
-                android:text="Grilled salmon"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/fooddescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/sailec_regular"
-                android:text="@string/text"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="24dp"
                 android:fontFamily="@font/sailec_medium"
-                android:text="People Also Added"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:text="People Also Added:"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="3">
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fooddescription"
+                tools:itemCount="3"
+                tools:listitem="@layout/single_pple_added" />
 
-
-                <CheckBox
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.25" />
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.75"
-                    android:fontFamily="@font/sailec_medium"
-                    android:text="Grilled salmon Large"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="$100"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="25sp"
-                android:background="@android:color/darker_gray" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                android:weightSum="3">
-
-
-                <CheckBox
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.25"
-                    android:checked="true" />
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.75"
-                    android:fontFamily="@font/sailec_medium"
-                    android:text="coca cola 500ml"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="$5"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="25sp"
-                android:background="@android:color/darker_gray" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:weightSum="2">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1.8"
-                    android:fontFamily="@font/sailec_medium"
-                    android:text="Add special instructions"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    card_view:srcCompat="@drawable/ic_arrow_right" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="12sp"
-                android:background="@android:color/darker_gray" />
-
-
-            <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="56dp"
-                android:background="@drawable/plusminusbuttonstyle"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:weightSum="2">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/ic_remove_black_24dp" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/ic_add_black_24dp"
-                    android:tint="@color/colorPrimary" />
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="1"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <com.github.florent37.shapeofview.shapes.RoundRectView
-            android:id="@+id/bottomlay"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:transitionName="slider1"
-            android:minHeight="40dp"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-            app:shape_roundRect_bottomLeftRadius="6dp"
-            app:shape_roundRect_bottomRightRadius="6dp"
-            app:shape_roundRect_topLeftRadius="6dp"
-            app:shape_roundRect_topRightRadius="6dp">
+            <include
+                layout="@layout/item_loading"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/body"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorPrimary">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@id/multi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view"
+                app:layout_constraintVertical_bias="0.0">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/textView123"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/sailec_medium"
-                    android:text="$96.00"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="Add special instructions"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <ImageButton
+                    android:id="@+id/imageButton2"
+                    android:layout_width="40dp"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginEnd="16dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/contentdesc"
+                    android:scaleType="centerInside"
+                    android:tint="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_expand_arrow" />
+
+                <EditText
+                    android:id="@+id/instructions"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1.23"
-                    android:fontFamily="@font/sailec_medium"
-                    android:text="Add to Cart"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/back_style_edittext"
+                    android:fontFamily="@font/sailec_regular"
+                    android:gravity="start"
+                    android:hint="Add your special instructions here"
+                    android:minHeight="100dp"
+                    android:padding="10dp"
+                    android:textAlignment="textStart"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textSize="16sp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.4"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/textView123"
+                    tools:visibility="visible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.github.florent37.shapeofview.shapes.RoundRectView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-    </RelativeLayout>
-</androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/multi"
+        layout="@layout/item_multiplier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.github.florent37.shapeofview.shapes.RoundRectView
+        android:id="@+id/bottomlay"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:minHeight="40dp"
+        android:transitionName="slider1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shape_roundRect_bottomLeftRadius="6dp"
+        app:shape_roundRect_bottomRightRadius="6dp"
+        app:shape_roundRect_topLeftRadius="6dp"
+        app:shape_roundRect_topRightRadius="6dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/sailec_medium"
+                android:text="$96.00"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1.23"
+                android:fontFamily="@font/sailec_medium"
+                android:text="Add to Cart"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.github.florent37.shapeofview.shapes.RoundRectView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

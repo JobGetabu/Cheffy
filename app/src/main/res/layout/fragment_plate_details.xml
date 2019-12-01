@@ -7,6 +7,7 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
+    tools:context=".home.fragments.PlateDetailsFragment"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
 
