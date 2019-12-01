@@ -27,7 +27,7 @@
         tools:visibility="visible">
 
         <include
-            layout="@layout/custom_food_category_shimmer"
+            layout="@layout/home_shimmer"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

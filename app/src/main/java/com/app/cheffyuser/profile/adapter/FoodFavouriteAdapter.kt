@@ -87,19 +87,6 @@ class FoodFavouriteAdapter(
             super.onBind(position)
             this.model = foodNearbyModels!![position]
 
-            var ratingSum = 0
-            var rating = 0
-
-            model?.reviews?.forEach {
-                ratingSum += it.rating!!
-            }
-
-            model?.reviews?.let {
-                if (it.count() != 0)
-                    rating = ratingSum / it.count()
-            }
-
-
             // set whatever you want. for instance;
             foodimage.loadUrl(model?.plateImages?.get(0)?.url)
             foodname.text = model?.name
@@ -116,7 +103,7 @@ class FoodFavouriteAdapter(
                         context.toast("TODO: Add to favourite")
                     } else { // Button is inactive
                         context.toast("TODO: hide from favourite")
-                        remove(model!!)
+                        //remove(model!!)
                     }
                 }
 
