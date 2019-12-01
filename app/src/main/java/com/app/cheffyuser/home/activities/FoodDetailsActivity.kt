@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.ViewModelProviders
@@ -65,6 +66,7 @@ class FoodDetailsActivity : BaseActivity() {
 
         uiStuff()
 
+        dotsManager(1)
 
     }
 
@@ -141,16 +143,22 @@ class FoodDetailsActivity : BaseActivity() {
                     0 -> {
                         if (!vm.platesResponse.value?.plateImages.isNullOrEmpty())
                             top_im.loadUrl(vm.platesResponse.value?.plateImages?.get(0)?.url)
+
+                        dotsManager(1)
                     }
 
                     1 -> {
                         if (!vm.platesResponse.value?.kitchenImages.isNullOrEmpty())
                             top_im.loadUrl(vm.platesResponse.value?.kitchenImages?.get(0)?.url)
+
+                        dotsManager(2)
                     }
 
                     2 -> {
                         if (!vm.platesResponse.value?.receiptImages.isNullOrEmpty())
                             top_im.loadUrl(vm.platesResponse.value?.receiptImages?.get(0)?.url)
+
+                        dotsManager(3)
 
                     }
                 }
@@ -208,5 +216,25 @@ class FoodDetailsActivity : BaseActivity() {
         val intent = ChefProfileActivity.newIntent(this)
         intent.putExtra(Constants.PLATES_RESPONSE_EXTRA, model)
         startActivity(intent, activityOptions.toBundle())
+    }
+
+    private fun dotsManager(isBig: Int) {
+        when (isBig) {
+            1 -> {
+                dot1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18F)
+                dot2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12F)
+                dot3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12F)
+            }
+            2 -> {
+                dot2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18F)
+                dot1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12F)
+                dot3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12F)
+            }
+            3 -> {
+                dot3.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18F)
+                dot2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12F)
+                dot1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12F)
+            }
+        }
     }
 }

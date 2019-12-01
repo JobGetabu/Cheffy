@@ -146,6 +146,56 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:translationZ="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <TextView
+                            android:id="@+id/dot1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/sailec_light"
+                            android:text="@string/filled_bullet"
+                            android:textAlignment="center"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/dot2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:fontFamily="@font/sailec_light"
+                            android:text="@string/filled_bullet"
+                            android:textAlignment="center"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/dot3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/sailec_light"
+                            android:text="@string/filled_bullet"
+                            android:textAlignment="center"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!-- YOUR CONTENT -->
@@ -179,10 +229,10 @@
 
                         <TextView
                             android:id="@+id/chefname"
-                            android:focusable="true"
-                            android:clickable="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:fontFamily="@font/sailec_medium"
                             android:text="Cheffy Bit"
                             android:textColor="@android:color/black"
@@ -197,9 +247,9 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:transitionName="slider"
                             android:layout_weight="1"
-                            android:paddingEnd="4dp">
+                            android:paddingEnd="4dp"
+                            android:transitionName="slider">
 
                             <ImageButton
                                 android:id="@+id/im_btn"
@@ -255,10 +305,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
-                    android:transitionName="slider1"
                     android:padding="10dp"
                     android:scaleType="center"
-                    android:src="@drawable/dummy_chef" />
+                    android:src="@drawable/dummy_chef"
+                    android:transitionName="slider1" />
 
             </com.github.florent37.shapeofview.shapes.RoundRectView>
 
@@ -272,8 +322,8 @@
             android:background="@color/light_gray"
             android:elevation="6dp"
             android:minHeight="?attr/actionBarSize"
-            android:transitionName="slider2"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:transitionName="slider2"
             app:layout_collapseMode="parallax"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -297,8 +347,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingBottom="30dp"
             android:fillViewport="true"
+            android:paddingBottom="30dp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <LinearLayout
@@ -309,7 +359,7 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewpager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 
