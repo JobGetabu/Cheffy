@@ -228,7 +228,7 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
         }
     }
 
-    private fun checkNetwork() {
+    fun checkNetwork() {
 
         //access bundle from viewmodel to change
         vm.isForNet = true

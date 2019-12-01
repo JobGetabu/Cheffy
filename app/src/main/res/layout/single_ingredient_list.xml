@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:baselineAligned="true"
     android:orientation="horizontal"
     android:paddingBottom="4dp"
@@ -19,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sailec_regular"
-            android:text="1)  "
+            tools:text="1)  "
             android:textColor="@color/textSecondaryColor"
             android:textSize="14sp" />
 
@@ -28,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sailec_regular"
-            android:text="2 tablespoons fresh lime juice"
+            tools:text="2 tablespoons fresh lime juice"
             android:textColor="@color/textSecondaryColor"
             android:textSize="14sp" />
 
@@ -45,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sailec_regular"
-            android:text="8–19–19"
+            tools:text="8–19–19"
             android:textAlignment="center"
             android:textColor="@color/textSecondaryColor"
             android:textSize="14sp" />

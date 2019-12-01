@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.app.cheffyuser.R
-import com.app.cheffyuser.home.adapter.IngredienceAdapter
+import com.app.cheffyuser.home.adapter.IngredientsAdapter
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.utils.Constants
 import com.app.cheffyuser.utils.loadUrl
@@ -28,7 +28,8 @@ class ReceiptDetailsActivity : BaseActivity() {
 
         setIngredienceList()
 
-        receiptimage.loadUrl(platesResponse?.receiptImages?.get(0)?.url)
+        if (!platesResponse?.receiptImages.isNullOrEmpty())
+            receiptimage.loadUrl(platesResponse?.receiptImages?.get(0)?.url)
     }
 
     private fun setIngredienceList() {
@@ -36,7 +37,7 @@ class ReceiptDetailsActivity : BaseActivity() {
 
         val ingredients = platesResponse?.ingredients
 
-        val adapter = IngredienceAdapter(true, this, ingredients?.toMutableList())
+        val adapter = IngredientsAdapter(true, this, ingredients?.toMutableList())
 
         ingredient_list.adapter = adapter
     }

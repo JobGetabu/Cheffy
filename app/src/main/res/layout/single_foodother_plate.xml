@@ -4,6 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
+    android:id="@+id/holder_foodother"
+    android:clickable="true"
+    android:focusable="true"
     android:orientation="vertical">
 
     <LinearLayout
@@ -21,7 +24,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/foodname1"
+                android:id="@+id/foodname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sailec_medium"
@@ -31,7 +34,7 @@
 
 
             <TextView
-                android:id="@+id/foodtext1"
+                android:id="@+id/foodtext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -72,12 +75,12 @@
 
 
         <TextView
-            android:id="@+id/foodprice1"
+            android:id="@+id/foodprice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/sailec_medium"
-            android:text="$1 20.00"
+            android:text="$120.00"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
@@ -149,6 +152,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/badge_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/badge_green"

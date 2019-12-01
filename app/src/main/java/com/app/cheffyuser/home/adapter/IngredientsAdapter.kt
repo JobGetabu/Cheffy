@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.model.PlatesResponse
 
-class IngredienceAdapter(
+class IngredientsAdapter(
     private val countTo3: Boolean = false,
     private val context: Context,
     private val ingredients: MutableList<PlatesResponse.Ingredient?>?
@@ -63,7 +63,7 @@ class IngredienceAdapter(
 
             name.text = model?.name
             date.text = model?.purchaseDate
-            counter.text = "$position  "
+            counter.text = "${position + 1}"
 
         }
 

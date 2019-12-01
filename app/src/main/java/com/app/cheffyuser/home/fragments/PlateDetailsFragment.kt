@@ -8,19 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.FoodAddToCartActivity
 import com.app.cheffyuser.home.activities.ReceiptDetailsActivity
-import com.app.cheffyuser.home.adapter.Food_plate_adapter
-import com.app.cheffyuser.home.adapter.IngredienceAdapter
-import com.app.cheffyuser.home.model.Food_Plate_Model
+import com.app.cheffyuser.home.adapter.FoodRelatedAdapter
+import com.app.cheffyuser.home.adapter.IngredientsAdapter
+import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
+import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.Constants
+import com.app.cheffyuser.utils.createSnack
+import com.app.cheffyuser.utils.hideView
+import com.app.cheffyuser.utils.showView
 import kotlinx.android.synthetic.main.fragment_plate_details.*
+import kotlinx.android.synthetic.main.item_loading.*
 import kotlinx.android.synthetic.main.single_ingredient_layout.*
-import java.util.*
 
 
 /**
@@ -28,10 +32,7 @@ import java.util.*
  */
 class PlateDetailsFragment : BaseFragment() {
 
-    private var recyclerView: RecyclerView? = null
-    private var adapter: Food_plate_adapter? = null
-    private var layoutManager1: LinearLayoutManager? = null
-    private var foodList: MutableList<Food_Plate_Model>? = null
+    private lateinit var relatedAdapter: FoodRelatedAdapter
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(getActivity()!!).get(HomeViewModel::class.java)
@@ -42,40 +43,7 @@ class PlateDetailsFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_plate_details, container, false)
-
-
-        recyclerView = view.findViewById(R.id.recyclerview_plate)
-        recyclerView!!.setHasFixedSize(true)
-        layoutManager1 = LinearLayoutManager(activity)
-        recyclerView!!.layoutManager = layoutManager1
-        foodList = ArrayList()
-        adapter = Food_plate_adapter(foodList)
-        foodList!!.add(
-            Food_Plate_Model(
-                "Grilled salmon",
-                "Season salmon fillets with lemon pepper, garlic powder, and salt. In a small bowl, ",
-                "$120.00",
-                "10-20 min",
-                "Delivery",
-                "Free",
-                R.drawable.upload_thumbnail
-            )
-        )
-        foodList!!.add(
-            Food_Plate_Model(
-                "Grilled salmon",
-                "Season salmon fillets with lemon pepper, garlic powder, and salt. In a small bowl, ",
-                "$140.00",
-                "10-20 min",
-                "Delivery",
-                "Free",
-                R.drawable.upload_thumbnail
-            )
-        )
-        recyclerView!!.adapter = adapter
-
-        return view
+        return inflater.inflate(R.layout.fragment_plate_details, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -84,7 +52,7 @@ class PlateDetailsFragment : BaseFragment() {
 
         fooddescription.text = vm.platesResponse.value?.description
 
-        setIngredienceList()
+        setIngredientsList()
 
         viewReceipt.setOnClickListener {
             goToReceiptActivity()
@@ -93,6 +61,8 @@ class PlateDetailsFragment : BaseFragment() {
         buy_btn.setOnClickListener {
             goToFoodAddToCart()
         }
+
+        setRelatedFoodList()
 
     }
 
@@ -110,7 +80,8 @@ class PlateDetailsFragment : BaseFragment() {
     }
 
     private fun goToReceiptActivity() {
-        val pair1: android.util.Pair<View, String> = android.util.Pair.create(ingredient_layout, "slider")
+        val pair1: android.util.Pair<View, String> =
+            android.util.Pair.create(ingredient_layout, "slider")
 
         val activityOptions = ActivityOptions.makeSceneTransitionAnimation(
             activity!!, pair1
@@ -122,14 +93,71 @@ class PlateDetailsFragment : BaseFragment() {
         startActivity(intent, activityOptions.toBundle())
     }
 
-    private fun setIngredienceList() {
+    private fun setIngredientsList() {
         ingredient_list.setHasFixedSize(true)
 
         val ingredients = vm.platesResponse.value?.ingredients
 
-        val adapter = IngredienceAdapter(true, context!!, ingredients?.toMutableList())
+        val adapter = IngredientsAdapter(true, context!!, ingredients?.toMutableList())
 
         ingredient_list.adapter = adapter
+
+        //no ingredients
+        if (ingredients.isNullOrEmpty()) {
+            viewReceipt.hideView()
+            ingredient_layout.hideView()
+
+        }
+    }
+
+    private fun setRelatedFoodList() {
+        recyclerview_plate.setHasFixedSize(true)
+
+        loader_layout.showView()
+        recyclerview_plate.hideView()
+
+        val id = (vm.platesResponse.value as PlatesResponse).id!!
+
+        vm.fetchRelatedFood(id).observe(this, androidx.lifecycle.Observer {
+            val datas = it.data
+
+            when (it.status) {
+                Status.ERROR -> {
+
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = activity!!, txt = "Debug only: No related foods")
+
+                    //
+                    loader_layout.hideView()
+                    recyclerview_plate.hideView()
+                    other_plate_lbl.hideView()
+
+
+                }
+                Status.SUCCESS -> {
+                    recyclerview_plate.showView()
+                    loader_layout.hideView()
+
+                    datas.let {
+                        relatedAdapter = FoodRelatedAdapter(context!!, datas,
+                            object : RecyclerItemClickListener {
+                                override fun modelClick(model: Any) {
+                                    model as PlatesResponse
+
+                                    createSnack(ctx = activity!!, txt = "Go to categoty foods")
+
+                                }
+                            })
+                    }
+
+                    recyclerview_plate.adapter = relatedAdapter
+                }
+                Status.LOADING -> {
+                    //still loading data
+                    loader_layout.showView()
+                }
+            }
+        })
     }
 
 }

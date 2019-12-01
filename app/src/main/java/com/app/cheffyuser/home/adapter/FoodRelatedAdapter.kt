@@ -5,18 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.utils.loadUrl
+import timber.log.Timber
 
-class FoodOtherAdapter(
+class FoodRelatedAdapter(
     private val context: Context,
     private val foodNearbyModels: MutableList<PlatesResponse>?,
-    private val clickListener: RecyclerItemClickListener
+    private val clickListener: RecyclerItemClickListener,
+    private val countIsTwo: Int = 2
 ) : RecyclerView.Adapter<BaseViewHolder>() {
-    private var isLoaderVisible = false
     private lateinit var myHolder: BaseViewHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -33,7 +35,10 @@ class FoodOtherAdapter(
 
 
     override fun getItemCount(): Int {
-        return foodNearbyModels?.size ?: 0
+        if(foodNearbyModels!!.size > 2){
+            return countIsTwo
+        }
+        return foodNearbyModels!!.size
     }
 
     fun add(platesResponse: PlatesResponse) {
@@ -66,41 +71,36 @@ class FoodOtherAdapter(
         //init views here
         private val foodimage = itemView.findViewById<ImageView>(R.id.foodimage)
         private val foodname = itemView.findViewById<TextView>(R.id.foodname)
-        private val food_ratings = itemView.findViewById<TextView>(R.id.food_ratings)
+        private val fooddes = itemView.findViewById<TextView>(R.id.foodtext)
+        private val foodprice = itemView.findViewById<TextView>(R.id.foodprice)
         private val times = itemView.findViewById<TextView>(R.id.times)
         private val deliverytext = itemView.findViewById<TextView>(R.id.deliverytext)
+        private val badge_price = itemView.findViewById<TextView>(R.id.badge_price)
+        private val holder_foodother = itemView.findViewById<LinearLayout>(R.id.holder_foodother)
 
         init {
 
             foodimage.setOnClickListener(this)
             foodname.setOnClickListener(this)
-            food_ratings.setOnClickListener(this)
             deliverytext.setOnClickListener(this)
             times.setOnClickListener(this)
+            holder_foodother.setOnClickListener(this)
 
         }
 
         override fun onBind(position: Int) {
             super.onBind(position)
+            Timber.d("item at => $position")
             this.model = foodNearbyModels!![position]
-
-            var ratingSum = 0
-            var rating = 0
-
-            model?.reviews?.forEach {
-                ratingSum += it.rating!!
-            }
-
-            model?.reviews?.let {
-                if (it.count() != 0)
-                    rating = ratingSum / it.count()
-            }
-
+            Timber.d("item at => $model")
 
             // set whatever you want. for instance;
-            foodimage.loadUrl(model?.plateImages?.get(0)?.url)
+            if (!model?.plateImages.isNullOrEmpty())
+                foodimage.loadUrl(model?.plateImages?.get(0)?.url)
+
             foodname.text = model?.name
-            food_ratings.text = "$rating(${ratingSum})"
+            fooddes.text = model?.description
+            foodprice.text = "$ ${model?.price}"
 
             times.text = "${model!!.deliveryTime!!.minus(5)}-${model?.deliveryTime} min"
 
@@ -117,9 +117,4 @@ class FoodOtherAdapter(
         notifyDataSetChanged()
     }
 
-    fun clearList() {
-        val size = foodNearbyModels!!.size
-        foodNearbyModels.clear()
-        notifyItemRangeRemoved(0, size)
-    }
 }

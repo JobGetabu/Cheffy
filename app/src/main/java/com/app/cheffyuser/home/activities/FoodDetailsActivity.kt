@@ -86,7 +86,7 @@ class FoodDetailsActivity : BaseActivity() {
 
         val chef = vm.platesResponse.value?.chef
 
-            top_im.loadUrl(vm.platesResponse.value?.plateImages?.get(0)?.url)
+        top_im.loadUrl(vm.platesResponse.value?.plateImages?.get(0)?.url)
 
         //setup chef details
         if (chef != null) {
@@ -107,7 +107,8 @@ class FoodDetailsActivity : BaseActivity() {
 
             food_ratings.text = "$rating(${ratingSum})"
 
-            times.text = "${vm.platesResponse.value!!.deliveryTime!!.minus(5)}-${vm.platesResponse.value?.deliveryTime} min"
+            times.text =
+                "${vm.platesResponse.value!!.deliveryTime!!.minus(5)}-${vm.platesResponse.value?.deliveryTime} min"
 
             //address.text = chef.address.toString()
         }
@@ -138,16 +139,18 @@ class FoodDetailsActivity : BaseActivity() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
-
-                        top_im.loadUrl(vm.platesResponse.value?.plateImages?.get(0)?.url)
+                        if (!vm.platesResponse.value?.plateImages.isNullOrEmpty())
+                            top_im.loadUrl(vm.platesResponse.value?.plateImages?.get(0)?.url)
                     }
 
                     1 -> {
-                        top_im.loadUrl(vm.platesResponse.value?.kitchenImages?.get(0)?.url)
+                        if (!vm.platesResponse.value?.kitchenImages.isNullOrEmpty())
+                            top_im.loadUrl(vm.platesResponse.value?.kitchenImages?.get(0)?.url)
                     }
 
                     2 -> {
-                        top_im.loadUrl(vm.platesResponse.value?.receiptImages?.get(0)?.url)
+                        if (!vm.platesResponse.value?.receiptImages.isNullOrEmpty())
+                            top_im.loadUrl(vm.platesResponse.value?.receiptImages?.get(0)?.url)
 
                     }
                 }

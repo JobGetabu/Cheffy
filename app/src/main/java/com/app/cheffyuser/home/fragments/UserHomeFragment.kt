@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
+import com.app.cheffyuser.home.activities.BottomNavActivity
 import com.app.cheffyuser.home.activities.FoodDetailsActivity
 import com.app.cheffyuser.home.adapter.FoodNearbyAdapter
 import com.app.cheffyuser.home.adapter.FoodPopularAdapter
@@ -80,7 +81,15 @@ class UserHomeFragment : BaseFragment() {
             when (it.status) {
                 Status.ERROR -> {
                     if (BuildConfig.DEBUG)
-                        createSnack(ctx = activity!!, txt = "No nearby foods")
+                        createSnack(ctx = activity!!, txt = "Debug only: No nearby foods")
+
+                    //check for net
+                    try {
+                        val act: BottomNavActivity = getActivity()!! as BottomNavActivity
+                        act.checkNetwork()
+                    }catch (e: Exception){
+                        Timber.wtf(e)
+                    }
 
                     shimmer_view_container.showView()
                     main_content.hideView()
@@ -126,8 +135,8 @@ class UserHomeFragment : BaseFragment() {
 
             when (it.status) {
                 Status.ERROR -> {
-                    //TODO: stop shimmer effect in view
-                    createSnack(ctx = activity!!, txt = "No nearby foods")
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = activity!!, txt = "Debug only: No new foods")
 
                 }
                 Status.SUCCESS -> {
@@ -157,13 +166,22 @@ class UserHomeFragment : BaseFragment() {
     private fun setPopularList() {
         popularlist.setHasFixedSize(true)
 
-        vm.fetchFoodPopular().observe(this, Observer { it ->
+        vm.fetchFoodPopular().observe(this, Observer {
             val datas = it.data
 
             when (it.status) {
                 Status.ERROR -> {
-                    //TODO: stop shimmer effect in view
-                    createSnack(ctx = activity!!, txt = "No nearby foods")
+
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = activity!!, txt = "Debug only: No popular foods")
+
+                    //check for net
+                    try {
+                        val act: BottomNavActivity = getActivity()!! as BottomNavActivity
+                        act.checkNetwork()
+                    }catch (e: Exception){
+                        Timber.wtf(e)
+                    }
 
                 }
                 Status.SUCCESS -> {
