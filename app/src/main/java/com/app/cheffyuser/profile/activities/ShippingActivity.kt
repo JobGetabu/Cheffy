@@ -69,8 +69,22 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
             saveAndClose()
         }
 
-        //set up location
-        ship = tokenManager.shippingData2
+        //set up location\
+
+
+        //init ship
+        ship = ShippingRequest()
+        val shipRes = tokenManager.shippingData
+        ship!!.lat = shipRes?.lat
+        ship!!.lon = shipRes?.lon
+        ship!!.state = shipRes?.state
+        ship!!.city = shipRes?.city
+        ship!!.addressLine1 = shipRes?.addressLine1
+        ship!!.addressLine2 = shipRes?.addressLine2
+        ship!!.zipCode = shipRes?.zipCode
+
+        setupMarker(LatLng(ship?.lat!!.toDouble(),ship?.lon!!.toDouble()))
+
     }
 
     private fun saveAndClose() {

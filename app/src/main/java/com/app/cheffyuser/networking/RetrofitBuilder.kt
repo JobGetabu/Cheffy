@@ -70,7 +70,11 @@ object RetrofitBuilder {
 
     fun <T> createServiceWithAuth(service: Class<T>, tokenManager: TokenManager): T {
 
-        val newClient = client.newBuilder().addInterceptor { chain ->
+        val newClient = client.newBuilder()
+            .connectTimeout(5, TimeUnit.MINUTES) // connect timeout
+            .readTimeout(5, TimeUnit.MINUTES)
+            .writeTimeout(5,TimeUnit.MINUTES)
+            .addInterceptor { chain ->
 
             var request = chain.request()
 

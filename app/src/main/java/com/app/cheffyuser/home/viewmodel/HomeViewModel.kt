@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.app.cheffyuser.create_account.model.ProfileResponse
+import com.app.cheffyuser.create_account.model.ShippingDataResponse
 import com.app.cheffyuser.create_account.model.ShippingRequest
 import com.app.cheffyuser.create_account.model.ShippingResponse
 import com.app.cheffyuser.food_category.model.FoodCatModel
@@ -12,8 +13,10 @@ import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.repository.HomeRepository
 import com.app.cheffyuser.networking.Resource
+import com.app.cheffyuser.profile.model.ProfPicResponse
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
+import okhttp3.MultipartBody
 import java.util.*
 
 class HomeViewModel : ViewModel() {
@@ -26,8 +29,8 @@ class HomeViewModel : ViewModel() {
     var mAddressText: MediatorLiveData<String?> = MediatorLiveData()
 
     fun fetchNearByFood(
-        lat: String = "-5.03284353",
-        lon: String = "-42.8176576",
+        lat: String = "38.81212000",
+        lon: String = "-76.96691110",
         radius: String = "10"
     ): LiveData<Resource<MutableList<FoodNearByModel>>> {
         return liveData(Dispatchers.IO) {
@@ -90,7 +93,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun fetchShipping(): LiveData<Resource<List<ShippingResponse>>> {
+    fun fetchShipping(): LiveData<Resource<List<ShippingDataResponse>>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchShipping()
             emit(Resource.loading(null))
@@ -101,6 +104,14 @@ class HomeViewModel : ViewModel() {
     fun setShipping(shippingRequest: ShippingRequest): LiveData<Resource<ShippingResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.setShipping(shippingRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun uploadProfile(fileToUpload: MultipartBody.Part): LiveData<Resource<ProfPicResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.profileUpload(fileToUpload )
             emit(Resource.loading(null))
             emit(data)
         }

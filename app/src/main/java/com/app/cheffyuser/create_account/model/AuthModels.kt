@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 
+
 enum class UserType(type: String) {
     USER("user"),
     CHEF("chef")
@@ -143,6 +144,14 @@ data class ShippingRequest(
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class ShippingResponse(
+    @SerializedName("message")
+    val message: String? = null,
+    @SerializedName("data")
+    val shipData: List<ShippingDataResponse>? = null
+) : Parcelable
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class ShippingDataResponse(
     @SerializedName("addressLine1")
     val addressLine1: String? = null,
     @SerializedName("addressLine2")

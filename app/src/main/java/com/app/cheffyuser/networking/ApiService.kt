@@ -6,6 +6,8 @@ import com.app.cheffyuser.home.model.AddToBasketRequest
 import com.app.cheffyuser.home.model.AddToBasketResponse
 import com.app.cheffyuser.home.model.FoodNearByModel
 import com.app.cheffyuser.home.model.PlatesResponse
+import com.app.cheffyuser.profile.model.ProfPicResponse
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -30,13 +32,12 @@ interface ApiService {
     suspend fun getUser(): ProfileResponse
 
     @GET("shipping")
-    suspend fun getShipping(): List<ShippingResponse>
+    suspend fun getShipping(): List<ShippingDataResponse>
 
     @POST("shipping")
     suspend fun setShipping(shippingRequest: ShippingRequest): ShippingResponse
 
     //endregion
-
 
     //region home apis
 
@@ -79,6 +80,13 @@ interface ApiService {
     @FormUrlEncoded
     fun refresh(@Field("refresh_token") refreshToken: String): Call<AccessToken>
 
+
+    //region upload profile
+    @Multipart
+    @POST("docs/profilePhoto")
+    suspend fun uploadProfileImage(@Part file: MultipartBody.Part): ProfPicResponse
+
+    //end region
 
 
 }
