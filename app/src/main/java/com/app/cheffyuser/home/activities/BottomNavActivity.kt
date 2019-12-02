@@ -8,9 +8,11 @@ import android.os.Handler
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import ax.synt.droidlocation.DroidLocationAppCompatActivity
 import ax.synt.droidlocation.DroidLocationRequestBuilder
+import br.com.mauker.materialsearchview.MaterialSearchView
 import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.TabsFragment
@@ -44,6 +46,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
     private var mTextMessage: TextView? = null
     private var fragment: Fragment? = null
     private var bottomNavigationView: BottomNavigationView? = null
+
+    lateinit var searchView: MaterialSearchView
 
     private lateinit var mDroidNet: DroidNet
 
@@ -122,6 +126,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
         mDroidNet.addInternetConnectivityListener(this)
 
         val navView = findViewById<BottomNavigationView>(R.id.nav_view)
+        searchView = findViewById(R.id.search_view)
+
         mTextMessage = findViewById(R.id.message)
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
@@ -138,8 +144,19 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
         pager.offscreenPageLimit = 4
         pager.currentItem = 0
+
+
+        currentItemObserver()
     }
 
+    private fun currentItemObserver() {
+        vm.pagerCurrentItem.observe(this, Observer {
+
+            if (it == 1) {
+                nav_view.selectedItemId = R.id.navigation_category
+            }
+        })
+    }
 
     override fun onLocationPermissionGranted() {
         Timber.d("onLocationPermissionGranted() Lat =>$mCurrentLatitude Lon =>$mCurrentLongtitide")
@@ -247,7 +264,7 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit()
 
-        }catch (e: IllegalStateException){
+        } catch (e: IllegalStateException) {
             //Occurs on very fast switching
             Timber.e(e)
         }

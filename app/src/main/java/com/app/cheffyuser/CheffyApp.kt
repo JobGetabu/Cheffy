@@ -8,8 +8,8 @@ import com.app.cheffyuser.utils.AppExecutors
 import com.app.cheffyuser.utils.ReleaseLogTree
 import com.app.cheffyuser.utils.TokenManager
 import com.droidnet.DroidNet
-import com.google.android.libraries.places.api.Places
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.libraries.places.api.Places
 import com.google.firebase.iid.FirebaseInstanceId
 import timber.log.Timber
 

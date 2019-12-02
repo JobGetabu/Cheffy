@@ -1,16 +1,11 @@
 package com.app.cheffyuser.home.fragments
 
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.app.cheffyuser.CheffyApp
@@ -121,14 +116,5 @@ open class BaseFragment : Fragment(), DroidListener {
     }
 
     //endregion
-
-    fun hideKeyboard(activity: Activity) {
-        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        val f = activity.currentFocus
-        if (null != f && null != f.windowToken && EditText::class.java.isAssignableFrom(f.javaClass))
-            imm.hideSoftInputFromWindow(f.windowToken, 0)
-        else
-            activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-    }
 
 }

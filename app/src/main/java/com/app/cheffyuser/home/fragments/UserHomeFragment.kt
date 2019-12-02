@@ -20,10 +20,12 @@ import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.Constants.PLATES_RESPONSE_EXTRA
+import com.app.cheffyuser.utils.KeyboardUtils
 import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.hideView
 import com.app.cheffyuser.utils.showView
 import kotlinx.android.synthetic.main.fragment_chef_home.*
+import kotlinx.android.synthetic.main.search_bar_layout.*
 import timber.log.Timber
 
 /**
@@ -34,6 +36,8 @@ class UserHomeFragment : BaseFragment() {
     private lateinit var foodNearbyAdapter: FoodNearbyAdapter
     private lateinit var foodNearbyAdapter2: FoodNearbyAdapter
     private lateinit var foodPopularAdapter: FoodPopularAdapter
+
+    private var isFocused = false
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(getActivity()!!).get(HomeViewModel::class.java)
@@ -55,19 +59,33 @@ class UserHomeFragment : BaseFragment() {
 
     private fun uiStuff() {
 
-        address_txt.requestFocus()
-
         detectedLocation()
         setUpNearbyList()
         setUpNewList()
         setPopularList()
 
-        hideKeyboard(activity!!)
+        address_txt.requestFocus()
+        search_et.isFocusable = false
+
+        KeyboardUtils.hideKeyboard(activity!!)
+
+
+        search_et.setOnClickListener {
+
+            Timber.d("search clicked")
+            vm.pagerCurrentItem.value = 1
+            //showKeyboard(activity!!)
+
+            val mum: BottomNavActivity = getActivity()!! as BottomNavActivity
+
+            mum.searchView.openSearch()
+
+        }
 
     }
 
-    fun detectedLocation() {
-        Timber.d("Location: lat=>  ${vm.mCurrentLatitude} lon=>${vm.mCurrentLongtitide} address=>${vm.mAddressText}")
+    private fun detectedLocation() {
+        Timber.d("Location: lat=>  ${vm.mCurrentLatitude.value} lon=>${vm.mCurrentLongtitide.value} address=>${vm.mAddressText.value}")
     }
 
     private fun setUpNearbyList() {
@@ -87,7 +105,7 @@ class UserHomeFragment : BaseFragment() {
                     try {
                         val act: BottomNavActivity = getActivity()!! as BottomNavActivity
                         act.checkNetwork()
-                    }catch (e: Exception){
+                    } catch (e: Exception) {
                         Timber.wtf(e)
                     }
 
@@ -179,7 +197,7 @@ class UserHomeFragment : BaseFragment() {
                     try {
                         val act: BottomNavActivity = getActivity()!! as BottomNavActivity
                         act.checkNetwork()
-                    }catch (e: Exception){
+                    } catch (e: Exception) {
                         Timber.wtf(e)
                     }
 

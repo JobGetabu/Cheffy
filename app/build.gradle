@@ -196,6 +196,9 @@ dependencies {
     //image pix
     implementation 'com.fxn769:pix:1.4.4'
 
+    //search view
+    implementation 'br.com.mauker.materialsearchview:materialsearchview:1.2.3'
+
     //runtime permissions
     implementation 'com.karumi:dexter:5.0.0'
 

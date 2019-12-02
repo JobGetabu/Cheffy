@@ -13,7 +13,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ax.synt.dropexpress_client_app.util.KeyboardUtils
+import com.app.cheffyuser.utils.KeyboardUtils
 import com.app.cheffyuser.R
 import com.app.cheffyuser.profile.adapter.PlacesPredAdapter
 import com.app.cheffyuser.profile.adapter.RecyclerPlaceClickListener

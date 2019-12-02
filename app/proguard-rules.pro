@@ -143,3 +143,12 @@
 -keep class * implements com.google.gson.JsonDeserializer
 
 ################---------------End: proguard configuration for Gson  ----------##############################
+
+
+
+################---------------Material Search Lib ----------####################################
+
+-keep class br.com.mauker.MsvAuthority
+-keepclassmembers class br.com.mauker.** { *; }
+
+################---------------End: Material search view  ----------##############################

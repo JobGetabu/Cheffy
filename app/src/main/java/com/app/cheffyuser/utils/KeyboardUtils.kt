@@ -1,4 +1,4 @@
-package ax.synt.dropexpress_client_app.util
+package com.app.cheffyuser.utils
 
 import android.app.Activity
 import android.content.Context
@@ -11,7 +11,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import java.util.*
 
-class KeyboardUtils private constructor(act: Activity, private var mCallback: SoftKeyboardToggleListener?) :
+class KeyboardUtils private constructor(
+    act: Activity,
+    private var mCallback: SoftKeyboardToggleListener?
+) :
     ViewTreeObserver.OnGlobalLayoutListener {
     private val mRootView: View
     private var prevValue: Boolean? = null
@@ -93,7 +96,8 @@ class KeyboardUtils private constructor(act: Activity, private var mCallback: So
          * @param context calling context
          */
         fun toggleKeyboardVisibility(context: Context) {
-            val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager?.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
         }
 
@@ -105,6 +109,15 @@ class KeyboardUtils private constructor(act: Activity, private var mCallback: So
             val inputMethodManager =
                 activeView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager?.hideSoftInputFromWindow(activeView.windowToken, 0)
+        }
+
+        fun showKeyboard(activity: Activity) {
+            val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val f = activity.currentFocus
+            if (null != f && null != f.windowToken && EditText::class.java.isAssignableFrom(f.javaClass))
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0)
+            else
+                activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         }
 
         fun hideKeyboard(activity: Activity) {
