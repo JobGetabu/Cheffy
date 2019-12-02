@@ -10,6 +10,7 @@
 
     <br.com.mauker.materialsearchview.MaterialSearchView
         android:id="@+id/search_view"
+        style="@style/MaterialSearchViewStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:translationZ="24dp"

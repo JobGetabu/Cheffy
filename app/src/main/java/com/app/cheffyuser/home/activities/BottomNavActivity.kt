@@ -272,4 +272,12 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
     }
 
+    override fun onBackPressed() {
+
+        if (searchView.isOpen) {
+            searchView.closeSearch()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }
