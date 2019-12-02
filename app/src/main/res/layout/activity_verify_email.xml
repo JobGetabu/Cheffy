@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgColor"
+    android:background="@color/background_activity"
     tools:context=".create_account.activities.VerifyEmailActivity">
 
     <com.google.android.material.card.MaterialCardView
@@ -170,7 +170,7 @@
         android:fontFamily="@font/sailec_medium"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="Next"
+        android:text="@string/continue_txt"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"

@@ -71,6 +71,7 @@
         <activity
             android:name=".home.activities.BottomNavActivity"
             android:label="@string/title_activity_bottom_nav"
+            android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -83,7 +84,7 @@
         <activity
             android:name=".home.activities.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.MainActivity"></activity>
+            android:theme="@style/AppTheme.MainActivity"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

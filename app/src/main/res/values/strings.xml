@@ -52,5 +52,6 @@
     <string name="secondary_text">secondary text</string>
 
     <string name="filled_bullet">\u25CF</string>
+    <string name="continue_txt">Continue</string>
 
 </resources>
