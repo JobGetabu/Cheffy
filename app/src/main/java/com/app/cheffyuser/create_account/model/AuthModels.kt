@@ -6,13 +6,6 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-
-
-enum class UserType(type: String) {
-    USER("user"),
-    CHEF("chef")
-}
-
 data class SignupRequest(
     val email: String
 )
@@ -181,7 +174,7 @@ data class ShippingDataResponse(
 
 data class VerifyRequest(
     val email: String?,
-    val emailToken: String?
+    val email_token: String?
 )
 
 data class VerifyResponse(
@@ -195,7 +188,7 @@ data class RegistrationRequest(
     val email: String?,
     val name: String?,
     val password: String?,
-    val userType: String = UserType.USER.name
+    val user_type: String = "user"
 )
 
 data class RegistrationResponse(

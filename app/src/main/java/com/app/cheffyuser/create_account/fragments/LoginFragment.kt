@@ -147,7 +147,7 @@ class LoginFragment : BaseFragment() {
         vm.loginUser(loginReq).observe(this, Observer {
             when (it.status) {
                 Status.ERROR -> {
-                    errorDialogue("Error", "User or password is invalid!", dialog!!)
+                    errorDialogue("Error", "${it.message}", dialog!!)
                 }
                 Status.SUCCESS -> {
                     successDialogue(alertDialog = dialog)

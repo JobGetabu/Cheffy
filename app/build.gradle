@@ -12,7 +12,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 ext.versionMajor = 1
 ext.versionMinor = 0
-ext.versionPatch = 0
+ext.versionPatch = 1
 ext.versionClassifier = null
 ext.isSnapshot = true  //only true while in development
 ext.minimumSdkVersion = 21
@@ -23,7 +23,7 @@ android {
         applicationId "com.app.cheffyuser"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode generateVersionCode() // 210100000
+        versionCode generateVersionCode() // 210100001
         versionName generateVersionName() // 1.0.0
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

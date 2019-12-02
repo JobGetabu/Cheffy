@@ -87,7 +87,8 @@ class AccountFragment : BaseFragment() {
                         createSnack(ctx = activity!!, txt = "Address can't be fetched now")
                 }
                 Status.SUCCESS -> {
-                    tokenManager.shippingData = datas?.get(0)
+                    if (!datas.isNullOrEmpty())
+                        tokenManager.shippingData = datas[0]
 
                     datas.let {
                         if (!datas.isNullOrEmpty())

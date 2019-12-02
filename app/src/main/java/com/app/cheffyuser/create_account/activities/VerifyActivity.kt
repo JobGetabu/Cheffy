@@ -71,7 +71,7 @@ class VerifyActivity : BaseActivity(), GenericTextWatcherListener {
             return
         }
 
-        val dialog = showDialogue("Creating Account", "Please wait ...")
+        val dialog = showDialogue("Verifying Email", "Please wait ...")
 
         val sReq = VerifyRequest(tokenManager.email, code)
 

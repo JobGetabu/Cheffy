@@ -71,19 +71,21 @@ class SignUpFragment : BaseFragment() {
         vm.createAccount(sReq).observe(this, Observer {
             when (it.status) {
                 Status.ERROR -> {
-                    errorDialogue("Error", "Please try again or use different email", dialog!!)
+                    errorDialogue("Error", "${it.message}", dialog!!)
                 }
                 Status.SUCCESS -> {
                     successDialogue(alertDialog = dialog)
 
                     val res = it.data
 
-                    //save in prefs
-                    tokenManager.saveToken(AccessToken(res!!.token!!))
-                    tokenManager.email = email
+                    if (res != null){
+                        //save in prefs
+                        tokenManager.saveToken(AccessToken(res.token!!))
+                        tokenManager.email = email
 
-                    val intent = Intent(activity, VerifyActivity::class.java)
-                    startActivity(intent)
+                        val intent = Intent(activity, VerifyActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
                 Status.LOADING -> {
                     //still loading data

@@ -75,7 +75,7 @@ open class BaseActivity : AppCompatActivity(), DroidListener {
             .setTitle(title)
             .setDescription(descriptions)
         alertDialog?.changeDialog(builder)
-        Handler().postDelayed({ alertDialog?.dismiss() }, 3000)
+        Handler().postDelayed({ alertDialog?.dismiss() }, 1000)
         alertDialog?.setCancelable(true)
     }
 
