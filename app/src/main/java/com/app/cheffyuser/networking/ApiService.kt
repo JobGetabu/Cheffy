@@ -83,7 +83,7 @@ interface ApiService {
 
     //region upload profile
     @Multipart
-    @POST("docs/profilePhoto")
+    @PUT("docs")
     suspend fun uploadProfileImage(@Part file: MultipartBody.Part): ProfPicResponse
 
     //end region
