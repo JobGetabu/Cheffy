@@ -112,6 +112,7 @@ class FoodCategoryFragment : BaseFragment() {
 
         catlist.setHasFixedSize(true)
 
+        shimmer_view_container.startShimmer()
         shimmer_view_container.showView()
         catlist.hideView()
 
@@ -129,6 +130,7 @@ class FoodCategoryFragment : BaseFragment() {
                     //TODO: send manged logs to crashlytics in production
                     createSnack(ctx = activity!!, txt = "No foods categories")
 
+                    shimmer_view_container.startShimmer()
                     shimmer_view_container.showView()
                     catlist.hideView()
 
@@ -180,6 +182,7 @@ class FoodCategoryFragment : BaseFragment() {
 
         catlist.setHasFixedSize(true)
 
+        shimmer_view_container.startShimmer()
         shimmer_view_container.showView()
         catlist.hideView()
         no_searchfood_layout.hideView()
@@ -196,6 +199,7 @@ class FoodCategoryFragment : BaseFragment() {
 
                     no_searchfood_layout.showView()
                     shimmer_view_container.hideView()
+                    shimmer_view_container.stopShimmer()
                     catlist.hideView()
 
                     if (BuildConfig.DEBUG)
@@ -234,6 +238,7 @@ class FoodCategoryFragment : BaseFragment() {
                     //still loading data
                     //still loading data
                     shimmer_view_container.showView()
+                    shimmer_view_container.startShimmer()
                     catlist.hideView()
                 }
             }
