@@ -5,8 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
@@ -23,6 +25,7 @@ import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.ImageQuality
 import com.fxn.utility.PermUtil
+import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -37,6 +40,13 @@ class EditProfileActivity : BaseActivity() {
             Intent(context, EditProfileActivity::class.java)
 
         private const val PIX_REQUEST_CODE = 100
+        private const val IMAGE_COMPRESSION = 80
+        private var lockAspectRatio: Boolean = false
+        private var setBitmapMaxWidthHeight = false
+        private var ASPECT_RATIO_X = 16
+        private var ASPECT_RATIO_Y = 9
+        private var bitmapMaxWidth = 1000
+        private var bitmapMaxHeight = 1000
     }
 
     private val vm: HomeViewModel by lazy {
@@ -94,34 +104,22 @@ class EditProfileActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode != Activity.RESULT_OK) return
-
+        Timber.d("result code =>$resultCode")
         when (requestCode) {
 
-            PIX_REQUEST_CODE -> {
+            PIX_REQUEST_CODE -> if (resultCode == Activity.RESULT_OK) {
                 vm.imagesUrls = data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)
 
                 try {
 
                     val file = File(vm.imagesUrls!![0])
                     if (file.exists()) {
-                        val myBitmap = BitmapFactory.decodeFile(file.absolutePath)
-
-                        Glide.with(this)
-                            .asBitmap()
-                            .load(myBitmap)
-                            .placeholder(R.drawable.avatar_placeholder)
-                            .error(R.drawable.avatar_placeholder)
-                            .into(user_image)
 
 
-                        val mFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), file)
-                        val fileToUpload: MultipartBody.Part =
-                            MultipartBody.Part.createFormData("profile_photo", file.name, mFile)
-
-
-                        toUploadPic(fileToUpload)
-
+                        val fName = System.currentTimeMillis().toString() + ".jpg"
+                        //send to cropper
+                        val imUri = Uri.fromFile(file)
+                        cropImage(imUri, fName)
 
                     }
                 } catch (e: Exception) {
@@ -129,9 +127,18 @@ class EditProfileActivity : BaseActivity() {
                 }
             }
 
-            else -> {
-                Timber.d("Nothing")
+            UCrop.REQUEST_CROP -> if (resultCode == Activity.RESULT_OK)  {
+                handleUCropResult(data)
             }
+
+            UCrop.RESULT_ERROR -> {
+                val cropError = UCrop.getError(data!!)
+                Timber.e(cropError, "Crop error: ")
+                setResultCancelled()
+            }
+
+            else -> setResultCancelled()
+
         }
     }
 
@@ -142,7 +149,7 @@ class EditProfileActivity : BaseActivity() {
         //TODO: push shipping data to server
         vm.uploadProfile(fileToUpload).observe(this, Observer {
 
-            val data =it.data
+            val data = it.data
 
             when (it.status) {
                 Status.ERROR -> {
@@ -196,4 +203,65 @@ class EditProfileActivity : BaseActivity() {
             }
         }
     }
+
+    private fun cropImage(sourceUri: Uri?, fName: String) {
+        val destinationUri = Uri.fromFile(File(cacheDir, fName))
+
+        val options = UCrop.Options()
+        options.setCompressionQuality(IMAGE_COMPRESSION)
+        options.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        options.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.colorPrimary))
+
+        if (lockAspectRatio)
+            options.withAspectRatio(ASPECT_RATIO_X.toFloat(), ASPECT_RATIO_Y.toFloat())
+
+        if (setBitmapMaxWidthHeight)
+            options.withMaxResultSize(bitmapMaxWidth, bitmapMaxHeight)
+
+        UCrop.of(sourceUri!!, destinationUri)
+            .withOptions(options)
+            .start(this@EditProfileActivity)
+    }
+
+    private fun handleUCropResult(data: Intent?) {
+        if (data == null) {
+            setResultCancelled()
+            return
+        }
+        val resultUri = UCrop.getOutput(data)
+        setResultOk(resultUri)
+    }
+
+    private fun setResultOk(imagePath: Uri?) {
+
+        val file = File(imagePath!!.path)
+        if (file.exists()) {
+
+            val myBitmap = BitmapFactory.decodeFile(file.absolutePath)
+
+            //TODO: test upload here
+            Glide.with(this)
+                .asBitmap()
+                .load(myBitmap)
+                .placeholder(R.drawable.avatar_placeholder)
+                .error(R.drawable.avatar_placeholder)
+                .into(user_image)
+
+
+            val mFile: RequestBody =
+                RequestBody.create(MediaType.parse("image/*"), file)
+            val fileToUpload: MultipartBody.Part =
+                MultipartBody.Part.createFormData("profile_photo", file.name, mFile)
+
+
+            toUploadPic(fileToUpload)
+        }
+    }
+
+    private fun setResultCancelled() {
+        Timber.d("Nothing")
+        toast("Cancelled")
+    }
+
 }

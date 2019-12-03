@@ -152,3 +152,12 @@
 -keepclassmembers class br.com.mauker.** { *; }
 
 ################---------------End: Material search view  ----------##############################
+
+
+################---------------Ucrop  ----------##################################
+
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
+
+################---------------End: Ucrop  ----------##############################
