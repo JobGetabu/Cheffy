@@ -35,12 +35,13 @@
             android:textColor="#3B3B3B"
             android:textSize="18sp" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/img_filter"
             android:contentDescription="@string/contentdesc"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="0.4"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:tint="@color/colorPrimary"
             app:srcCompat="@drawable/ic_filter_list_black_24dp" />
 

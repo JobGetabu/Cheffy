@@ -25,11 +25,9 @@ import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.activities.ShippingActivity
+import com.app.cheffyuser.utils.*
 import com.app.cheffyuser.utils.Constants.PLATES_RESPONSE_EXTRA
-import com.app.cheffyuser.utils.KeyboardUtils
-import com.app.cheffyuser.utils.createSnack
-import com.app.cheffyuser.utils.hideView
-import com.app.cheffyuser.utils.showView
+import kotlinx.android.synthetic.main.filter_layout.*
 import kotlinx.android.synthetic.main.fragment_chef_home.*
 import kotlinx.android.synthetic.main.search_bar_layout.*
 import timber.log.Timber
@@ -73,6 +71,12 @@ class UserHomeFragment : BaseFragment() {
         address_txt.requestFocus()
         search_et.isFocusable = false
         search_et.addTextChangedListener(textWatcher())
+
+        img_filter.setOnClickListener {
+
+            toggleSectionInfo(img_filter)
+
+        }
 
         KeyboardUtils.hideKeyboard(activity!!)
 
@@ -298,8 +302,24 @@ class UserHomeFragment : BaseFragment() {
 
                 img_filter.setOnClickListener {
                     //TODO: Add filter logic
+                    toggleSectionInfo(img_filter)
+
                 }
             }
+        }
+    }
+
+    private fun toggleSectionInfo(view: View) {
+        val show = Tools.toggleArrow(view)
+        if (show) {
+            ViewAnimations.expand(filter_layout, object : ViewAnimations.AnimListener {
+                override fun onFinish() {
+                    //Tools.nestedScrollTo(main_content, filter_layout)
+                    main_content.scrollTo(0,0)
+                }
+            })
+        } else {
+            ViewAnimations.collapse(filter_layout)
         }
     }
 }
