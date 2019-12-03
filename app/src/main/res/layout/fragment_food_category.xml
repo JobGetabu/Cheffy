@@ -95,4 +95,14 @@
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
+    <include
+        layout="@layout/no_searchfood"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layouyt1"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        tools:visibility="gone"/>
+
+
 </RelativeLayout>

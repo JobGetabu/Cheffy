@@ -1,12 +1,16 @@
 package com.app.cheffyuser.home.fragments
 
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.app.cheffyuser.CheffyApp
 import com.droidnet.DroidListener
@@ -113,6 +117,15 @@ open class BaseFragment : Fragment(), DroidListener {
             Handler().postDelayed({ alertDialog?.dismiss() }, 3000)
             alertDialog?.setCancelable(true)
         }
+    }
+
+
+    fun getColor(@ColorRes color: Int): Int {
+        return ContextCompat.getColor(context!!, color)
+    }
+
+    fun getDrawable(@DrawableRes drawable: Int): Drawable {
+        return ContextCompat.getDrawable(context!!, drawable)!!
     }
 
     //endregion

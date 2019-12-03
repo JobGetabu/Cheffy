@@ -1,10 +1,13 @@
 package com.app.cheffyuser.home.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
+import android.speech.RecognizerIntent
+import android.text.TextUtils
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -35,6 +38,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_bottom_nav.*
 import timber.log.Timber
+
 
 class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
@@ -147,6 +151,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
 
         currentItemObserver()
+
+        searchUtils()
     }
 
     private fun currentItemObserver() {
@@ -272,6 +278,21 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        searchView.clearSuggestions()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        searchView.activityResumed()
+        //TODO: Add custom cheffy suggestions
+        val arr = arrayOf("Grilled Salmon","Salad","Pizza","Chicken", "Grilled Meat")
+
+        searchView.addSuggestions(arr)
+    }
+
     override fun onBackPressed() {
 
         if (searchView.isOpen) {
@@ -279,5 +300,47 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode === MaterialSearchView.REQUEST_VOICE && resultCode === Activity.RESULT_OK) {
+            val matches: ArrayList<String>? =
+                data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            if (matches != null && matches.size > 0) {
+                val searchWrd = matches[0]
+                if (!TextUtils.isEmpty(searchWrd)) {
+                    searchView.setQuery(searchWrd, false)
+                }
+            }
+            return
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+
+    }
+
+    private fun searchUtils() {
+        searchView.setOnItemClickListener { _, _, position, id ->
+
+            // Do something when the suggestion list is clicked.
+            val suggestion = searchView.getSuggestionAtPosition(position)
+
+            searchView.setQuery(suggestion, true)
+
+        }
+
+
+        searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                vm.searchTerm.value = query
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return false
+            }
+        })
     }
 }

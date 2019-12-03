@@ -1,9 +1,13 @@
 package com.app.cheffyuser.home.activities
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.app.cheffyuser.CheffyApp
 import com.droidnet.DroidListener
 import com.droidnet.DroidNet
@@ -121,6 +125,15 @@ open class BaseActivity : AppCompatActivity(), DroidListener {
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    }
+
+
+    fun getMyColor(@ColorRes color: Int): Int {
+        return ContextCompat.getColor(this, color)
+    }
+
+    fun getMyDrawable(@DrawableRes drawable: Int): Drawable {
+        return ContextCompat.getDrawable(this, drawable)!!
     }
 
 }

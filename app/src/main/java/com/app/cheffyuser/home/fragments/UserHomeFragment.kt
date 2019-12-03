@@ -2,10 +2,14 @@ package com.app.cheffyuser.home.fragments
 
 
 import android.app.ActivityOptions
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -66,15 +70,14 @@ class UserHomeFragment : BaseFragment() {
 
         address_txt.requestFocus()
         search_et.isFocusable = false
+        search_et.addTextChangedListener(textWatcher())
 
         KeyboardUtils.hideKeyboard(activity!!)
 
 
         search_et.setOnClickListener {
 
-            Timber.d("search clicked")
             vm.pagerCurrentItem.value = 1
-            //showKeyboard(activity!!)
 
             val mum: BottomNavActivity = getActivity()!! as BottomNavActivity
 
@@ -236,5 +239,43 @@ class UserHomeFragment : BaseFragment() {
         intent.putExtra(PLATES_RESPONSE_EXTRA, model)
 
         startActivity(intent, activityOptions.toBundle())
+    }
+
+    // text watcher
+    private fun textWatcher() = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {}
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            //val cardno: String = email!!.text.toString()
+            val searchTxt: String = search_et!!.text.toString()
+
+            if (searchTxt.isNotEmpty()) {
+
+                ImageViewCompat.setImageTintList(
+                    img_filter,
+                    ColorStateList.valueOf(getColor(R.color.grey_60))
+                )
+                img_filter.setImageDrawable(getDrawable(R.drawable.ic_close))
+
+
+                img_filter.setOnClickListener {
+                    search_et!!.setText("")
+
+                }
+
+            } else {
+                ImageViewCompat.setImageTintList(
+                    img_filter,
+                    ColorStateList.valueOf(getColor(R.color.colorAccent))
+                )
+                img_filter.setImageDrawable(getDrawable(R.drawable.ic_filter_list_black_24dp))
+
+                img_filter.setOnClickListener{
+                    //TODO: Add filter logic
+                }
+            }
+        }
     }
 }
