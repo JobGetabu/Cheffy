@@ -35,7 +35,7 @@ interface ApiService {
     suspend fun getShipping(): List<ShippingDataResponse>
 
     @POST("shipping")
-    suspend fun setShipping(shippingRequest: ShippingRequest): ShippingResponse
+    suspend fun setShipping(@Body shippingRequest: ShippingRequest): ShippingResponse
 
     //endregion
 

@@ -74,7 +74,7 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
 
         //init ship
         ship = ShippingRequest()
-        val shipRes = tokenManager.shippingData
+        val shipRes = tokenManager.shippingData2
         ship!!.lat = shipRes?.lat
         ship!!.lon = shipRes?.lon
         ship!!.state = shipRes?.state
@@ -82,6 +82,13 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
         ship!!.addressLine1 = shipRes?.addressLine1
         ship!!.addressLine2 = shipRes?.addressLine2
         ship!!.zipCode = shipRes?.zipCode
+
+        primary_txt.text = "${ship?.addressLine1}"
+        primary_txt2.text = "${ship?.city}"
+
+        etAddress.editText?.setText("${ship?.addressLine1}")
+        etAddress2.editText?.setText("${ship?.addressLine2}")
+        etzip.editText!!.setText("${ship?.zipCode}")
 
     }
 
@@ -114,14 +121,14 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
             when (it.status) {
                 Status.ERROR -> {
                     if (BuildConfig.DEBUG)
-                        createSnack(ctx = this, txt = "Error setting shipping")
+                        createSnack(ctx = this, txt = "Debug only: You already have this address registered")
 
-                    errorDialogue("Error", "Please try again later", dialog)
+                    errorDialogue("Error", "You already have this address registered", dialog)
                     //checkNetwork()
                 }
                 Status.SUCCESS -> {
 
-                    successDialogue(alertDialog = dialog)
+                    successDialogue(alertDialog = dialog, descriptions = "${it.data?.message}")
                     finish()
                 }
                 Status.LOADING -> {
@@ -155,17 +162,17 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun setupDefaultPickup(dd: DropdownItem) {
 
-        ship = ShippingRequest()
 
         primary_txt.text = "${dd.primaryText}"
         primary_txt2.text = "${dd.secondaryText}"
 
         etAddress.editText?.setText("${dd.place?.address}")
 
-        ship?.zipCode = etzip.editText?.text.toString()
-        ship?.addressLine1 = etAddress.editText?.toString()
-        ship?.addressLine2 = etAddress2.editText?.toString()
-        ship?.city = "${dd.place?.address}"
+        ship = ShippingRequest()
+        ship?.zipCode = etzip.editText!!.text.toString()
+        ship?.addressLine1 = etAddress.editText!!.toString()
+        ship?.addressLine2 = etAddress2.editText!!.toString()
+        ship?.city = "${dd.secondaryText}"
         ship?.lat = "${dd.place?.latLng?.latitude}"
         ship?.lon = "${dd.place?.latLng?.longitude}"
 

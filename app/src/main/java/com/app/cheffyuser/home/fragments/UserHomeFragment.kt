@@ -101,6 +101,14 @@ class UserHomeFragment : BaseFragment() {
             startActivity(intent)
         }
 
+        address_img.setOnClickListener {
+            val intent = Intent(
+                activity,
+                ShippingActivity::class.java
+            )
+            startActivity(intent)
+        }
+
     }
 
     private fun detectedLocation() {

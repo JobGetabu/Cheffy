@@ -372,6 +372,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:shape_roundRect_bottomLeftRadius="6dp"
         app:shape_roundRect_bottomRightRadius="6dp"

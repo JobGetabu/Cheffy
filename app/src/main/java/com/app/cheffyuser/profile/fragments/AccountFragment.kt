@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
+import com.app.cheffyuser.create_account.model.ShippingRequest
 import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
@@ -87,11 +88,23 @@ class AccountFragment : BaseFragment() {
                         createSnack(ctx = activity!!, txt = "Address can't be fetched now")
                 }
                 Status.SUCCESS -> {
-                    if (!datas.isNullOrEmpty()){
+                    if (!datas.isNullOrEmpty()) {
 
                         tokenManager.shippingData = datas[0]
 
                         vm.shippingData.value = datas[0]
+
+                        val ship = ShippingRequest()
+                        ship.lat = datas[0].lat
+                        ship.lon = datas[0].lon
+                        ship.state = datas[0].state
+                        ship.city = datas[0].city
+                        ship.addressLine1 = datas[0].addressLine1
+                        ship.addressLine2 = datas[0].addressLine2
+                        ship.zipCode = datas[0].zipCode
+
+                        tokenManager.shippingData2 = ship
+
                     }
 
 
