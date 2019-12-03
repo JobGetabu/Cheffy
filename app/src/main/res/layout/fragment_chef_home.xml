@@ -33,6 +33,7 @@
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 android:layout_weight="0.4"
+                android:contentDescription="@string/contentdesc"
                 android:src="@drawable/map_pin"
                 android:tint="@color/colorPrimary" />
 
@@ -42,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2.2"
                 android:fontFamily="@font/sailec_light"
-                android:text="2179 Brooklyn Street"
+                android:text="Add delivery address"
                 android:focusedByDefault="true"
                 android:textColor="#3B3B3B"
                 android:textSize="16sp" />

@@ -43,7 +43,7 @@
                 android:layout_weight="2.2"
                 android:focusedByDefault="true"
                 android:fontFamily="@font/sailec_light"
-                android:text="2179 Brooklyn Street"
+                android:text="Add delivery address"
                 android:textColor="#3B3B3B"
                 android:textSize="16sp" />
 
