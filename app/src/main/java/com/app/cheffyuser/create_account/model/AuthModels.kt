@@ -142,6 +142,7 @@ data class ShippingResponse(
     @SerializedName("data")
     val shipData: List<ShippingDataResponse>? = null
 ) : Parcelable
+
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class ShippingDataResponse(

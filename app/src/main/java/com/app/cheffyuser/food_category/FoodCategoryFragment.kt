@@ -27,6 +27,7 @@ import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
+import com.app.cheffyuser.profile.activities.ShippingActivity
 import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.hideView
 import com.app.cheffyuser.utils.showView
@@ -80,6 +81,20 @@ class FoodCategoryFragment : BaseFragment() {
 
         btn_post.setOnClickListener {
             val intent = Intent(activity, CustomOrderActivity::class.java)
+            startActivity(intent)
+        }
+
+        vm.shippingData.observe(this, Observer {
+            if (it == null) return@Observer
+
+            address_txt.text = tokenManager.shippingData!!.addressLine1
+        })
+
+        address_txt.setOnClickListener {
+            val intent = Intent(
+                activity,
+                ShippingActivity::class.java
+            )
             startActivity(intent)
         }
 

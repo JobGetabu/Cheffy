@@ -83,8 +83,6 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
         ship!!.addressLine2 = shipRes?.addressLine2
         ship!!.zipCode = shipRes?.zipCode
 
-        setupMarker(LatLng(ship?.lat!!.toDouble(),ship?.lon!!.toDouble()))
-
     }
 
     private fun saveAndClose() {
@@ -95,15 +93,17 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
             return
         }
 
-        if (ship == null){
+        if (ship == null) {
             createSnack(
-                this, txt = "Please pick a location")
+                this, txt = "Please pick a location"
+            )
             return
         }
 
-        if (ship?.lon.isNullOrEmpty()){
+        if (ship?.lon.isNullOrEmpty()) {
             createSnack(
-                this, txt = "Please pick a location")
+                this, txt = "Please pick a location"
+            )
             return
         }
 
@@ -179,6 +179,14 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap?) {
         map = googleMap!!
 
+        if (ship != null) {
+            if (ship!!.lat != null) {
+                setupMarker(LatLng(ship?.lat!!.toDouble(), ship?.lon!!.toDouble()))
+            } else {
+                val loc = LatLng(40.714890, -73.992690)
+                setupMarker(loc)
+            }
+        }
     }
 
     private fun setupMarker(loc: LatLng) {

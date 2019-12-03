@@ -28,6 +28,8 @@ class HomeViewModel : ViewModel() {
     var mCurrentLatitude: MediatorLiveData<Double?> = MediatorLiveData()
     var mAddressText: MediatorLiveData<String?> = MediatorLiveData()
 
+    var shippingData: MediatorLiveData<ShippingDataResponse> = MediatorLiveData()
+
     var pagerCurrentItem: MediatorLiveData<Int> = MediatorLiveData()
     var searchTerm: MediatorLiveData<String> = MediatorLiveData()
 

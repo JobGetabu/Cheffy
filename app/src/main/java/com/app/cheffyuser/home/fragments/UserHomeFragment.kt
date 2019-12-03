@@ -2,6 +2,7 @@ package com.app.cheffyuser.home.fragments
 
 
 import android.app.ActivityOptions
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
@@ -23,6 +24,7 @@ import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
+import com.app.cheffyuser.profile.activities.ShippingActivity
 import com.app.cheffyuser.utils.Constants.PLATES_RESPONSE_EXTRA
 import com.app.cheffyuser.utils.KeyboardUtils
 import com.app.cheffyuser.utils.createSnack
@@ -83,6 +85,20 @@ class UserHomeFragment : BaseFragment() {
 
             mum.searchView.openSearch()
 
+        }
+
+        vm.shippingData.observe(this, Observer {
+            if (it == null) return@Observer
+
+            address_txt.text = tokenManager.shippingData!!.addressLine1
+        })
+
+        address_txt.setOnClickListener {
+            val intent = Intent(
+                activity,
+                ShippingActivity::class.java
+            )
+            startActivity(intent)
         }
 
     }
@@ -272,7 +288,7 @@ class UserHomeFragment : BaseFragment() {
                 )
                 img_filter.setImageDrawable(getDrawable(R.drawable.ic_filter_list_black_24dp))
 
-                img_filter.setOnClickListener{
+                img_filter.setOnClickListener {
                     //TODO: Add filter logic
                 }
             }

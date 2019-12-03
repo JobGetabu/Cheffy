@@ -13,11 +13,11 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.app.cheffyuser.utils.KeyboardUtils
 import com.app.cheffyuser.R
 import com.app.cheffyuser.profile.adapter.PlacesPredAdapter
 import com.app.cheffyuser.profile.adapter.RecyclerPlaceClickListener
 import com.app.cheffyuser.profile.model.DropdownItem
+import com.app.cheffyuser.utils.KeyboardUtils
 import com.app.cheffyuser.utils.showView
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -66,7 +66,7 @@ class PlaceSelectorActivity : AppCompatActivity() {
         places_autocomplete_edit_text.requestFocus()
 
         if (isDrop) {
-            extraplace_title.text = "Add Shipping Drop-off"
+            extraplace_title.text = "Delivery address"
         }
 
         placesAdapter = PlacesPredAdapter(this, placesClient, object : RecyclerPlaceClickListener {

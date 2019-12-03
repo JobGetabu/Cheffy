@@ -9,7 +9,6 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse
 import com.google.android.libraries.places.api.net.PlacesClient
@@ -122,11 +121,11 @@ class SearchLocationFilter(private val mAdapter: PlacesPredAdapter, private val 
             //.setLocationRestriction(bounds)
             //.setCountry("KE")
             .setCountry("US")
-            .setTypeFilter(TypeFilter.ADDRESS)
             /*  .setTypeFilter(TypeFilter.ESTABLISHMENT)
                   .setTypeFilter(TypeFilter.GEOCODE)
                 .setTypeFilter(TypeFilter.ESTABLISHMENT)
 
+            .setTypeFilter(TypeFilter.ADDRESS)
                   .setTypeFilter(TypeFilter.REGIONS)*/
 
             .setSessionToken(token)
