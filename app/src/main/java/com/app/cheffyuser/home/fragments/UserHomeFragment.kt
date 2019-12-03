@@ -113,6 +113,8 @@ class UserHomeFragment : BaseFragment() {
             startActivity(intent)
         }
 
+        filterClicks()
+
     }
 
     private fun detectedLocation() {
@@ -315,11 +317,39 @@ class UserHomeFragment : BaseFragment() {
             ViewAnimations.expand(filter_layout, object : ViewAnimations.AnimListener {
                 override fun onFinish() {
                     //Tools.nestedScrollTo(main_content, filter_layout)
-                    main_content.scrollTo(0,0)
+                    main_content.scrollTo(0, 0)
                 }
             })
         } else {
             ViewAnimations.collapse(filter_layout)
+        }
+    }
+
+    private fun filterClicks() {
+        vm.filterObj.observe(this, Observer {
+            activity?.toast(it)
+        })
+
+
+        sort_chip.setOnClickListener {
+            val sortModal = SheetSortFilter()
+            sortModal.show(childFragmentManager, SheetSortFilter.TAG)
+        }
+
+
+        price_chip.setOnClickListener{
+            val modal = SheetPriceFilter()
+            modal.show(childFragmentManager, SheetPriceFilter.TAG)
+        }
+
+        diet_chip.setOnClickListener {
+            val modal = SheetDietaryFilter()
+            modal.show(childFragmentManager, SheetDietaryFilter.TAG)
+        }
+
+        delivery_chip.setOnClickListener {
+            val modal = SheetDeliveryFilter()
+            modal.show(childFragmentManager, SheetDeliveryFilter.TAG)
         }
     }
 }

@@ -33,6 +33,8 @@ class HomeViewModel : ViewModel() {
     var pagerCurrentItem: MediatorLiveData<Int> = MediatorLiveData()
     var searchTerm: MediatorLiveData<String> = MediatorLiveData()
 
+    var filterObj: MediatorLiveData<String> = MediatorLiveData()
+
     fun fetchNearByFood(
         lat: String = "38.81212000",
         lon: String = "-76.96691110",
