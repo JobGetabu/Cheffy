@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".create_account.activities.CreateAccountActivity">
 
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout_login"
         android:layout_width="match_parent"

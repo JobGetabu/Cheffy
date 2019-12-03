@@ -8,6 +8,7 @@
     android:layout_marginBottom="16dp"
     android:clickable="true"
     android:focusable="true"
+    android:theme="@style/Theme.MaterialComponents.Light"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="8dp">
 

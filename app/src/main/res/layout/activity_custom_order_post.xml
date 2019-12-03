@@ -10,6 +10,7 @@
     tools:context=".custom_order.CustomOrderPostActivity">
 
     <com.google.android.material.card.MaterialCardView
+        android:theme="@style/Theme.MaterialComponents.Light"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"

@@ -11,6 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="?actionBarSize"
         android:elevation="16dp"
+        android:theme="@style/Theme.MaterialComponents.Light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -78,6 +79,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
+                android:theme="@style/Theme.MaterialComponents.Light"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
