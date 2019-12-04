@@ -211,6 +211,9 @@ dependencies {
     //places sdk
     implementation 'com.google.android.libraries.places:places:1.1.0'
 
+    //play update core
+    implementation 'com.google.android.play:core:1.6.4'
+
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$arch_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_version"
