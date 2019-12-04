@@ -28,6 +28,7 @@ open class BaseActivity : AppCompatActivity(), DroidListener {
 
     private lateinit var mDroidNet: DroidNet
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

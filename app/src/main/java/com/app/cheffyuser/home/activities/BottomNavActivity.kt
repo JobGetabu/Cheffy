@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.speech.RecognizerIntent
 import android.text.TextUtils
+import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
@@ -30,21 +32,32 @@ import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.profile.fragments.AccountFragment
 import com.app.cheffyuser.utils.TokenManager
+import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.toast
 import com.droidnet.DroidListener
 import com.droidnet.DroidNet
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallState
+import com.google.android.play.core.install.InstallStateUpdatedListener
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.InstallStatus
+import com.google.android.play.core.install.model.UpdateAvailability
 import kotlinx.android.synthetic.main.activity_bottom_nav.*
 import timber.log.Timber
 
 
-class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
+class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
+    InstallStateUpdatedListener {
 
     companion object {
         fun newIntent(context: Context): Intent =
             Intent(context, BottomNavActivity::class.java)
+
+        private const val UPDATE_REQUEST_CODE = 183
     }
 
     private var mTextMessage: TextView? = null
@@ -62,6 +75,11 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
     private var isCon: Boolean = true
 
     private val tokenManager: TokenManager = CheffyApp.instance!!.tokenManager
+
+    // Create instance of the IAUs manager.
+    private val appUpdateManager by lazy {
+        AppUpdateManagerFactory.create(this).also { it.registerListener(this) }
+    }
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(this).get(HomeViewModel::class.java)
@@ -120,6 +138,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
                 netIsOff()
             }
         }, 5000)
+
+        checkIfUpdateWasUnderWay()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -153,6 +173,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
         currentItemObserver()
 
         searchUtils()
+
+        appUpdatePrep()
     }
 
     private fun currentItemObserver() {
@@ -235,6 +257,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
         stopLocationUpdates()
 
+        appUpdateManager.unregisterListener(this)
+
     }
 
     //endregion
@@ -275,7 +299,6 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             Timber.e(e)
         }
 
-
     }
 
     override fun onPause() {
@@ -288,9 +311,17 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
 
         searchView.activityResumed()
         //TODO: Add custom cheffy suggestions
-        val arr = arrayOf("Grilled Salmon","Salad","Pizza","Chicken", "Grilled Meat")
+        val arr = arrayOf("Grilled Salmon", "Salad", "Pizza", "Chicken", "Grilled Meat")
 
         searchView.addSuggestions(arr)
+
+        checkIfUpdateWasUnderWay()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        stopLocationUpdates()
     }
 
     override fun onBackPressed() {
@@ -303,6 +334,7 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode === MaterialSearchView.REQUEST_VOICE && resultCode === Activity.RESULT_OK) {
             val matches: ArrayList<String>? =
                 data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
@@ -314,7 +346,15 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             }
             return
         }
-        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == UPDATE_REQUEST_CODE) {
+            if (resultCode != AppCompatActivity.RESULT_OK) {
+                Timber.d("Update flow failed! Result code: $resultCode")
+                // If the update is cancelled or fails,
+                // you can request to start the update again.
+            }
+        }
+
 
     }
 
@@ -343,4 +383,81 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener {
             }
         })
     }
+
+
+    //region UPDATE APP CODE
+
+    private fun appUpdatePrep() {
+
+        // Returns an intent object that you use to check for an update.
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        // Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            when (appUpdateInfo.updateAvailability()) {
+                UpdateAvailability.UPDATE_AVAILABLE -> {
+                    if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                        appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo, AppUpdateType.FLEXIBLE, this, UPDATE_REQUEST_CODE
+                        )
+                    } else if (appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                        appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo, AppUpdateType.IMMEDIATE, this, UPDATE_REQUEST_CODE
+                        )
+                    }
+                }
+                UpdateAvailability.UPDATE_NOT_AVAILABLE -> {
+                    Timber.d("update check - no new update")
+                }
+            }
+        }.addOnFailureListener {
+            Timber.d("Failed to request update check")
+        }
+
+    }
+
+    private fun startUpdateFlow(appUpdateInfo: AppUpdateInfo) {
+        appUpdateManager.startUpdateFlowForResult(
+            // Pass the intent that is returned by 'getAppUpdateInfo()'.
+            appUpdateInfo,
+            // Or 'AppUpdateType.FLEXIBLE' for flexible updates.
+            AppUpdateType.IMMEDIATE,
+            // The current activity making the update request.
+            this,
+            // Include a request code to later monitor this update request.
+            UPDATE_REQUEST_CODE
+        )
+    }
+
+    override fun onStateUpdate(state: InstallState) {
+        if (state.installStatus() == InstallStatus.DOWNLOADED) {
+            // After the update is downloaded, show a notification
+            // and request user confirmation to restart the app.
+            createSnack(this, "An update has just been downloaded.",
+                "RESTART", true, View.OnClickListener {
+
+                    //Deleting all Shared preferences on update
+                    tokenManager.DELETEALLPREFS()
+
+                    appUpdateManager.completeUpdate()
+                })
+        }
+    }
+
+    private fun checkIfUpdateWasUnderWay() {
+        appUpdateManager
+            .appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.updateAvailability()
+                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                ) {
+                    // If an in-app update is already running, resume the update.
+                    startUpdateFlow(appUpdateInfo)
+                }
+            }
+    }
+
+    //endregion
+
 }
