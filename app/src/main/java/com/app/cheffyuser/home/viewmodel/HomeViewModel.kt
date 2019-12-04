@@ -34,6 +34,8 @@ class HomeViewModel : ViewModel() {
     var searchTerm: MediatorLiveData<String> = MediatorLiveData()
 
     var filterObj: MediatorLiveData<String> = MediatorLiveData()
+    var selectedSortFilter: MediatorLiveData<Int> = MediatorLiveData()
+    var selectedPriceFilter: MediatorLiveData<MutableList<Boolean>> = MediatorLiveData()
 
     fun fetchNearByFood(
         lat: String = "38.81212000",
@@ -118,7 +120,7 @@ class HomeViewModel : ViewModel() {
 
     fun uploadProfile(fileToUpload: MultipartBody.Part): LiveData<Resource<ProfPicResponse>> {
         return liveData(Dispatchers.IO) {
-            val data = repository.profileUpload(fileToUpload )
+            val data = repository.profileUpload(fileToUpload)
             emit(Resource.loading(null))
             emit(data)
         }

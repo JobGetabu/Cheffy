@@ -330,6 +330,10 @@ class UserHomeFragment : BaseFragment() {
             activity?.toast(it)
         })
 
+        vm.selectedSortFilter.observe(this, Observer {
+            activity?.toast("Sort: $it")
+        })
+
 
         sort_chip.setOnClickListener {
             val sortModal = SheetSortFilter()

@@ -36,6 +36,7 @@
         android:paddingRight="@dimen/spacing_middle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true">
@@ -52,7 +53,7 @@
                 app:srcCompat="@drawable/ic_prize" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/txt0"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -62,17 +63,18 @@
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintEnd_toStartOf="@+id/img0"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/img0"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="end"
                 android:padding="@dimen/spacing_large"
-                android:tint="@color/appgreen"
+                android:tint="@color/white"
+                tools:tint="@color/appgreen"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -91,6 +93,7 @@
         android:paddingRight="@dimen/spacing_middle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true">
@@ -107,7 +110,7 @@
                 app:srcCompat="@drawable/ic_popular" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/txt1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -117,17 +120,18 @@
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/pop_chech"
+                app:layout_constraintEnd_toStartOf="@+id/img1"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/pop_chech"
+                android:id="@+id/img1"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="end"
                 android:padding="@dimen/spacing_large"
-                android:tint="@color/appgreen"
+                android:tint="@color/white"
+                tools:tint="@color/appgreen"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -146,6 +150,7 @@
         android:paddingRight="@dimen/spacing_middle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true">
@@ -162,7 +167,7 @@
                 app:srcCompat="@drawable/ic_star" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/txt2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -177,12 +182,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/star_check"
+                android:id="@+id/img2"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="end"
                 android:padding="@dimen/spacing_large"
-                android:tint="@color/appgreen"
+                android:tint="@color/white"
+                tools:tint="@color/appgreen"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -201,6 +207,7 @@
         android:paddingRight="@dimen/spacing_middle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true">
@@ -217,7 +224,7 @@
                 app:srcCompat="@drawable/ic_delivery" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/txt3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -227,17 +234,18 @@
                 android:textColor="@color/textSecondaryColor"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/delivery_check"
+                app:layout_constraintEnd_toStartOf="@+id/img3"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/delivery_check"
+                android:id="@+id/img3"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_gravity="end"
                 android:padding="@dimen/spacing_large"
-                android:tint="@color/appgreen"
+                android:tint="@color/white"
+                tools:tint="@color/appgreen"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -270,5 +278,5 @@
         android:text="Apply"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="18sp"/>
+        android:textSize="18sp" />
 </LinearLayout>

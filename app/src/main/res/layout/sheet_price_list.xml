@@ -44,6 +44,7 @@
             app:shape_circle_borderWidth="1dp">
 
             <RelativeLayout
+                android:id="@+id/item0"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -52,6 +53,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/txt0"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
@@ -79,6 +81,7 @@
             app:shape_circle_borderWidth="1dp">
 
             <RelativeLayout
+                android:id="@+id/item1"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -87,6 +90,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/txt1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
@@ -114,6 +118,7 @@
             app:shape_circle_borderWidth="1dp">
 
             <RelativeLayout
+                android:id="@+id/item2"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -122,6 +127,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/txt2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
@@ -149,6 +155,7 @@
             app:shape_circle_borderWidth="1dp">
 
             <RelativeLayout
+                android:id="@+id/item3"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -157,6 +164,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/txt3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"

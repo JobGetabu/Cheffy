@@ -16,8 +16,15 @@ class SheetPriceFilter : RoundedBottomSheetDialogFragment() {
         const val TAG = "SheetPriceFilter"
     }
 
+    private var lowerBool = false
+    private var lowBool = false
+    private var mediumBool = false
+    private var highBool = false
+
+    private val priceBool: MutableList<Boolean> = arrayListOf(false, false, false, false)
+
     private val vm: HomeViewModel by lazy {
-        ViewModelProviders.of(getActivity()!!).get(HomeViewModel::class.java)
+        ViewModelProviders.of(activity!!).get(HomeViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -34,11 +41,78 @@ class SheetPriceFilter : RoundedBottomSheetDialogFragment() {
 
         btn_apply.setOnClickListener {
 
-            //Testing filter
-            vm.filterObj.value = "TODO: Price filter"
+            priceBool.add(0, lowerBool)
+            priceBool.add(1, lowBool)
+            priceBool.add(2, mediumBool)
+            priceBool.add(3, highBool)
+
+
+            vm.selectedPriceFilter.value = priceBool
 
             dismiss()
         }
+
+        priceClicks()
+    }
+
+    private fun priceClicks() {
+
+        item0.setOnClickListener {
+            lowerBool = if (lowerBool) {
+
+                item0.setBackgroundColor(getColor(R.color.white))
+                txt0.setTextColor(getColor(R.color.realblack))
+                false
+
+            } else {
+                item0.setBackgroundColor(getColor(R.color.realblack))
+                txt0.setTextColor(getColor(R.color.white))
+                true
+            }
+        }
+
+        item1.setOnClickListener {
+            lowBool = if (lowBool) {
+
+                item1.setBackgroundColor(getColor(R.color.white))
+                txt1.setTextColor(getColor(R.color.realblack))
+                false
+
+            } else {
+                item1.setBackgroundColor(getColor(R.color.realblack))
+                txt1.setTextColor(getColor(R.color.white))
+                true
+            }
+        }
+
+        item2.setOnClickListener {
+            mediumBool = if (mediumBool) {
+
+                item2.setBackgroundColor(getColor(R.color.white))
+                txt2.setTextColor(getColor(R.color.realblack))
+                false
+
+            } else {
+                item2.setBackgroundColor(getColor(R.color.realblack))
+                txt2.setTextColor(getColor(R.color.white))
+                true
+            }
+        }
+
+        item3.setOnClickListener {
+            mediumBool = if (mediumBool) {
+
+                item3.setBackgroundColor(getColor(R.color.white))
+                txt3.setTextColor(getColor(R.color.realblack))
+                false
+
+            } else {
+                item3.setBackgroundColor(getColor(R.color.realblack))
+                txt3.setTextColor(getColor(R.color.white))
+                true
+            }
+        }
+
     }
 
 }
