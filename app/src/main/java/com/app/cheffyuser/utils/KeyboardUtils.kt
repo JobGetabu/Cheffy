@@ -115,7 +115,7 @@ class KeyboardUtils private constructor(
             val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             val f = activity.currentFocus
             if (null != f && null != f.windowToken && EditText::class.java.isAssignableFrom(f.javaClass))
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0)
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY)
             else
                 activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         }

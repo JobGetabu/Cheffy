@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.BaseActivity
+import com.app.cheffyuser.home.fragments.SheetGiveTip
 import kotlinx.android.synthetic.main.tip_layout.*
 
 class PaymentActivity : BaseActivity() {
@@ -64,6 +65,9 @@ class PaymentActivity : BaseActivity() {
             }
 
             R.id.txt_tips_other -> {
+
+                    val modal = SheetGiveTip()
+                    modal.show(supportFragmentManager, SheetGiveTip.TAG)
 
             }
         }

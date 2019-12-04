@@ -143,5 +143,20 @@
         <item name="android:navigationBarColor">@color/white</item>
     </style>
 
+    <style name="TipBottomSheetDialogTheme" parent="BottomSheetDialogTheme">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateVisible</item>
+    </style>
+
+
+    <style name="EditText.Black" parent="@style/AppTheme">
+        <item name="colorControlActivated">@color/realblack</item>
+        <item name="colorControlHighlight">@color/realblack</item>
+        <item name="colorControlNormal">@color/realblack</item>
+        <item name="colorOnSecondary">@color/realblack</item>
+        <item name="colorAccent">@color/realblack</item>
+        <item name="editTextColor">@color/realblack</item>
+        <item name="android:textColorHint">@color/grey_60</item>
+    </style>
 
 </resources>
