@@ -81,6 +81,7 @@
         app:layout_constraintTop_toBottomOf="@id/layout1" />
 
     <com.google.android.material.textfield.TextInputLayout
+        app:boxBackgroundColor="@color/background_activity"
         android:id="@+id/etEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

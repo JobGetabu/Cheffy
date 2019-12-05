@@ -32,7 +32,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/food_ratings"
-                app:srcCompat="@drawable/ic_star" />
+                app:srcCompat="@drawable/ic_star_default" />
 
             <TextView
                 android:id="@+id/food_ratings"

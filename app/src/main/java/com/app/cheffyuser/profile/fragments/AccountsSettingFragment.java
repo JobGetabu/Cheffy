@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.app.cheffyuser.R;
 import com.app.cheffyuser.cart.activities.AddCardActivity;
-import com.app.cheffyuser.home.activities.MainActivity;
+import com.app.cheffyuser.create_account.activities.CreateAccountActivity;
 import com.app.cheffyuser.profile.activities.EditProfileActivity;
 import com.app.cheffyuser.profile.activities.ShippingActivity;
 
@@ -40,7 +40,7 @@ public class AccountsSettingFragment extends Fragment {
 
 
         layoutLogout.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
+            Intent intent = new Intent(getActivity(), CreateAccountActivity.class);
             startActivity(intent);
 
         });
