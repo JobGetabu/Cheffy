@@ -11,6 +11,7 @@ import com.droidnet.DroidNet
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.libraries.places.api.Places
 import com.google.firebase.iid.FirebaseInstanceId
+import com.stripe.android.Stripe
 import timber.log.Timber
 
 class CheffyApp : MultiDexApplication() {
@@ -70,6 +71,11 @@ class CheffyApp : MultiDexApplication() {
             //Release mode
             Timber.plant(ReleaseLogTree())
         }
+
+
+        //stripe
+        Stripe(this, getString(R.string.stripe_pub_key))
+
     }
 
     override fun onLowMemory() {
