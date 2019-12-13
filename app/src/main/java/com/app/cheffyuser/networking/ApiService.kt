@@ -77,6 +77,9 @@ interface ApiService {
     @POST("basket")
     suspend fun addToBasket(@Body addToBasketRequest: AddToBasketRequest): List<AddToBasketResponse>
 
+    @GET("basket")
+    suspend fun getBasket(): BasketListResponse
+
     //end region
 
     @POST("refresh")

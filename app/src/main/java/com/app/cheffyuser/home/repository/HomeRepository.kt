@@ -6,10 +6,7 @@ import com.app.cheffyuser.create_account.model.ShippingDataResponse
 import com.app.cheffyuser.create_account.model.ShippingRequest
 import com.app.cheffyuser.create_account.model.ShippingResponse
 import com.app.cheffyuser.food_category.model.FoodCatModel
-import com.app.cheffyuser.home.model.AddToBasketRequest
-import com.app.cheffyuser.home.model.AddToBasketResponse
-import com.app.cheffyuser.home.model.FoodNearByModel
-import com.app.cheffyuser.home.model.PlatesResponse
+import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.networking.ApiService
 import com.app.cheffyuser.networking.Resource
 import com.app.cheffyuser.networking.ResponseHandler
@@ -147,6 +144,18 @@ class HomeRepository {
             responseHandler.handleException(e)
         }
     }
+
+    suspend fun getBasket(): Resource<BasketListResponse> {
+        return try {
+            val response = apiServiceAuthed.getBasket()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
 
     //end Region
 

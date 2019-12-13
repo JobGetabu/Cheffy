@@ -38,7 +38,7 @@ data class BasketListResponse(
     @SerializedName("delivery_fee")
     val deliveryFee: Int? = null,
     @SerializedName("items")
-    val items: Item? = null,
+    val items: List<Item?>? = null,
     @SerializedName("sub_total")
     val subTotal: Int? = null,
     @SerializedName("total")
