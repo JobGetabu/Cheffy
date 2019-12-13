@@ -36,6 +36,8 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
         const val AUTOCOMPLETE_REQUEST_CODE = 1002
     }
 
+    private var dd: DropdownItem? = null
+
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var map: GoogleMap
     private var ship: ShippingRequest? = null
@@ -86,9 +88,12 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
         primary_txt.text = "${ship?.addressLine1}"
         primary_txt2.text = "${ship?.city}"
 
-        etAddress.editText?.setText("${ship?.addressLine1}")
-        etAddress2.editText?.setText("${ship?.addressLine2}")
-        etzip.editText!!.setText("${ship?.zipCode}")
+        if (!ship?.addressLine1.isNullOrEmpty())
+            etAddress.setText("${ship!!.addressLine1}")
+        if (!ship!!.addressLine2.isNullOrEmpty())
+            etAddress2.setText("${ship?.addressLine2}")
+        if (!ship?.zipCode.isNullOrEmpty())
+            etzip.setText("${ship?.zipCode}")
 
     }
 
@@ -114,6 +119,13 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
             return
         }
 
+        if (dd == null) {
+            createSnack(
+                this, txt = "Please pick a location"
+            )
+            return
+        }
+
         val dialog = showDialogue("Setting shipping location", "Please wait ...")
 
         //TODO: push shipping data to server
@@ -121,12 +133,23 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
             when (it.status) {
                 Status.ERROR -> {
                     if (BuildConfig.DEBUG)
-                        createSnack(ctx = this, txt = "Debug only: You already have this address registered")
+                        createSnack(ctx = this, txt = "${it?.data?.message}")
 
                     errorDialogue("Error", "You already have this address registered", dialog)
                     //checkNetwork()
                 }
                 Status.SUCCESS -> {
+
+                    ship = ShippingRequest()
+                    ship?.zipCode = etzip.text.toString()
+                    ship?.addressLine1 = etAddress.toString()
+                    ship?.addressLine2 = etAddress2.toString()
+                    ship?.state = "${dd!!.secondaryText}"
+                    ship?.city = "${dd!!.secondaryText}"
+                    ship?.lat = "${dd!!.place?.latLng?.latitude}"
+                    ship?.lon = "${dd!!.place?.latLng?.longitude}"
+
+                    tokenManager.shippingData2 = ship
 
                     successDialogue(alertDialog = dialog, descriptions = "${it.data?.message}")
                     finish()
@@ -162,21 +185,13 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun setupDefaultPickup(dd: DropdownItem) {
 
+        this.dd = dd
 
         primary_txt.text = "${dd.primaryText}"
         primary_txt2.text = "${dd.secondaryText}"
 
-        etAddress.editText?.setText("${dd.place?.address}")
+        etAddress.setText("${dd.place?.address}")
 
-        ship = ShippingRequest()
-        ship?.zipCode = etzip.editText!!.text.toString()
-        ship?.addressLine1 = etAddress.editText!!.toString()
-        ship?.addressLine2 = etAddress2.editText!!.toString()
-        ship?.city = "${dd.secondaryText}"
-        ship?.lat = "${dd.place?.latLng?.latitude}"
-        ship?.lon = "${dd.place?.latLng?.longitude}"
-
-        tokenManager.shippingData2 = ship
 
         val loc = LatLng(ship?.lat!!.toDouble(), ship?.lon!!.toDouble())
         setupMarker(loc)

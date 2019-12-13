@@ -12,6 +12,7 @@ import com.app.cheffyuser.cart.activities.ItemCartActivity
 import com.app.cheffyuser.cart.adapter.AddCartAdapter
 import com.app.cheffyuser.home.fragments.BaseFragment
 import kotlinx.android.synthetic.main.fragment_add_cart.*
+import kotlinx.android.synthetic.main.no_item_layout.*
 
 
 /**
@@ -36,8 +37,9 @@ class AddCartFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         val customAdapter = AddCartAdapter(activity, foodItemList, foodPriceList, imgList)
-        recycler_view.adapter = customAdapter // set the Adapter to RecyclerView
+        //recycler_view.adapter = customAdapter // set the Adapter to RecyclerView
 
+        no_item_text.text = "Foods in cart appear here"
 
         layout_item_cart.setOnClickListener {
             val intent = Intent(activity, ItemCartActivity::class.java)

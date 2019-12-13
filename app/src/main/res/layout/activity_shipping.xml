@@ -148,27 +148,26 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                app:boxBackgroundColor="@color/background_activity"
-                android:id="@+id/etAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/background_activity">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Address Line 1 *"
                     android:inputType="textMultiLine"
-                    android:singleLine="false"
-                    />
+                    android:singleLine="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                app:boxBackgroundColor="@color/background_activity"
-                android:id="@+id/etAddress2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/background_activity">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAddress2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Address Line 2"
@@ -177,12 +176,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                app:boxBackgroundColor="@color/background_activity"
-                android:id="@+id/etzip"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/background_activity">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etzip"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="ZipCode"
@@ -196,7 +195,7 @@
                 android:fontFamily="@font/sailec_medium"
                 android:text="Add Delivery Note:"
                 android:textColor="@color/textPrimaryColor"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -204,7 +203,7 @@
                 android:background="@drawable/back_style_edittext"
                 android:fontFamily="@font/sailec_regular"
                 android:gravity="start"
-                android:hint="My delivery instructions"
+                android:hint="My special delivery instructions"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
                 android:textAlignment="textStart"

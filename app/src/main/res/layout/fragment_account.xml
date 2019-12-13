@@ -88,9 +88,9 @@
                     android:fontFamily="@font/sailec_medium"
                     android:gravity="center"
                     android:padding="5dp"
-                    tools:text="User Name"
                     android:textColor="@color/black"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"
+                    tools:text="User Name" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

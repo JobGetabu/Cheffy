@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,11 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_gray"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:tabSelectedTextColor="@color/red"
-        app:tabTextAppearance="@style/CustomTextAppearanceTab"
-        app:tabTextColor="@color/black" />
+        android:theme="@style/MyTabsTheme"
+        app:tabBackground="@color/light_gray" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

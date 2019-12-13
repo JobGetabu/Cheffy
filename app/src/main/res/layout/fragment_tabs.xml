@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_activity"
     tools:context=".cart.TabsFragment">
 
     <com.google.android.material.card.MaterialCardView
@@ -19,7 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_activity">
+            android:background="@color/white">
 
             <TextView
                 style="@style/Toolbar.Black"
@@ -32,7 +33,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -49,15 +49,10 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
+            style="@style/MyTabsTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="6dp"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/red"
-            app:tabTextAppearance="@style/CustomTextAppearanceTab"
-            app:tabTextColor="@color/black" />
+            app:tabMode="scrollable" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
