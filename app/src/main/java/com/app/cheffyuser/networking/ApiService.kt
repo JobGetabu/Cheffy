@@ -2,10 +2,7 @@ package com.app.cheffyuser.networking
 
 import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.food_category.model.FoodCatModel
-import com.app.cheffyuser.home.model.AddToBasketRequest
-import com.app.cheffyuser.home.model.AddToBasketResponse
-import com.app.cheffyuser.home.model.FoodNearByModel
-import com.app.cheffyuser.home.model.PlatesResponse
+import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.profile.model.ProfPicResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -66,6 +63,12 @@ interface ApiService {
 
     @GET("category")
     suspend fun getFoodCategory(): MutableList<FoodCatModel>
+
+    @POST("favourite/add")
+    suspend fun addFavourite(@Body favouriteRequest: FavouriteRequest): FavouriteResponse
+
+    @DELETE("favourite/remove")
+    suspend fun removeFavourite(@Body favouriteRequest: FavouriteRequest): FavouriteDeleteResponse
 
     //endregion
 
