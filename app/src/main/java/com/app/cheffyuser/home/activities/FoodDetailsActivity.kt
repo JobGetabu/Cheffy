@@ -88,7 +88,10 @@ class FoodDetailsActivity : BaseActivity() {
 
         val chef = vm.platesResponse.value?.chef
 
-        top_im.loadUrl(vm.platesResponse.value?.plateImages?.get(0)?.url)
+        if (!vm.platesResponse.value?.plateImages.isNullOrEmpty()) {
+
+            top_im.loadUrl(vm.platesResponse.value?.plateImages?.get(0)?.url)
+        }
 
         //setup chef details
         if (chef != null) {

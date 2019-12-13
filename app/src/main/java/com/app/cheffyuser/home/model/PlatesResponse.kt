@@ -42,7 +42,7 @@ data class PlatesResponse(
     @SerializedName("PlateImages")
     val plateImages: List<PlateImage?>? = null,
     @SerializedName("price")
-    val price: Int? = null,
+    val price: Double? = null,
     @SerializedName("ReceiptImages")
     val receiptImages: List<ReceiptImage?>? = null,
     @SerializedName("reviews")

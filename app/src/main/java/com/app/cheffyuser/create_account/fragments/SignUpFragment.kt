@@ -78,9 +78,10 @@ class SignUpFragment : BaseFragment() {
 
                     val res = it.data
 
-                    if (res != null){
+                    if (res != null) {
                         //save in prefs
-                        tokenManager.saveToken(AccessToken(res.token!!))
+                        if (res.token != null)
+                            tokenManager.saveToken(AccessToken(res.token))
                         tokenManager.email = email
 
                         val intent = Intent(activity, VerifyActivity::class.java)

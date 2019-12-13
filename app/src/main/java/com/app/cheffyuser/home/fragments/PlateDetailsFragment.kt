@@ -98,9 +98,12 @@ class PlateDetailsFragment : BaseFragment() {
 
         val ingredients = vm.platesResponse.value?.ingredients
 
-        val adapter = IngredientsAdapter(true, context!!, ingredients?.toMutableList())
+        if (!vm.platesResponse.value?.ingredients.isNullOrEmpty()){
 
-        ingredient_list.adapter = adapter
+            val adapter = IngredientsAdapter(true, context!!, ingredients?.toMutableList())
+
+            ingredient_list.adapter = adapter
+        }
 
         //no ingredients
         if (ingredients.isNullOrEmpty()) {

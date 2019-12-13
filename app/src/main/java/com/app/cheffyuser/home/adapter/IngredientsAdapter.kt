@@ -30,7 +30,7 @@ class IngredientsAdapter(
 
 
     override fun getItemCount(): Int {
-        if (countTo3) return 2
+        if (countTo3 && ingredients?.size!! > 1) return 2
         return ingredients?.size ?: 0
     }
 
@@ -63,7 +63,7 @@ class IngredientsAdapter(
 
             name.text = model?.name
             date.text = model?.purchaseDate
-            counter.text = "${position + 1}"
+            counter.text = "${position + 1})   "
 
         }
 

@@ -40,6 +40,8 @@ public class AccountsSettingFragment extends Fragment {
 
 
         layoutLogout.setOnClickListener(v -> {
+
+
             Intent intent = new Intent(getActivity(), CreateAccountActivity.class);
             startActivity(intent);
 

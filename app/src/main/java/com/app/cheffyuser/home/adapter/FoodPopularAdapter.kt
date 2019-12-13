@@ -97,7 +97,10 @@ class FoodPopularAdapter(
 
 
             // set whatever you want. for instance;
-            foodimage.loadUrl(model?.plateImages?.get(0)?.url)
+            if (!model?.plateImages.isNullOrEmpty()) {
+
+                foodimage.loadUrl(model?.plateImages?.get(0)?.url)
+            }
             foodname.text = model?.name
             food_ratings.text = "$rating(${ratingSum})"
 

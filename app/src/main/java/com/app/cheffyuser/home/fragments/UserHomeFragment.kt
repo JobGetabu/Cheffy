@@ -153,7 +153,8 @@ class UserHomeFragment : BaseFragment() {
                     shimmer_view_container.hideView()
                     main_content.showView()
 
-                    datas.let {
+                    if (!datas.isNullOrEmpty()) {
+
                         foodNearbyAdapter = FoodNearbyAdapter(context!!, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
@@ -162,9 +163,10 @@ class UserHomeFragment : BaseFragment() {
                                     goToFoodDetails(model)
                                 }
                             })
+
+                        nearbylist.adapter = foodNearbyAdapter
                     }
 
-                    nearbylist.adapter = foodNearbyAdapter
                 }
                 Status.LOADING -> {
                     //TODO: stop shimmer effect in view
@@ -191,7 +193,8 @@ class UserHomeFragment : BaseFragment() {
 
                 }
                 Status.SUCCESS -> {
-                    datas.let {
+
+                    if (!datas.isNullOrEmpty()) {
                         foodNearbyAdapter2 = FoodNearbyAdapter(context!!, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
@@ -200,9 +203,11 @@ class UserHomeFragment : BaseFragment() {
                                     goToFoodDetails(model)
                                 }
                             })
-                    }
 
                     newlist.adapter = foodNearbyAdapter2
+
+                    }
+
                 }
                 Status.LOADING -> {
                     //TODO: stop shimmer effect in view
@@ -236,7 +241,9 @@ class UserHomeFragment : BaseFragment() {
 
                 }
                 Status.SUCCESS -> {
-                    datas.let {
+
+                    if (!datas.isNullOrEmpty()) {
+
                         foodPopularAdapter = FoodPopularAdapter(context!!, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
@@ -245,9 +252,10 @@ class UserHomeFragment : BaseFragment() {
                                     goToFoodDetails(model)
                                 }
                             })
+                    popularlist.adapter = foodPopularAdapter
+
                     }
 
-                    popularlist.adapter = foodPopularAdapter
                 }
                 Status.LOADING -> {
                     //TODO: stop shimmer effect in view
@@ -341,7 +349,7 @@ class UserHomeFragment : BaseFragment() {
         }
 
 
-        price_chip.setOnClickListener{
+        price_chip.setOnClickListener {
             val modal = SheetPriceFilter()
             modal.show(childFragmentManager, SheetPriceFilter.TAG)
         }

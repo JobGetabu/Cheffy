@@ -1,5 +1,7 @@
 package com.app.cheffyuser.networking
 
+import android.widget.Toast
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.utils.AppExecutors
 import com.app.cheffyuser.utils.TokenManager
@@ -46,6 +48,13 @@ object RetrofitBuilder {
                         val tm = CheffyApp.instance!!.tokenManager
                         tm.deleteIsLoggedIn()
                         tm.deleteToken()
+
+                        if (BuildConfig.DEBUG)
+                            Toast.makeText(
+                                CheffyApp.instance!!,
+                                "Debug only: Not authenticated",
+                                Toast.LENGTH_SHORT
+                            ).show()
                     }
                 }
 
@@ -73,23 +82,23 @@ object RetrofitBuilder {
         val newClient = client.newBuilder()
             .connectTimeout(5, TimeUnit.MINUTES) // connect timeout
             .readTimeout(5, TimeUnit.MINUTES)
-            .writeTimeout(5,TimeUnit.MINUTES)
+            .writeTimeout(5, TimeUnit.MINUTES)
             .addInterceptor { chain ->
 
-            var request = chain.request()
+                var request = chain.request()
 
-            val builder = request.newBuilder()
+                val builder = request.newBuilder()
 
-            if (tokenManager.token.accessToken != null) {
-                val token = tokenManager.token.accessToken
-                Timber.d(tokenManager.token.accessToken)
-                builder.addHeader("Content-Type", "application/json")
-                if (!token.isNullOrEmpty())
-                    builder.addHeader("x-access-token", "$token")
-            }
-            request = builder.build()
-            chain.proceed(request)
-        }.build()
+                if (tokenManager.token.accessToken != null) {
+                    val token = tokenManager.token.accessToken
+                    Timber.d(tokenManager.token.accessToken)
+                    builder.addHeader("Content-Type", "application/json")
+                    if (!token.isNullOrEmpty())
+                        builder.addHeader("x-access-token", "$token")
+                }
+                request = builder.build()
+                chain.proceed(request)
+            }.build()
 
         val newRetrofit = retrofit.newBuilder().client(newClient).build()
         return newRetrofit.create(service)

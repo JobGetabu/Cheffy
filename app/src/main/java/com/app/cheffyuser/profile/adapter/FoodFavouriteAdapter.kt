@@ -88,7 +88,9 @@ class FoodFavouriteAdapter(
             this.model = foodNearbyModels!![position]
 
             // set whatever you want. for instance;
-            foodimage.loadUrl(model?.plateImages?.get(0)?.url)
+            if (!model?.plateImages.isNullOrEmpty()) {
+                foodimage.loadUrl(model?.plateImages?.get(0)?.url)
+            }
             foodname.text = model?.name
             times.text = "${model!!.deliveryTime!!.minus(5)}-${model?.deliveryTime} min"
 

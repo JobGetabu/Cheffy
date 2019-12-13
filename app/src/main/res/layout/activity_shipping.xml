@@ -148,6 +148,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
+                app:boxBackgroundColor="@color/background_activity"
                 android:id="@+id/etAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -162,6 +163,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:boxBackgroundColor="@color/background_activity"
                 android:id="@+id/etAddress2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -175,6 +177,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:boxBackgroundColor="@color/background_activity"
                 android:id="@+id/etzip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

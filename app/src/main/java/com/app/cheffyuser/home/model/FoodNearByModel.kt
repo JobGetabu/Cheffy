@@ -18,7 +18,7 @@ data class FoodNearByModel(
     @SerializedName("plate_id")
     val plateId: Int? = null,
     @SerializedName("price")
-    val price: Int? = null,
+    val price: Double? = null,
     @SerializedName("rating")
     val rating: Int? = null,
     @SerializedName("userId")
