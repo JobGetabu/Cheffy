@@ -25,6 +25,9 @@ interface ApiService {
     @POST("user/login")
     suspend fun loginUserAccount(@Body loginRequest: LoginRequest): LoginResponse
 
+    @POST("user/forgot-password")
+    suspend fun forgotPassword(@Body forgotRequest: ForgotRequest): ForgotResponse
+
     @GET("user")
     suspend fun getUser(): ProfileResponse
 
@@ -89,7 +92,7 @@ interface ApiService {
 
     //region upload profile
     @Multipart
-    @PUT("docs")
+    @PUT("docs/profilePhoto")
     suspend fun uploadProfileImage(@Part file: MultipartBody.Part): ProfPicResponse
 
     //end region

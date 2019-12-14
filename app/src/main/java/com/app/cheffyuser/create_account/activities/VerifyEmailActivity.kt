@@ -3,13 +3,26 @@ package com.app.cheffyuser.create_account.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.R
+import com.app.cheffyuser.create_account.model.VerifyRequest
+import com.app.cheffyuser.create_account.viewmodel.AuthViewModel
 import com.app.cheffyuser.home.activities.BaseActivity
+import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.GenericTextWatcher
 import com.app.cheffyuser.utils.GenericTextWatcherListener
+import com.app.cheffyuser.utils.createSnack
 import kotlinx.android.synthetic.main.activity_verify_email.*
 
 class VerifyEmailActivity : BaseActivity(), GenericTextWatcherListener {
+
+    private var cd = "0000"
+
+    private val vm: AuthViewModel by lazy {
+        ViewModelProviders.of(this).get(AuthViewModel::class.java)
+    }
 
     companion object {
         fun newIntent(context: Context): Intent =
@@ -36,7 +49,7 @@ class VerifyEmailActivity : BaseActivity(), GenericTextWatcherListener {
 
         btn_continue.setOnClickListener {
             //TODO: Get code
-            verifyPhone("0000")
+            verifyPhone(cd)
         }
     }
 
@@ -46,13 +59,47 @@ class VerifyEmailActivity : BaseActivity(), GenericTextWatcherListener {
     }
 
     override fun onFinalClick(code: String) {
+        cd = code
         verifyPhone(code)
     }
 
     private fun verifyPhone(code: String) {
-        //TODO: Do a verification API call to server
-        val intent = Intent(this, SetPasswordActivity::class.java)
-        startActivity(intent)
+
+
+        if (!isConnected) {
+            createSnack(
+                this, getString(R.string.you_not_connected), getString(R.string.retry),
+                View.OnClickListener { verifyPhone(code) })
+
+            return
+        }
+
+        val dialog = showDialogue("Verifying Email", "Please wait ...")
+
+        val sReq = VerifyRequest(tokenManager.email, code)
+
+        vm.verifyAccount(sReq).observe(this, Observer {
+            when (it.status) {
+                Status.ERROR -> {
+                    errorDialogue("Error", "${it?.data?.message}", dialog!!)
+                    clearTexts()
+                }
+                Status.SUCCESS -> {
+
+                    val res = it.data!!
+                    successDialogue(alertDialog = dialog, descriptions = res.message!!)
+
+                    //pass token to #SetPasswordActivity for completing
+
+                    val intent = Intent(this@VerifyEmailActivity, SetPasswordActivity::class.java)
+                    intent.putExtra("email_token", cd)
+                    startActivity(intent)
+                }
+                Status.LOADING -> {
+                    //still loading data
+                }
+            }
+        })
     }
 
     private fun clearTexts() {

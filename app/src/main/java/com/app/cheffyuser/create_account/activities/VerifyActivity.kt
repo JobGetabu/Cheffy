@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_verify.*
 
 class VerifyActivity : BaseActivity(), GenericTextWatcherListener {
 
+    private var cd = "0000"
+
     companion object {
         fun newIntent(context: Context): Intent =
             Intent(context, VerifyActivity::class.java)
@@ -47,7 +49,7 @@ class VerifyActivity : BaseActivity(), GenericTextWatcherListener {
 
         btn_continue.setOnClickListener {
             //TODO: Get code
-            verifyPhone("0000")
+            verifyPhone(cd)
         }
     }
 
@@ -57,6 +59,7 @@ class VerifyActivity : BaseActivity(), GenericTextWatcherListener {
     }
 
     override fun onFinalClick(code: String) {
+        cd = code
         verifyPhone(code)
     }
 
@@ -94,8 +97,6 @@ class VerifyActivity : BaseActivity(), GenericTextWatcherListener {
                 }
             }
         })
-
-
     }
 
     private fun clearTexts() {

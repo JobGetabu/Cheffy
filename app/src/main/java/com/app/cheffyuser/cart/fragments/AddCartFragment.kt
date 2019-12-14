@@ -107,6 +107,10 @@ class AddCartFragment : BaseFragment() {
                     } else {
                         layout_item_cart.hideView()
 
+                        recycler_view.hideView()
+                        noitem_layout.showView()
+                        loader_layout.hideView()
+
                     }
                 }
                 Status.LOADING -> {

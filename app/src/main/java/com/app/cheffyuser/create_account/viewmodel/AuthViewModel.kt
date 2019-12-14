@@ -43,5 +43,13 @@ class AuthViewModel : ViewModel() {
         }
     }
 
+    fun forgotPassword(forgotRequest: ForgotRequest): LiveData<Resource<ForgotResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.forgotPassword(forgotRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
 
 }

@@ -67,4 +67,16 @@ class AuthRepository {
         }
     }
 
+
+    suspend fun forgotPassword(forgotRequest: ForgotRequest): Resource<ForgotResponse> {
+        return try {
+            val response = apiService.forgotPassword(forgotRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e,"")
+            responseHandler.handleException(e)
+        }
+    }
+
 }

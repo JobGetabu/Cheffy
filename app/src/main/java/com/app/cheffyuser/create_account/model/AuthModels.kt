@@ -6,6 +6,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+
 data class SignupRequest(
     val email: String
 )
@@ -199,4 +200,21 @@ data class RegistrationResponse(
     val status: String? = null,
     @SerializedName("result")
     val `data`: UserData? = null
+)
+
+data class ForgotRequest(
+    val email: String?
+)
+
+data class ForgotResponse(
+    @SerializedName("message")
+    val message: String? = null,
+    @SerializedName("status")
+    val status: Int? = null
+)
+
+data class ChangePasswordRequest(
+    val email: String?,
+    val email_token: String?,
+    val password: String?
 )
