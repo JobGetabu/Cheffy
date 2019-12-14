@@ -66,6 +66,8 @@ class UserFavoriteFragment : Fragment() {
                     if (BuildConfig.DEBUG)
                         createSnack(ctx = activity!!, txt = "Debug only: No popular foods")
 
+                    Timber.d("$it")
+
                     //check for net
                     try {
                         val act: BottomNavActivity = getActivity()!! as BottomNavActivity

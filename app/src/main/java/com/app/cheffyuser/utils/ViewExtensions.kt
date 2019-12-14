@@ -10,13 +10,17 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import android.widget.*
+import androidx.annotation.AnimRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -38,6 +42,28 @@ fun ImageView.loadUrl(url: Int) {
 
 }
 
+fun RecyclerView.loadAnim(@AnimRes animRes: Int = R.anim.layout_anim_parent_bottom) {
+    val animation: LayoutAnimationController =
+        AnimationUtils.loadLayoutAnimation(
+            context,
+            animRes
+        )
+
+    layoutAnimation = animation
+}
+
+//more => https://proandroiddev.com/enter-animation-using-recyclerview-and-layoutanimation-part-1-list-75a874a5d213
+
+fun RecyclerView.reLoadAnim(@AnimRes animRes: Int = R.anim.layout_anim_parent_bottom) {
+    val ctx = this.context
+    val controller =
+        AnimationUtils.loadLayoutAnimation(ctx, R.anim.layout_animation_fall_down)
+
+    layoutAnimation = controller
+    adapter?.notifyDataSetChanged()
+    scheduleLayoutAnimation()
+}
+
 
 fun ImageView.loadUrl(url: String?, @DrawableRes placeholder: Int) {
     Glide.with(context)
@@ -55,25 +81,44 @@ fun ImageView.loadUrl(url: String?) {
         .into(this)
 }
 
-fun ImageView.loadUrl(url: String?,tinted: Boolean) {
+fun ImageView.loadUrl(url: String?, tinted: Boolean) {
     Glide.with(context)
         .load(url)
         .apply(RequestOptions().placeholder(R.drawable.upload_thumbnail))
         .thumbnail(0.1f)
         .into(this)
 
-    this.setColorFilter(ContextCompat.getColor(context, R.color.colorPrimary), PorterDuff.Mode.OVERLAY)
+    this.setColorFilter(
+        ContextCompat.getColor(context, R.color.colorPrimary),
+        PorterDuff.Mode.OVERLAY
+    )
 }
 
 fun ImageView.loadUrlTransformToCircle(url: String?) {
-    val borderWidth= TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, context.resources.displayMetrics).toInt()
-    val iconRoundedCornersRadius= TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30f, context.resources.displayMetrics).toInt()
+    val borderWidth =
+        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, context.resources.displayMetrics)
+            .toInt()
+    val iconRoundedCornersRadius = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        30f,
+        context.resources.displayMetrics
+    ).toInt()
 
     Glide.with(context)
         .asBitmap()
         .load(url)
         .apply(RequestOptions.centerCropTransform())
-        .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(context, iconRoundedCornersRadius, 0, 0xff999999.toInt(), borderWidth)))
+        .apply(
+            RequestOptions.bitmapTransform(
+                RoundedCornersTransformation(
+                    context,
+                    iconRoundedCornersRadius,
+                    0,
+                    0xff999999.toInt(),
+                    borderWidth
+                )
+            )
+        )
         .into(object : BitmapImageViewTarget(this) {
         })
 
@@ -139,7 +184,12 @@ class SemiSquareLayout : RelativeLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {}
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec - 80)
@@ -152,14 +202,23 @@ class SquareLayout : RelativeLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {}
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec)
     }
 }
 
-fun createSnack(ctx: Activity, v: View = ctx.findViewById<View>(android.R.id.content), txt: String) {
+fun createSnack(
+    ctx: Activity,
+    v: View = ctx.findViewById<View>(android.R.id.content),
+    txt: String
+) {
     Snackbar.make(v, txt, Snackbar.LENGTH_LONG).show()
 }
 
@@ -169,7 +228,13 @@ fun createSnack(ctx: Activity, txt: String, txtAction: String, action: View.OnCl
         .show()
 }
 
-fun createSnack(ctx: Activity, txt: String, txtAction: String, isDefinate: Boolean, action: View.OnClickListener) {
+fun createSnack(
+    ctx: Activity,
+    txt: String,
+    txtAction: String,
+    isDefinate: Boolean,
+    action: View.OnClickListener
+) {
     Snackbar.make(ctx.findViewById<View>(android.R.id.content), txt, Snackbar.LENGTH_INDEFINITE)
         .setAction(txtAction, action)
         .show()
