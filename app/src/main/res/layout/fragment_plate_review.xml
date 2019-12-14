@@ -7,22 +7,39 @@
     android:fillViewport="true"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include
+            android:visibility="gone"
+            tools:visibility="gone"
             layout="@layout/single_plate_review"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reviewlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/single_review_lay"
-            tools:itemCount="2"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_marginStart="5dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="2"
+            tools:listitem="@layout/single_review_lay" />
 
-    </LinearLayout>
+        <include
+            layout="@layout/no_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.19999999"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

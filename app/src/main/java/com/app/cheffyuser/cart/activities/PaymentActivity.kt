@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.app.cheffyuser.R
+import com.app.cheffyuser.cart.fragments.SheetReview
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.fragments.SheetGiveTip
 import kotlinx.android.synthetic.main.tip_layout.*
@@ -20,6 +21,11 @@ class PaymentActivity : BaseActivity() {
     }
 
     private fun uiStuff() {
+
+        //TODO: get whether user has given review yet
+
+        val modal = SheetReview()
+        modal.show(supportFragmentManager, SheetReview.TAG)
 
         txt_no_tip.setOnClickListener { tipClicks(txt_no_tip) }
         txt_tips_1.setOnClickListener { tipClicks(txt_tips_1) }

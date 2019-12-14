@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.model.PlatesResponse
+import com.app.cheffyuser.utils.Tools.getFormattedDateSimple
 import com.app.cheffyuser.utils.loadUrl
 import de.hdodenhof.circleimageview.CircleImageView
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
@@ -76,7 +77,7 @@ class ReviewsAdapter(
             // set whatever you want. for instance;
             reviewface.loadUrl(model?.user?.name)
             name.text = model?.user?.name
-            date.text = "April 4, 2019"
+            date.text = "${getFormattedDateSimple(System.currentTimeMillis())}"
             rate.rating = model?.rating!!.toFloat()
             comment.text = model?.comment
 

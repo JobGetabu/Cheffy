@@ -36,3 +36,4 @@ data class FavData(
     @SerializedName("userId")
     val userId: Int? = null
 )
+
