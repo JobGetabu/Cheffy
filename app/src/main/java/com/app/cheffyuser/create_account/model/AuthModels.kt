@@ -221,3 +221,20 @@ data class ChangePasswordRequest(
     val email_token: String?,
     val password: String?
 )
+
+data class EditProfileRequest(
+    val name: String?,
+    val country_code: String?,
+    val email: String?,
+    val phone_no: String?,
+    val latitude: String?,
+    val longitude: String?,
+    val image_path: String?
+)
+
+data class EditProfileResponse(
+    @SerializedName("message")
+    val message: String? = null,
+    @SerializedName("data")
+    val userData: UserData? = null
+)

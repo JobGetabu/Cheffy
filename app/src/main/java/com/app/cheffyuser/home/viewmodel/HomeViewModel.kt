@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.app.cheffyuser.create_account.model.ProfileResponse
-import com.app.cheffyuser.create_account.model.ShippingDataResponse
-import com.app.cheffyuser.create_account.model.ShippingRequest
-import com.app.cheffyuser.create_account.model.ShippingResponse
+import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.home.repository.HomeRepository
@@ -35,6 +32,16 @@ class HomeViewModel : ViewModel() {
     var filterObj: MediatorLiveData<String> = MediatorLiveData()
     var selectedSortFilter: MediatorLiveData<Int> = MediatorLiveData()
     var selectedPriceFilter: MediatorLiveData<MutableList<Boolean>> = MediatorLiveData()
+
+
+    fun editUserAccount(editProfileRequest: EditProfileRequest): LiveData<Resource<EditProfileResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.editUserAccount(editProfileRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
 
     fun fetchNearByFood(
         lat: String = "38.81212000",

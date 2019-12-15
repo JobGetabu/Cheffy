@@ -1,10 +1,7 @@
 package com.app.cheffyuser.home.repository
 
 import com.app.cheffyuser.CheffyApp
-import com.app.cheffyuser.create_account.model.ProfileResponse
-import com.app.cheffyuser.create_account.model.ShippingDataResponse
-import com.app.cheffyuser.create_account.model.ShippingRequest
-import com.app.cheffyuser.create_account.model.ShippingResponse
+import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.networking.ApiService
@@ -29,6 +26,17 @@ class HomeRepository {
             RetrofitBuilder.createServiceWithAuth(ApiService::class.java, tokenManager)
         responseHandler = ResponseHandler()
     }
+
+    suspend fun editUserAccount(editProfileRequest: EditProfileRequest): Resource<EditProfileResponse> {
+        return try {
+            val response = apiServiceAuthed.editUserAccount(editProfileRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
 
     suspend fun fetchNearByFood(
         lat: String,

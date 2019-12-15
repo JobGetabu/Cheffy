@@ -15,6 +15,9 @@ interface ApiService {
     @POST("user")
     suspend fun createUserAccount(@Body signupRequest: SignupRequest): SignupResponse
 
+    @PUT("user/edit")
+    suspend fun editUserAccount(@Body editProfileRequest: EditProfileRequest): EditProfileResponse
+
     @POST("user/verify-email-token")
     suspend fun verifyAccount(@Body verifyRequest: VerifyRequest): VerifyResponse
 
@@ -70,10 +73,10 @@ interface ApiService {
     @POST("favourite/add")
     suspend fun addFavourite(@Body favouriteRequest: FavouriteRequest): FavouriteResponse
 
-    @DELETE("favourite/remove")
+    @DELETE("favourite/remove/{fav_type}/{plateId}")
     suspend fun removeFavourite(
-        @Query("fav_type") fav_type: String,
-        @Query("plateId") plateId: Int
+        @Path("fav_type") fav_type: String,
+        @Path("plateId") plateId: Int
     ): FavouriteDeleteResponse
 
     @GET("favourite/")

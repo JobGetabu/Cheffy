@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.create_account.activities.ForgotPasswordActivity
+import com.app.cheffyuser.create_account.model.EditProfileRequest
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
@@ -71,7 +72,7 @@ class EditProfileActivity : BaseActivity() {
 
         val user = tokenManager.userData
 
-        tv_user_name.text = user?.name
+        tv_user_name.setText(user?.name)
         tv_phone.setText(user?.phoneNo)
         etxt_email.setText(user?.email)
 
@@ -98,6 +99,71 @@ class EditProfileActivity : BaseActivity() {
             val intent = Intent(this, ShippingActivity::class.java)
             startActivity(intent)
         }
+
+        save_btn.setOnClickListener {
+            updateProfile()
+        }
+    }
+
+    private fun updateProfile() {
+        val email = etxt_email.text.toString()
+        val name = tv_user_name.text.toString()
+        val phone = tv_phone.text.toString().trim()
+
+        if (email.isEmpty() or !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            createSnack(ctx = this, txt = "Enter valid email address")
+            return
+        }
+
+        if (name.isEmpty()) {
+            createSnack(ctx = this, txt = "Enter valid name")
+            return
+        }
+
+        if (phone.isEmpty()) {
+            createSnack(ctx = this, txt = "Enter valid phone")
+            return
+        }
+
+        var user = tokenManager.userData
+
+        val editR = EditProfileRequest(
+            name = name,
+            email = email,
+            country_code = "",
+            image_path = user?.imagePath,
+            phone_no = phone,
+            latitude = user?.locationLat,
+            longitude = user?.locationLon
+        )
+
+        val dialog = showDialogue("Saving changes", "Please wait ...")
+
+        //TODO: push shipping data to server
+        vm.editUserAccount(editR).observe(this, Observer {
+
+            val data = it.data
+
+            when (it.status) {
+                Status.ERROR -> {
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = this, txt = "Error saving profile")
+
+                    errorDialogue("Error", "${data?.message}", dialog)
+                    //checkNetwork()
+                }
+                Status.SUCCESS -> {
+
+                    tokenManager.userData = it.data?.userData
+
+                    successDialogue(alertDialog = dialog, descriptions = "${data?.message}")
+                    finish()
+                }
+                Status.LOADING -> {
+                }
+            }
+        })
+
     }
 
 
@@ -127,7 +193,7 @@ class EditProfileActivity : BaseActivity() {
                 }
             }
 
-            UCrop.REQUEST_CROP -> if (resultCode == Activity.RESULT_OK)  {
+            UCrop.REQUEST_CROP -> if (resultCode == Activity.RESULT_OK) {
                 handleUCropResult(data)
             }
 
@@ -165,7 +231,6 @@ class EditProfileActivity : BaseActivity() {
                     finish()
                 }
                 Status.LOADING -> {
-
                 }
             }
         })
