@@ -71,7 +71,10 @@ interface ApiService {
     suspend fun addFavourite(@Body favouriteRequest: FavouriteRequest): FavouriteResponse
 
     @DELETE("favourite/remove")
-    suspend fun removeFavourite(@Body favouriteRequest: FavouriteRequest): FavouriteDeleteResponse
+    suspend fun removeFavourite(
+        @Query("fav_type") fav_type: String,
+        @Query("plateId") plateId: Int
+    ): FavouriteDeleteResponse
 
     @GET("favourite/")
     suspend fun getFavourite(): FavouriteListResponse

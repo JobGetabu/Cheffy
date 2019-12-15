@@ -132,7 +132,8 @@ data class ShippingRequest(
     var lat: String? = null,
     var lon: String? = null,
     var state: String? = null,
-    var zipCode: String? = null
+    var zipCode: String? = null,
+    var deliveryNote: String? = null
 )
 
 @SuppressLint("ParcelCreator")
@@ -170,7 +171,9 @@ data class ShippingDataResponse(
     @SerializedName("UserId")
     val userId2: Int? = null,
     @SerializedName("zipCode")
-    val zipCode: String? = null
+    val zipCode: String? = null,
+    @SerializedName("deliveryNote")
+    val deliveryNote: String? = null
 ) : Parcelable
 
 

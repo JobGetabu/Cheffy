@@ -84,6 +84,7 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
         ship!!.addressLine1 = shipRes?.addressLine1
         ship!!.addressLine2 = shipRes?.addressLine2
         ship!!.zipCode = shipRes?.zipCode
+        ship!!.deliveryNote = shipRes?.deliveryNote
 
         primary_txt.text = "${ship?.addressLine1}"
         primary_txt2.text = "${ship?.city}"
@@ -94,6 +95,8 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
             etAddress2.setText("${ship?.addressLine2}")
         if (!ship?.zipCode.isNullOrEmpty())
             etzip.setText("${ship?.zipCode}")
+        if (!ship?.deliveryNote.isNullOrEmpty())
+            deliverytext.setText("${ship?.deliveryNote}")
 
     }
 
@@ -144,6 +147,7 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
                     ship?.zipCode = etzip.text.toString()
                     ship?.addressLine1 = etAddress.toString()
                     ship?.addressLine2 = etAddress2.toString()
+                    ship?.deliveryNote = deliverytext.toString()
                     ship?.state = "${dd!!.secondaryText}"
                     ship?.city = "${dd!!.secondaryText}"
                     ship?.lat = "${dd!!.place?.latLng?.latitude}"
@@ -214,7 +218,6 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
     private fun setupMarker(loc: LatLng) {
         map.addMarker(
             MarkerOptions().position(loc)
-                .title("Marker in Sydney")
         )
 
         val position = CameraPosition.Builder()

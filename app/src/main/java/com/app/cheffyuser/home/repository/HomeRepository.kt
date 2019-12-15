@@ -142,9 +142,9 @@ class HomeRepository {
         }
     }
 
-    suspend fun removeFavourite(favouriteRequest: FavouriteRequest): Resource<FavouriteDeleteResponse> {
+    suspend fun removeFavourite(favR: FavouriteRequest): Resource<FavouriteDeleteResponse> {
         return try {
-            val response = apiServiceAuthed.removeFavourite(favouriteRequest)
+            val response = apiServiceAuthed.removeFavourite(favR.fav_type!!,favR.plateId!!)
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
