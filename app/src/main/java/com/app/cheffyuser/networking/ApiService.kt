@@ -44,6 +44,11 @@ interface ApiService {
 
     //region home apis
 
+    @GET("plate/show/{plateId}")
+    suspend fun getPlate(
+        @Path(value = "plateId") plateId: Int
+    ): SinglePlatesResponse
+
     @GET("plate/near")
     suspend fun getFoodNearBy(
         @Query("latitude") lat: String,

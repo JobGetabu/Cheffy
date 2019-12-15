@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.cart.activities.ItemCartActivity
 import com.app.cheffyuser.home.adapter.DetailMainbarAdapter
 import com.app.cheffyuser.home.fragments.KitchenFragment
@@ -16,13 +18,14 @@ import com.app.cheffyuser.home.fragments.PlateFragment
 import com.app.cheffyuser.home.fragments.ReceiptFragment
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.activities.ChefProfileActivity
-import com.app.cheffyuser.utils.Constants
-import com.app.cheffyuser.utils.loadUrl
+import com.app.cheffyuser.utils.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_food_details.*
 import kotlinx.android.synthetic.main.common_star_time_delivey.*
+import kotlinx.android.synthetic.main.item_loading.*
 import timber.log.Timber
 import kotlin.math.abs
 
@@ -67,6 +70,42 @@ class FoodDetailsActivity : BaseActivity() {
         uiStuff()
 
         dotsManager(1)
+
+        loadPlateData()
+
+    }
+
+    private fun loadPlateData() {
+
+        loader_layout.showView()
+
+        var id = (vm.platesResponse.value as PlatesResponse).id
+
+        if (id == null) {
+            id = intent.getIntExtra("plateId", 0)
+        }
+        //TODO check id from another intent => search
+
+        vm.getPlate(id).observe(this, Observer {
+
+            when (it.status) {
+                Status.ERROR -> {
+
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = this, txt = "Debug only: No plate")
+
+                    loader_layout.hideView()
+
+                }
+                Status.SUCCESS -> {
+                    loader_layout.hideView()
+
+                    vm.platesResponse.value = it.data?.data
+                }
+                Status.LOADING -> {
+                }
+            }
+        })
 
     }
 

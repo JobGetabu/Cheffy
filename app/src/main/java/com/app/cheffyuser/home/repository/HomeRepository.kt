@@ -37,6 +37,15 @@ class HomeRepository {
         }
     }
 
+    suspend fun getPlate(plateId: Int): Resource<SinglePlatesResponse> {
+        return try {
+            val response = apiService.getPlate(plateId)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
 
     suspend fun fetchNearByFood(
         lat: String,

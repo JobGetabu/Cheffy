@@ -42,6 +42,13 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun getPlate(plateId: Int): LiveData<Resource<SinglePlatesResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.getPlate(plateId)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
 
     fun fetchNearByFood(
         lat: String = "38.81212000",
