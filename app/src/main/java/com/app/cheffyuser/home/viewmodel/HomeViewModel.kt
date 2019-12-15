@@ -39,7 +39,7 @@ class HomeViewModel : ViewModel() {
     fun fetchNearByFood(
         lat: String = "38.81212000",
         lon: String = "-76.96691110",
-        radius: String = "10"
+        radius: String = "100"
     ): LiveData<Resource<MutableList<FoodNearByModel>>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchNearByFood(lat, lon, radius)
@@ -75,7 +75,7 @@ class HomeViewModel : ViewModel() {
     fun fetchFoodNearbyLocation(
         lat: String = "-5.03284353",
         lon: String = "-42.8176576",
-        radius: String = "10"
+        radius: String = "100"
     ): LiveData<Resource<MutableList<PlatesResponse>>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchFoodNearbyLocation(lat, lon, radius)
@@ -136,6 +136,30 @@ class HomeViewModel : ViewModel() {
     fun uploadProfile(fileToUpload: MultipartBody.Part): LiveData<Resource<ProfPicResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.profileUpload(fileToUpload)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun addFavourite(favouriteRequest: FavouriteRequest): LiveData<Resource<FavouriteResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.addFavourite(favouriteRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun removeFavourite(favouriteRequest: FavouriteRequest): LiveData<Resource<FavouriteDeleteResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.removeFavourite(favouriteRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun fetchFavourite(): LiveData<Resource<FavouriteListResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.getFavourite()
             emit(Resource.loading(null))
             emit(data)
         }

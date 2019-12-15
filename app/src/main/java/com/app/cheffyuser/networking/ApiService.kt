@@ -61,7 +61,7 @@ interface ApiService {
     suspend fun getFoodNearbyLocation(
         @Query("latitude") lat: String,
         @Query("longitude") lon: String,
-        @Query("radiusMiles") radiusMiles: String
+        @Query("radius") radiusMiles: String
     ): MutableList<PlatesResponse>
 
     @GET("category")
@@ -72,6 +72,9 @@ interface ApiService {
 
     @DELETE("favourite/remove")
     suspend fun removeFavourite(@Body favouriteRequest: FavouriteRequest): FavouriteDeleteResponse
+
+    @GET("favourite/")
+    suspend fun getFavourite(): FavouriteListResponse
 
     //endregion
 

@@ -221,7 +221,7 @@ class FoodCategoryFragment : BaseFragment() {
                     catlist.showView()
 
                     datas.let {
-                        foodPopularAdapter = FoodPopularAdapter(context!!, datas,
+                        foodPopularAdapter = FoodPopularAdapter(activity!!,vm, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse

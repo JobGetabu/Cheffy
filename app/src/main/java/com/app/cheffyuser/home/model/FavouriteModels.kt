@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class FavouriteRequest(
-    val favType: String? = null,
+    val fav_type: String? = null,
     val plateId: Int? = null
 )
 

@@ -131,6 +131,39 @@ class HomeRepository {
         }
     }
 
+    suspend fun addFavourite(favouriteRequest: FavouriteRequest): Resource<FavouriteResponse> {
+        return try {
+            val response = apiServiceAuthed.addFavourite(favouriteRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun removeFavourite(favouriteRequest: FavouriteRequest): Resource<FavouriteDeleteResponse> {
+        return try {
+            val response = apiServiceAuthed.removeFavourite(favouriteRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun getFavourite(): Resource<FavouriteListResponse> {
+        return try {
+            val response = apiServiceAuthed.getFavourite()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
     //Region Basket
 
 

@@ -1,18 +1,27 @@
 package com.app.cheffyuser.home.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
+import com.app.cheffyuser.home.model.FavouriteRequest
 import com.app.cheffyuser.home.model.PlatesResponse
+import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.networking.Status
+import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.loadUrl
+import com.varunest.sparkbutton.SparkButton
+import com.varunest.sparkbutton.SparkEventListener
+import timber.log.Timber
 
 class FoodNearbyAdapter(
-    private val context: Context,
+    private val context: FragmentActivity,
+    private val vm: HomeViewModel,
     private val foodNearbyModels: MutableList<PlatesResponse>?,
     private val clickListener: RecyclerItemClickListener
 ) : RecyclerView.Adapter<BaseViewHolder>() {
@@ -69,6 +78,7 @@ class FoodNearbyAdapter(
         private val food_ratings = itemView.findViewById<TextView>(R.id.food_ratings)
         private val times = itemView.findViewById<TextView>(R.id.times)
         private val deliverytext = itemView.findViewById<TextView>(R.id.deliverytext)
+        private val sparkButton = itemView.findViewById<SparkButton>(R.id.spark_button)
 
         init {
 
@@ -77,6 +87,51 @@ class FoodNearbyAdapter(
             food_ratings.setOnClickListener(this)
             deliverytext.setOnClickListener(this)
             times.setOnClickListener(this)
+
+            sparkButton.setEventListener(object : SparkEventListener {
+                override fun onEventAnimationEnd(button: ImageView?, buttonState: Boolean) {}
+
+                override fun onEvent(button: ImageView?, buttonState: Boolean) {
+                    if (buttonState) {
+                        createSnack(ctx = context, txt = "Added to favourites")
+
+                        val favR = FavouriteRequest("plate", model!!.id)
+
+                        vm.addFavourite(favR).observe(context, Observer {
+                            when (it.status) {
+                                Status.ERROR -> {
+                                    Timber.wtf(it.message)
+                                }
+                                Status.SUCCESS -> {
+                                    Timber.d(it.data?.message)
+                                }
+                                Status.LOADING -> {
+                                }
+                            }
+                        })
+
+                    } else {
+                        createSnack(ctx = context, txt = "Removed to favourites")
+
+                        val favR = FavouriteRequest("plate", model!!.id)
+
+                        vm.removeFavourite(favR).observe(context, Observer {
+                            when (it.status) {
+                                Status.ERROR -> {
+                                    Timber.wtf(it.message)
+                                }
+                                Status.SUCCESS -> {
+                                    Timber.d(it.data?.message)
+                                }
+                                Status.LOADING -> {
+                                }
+                            }
+                        })
+                    }
+                }
+
+                override fun onEventAnimationStart(button: ImageView?, buttonState: Boolean) {}
+            })
 
         }
 
