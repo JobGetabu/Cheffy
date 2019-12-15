@@ -155,7 +155,7 @@ class UserHomeFragment : BaseFragment() {
 
                     if (!datas.isNullOrEmpty()) {
 
-                        foodNearbyAdapter = FoodNearbyAdapter(context!!, datas,
+                        foodNearbyAdapter = FoodNearbyAdapter(activity!!, vm, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse
@@ -195,7 +195,7 @@ class UserHomeFragment : BaseFragment() {
                 Status.SUCCESS -> {
 
                     if (!datas.isNullOrEmpty()) {
-                        foodNearbyAdapter2 = FoodNearbyAdapter(context!!, datas,
+                        foodNearbyAdapter2 = FoodNearbyAdapter(activity!!, vm, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse
@@ -204,7 +204,7 @@ class UserHomeFragment : BaseFragment() {
                                 }
                             })
 
-                    newlist.adapter = foodNearbyAdapter2
+                        newlist.adapter = foodNearbyAdapter2
 
                     }
 
@@ -244,7 +244,7 @@ class UserHomeFragment : BaseFragment() {
 
                     if (!datas.isNullOrEmpty()) {
 
-                        foodPopularAdapter = FoodPopularAdapter(context!!, datas,
+                        foodPopularAdapter = FoodPopularAdapter(activity!!, vm, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse
@@ -252,7 +252,7 @@ class UserHomeFragment : BaseFragment() {
                                     goToFoodDetails(model)
                                 }
                             })
-                    popularlist.adapter = foodPopularAdapter
+                        popularlist.adapter = foodPopularAdapter
 
                     }
 

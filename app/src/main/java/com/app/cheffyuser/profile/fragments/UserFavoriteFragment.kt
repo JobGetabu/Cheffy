@@ -11,7 +11,6 @@ import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.BottomNavActivity
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
-import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.adapter.FoodFavouriteAdapter
@@ -44,24 +43,29 @@ class UserFavoriteFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        setPopularList()
+        setFavouriteList()
+
+        swipeToRefresh.setOnRefreshListener {
+            setFavouriteList()
+        }
 
     }
 
 
-    //TODO replace with favourite API
-    private fun setPopularList() {
+    private fun setFavouriteList() {
         recyclerview_food_menu.setHasFixedSize(true)
 
         recyclerview_food_menu.hideView()
         shimmer_view_container.showView()
 
 
-        vm.fetchFoodPopular().observe(this, Observer {
+        vm.fetchFavourite().observe(this, Observer {
             val datas = it.data
 
             when (it.status) {
                 Status.ERROR -> {
+
+                    swipeToRefresh.isRefreshing = false
 
                     if (BuildConfig.DEBUG)
                         createSnack(ctx = activity!!, txt = "Debug only: No popular foods")
@@ -72,7 +76,7 @@ class UserFavoriteFragment : Fragment() {
                     try {
                         val act: BottomNavActivity = getActivity()!! as BottomNavActivity
                         act.checkNetwork()
-                    }catch (e: Exception){
+                    } catch (e: Exception) {
                         Timber.wtf(e)
                     }
 
@@ -84,11 +88,28 @@ class UserFavoriteFragment : Fragment() {
                     recyclerview_food_menu.showView()
                     shimmer_view_container.hideView()
 
-                    datas.let {
-                        foodFavAdapter = FoodFavouriteAdapter(context!!, datas,
+                    swipeToRefresh.isRefreshing = false
+
+                    val myFavs = mutableListOf<Any>()
+
+                    datas?.data?.forEach { d ->
+                        if (d != null) {
+                            if (d.customPlates != null) {
+
+                                myFavs.add(d.customPlates)
+                            }
+
+                            if (d.plate != null) {
+                                myFavs.add(d.plate)
+                            }
+                        }
+                    }
+
+                    myFavs.let {
+                        foodFavAdapter = FoodFavouriteAdapter(activity!!, vm, myFavs,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
-                                    model as PlatesResponse
+                                    model as Any
 
                                 }
                             })
@@ -96,7 +117,8 @@ class UserFavoriteFragment : Fragment() {
 
                     recyclerview_food_menu.adapter = foodFavAdapter
                 }
-                Status.LOADING -> { }
+                Status.LOADING -> {
+                }
             }
 
         })

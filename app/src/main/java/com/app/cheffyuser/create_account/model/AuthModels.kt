@@ -132,7 +132,8 @@ data class ShippingRequest(
     var lat: String? = null,
     var lon: String? = null,
     var state: String? = null,
-    var zipCode: String? = null
+    var zipCode: String? = null,
+    var deliveryNote: String? = null
 )
 
 @SuppressLint("ParcelCreator")
@@ -170,7 +171,9 @@ data class ShippingDataResponse(
     @SerializedName("UserId")
     val userId2: Int? = null,
     @SerializedName("zipCode")
-    val zipCode: String? = null
+    val zipCode: String? = null,
+    @SerializedName("deliveryNote")
+    val deliveryNote: String? = null
 ) : Parcelable
 
 
@@ -217,4 +220,21 @@ data class ChangePasswordRequest(
     val email: String?,
     val email_token: String?,
     val password: String?
+)
+
+data class EditProfileRequest(
+    val name: String?,
+    val country_code: String?,
+    val email: String?,
+    val phone_no: String?,
+    val latitude: String?,
+    val longitude: String?,
+    val image_path: String?
+)
+
+data class EditProfileResponse(
+    @SerializedName("message")
+    val message: String? = null,
+    @SerializedName("data")
+    val userData: UserData? = null
 )

@@ -15,6 +15,9 @@ interface ApiService {
     @POST("user")
     suspend fun createUserAccount(@Body signupRequest: SignupRequest): SignupResponse
 
+    @PUT("user/edit")
+    suspend fun editUserAccount(@Body editProfileRequest: EditProfileRequest): EditProfileResponse
+
     @POST("user/verify-email-token")
     suspend fun verifyAccount(@Body verifyRequest: VerifyRequest): VerifyResponse
 
@@ -61,7 +64,7 @@ interface ApiService {
     suspend fun getFoodNearbyLocation(
         @Query("latitude") lat: String,
         @Query("longitude") lon: String,
-        @Query("radiusMiles") radiusMiles: String
+        @Query("radius") radiusMiles: String
     ): MutableList<PlatesResponse>
 
     @GET("category")
@@ -70,8 +73,14 @@ interface ApiService {
     @POST("favourite/add")
     suspend fun addFavourite(@Body favouriteRequest: FavouriteRequest): FavouriteResponse
 
-    @DELETE("favourite/remove")
-    suspend fun removeFavourite(@Body favouriteRequest: FavouriteRequest): FavouriteDeleteResponse
+    @DELETE("favourite/remove/{fav_type}/{plateId}")
+    suspend fun removeFavourite(
+        @Path("fav_type") fav_type: String,
+        @Path("plateId") plateId: Int
+    ): FavouriteDeleteResponse
+
+    @GET("favourite/")
+    suspend fun getFavourite(): FavouriteListResponse
 
     //endregion
 

@@ -1,10 +1,7 @@
 package com.app.cheffyuser.home.repository
 
 import com.app.cheffyuser.CheffyApp
-import com.app.cheffyuser.create_account.model.ProfileResponse
-import com.app.cheffyuser.create_account.model.ShippingDataResponse
-import com.app.cheffyuser.create_account.model.ShippingRequest
-import com.app.cheffyuser.create_account.model.ShippingResponse
+import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.networking.ApiService
@@ -29,6 +26,17 @@ class HomeRepository {
             RetrofitBuilder.createServiceWithAuth(ApiService::class.java, tokenManager)
         responseHandler = ResponseHandler()
     }
+
+    suspend fun editUserAccount(editProfileRequest: EditProfileRequest): Resource<EditProfileResponse> {
+        return try {
+            val response = apiServiceAuthed.editUserAccount(editProfileRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
 
     suspend fun fetchNearByFood(
         lat: String,
@@ -123,6 +131,39 @@ class HomeRepository {
     suspend fun setShipping(shippingRequest: ShippingRequest): Resource<ShippingResponse> {
         return try {
             val response = apiServiceAuthed.setShipping(shippingRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun addFavourite(favouriteRequest: FavouriteRequest): Resource<FavouriteResponse> {
+        return try {
+            val response = apiServiceAuthed.addFavourite(favouriteRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun removeFavourite(favR: FavouriteRequest): Resource<FavouriteDeleteResponse> {
+        return try {
+            val response = apiServiceAuthed.removeFavourite(favR.fav_type!!,favR.plateId!!)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun getFavourite(): Resource<FavouriteListResponse> {
+        return try {
+            val response = apiServiceAuthed.getFavourite()
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
