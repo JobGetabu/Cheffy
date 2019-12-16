@@ -3,6 +3,7 @@ package com.app.cheffyuser.networking
 import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.*
+import com.app.cheffyuser.profile.model.ChefResponse
 import com.app.cheffyuser.profile.model.ProfPicResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -86,6 +87,15 @@ interface ApiService {
 
     @GET("favourite/")
     suspend fun getFavourite(): FavouriteListResponse
+
+    //endregion
+
+    //chef
+
+    @GET("plate/searchByChefId/{chefId}")
+    suspend fun getChefData(
+        @Path(value = "chefId") chefId: Int
+    ): ChefResponse
 
     //endregion
 

@@ -8,6 +8,7 @@ import com.app.cheffyuser.networking.ApiService
 import com.app.cheffyuser.networking.Resource
 import com.app.cheffyuser.networking.ResponseHandler
 import com.app.cheffyuser.networking.RetrofitBuilder
+import com.app.cheffyuser.profile.model.ChefResponse
 import com.app.cheffyuser.profile.model.ProfPicResponse
 import okhttp3.MultipartBody
 import timber.log.Timber
@@ -161,7 +162,7 @@ class HomeRepository {
 
     suspend fun removeFavourite(favR: FavouriteRequest): Resource<FavouriteDeleteResponse> {
         return try {
-            val response = apiServiceAuthed.removeFavourite(favR.fav_type!!,favR.plateId!!)
+            val response = apiServiceAuthed.removeFavourite(favR.fav_type!!, favR.plateId!!)
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
@@ -180,6 +181,20 @@ class HomeRepository {
             responseHandler.handleException(e)
         }
     }
+
+    //chef
+
+    suspend fun getChef(chefId: Int): Resource<ChefResponse> {
+        return try {
+            val response = apiServiceAuthed.getChefData(chefId)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    //endregion
 
     //Region Basket
 
