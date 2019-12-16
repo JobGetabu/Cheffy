@@ -54,7 +54,7 @@
 
     <string name="filled_bullet">\u25CF</string>
     <string name="continue_txt">Continue</string>
-    <string name="search_food_txt">Find a food or Restaurent</string>
+    <string name="search_food_txt">Find a food or Restaurant</string>
     <string name="view_item_cart">View Item Cart</string>
 
 </resources>

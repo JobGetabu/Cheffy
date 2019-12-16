@@ -294,6 +294,8 @@
                 android:id="@+id/recyclerview_plate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layoutAnimation="@anim/layout_anim_parent_bottom"
