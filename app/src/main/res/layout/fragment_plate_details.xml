@@ -69,7 +69,7 @@
         <include
             layout="@layout/item_loading"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
 
         <LinearLayout

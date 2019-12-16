@@ -18,6 +18,16 @@ import kotlinx.android.parcel.RawValue
 
 @SuppressLint("ParcelCreator")
 @Parcelize
+data class SinglePlatesResponse(
+    @SerializedName("message")
+    val message: String? = null,
+    @SerializedName("data")
+    val data: PlatesResponse? = null
+) : Parcelable
+
+
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class PlatesResponse(
     @SerializedName("category")
     val category: Category? = null,

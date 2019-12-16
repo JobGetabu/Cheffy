@@ -123,6 +123,18 @@ object Tools {
     }
 
 
+    /*
+
+            what kinda date format is this "2019-12-08T16:33:56.000Z" ?
+            could you provide me with its format? example like => "yyyy-MM-dd HH:mm:ss"
+            So that I can parse it locally.
+    fun cheffTimeConverter(date: String = "2019-12-08T16:33:56.000Z"): String{
+        val localDateTime = LocalDateTime.parse("2018-09-16T08:00:00")
+    }
+     */
+
+
+
     fun getFormattedDateSimple(dateTime: String): String {
         //2019-06-13 12:23:46
 

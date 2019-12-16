@@ -4,18 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.BaseActivity
-import com.app.cheffyuser.home.adapter.DetailMainbarAdapter
-import com.app.cheffyuser.home.fragments.KitchenFragment
-import com.app.cheffyuser.home.fragments.PlateFragment
-import com.app.cheffyuser.home.fragments.ReceiptFragment
+import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
-import com.app.cheffyuser.utils.Constants
+import com.app.cheffyuser.networking.Status
+import com.app.cheffyuser.utils.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_chef_profile.*
+import kotlinx.android.synthetic.main.item_loading.*
 import timber.log.Timber
 import kotlin.math.abs
 
@@ -58,18 +59,67 @@ class ChefProfileActivity : BaseActivity() {
 
     private fun uiStuff() {
 
+        var id = (vm.platesResponse.value as PlatesResponse).chef!!.id
+
+        if (id == null) {
+            id = intent.getIntExtra("chefId", 0)
+        }
+
+        loader_layout.showView()
+
+        vm.getChefData(id).observe(this, Observer {
+            val datas = it.data
+
+            when (it.status) {
+                Status.ERROR -> {
+
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = this, txt = "Chef can't be found now")
+
+                    //check for net
+                    try {
+                        if (!isConnected)
+                            checkNetwork()
+                    } catch (e: Exception) {
+                        Timber.wtf(e)
+                    }
+                }
+                Status.SUCCESS -> {
+
+                    loader_layout.hideView()
+
+                    val chef = datas?.chef
+
+                    restarantname.text = chef?.restaurantName
+                    chefname.text = chef?.name
+                    address.text = "fetching address..."
+                    im_chef.loadUrl(chef?.imagePath)
+
+                    if (!datas?.data.isNullOrEmpty()) {
+                        val plates = datas?.data
+
+                        plates?.forEachIndexed { index, plateData ->
+                            tabLayout.addTab(
+                                tabLayout.newTab().setText("${plateData?.name}"),
+                                index
+                            )
+                        }
+                    } else {
+                        tabLayout.addTab(
+                            tabLayout.newTab().setText("Popular foods")
+                        )
+                    }
+                }
+                Status.LOADING -> {
+                }
+            }
+        })
 
     }
 
     private fun initTablayout() {
-        tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
-        val adapter = DetailMainbarAdapter(supportFragmentManager)
-        adapter.addFragments(PlateFragment())
-        adapter.addFragments(KitchenFragment())
-        adapter.addFragments(ReceiptFragment())
-
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(p0: TabLayout.Tab?) {
 
             }

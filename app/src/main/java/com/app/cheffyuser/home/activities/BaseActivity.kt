@@ -8,7 +8,11 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import com.app.cheffyuser.CheffyApp
+import com.app.cheffyuser.home.fragments.NoNetListener
+import com.app.cheffyuser.home.fragments.NoNetworkDialogue
+import com.app.cheffyuser.utils.toast
 import com.droidnet.DroidListener
 import com.droidnet.DroidNet
 import com.labters.lottiealertdialoglibrary.DialogTypes
@@ -135,6 +139,29 @@ open class BaseActivity : AppCompatActivity(), DroidListener {
 
     fun getMyDrawable(@DrawableRes drawable: Int): Drawable {
         return ContextCompat.getDrawable(this, drawable)!!
+    }
+
+    fun checkNetwork() {
+
+        val fragmentManager = supportFragmentManager
+        val newFragment = NoNetworkDialogue()
+        newFragment.setOnNetListener(object : NoNetListener {
+            override fun onNetComeBack() {
+                toast("TODO: test if Recreate this activity is actually necessary")
+                //recreate()
+            }
+        })
+
+        try {
+            val transaction = fragmentManager.beginTransaction()
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit()
+
+        } catch (e: IllegalStateException) {
+            //Occurs on very fast switching
+            Timber.e(e)
+        }
+
     }
 
 }

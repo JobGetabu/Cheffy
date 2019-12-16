@@ -316,11 +316,11 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
+            style="@style/MyTabsTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@color/light_gray"
-            style="@style/MyTabsTheme"
             android:transitionName="slider2"
             app:layout_collapseMode="parallax"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -336,6 +336,14 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+        <include
+            layout="@layout/item_loading"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedscroll"
@@ -368,12 +376,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:shape_roundRect_bottomLeftRadius="6dp"
         app:shape_roundRect_bottomRightRadius="6dp"
         app:shape_roundRect_topLeftRadius="6dp"
-        app:shape_roundRect_topRightRadius="6dp">
+        app:shape_roundRect_topRightRadius="6dp"
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

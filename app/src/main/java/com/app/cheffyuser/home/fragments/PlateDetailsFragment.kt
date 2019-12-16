@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
@@ -49,11 +50,6 @@ class PlateDetailsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-        fooddescription.text = vm.platesResponse.value?.description
-
-        setIngredientsList()
-
         viewReceipt.setOnClickListener {
             goToReceiptActivity()
         }
@@ -62,8 +58,20 @@ class PlateDetailsFragment : BaseFragment() {
             goToFoodAddToCart()
         }
 
-        setRelatedFoodList()
+        plateResObserver()
 
+    }
+
+    private fun plateResObserver() {
+        vm.platesResponse.observe(this, Observer {
+            if (it != null){
+                fooddescription.text = vm.platesResponse.value?.description
+
+                setIngredientsList()
+
+                setRelatedFoodList()
+            }
+        })
     }
 
     private fun goToFoodAddToCart() {

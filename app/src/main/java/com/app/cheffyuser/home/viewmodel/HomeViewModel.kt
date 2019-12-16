@@ -9,6 +9,7 @@ import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.home.repository.HomeRepository
 import com.app.cheffyuser.networking.Resource
+import com.app.cheffyuser.profile.model.ChefResponse
 import com.app.cheffyuser.profile.model.ProfPicResponse
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +43,13 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun getPlate(plateId: Int): LiveData<Resource<SinglePlatesResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.getPlate(plateId)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
 
     fun fetchNearByFood(
         lat: String = "38.81212000",
@@ -123,6 +131,16 @@ class HomeViewModel : ViewModel() {
             emit(data)
         }
     }
+
+
+    fun getChefData(chefId: Int): LiveData<Resource<ChefResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.getChef(chefId)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
 
     fun getBasket(): LiveData<Resource<BasketListResponse>> {
         return liveData(Dispatchers.IO) {
