@@ -198,7 +198,7 @@ class HomeRepository {
 
     suspend fun getChef(chefId: Int): Resource<ChefResponse> {
         return try {
-            val response = apiServiceAuthed.getChefData(chefId)
+            val response = apiService.getChefData(chefId)
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             Timber.tag("HTTP").e(e, "")
@@ -209,7 +209,6 @@ class HomeRepository {
     //endregion
 
     //Region Basket
-
 
     suspend fun addToBasket(addToBasketRequest: AddToBasketRequest): Resource<List<AddToBasketResponse>> {
         return try {

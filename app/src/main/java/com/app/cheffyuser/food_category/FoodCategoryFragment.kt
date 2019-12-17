@@ -186,7 +186,9 @@ class FoodCategoryFragment : BaseFragment() {
         vm.searchTerm.observe(this, Observer {
             if (it.isNullOrEmpty()) return@Observer
 
-            Timber.d("Search term${vm.searchTerm.value} result: ${vm.searchResult}")
+            knowIfSuggestion(vm.searchTerm.value!!)
+            Timber.d("Search term ${vm.searchTerm.value} result: ${vm.searchResult}")
+
 
             when (vm.searchResult.type) {
                 SEARCH_PLATE -> {
@@ -259,7 +261,7 @@ class FoodCategoryFragment : BaseFragment() {
                     no_searchfood_layout.hideView()
                     catlist.showView()
 
-                    if (!datas.isNullOrEmpty()){
+                    if (!datas.isNullOrEmpty()) {
 
                         foodPopularAdapter = FoodPopularAdapter(activity!!, vm, datas,
                             object : RecyclerItemClickListener {
@@ -271,19 +273,14 @@ class FoodCategoryFragment : BaseFragment() {
                             })
                         catlist.adapter = foodPopularAdapter
 
-                    }else{
+                    } else {
                         no_searchfood_layout.showView()
                         catlist.hideView()
                     }
 
                 }
                 Status.LOADING -> {
-
                     //still loading data
-                    //still loading data
-                    shimmer_view_container.showView()
-                    shimmer_view_container.startShimmer()
-                    catlist.hideView()
                 }
             }
 
@@ -295,6 +292,34 @@ class FoodCategoryFragment : BaseFragment() {
         val intent = FoodDetailsActivity.newIntent(context!!)
         intent.putExtra(PLATES_RESPONSE_EXTRA, model)
         startActivity(intent)
+    }
+
+    private fun knowIfSuggestion(suggestion: String): SearchResult? {
+        //search
+        vm.predictionsResponse.typeChef!!.forEach {
+            if (it!!.chef!!.restaurantName.equals(suggestion)) {
+                vm.searchResult = SearchResult(SEARCH_CHEF, it.userId)
+                return vm.searchResult
+            }
+        }
+
+        vm.predictionsResponse.typePlate!!.forEach {
+            if (it!!.name.equals(suggestion)) {
+                vm.searchResult = SearchResult(SEARCH_PLATE, it.id)
+                return vm.searchResult
+            }
+        }
+
+        vm.predictionsResponse.typeCategory!!.forEach {
+            if (it!!.name.equals(suggestion)) {
+                vm.searchResult = SearchResult(SEARCH_CATEGORY, it.id)
+                return vm.searchResult
+            }
+        }
+
+        //at this point is not predicted. so <text> search
+        vm.searchResult = SearchResult(SEARCH_TEXT, null)
+        return vm.searchResult
     }
 
     // text watcher

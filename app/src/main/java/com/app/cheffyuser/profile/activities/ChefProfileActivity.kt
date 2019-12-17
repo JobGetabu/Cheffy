@@ -68,7 +68,12 @@ class ChefProfileActivity : BaseActivity() {
 
     private fun uiStuff() {
 
-        var id = (vm.platesResponse.value as PlatesResponse).chef?.id
+        var id: Int? = null
+
+        if (vm.platesResponse.value != null) {
+            id = (vm.platesResponse.value as PlatesResponse).chef?.id
+        }
+
 
         if (id == null) {
             id = intent.getIntExtra(chefId, 0)

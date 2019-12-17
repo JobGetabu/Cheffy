@@ -81,7 +81,12 @@ class FoodDetailsActivity : BaseActivity() {
 
         loader_layout.showView()
 
-        var id = (vm.platesResponse.value as PlatesResponse).id
+        var id: Int? = null
+
+        if (vm.platesResponse.value != null) {
+            id = (vm.platesResponse.value as PlatesResponse).id
+        }
+
 
         if (id == null) {
             id = intent.getIntExtra(plateId, 0)

@@ -95,7 +95,7 @@ interface ApiService {
 
     //chef
 
-    @GET("plate/searchByChefId/{chefId}")
+    @GET("plate/chef/{chefId}")
     suspend fun getChefData(
         @Path(value = "chefId") chefId: Int
     ): ChefResponse

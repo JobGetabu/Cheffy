@@ -30,13 +30,15 @@ class HomeViewModel : ViewModel() {
 
     var searchTerm: MediatorLiveData<String> = MediatorLiveData()
     var searchPredictions: MediatorLiveData<MutableList<String>> = MediatorLiveData()
-    var isPredictionSelected = false
+
     var predictionsResponse = PredictionsResponse()
     var searchResult = SearchResult()
 
     var filterObj: MediatorLiveData<String> = MediatorLiveData()
     var selectedSortFilter: MediatorLiveData<Int> = MediatorLiveData()
     var selectedPriceFilter: MediatorLiveData<MutableList<Boolean>> = MediatorLiveData()
+
+    var goToLoginTrigger: MediatorLiveData<Boolean> = MediatorLiveData()
 
 
     fun editUserAccount(editProfileRequest: EditProfileRequest): LiveData<Resource<EditProfileResponse>> {
