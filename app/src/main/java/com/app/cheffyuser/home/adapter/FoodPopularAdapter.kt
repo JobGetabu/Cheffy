@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.model.FavouriteRequest
 import com.app.cheffyuser.home.model.PlatesResponse
@@ -97,6 +98,18 @@ class FoodPopularAdapter(
 
                         val favR = FavouriteRequest("plate", model!!.id)
 
+                        if (!CheffyApp.instance!!.tokenManager.isLoggedIn) {
+                            createSnack(
+                                ctx = context,
+                                txt = "Login to add favourites",
+                                txtAction = "Login",
+                                isDefinate = true,
+                                action = View.OnClickListener { vm.goToLoginTrigger.value = true })
+
+                            sparkButton.isChecked = false
+                            return
+                        }
+
                         vm.addFavourite(favR).observe(context, Observer {
                             when (it.status) {
                                 Status.ERROR -> {
@@ -114,6 +127,18 @@ class FoodPopularAdapter(
                         createSnack(ctx = context, txt = "Removed to favourites")
 
                         val favR = FavouriteRequest("plate", model!!.id)
+
+                        if (!CheffyApp.instance!!.tokenManager.isLoggedIn) {
+                            createSnack(
+                                ctx = context,
+                                txt = "Login to add favourites",
+                                txtAction = "Login",
+                                isDefinate = true,
+                                action = View.OnClickListener { vm.goToLoginTrigger.value = true })
+
+                            sparkButton.isChecked = false
+                            return
+                        }
 
                         vm.removeFavourite(favR).observe(context, Observer {
                             when (it.status) {

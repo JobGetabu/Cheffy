@@ -29,7 +29,7 @@ import com.app.cheffyuser.home.adapter.MainbottomAdapter
 import com.app.cheffyuser.home.fragments.NoNetListener
 import com.app.cheffyuser.home.fragments.NoNetworkDialogue
 import com.app.cheffyuser.home.fragments.UserHomeFragment
-import com.app.cheffyuser.home.model.*
+import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.fragments.AccountFragment
@@ -186,6 +186,12 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
 
             if (it == 1) {
                 nav_view.selectedItemId = R.id.navigation_category
+            }
+        })
+
+        vm.goToLoginTrigger.observe(this, Observer {
+            if (true){
+                nav_view.selectedItemId = R.id.nav_account
             }
         })
     }
@@ -507,7 +513,6 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
             override fun onQueryTextSubmit(query: String?): Boolean {
 
                 vm.searchTerm.value = query
-                knowIfSuggestion(query!!)
                 return false
             }
 
@@ -516,34 +521,6 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
                 return false
             }
         })
-    }
-
-    private fun knowIfSuggestion(suggestion: String): SearchResult? {
-        //search
-        vm.predictionsResponse.typeChef!!.forEach {
-            if (it!!.chef!!.restaurantName.equals(suggestion)) {
-                vm.searchResult = SearchResult(SEARCH_CHEF, it.userId)
-                return vm.searchResult
-            }
-        }
-
-        vm.predictionsResponse.typePlate!!.forEach {
-            if (it!!.name.equals(suggestion)) {
-                vm.searchResult = SearchResult(SEARCH_PLATE, it.id)
-                return vm.searchResult
-            }
-        }
-
-        vm.predictionsResponse.typeCategory!!.forEach {
-            if (it!!.name.equals(suggestion)) {
-                vm.searchResult = SearchResult(SEARCH_CATEGORY, it.id)
-                return vm.searchResult
-            }
-        }
-
-        //at this point is not predicted. so <text> search
-        vm.searchResult = SearchResult(SEARCH_TEXT, null)
-        return vm.searchResult
     }
 
     //endregion
