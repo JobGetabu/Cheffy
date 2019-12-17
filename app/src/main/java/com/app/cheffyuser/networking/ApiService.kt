@@ -66,6 +66,9 @@ interface ApiService {
     @GET("plate/{foodId}/related")
     suspend fun getRelatedFood(@Path("foodId") foodId: Int): MutableList<PlatesResponse>
 
+    @GET("category/{categoryId}/plates")
+    suspend fun getPlatesByCategory(@Path("categoryId") categoryId: Int): MutableList<PlatesResponse>
+
     @GET("plate/")
     suspend fun getFoodNearbyLocation(
         @Query("latitude") lat: String,
@@ -120,6 +123,9 @@ interface ApiService {
     suspend fun uploadProfileImage(@Part file: MultipartBody.Part): ProfPicResponse
 
     //end region
+
+    @GET("user/searchPredictions")
+    suspend fun getSearchPredictions(): PredictionsResponse
 
 
 }

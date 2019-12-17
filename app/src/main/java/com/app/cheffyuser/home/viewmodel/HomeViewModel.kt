@@ -14,7 +14,6 @@ import com.app.cheffyuser.profile.model.ProfPicResponse
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
-import java.util.*
 
 class HomeViewModel : ViewModel() {
     private val repository: HomeRepository = HomeRepository()
@@ -28,7 +27,12 @@ class HomeViewModel : ViewModel() {
     var shippingData: MediatorLiveData<ShippingDataResponse> = MediatorLiveData()
 
     var pagerCurrentItem: MediatorLiveData<Int> = MediatorLiveData()
+
     var searchTerm: MediatorLiveData<String> = MediatorLiveData()
+    var searchPredictions: MediatorLiveData<MutableList<String>> = MediatorLiveData()
+    var isPredictionSelected = false
+    var predictionsResponse = PredictionsResponse()
+    var searchResult = SearchResult()
 
     var filterObj: MediatorLiveData<String> = MediatorLiveData()
     var selectedSortFilter: MediatorLiveData<Int> = MediatorLiveData()
@@ -82,6 +86,14 @@ class HomeViewModel : ViewModel() {
     fun fetchRelatedFood(foodId: Int): LiveData<Resource<MutableList<PlatesResponse>>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchRelatedFood(foodId)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun getPlatesByCategory(categoryId: Int): LiveData<Resource<MutableList<PlatesResponse>>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.getPlatesByCategory(categoryId)
             emit(Resource.loading(null))
             emit(data)
         }
@@ -185,6 +197,14 @@ class HomeViewModel : ViewModel() {
     fun fetchFavourite(): LiveData<Resource<FavouriteListResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.getFavourite()
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun getSearchPredictions(): LiveData<Resource<PredictionsResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.getSearchPredictions()
             emit(Resource.loading(null))
             emit(data)
         }

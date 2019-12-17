@@ -92,6 +92,18 @@ class HomeRepository {
         }
     }
 
+    suspend fun getPlatesByCategory(categoryId: Int): Resource<MutableList<PlatesResponse>> {
+        return try {
+            val response = apiService.getPlatesByCategory(categoryId)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+
+
     suspend fun fetchFoodNearbyLocation(
         lat: String,
         lon: String,
@@ -234,5 +246,17 @@ class HomeRepository {
             responseHandler.handleException(e)
         }
     }
+
+    suspend fun getSearchPredictions(): Resource<PredictionsResponse> {
+        return try {
+            val response = apiService.getSearchPredictions()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
 
 }

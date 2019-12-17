@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import ax.synt.droidlocation.DroidLocationAppCompatActivity
 import ax.synt.droidlocation.DroidLocationRequestBuilder
 import br.com.mauker.materialsearchview.MaterialSearchView
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.TabsFragment
@@ -28,8 +29,9 @@ import com.app.cheffyuser.home.adapter.MainbottomAdapter
 import com.app.cheffyuser.home.fragments.NoNetListener
 import com.app.cheffyuser.home.fragments.NoNetworkDialogue
 import com.app.cheffyuser.home.fragments.UserHomeFragment
-import com.app.cheffyuser.home.model.CurrentLocation
+import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.fragments.AccountFragment
 import com.app.cheffyuser.utils.TokenManager
 import com.app.cheffyuser.utils.createSnack
@@ -175,6 +177,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
         searchUtils()
 
         appUpdatePrep()
+
+        searchPredcts()
     }
 
     private fun currentItemObserver() {
@@ -298,7 +302,6 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
             //Occurs on very fast switching
             Timber.e(e)
         }
-
     }
 
     override fun onPause() {
@@ -310,10 +313,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
         super.onResume()
 
         searchView.activityResumed()
-        //TODO: Add custom cheffy suggestions
-        val arr = arrayOf("Grilled Salmon", "Salad", "Pizza", "Chicken", "Grilled Meat")
+        searchPredcts()
 
-        searchView.addSuggestions(arr)
 
         checkIfUpdateWasUnderWay()
     }
@@ -356,32 +357,6 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
         }
 
 
-    }
-
-    private fun searchUtils() {
-        searchView.setOnItemClickListener { _, _, position, id ->
-
-            // Do something when the suggestion list is clicked.
-            val suggestion = searchView.getSuggestionAtPosition(position)
-
-            searchView.setQuery(suggestion, true)
-
-        }
-
-
-        searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-
-                vm.searchTerm.value = query
-
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-
-                return false
-            }
-        })
     }
 
 
@@ -456,6 +431,119 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
                     startUpdateFlow(appUpdateInfo)
                 }
             }
+    }
+
+    //endregion
+
+    //region search predictions
+
+    private fun searchPredcts() {
+        vm.searchPredictions.value = mutableListOf()
+        vm.getSearchPredictions().observe(this, Observer { dt ->
+            val datas = dt.data
+
+            when (dt.status) {
+                Status.ERROR -> {
+
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = this, txt = "Debug only: search predictions not found")
+
+                }
+                Status.SUCCESS -> {
+
+                    vm.predictionsResponse = datas!!
+                    val temp: MutableList<String> = mutableListOf()
+
+                    if (!datas!!.typeCategory.isNullOrEmpty()) {
+                        datas.typeCategory?.forEach {
+                            temp.add(it!!.name!!)
+                        }
+                    }
+
+                    if (!datas.typePlate.isNullOrEmpty()) {
+                        datas.typePlate.forEach {
+                            temp.add(it!!.name!!)
+                        }
+                    }
+
+                    if (!datas.typeChef.isNullOrEmpty()) {
+                        datas.typeChef.forEach {
+                            temp.add(it!!.chef?.restaurantName!!)
+                        }
+                    }
+
+                    vm.searchPredictions.value = temp
+
+                }
+                Status.LOADING -> {
+                    //still loading data
+                }
+            }
+
+        })
+
+
+        vm.searchPredictions.observe(this, Observer {
+
+            if (it.isNotEmpty()) {
+                searchView.addSuggestions(it)
+            }
+        })
+    }
+
+
+    private fun searchUtils() {
+        searchView.setOnItemClickListener { _, _, position, id ->
+
+            // Do something when the suggestion list is clicked.
+            val suggestion = searchView.getSuggestionAtPosition(position)
+
+            searchView.setQuery(suggestion, true)
+
+        }
+
+
+        searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                vm.searchTerm.value = query
+                knowIfSuggestion(query!!)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                return false
+            }
+        })
+    }
+
+    private fun knowIfSuggestion(suggestion: String): SearchResult? {
+        //search
+        vm.predictionsResponse.typeChef!!.forEach {
+            if (it!!.chef!!.restaurantName.equals(suggestion)) {
+                vm.searchResult = SearchResult(SEARCH_CHEF, it.userId)
+                return vm.searchResult
+            }
+        }
+
+        vm.predictionsResponse.typePlate!!.forEach {
+            if (it!!.name.equals(suggestion)) {
+                vm.searchResult = SearchResult(SEARCH_PLATE, it.id)
+                return vm.searchResult
+            }
+        }
+
+        vm.predictionsResponse.typeCategory!!.forEach {
+            if (it!!.name.equals(suggestion)) {
+                vm.searchResult = SearchResult(SEARCH_CATEGORY, it.id)
+                return vm.searchResult
+            }
+        }
+
+        //at this point is not predicted. so <text> search
+        vm.searchResult = SearchResult(SEARCH_TEXT, null)
+        return vm.searchResult
     }
 
     //endregion

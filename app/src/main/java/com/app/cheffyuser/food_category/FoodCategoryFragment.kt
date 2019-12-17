@@ -21,13 +21,18 @@ import com.app.cheffyuser.custom_order.CustomOrderActivity
 import com.app.cheffyuser.food_category.adapter.FoodCatAdapter
 import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.activities.BottomNavActivity
+import com.app.cheffyuser.home.activities.FoodDetailsActivity
+import com.app.cheffyuser.home.activities.FoodDetailsActivity.Companion.plateId
 import com.app.cheffyuser.home.adapter.FoodPopularAdapter
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.fragments.BaseFragment
-import com.app.cheffyuser.home.model.PlatesResponse
+import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
+import com.app.cheffyuser.profile.activities.ChefProfileActivity
+import com.app.cheffyuser.profile.activities.ChefProfileActivity.Companion.chefId
 import com.app.cheffyuser.profile.activities.ShippingActivity
+import com.app.cheffyuser.utils.Constants.PLATES_RESPONSE_EXTRA
 import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.hideView
 import com.app.cheffyuser.utils.showView
@@ -115,6 +120,7 @@ class FoodCategoryFragment : BaseFragment() {
         shimmer_view_container.startShimmer()
         shimmer_view_container.showView()
         catlist.hideView()
+        no_searchfood_layout.hideView()
 
         //this one is Grid
         val gridManager = GridLayoutManager(activity, 2)
@@ -131,17 +137,20 @@ class FoodCategoryFragment : BaseFragment() {
                     createSnack(ctx = activity!!, txt = "No foods categories")
 
                     shimmer_view_container.startShimmer()
-                    shimmer_view_container.showView()
+                    shimmer_view_container.hideView()
                     catlist.hideView()
+                    no_searchfood_layout.showView()
 
                 }
                 Status.SUCCESS -> {
 
                     shimmer_view_container.stopShimmer()
                     shimmer_view_container.hideView()
+                    no_searchfood_layout.hideView()
                     catlist.showView()
 
-                    datas.let {
+                    if (!datas.isNullOrEmpty()) {
+
                         foodCatAdapter = FoodCatAdapter(context!!, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
@@ -149,18 +158,24 @@ class FoodCategoryFragment : BaseFragment() {
 
                                     val name = model.name
 
-                                    listWithSearchResult(name!!)
+                                    listWithCategoryResult(name!!, model.id!!)
                                 }
                             })
+                        catlist.adapter = foodCatAdapter
+
+                    } else {
+                        no_searchfood_layout.showView()
+                        catlist.hideView()
                     }
 
-                    catlist.adapter = foodCatAdapter
+
                 }
                 Status.LOADING -> {
 
                     //still loading data
                     shimmer_view_container.showView()
                     catlist.hideView()
+                    no_searchfood_layout.hideView()
                 }
             }
 
@@ -171,12 +186,35 @@ class FoodCategoryFragment : BaseFragment() {
         vm.searchTerm.observe(this, Observer {
             if (it.isNullOrEmpty()) return@Observer
 
-            listWithSearchResult(it)
+            Timber.d("Search term${vm.searchTerm.value} result: ${vm.searchResult}")
+
+            when (vm.searchResult.type) {
+                SEARCH_PLATE -> {
+                    val intent = Intent(FoodDetailsActivity.newIntent(activity!!))
+                    intent.putExtra(plateId, vm.searchResult.id)
+                    startActivity(intent)
+                    search_et!!.setText("")
+                    initList()
+                }
+                SEARCH_CHEF -> {
+                    val intent = Intent(ChefProfileActivity.newIntent(activity!!))
+                    intent.putExtra(chefId, vm.searchResult.id)
+                    startActivity(intent)
+                    search_et!!.setText("")
+                    initList()
+                }
+                SEARCH_CATEGORY -> {
+                    listWithCategoryResult(it, vm.searchResult.id!!)
+                }
+                SEARCH_TEXT -> {
+                    createSnack(ctx = activity!!, txt = "Search text API not ready")
+                }
+            }
 
         })
     }
 
-    private fun listWithSearchResult(searchTermId: String) {
+    private fun listWithCategoryResult(searchTermId: String, categoryId: Int) {
 
         search_et.setText(searchTermId)
 
@@ -191,7 +229,7 @@ class FoodCategoryFragment : BaseFragment() {
         val lManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         catlist.layoutManager = lManager
 
-        vm.fetchFoodPopular().observe(this, Observer {
+        vm.getPlatesByCategory(categoryId).observe(this, Observer {
             val datas = it.data
 
             when (it.status) {
@@ -218,20 +256,26 @@ class FoodCategoryFragment : BaseFragment() {
 
                     shimmer_view_container.stopShimmer()
                     shimmer_view_container.hideView()
+                    no_searchfood_layout.hideView()
                     catlist.showView()
 
-                    datas.let {
-                        foodPopularAdapter = FoodPopularAdapter(activity!!,vm, datas,
+                    if (!datas.isNullOrEmpty()){
+
+                        foodPopularAdapter = FoodPopularAdapter(activity!!, vm, datas,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse
 
-
+                                    goToFoodDetails(model)
                                 }
                             })
+                        catlist.adapter = foodPopularAdapter
+
+                    }else{
+                        no_searchfood_layout.showView()
+                        catlist.hideView()
                     }
 
-                    catlist.adapter = foodPopularAdapter
                 }
                 Status.LOADING -> {
 
@@ -244,6 +288,13 @@ class FoodCategoryFragment : BaseFragment() {
             }
 
         })
+    }
+
+    private fun goToFoodDetails(model: PlatesResponse) {
+
+        val intent = FoodDetailsActivity.newIntent(context!!)
+        intent.putExtra(PLATES_RESPONSE_EXTRA, model)
+        startActivity(intent)
     }
 
     // text watcher
@@ -277,7 +328,7 @@ class FoodCategoryFragment : BaseFragment() {
                 )
                 img_filter.setImageDrawable(getDrawable(R.drawable.ic_filter_list_black_24dp))
 
-                img_filter.setOnClickListener{
+                img_filter.setOnClickListener {
                     //TODO: Add filter logic
                 }
             }

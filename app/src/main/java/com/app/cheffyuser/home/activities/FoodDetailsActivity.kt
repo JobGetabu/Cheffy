@@ -35,6 +35,8 @@ class FoodDetailsActivity : BaseActivity() {
     companion object {
         fun newIntent(context: Context): Intent =
             Intent(context, FoodDetailsActivity::class.java)
+
+        const val plateId = "plateId"
     }
 
     private val vm: HomeViewModel by lazy {
@@ -82,7 +84,7 @@ class FoodDetailsActivity : BaseActivity() {
         var id = (vm.platesResponse.value as PlatesResponse).id
 
         if (id == null) {
-            id = intent.getIntExtra("plateId", 0)
+            id = intent.getIntExtra(plateId, 0)
         }
         //TODO check id from another intent => search
 

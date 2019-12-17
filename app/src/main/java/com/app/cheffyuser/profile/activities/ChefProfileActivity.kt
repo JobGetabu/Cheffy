@@ -32,6 +32,8 @@ class ChefProfileActivity : BaseActivity() {
     companion object {
         fun newIntent(context: Context): Intent =
             Intent(context, ChefProfileActivity::class.java)
+
+        const val chefId = "chefId"
     }
 
     private val vm: HomeViewModel by lazy {
@@ -66,10 +68,10 @@ class ChefProfileActivity : BaseActivity() {
 
     private fun uiStuff() {
 
-        var id = (vm.platesResponse.value as PlatesResponse).chef!!.id
+        var id = (vm.platesResponse.value as PlatesResponse).chef?.id
 
         if (id == null) {
-            id = intent.getIntExtra("chefId", 0)
+            id = intent.getIntExtra(chefId, 0)
         }
 
         loader_layout.showView()
