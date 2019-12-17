@@ -18,6 +18,7 @@ import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.createSnack
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
+
 /**
  * A simple [Fragment] subclass.
  */

@@ -8,6 +8,8 @@ import com.app.cheffyuser.utils.AppExecutors
 import com.app.cheffyuser.utils.ReleaseLogTree
 import com.app.cheffyuser.utils.TokenManager
 import com.droidnet.DroidNet
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.libraries.places.api.Places
 import com.google.firebase.iid.FirebaseInstanceId
@@ -43,7 +45,8 @@ class CheffyApp : MultiDexApplication() {
 
 
         //Init fb sdk
-        //FacebookSdk.sdkInitialize(applicationContext)
+        FacebookSdk.sdkInitialize(applicationContext)
+        AppEventsLogger.activateApp(this)
 
         //Init Firebase notifications
         FirebaseInstanceId.getInstance().instanceId

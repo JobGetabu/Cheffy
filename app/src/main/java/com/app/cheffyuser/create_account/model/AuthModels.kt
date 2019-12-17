@@ -238,3 +238,8 @@ data class EditProfileResponse(
     @SerializedName("data")
     val userData: UserData? = null
 )
+
+data class LogoutResponse(
+    @SerializedName("message")
+    val message: String? = null
+)

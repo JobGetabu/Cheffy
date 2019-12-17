@@ -50,7 +50,6 @@ class AccountFragment : BaseFragment() {
 
     private fun uiStuff() {
 
-
         vm.fetchUser().observe(this, Observer { dt ->
             val datas = dt.data
 
@@ -65,7 +64,6 @@ class AccountFragment : BaseFragment() {
                     tokenManager.userData = datas?.data
 
                     datas.let {
-
 
                         tv_user_name.text = it?.data?.name
                         user_image.loadUrl(it?.data?.imagePath, R.drawable.avatar_placeholder)

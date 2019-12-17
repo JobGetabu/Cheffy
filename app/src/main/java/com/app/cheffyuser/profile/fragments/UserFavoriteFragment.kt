@@ -11,6 +11,7 @@ import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.BottomNavActivity
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
+import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.adapter.FoodFavouriteAdapter
@@ -23,7 +24,7 @@ import timber.log.Timber
 /**
  * A simple [Fragment] subclass.
  */
-class UserFavoriteFragment : Fragment() {
+class UserFavoriteFragment : BaseFragment() {
 
 
     private lateinit var foodFavAdapter: FoodFavouriteAdapter

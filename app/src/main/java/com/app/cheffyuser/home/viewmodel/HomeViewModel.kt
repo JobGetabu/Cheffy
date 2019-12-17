@@ -49,6 +49,14 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun logout(): LiveData<Resource<LogoutResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.logout()
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
     fun getPlate(plateId: Int): LiveData<Resource<SinglePlatesResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.getPlate(plateId)

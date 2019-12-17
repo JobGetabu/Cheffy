@@ -128,4 +128,7 @@ interface ApiService {
     suspend fun getSearchPredictions(): PredictionsResponse
 
 
+    //logout
+    @POST("user/logout")
+    suspend fun logout(): LogoutResponse
 }
