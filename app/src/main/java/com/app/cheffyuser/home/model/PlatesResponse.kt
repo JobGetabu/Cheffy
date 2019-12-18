@@ -6,13 +6,8 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
+
 /**
- *
- *
- * TODO:
- * Remove the @RawValue annotations once
- * the null responses return their data in the future
- * Consult API team
  *
  */
 
@@ -75,7 +70,7 @@ data class PlatesResponse(
     @Parcelize
     data class Chef(
         @SerializedName("address")
-        val address: @RawValue List<Any?>? = null,
+        val address: @RawValue List<AddressData>? = null,
         @SerializedName("auth_token")
         val authToken: @RawValue Any? = null,
         @SerializedName("country_code")
@@ -205,6 +200,35 @@ data class PlatesResponse(
                 "sellCount=$sellCount" +
                 ")"
     }
+
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class AddressData(
+        @SerializedName("addressLine1")
+        val addressLine1: String? = null,
+        @SerializedName("addressLine2")
+        val addressLine2: String? = null,
+        @SerializedName("city")
+        val city: String? = null,
+        @SerializedName("createdAt")
+        val createdAt: String? = null,
+        @SerializedName("deliveryNote")
+        val deliveryNote: String? = null,
+        @SerializedName("id")
+        val id: Int? = null,
+        @SerializedName("lat")
+        val lat: String? = null,
+        @SerializedName("lon")
+        val lon: String? = null,
+        @SerializedName("state")
+        val state: String? = null,
+        @SerializedName("updatedAt")
+        val updatedAt: String? = null,
+        @SerializedName("userId")
+        val userId: Int? = null,
+        @SerializedName("zipCode")
+        val zipCode: String? = null
+    ) : Parcelable
 
 
 }

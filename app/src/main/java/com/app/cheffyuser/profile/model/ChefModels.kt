@@ -42,7 +42,7 @@ data class Chef(
     @SerializedName("status")
     val status: Any? = null,
     @SerializedName("stripe_id")
-    val stripeId: Any? = null,
+    val stripeId: String? = null,
     @SerializedName("updatedAt")
     val updatedAt: String? = null,
     @SerializedName("user_ip")

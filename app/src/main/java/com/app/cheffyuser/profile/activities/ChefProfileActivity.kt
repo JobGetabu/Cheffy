@@ -109,6 +109,7 @@ class ChefProfileActivity : BaseActivity() {
                     address.text = "fetching address..."
                     im_chef.loadUrl(chef?.imagePath)
 
+
                     if (!datas?.data.isNullOrEmpty()) {
                         val plates = datas?.data
 

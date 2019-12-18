@@ -161,7 +161,8 @@ class FoodDetailsActivity : BaseActivity() {
             times.text =
                 "${vm.platesResponse.value!!.deliveryTime!!.minus(5)}-${vm.platesResponse.value?.deliveryTime} min"
 
-            //address.text = chef.address.toString()
+            if (chef.address.isNullOrEmpty())
+                address.text = chef.address!![0].addressLine1.toString()
         }
 
     }
