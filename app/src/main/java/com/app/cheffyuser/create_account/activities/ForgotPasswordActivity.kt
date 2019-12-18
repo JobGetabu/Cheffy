@@ -71,7 +71,6 @@ class ForgotPasswordActivity : BaseActivity() {
 
                     tokenManager.email = email
 
-                    //TODO: test this flow
                     startActivity(VerifyEmailActivity.newIntent(this))
 
                 }

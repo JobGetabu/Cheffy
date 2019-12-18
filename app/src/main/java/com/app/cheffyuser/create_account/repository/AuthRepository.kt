@@ -45,6 +45,17 @@ class AuthRepository {
         }
     }
 
+    suspend fun changePassword(changePasswordRequest: ChangePasswordRequest): Resource<ChangePasswordResponse> {
+        return try {
+            val response = apiService.changePassword(changePasswordRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e,"")
+            responseHandler.handleException(e)
+        }
+    }
+
     suspend fun registerAccount(registrationRequest: RegistrationRequest): Resource<RegistrationResponse> {
         return try {
             val response = apiService.registerAccount(registrationRequest)

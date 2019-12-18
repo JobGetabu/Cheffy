@@ -31,6 +31,5 @@ class OrderCompleteActivity : AppCompatActivity() {
             })
             finish()
         },3000)
-
     }
 }

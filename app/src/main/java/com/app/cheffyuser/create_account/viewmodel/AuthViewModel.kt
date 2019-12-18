@@ -51,5 +51,12 @@ class AuthViewModel : ViewModel() {
         }
     }
 
+    fun changePassword(changePasswordRequest: ChangePasswordRequest): LiveData<Resource<ChangePasswordResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.changePassword(changePasswordRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
 
 }

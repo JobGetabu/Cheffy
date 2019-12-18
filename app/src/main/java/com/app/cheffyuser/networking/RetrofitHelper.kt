@@ -78,6 +78,8 @@ open class ResponseHandler {
             ErrorCodes.SocketTimeOut.code -> "Timeout"
             401 -> "Unauthorised"
             404 -> "Not found"
+            409 -> "Conflicts found"
+            500 -> "Server Error"
             else -> "Something went wrong"
         }
     }

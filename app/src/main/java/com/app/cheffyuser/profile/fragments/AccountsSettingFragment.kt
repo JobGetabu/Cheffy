@@ -81,6 +81,7 @@ class AccountsSettingFragment : BaseFragment() {
                     val intent = Intent(activity, CreateAccountActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
+                    activity?.finish()
                 }
                 Status.LOADING -> {
                 }

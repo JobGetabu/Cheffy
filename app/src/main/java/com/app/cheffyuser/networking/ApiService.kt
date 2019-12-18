@@ -22,6 +22,9 @@ interface ApiService {
     @POST("user/verify-email-token")
     suspend fun verifyAccount(@Body verifyRequest: VerifyRequest): VerifyResponse
 
+    @POST("user/changepassword")
+    suspend fun changePassword(@Body changePasswordRequest: ChangePasswordRequest): ChangePasswordResponse
+
     @POST("user/complete-registration")
     suspend fun registerAccount(@Body registrationRequest: RegistrationRequest): RegistrationResponse
 
