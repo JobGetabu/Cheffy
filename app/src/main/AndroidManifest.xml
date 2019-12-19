@@ -61,7 +61,7 @@
         <activity android:name=".create_account.activities.UserActivity" />
         <activity android:name=".create_account.activities.VerifyActivity" />
         <activity android:name=".create_account.activities.CreateAccountActivity" />
-        <activity android:name=".cart.FoodTrackingActivity" />
+        <activity android:name=".cart.activities.FoodTrackingActivity" />
         <activity
             android:name=".cart.activities.AddCardActivity"
             android:screenOrientation="portrait"

@@ -1,4 +1,4 @@
-package com.app.cheffyuser.cart
+package com.app.cheffyuser.cart.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,10 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.app.cheffyuser.R
-import com.app.cheffyuser.cart.fragments.AddCartFragment
-import com.app.cheffyuser.cart.fragments.CustomOrderFragment
-import com.app.cheffyuser.cart.fragments.DeliveryFragment
-import com.app.cheffyuser.cart.fragments.TrackingOrderFragment
 import com.app.cheffyuser.home.adapter.CartTabAdapter
 import com.app.cheffyuser.home.fragments.BaseFragment
 import com.google.android.material.tabs.TabLayout

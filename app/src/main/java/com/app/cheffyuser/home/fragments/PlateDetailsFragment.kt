@@ -25,7 +25,9 @@ import com.app.cheffyuser.utils.hideView
 import com.app.cheffyuser.utils.showView
 import kotlinx.android.synthetic.main.fragment_plate_details.*
 import kotlinx.android.synthetic.main.item_loading.*
+import kotlinx.android.synthetic.main.item_multiplier.*
 import kotlinx.android.synthetic.main.single_ingredient_layout.*
+import timber.log.Timber
 
 
 /**
@@ -34,6 +36,9 @@ import kotlinx.android.synthetic.main.single_ingredient_layout.*
 class PlateDetailsFragment : BaseFragment() {
 
     private lateinit var relatedAdapter: FoodRelatedAdapter
+
+    private var numberWannaBuy = 1
+    private var foodPrice: Double = 0.00
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(getActivity()!!).get(HomeViewModel::class.java)
@@ -50,6 +55,8 @@ class PlateDetailsFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        uiStuff()
+
         viewReceipt.setOnClickListener {
             goToReceiptActivity()
         }
@@ -60,12 +67,50 @@ class PlateDetailsFragment : BaseFragment() {
 
         plateResObserver()
 
+        counter.text = "$numberWannaBuy"
+        counterForMultiplier()
+
+    }
+
+    private fun uiStuff() {
+        //TODO: check if plateId is not null
+
+
+    }
+
+    private fun counterForMultiplier() {
+
+        minus_img.setOnClickListener {
+            if (numberWannaBuy < 2) return@setOnClickListener
+            numberWannaBuy--
+            counter.text = "$numberWannaBuy"
+
+            priceCounter()
+
+        }
+
+        plus_img.setOnClickListener {
+            if (numberWannaBuy > 19) return@setOnClickListener
+            numberWannaBuy++
+            counter.text = "$numberWannaBuy"
+
+            priceCounter()
+        }
+    }
+
+    private fun priceCounter() {
+        //update price
+
+        buy_btn.text = "$"+"Buy ${foodPrice * numberWannaBuy}"
     }
 
     private fun plateResObserver() {
         vm.platesResponse.observe(this, Observer {
-            if (it != null){
+            if (it != null) {
                 fooddescription.text = vm.platesResponse.value?.description
+
+                foodPrice = vm.platesResponse.value?.price!!
+                buy_btn.text = "$"+"Buy $foodPrice"
 
                 setIngredientsList()
 
@@ -106,7 +151,7 @@ class PlateDetailsFragment : BaseFragment() {
 
         val ingredients = vm.platesResponse.value?.ingredients
 
-        if (!vm.platesResponse.value?.ingredients.isNullOrEmpty()){
+        if (!vm.platesResponse.value?.ingredients.isNullOrEmpty()) {
 
             val adapter = IngredientsAdapter(true, context!!, ingredients?.toMutableList())
 
@@ -166,6 +211,33 @@ class PlateDetailsFragment : BaseFragment() {
                 Status.LOADING -> {
                     //still loading data
                     loader_layout.showView()
+                }
+            }
+        })
+    }
+
+    private fun getBasket() {
+
+        vm.getBasket().observe(this, Observer {
+            val data = it.data
+
+            when (it.status) {
+                Status.ERROR -> {
+                    Timber.d("$it")
+
+                }
+                Status.SUCCESS -> {
+
+                    if (!data!!.items.isNullOrEmpty()) {
+
+                        //tv_total.text = "$" + "${data.total}"
+                        //tv_count.text = "${data.items?.count()}"
+
+                    } else {
+
+                    }
+                }
+                Status.LOADING -> {
                 }
             }
         })

@@ -1,4 +1,4 @@
-package com.app.cheffyuser.cart;
+package com.app.cheffyuser.cart.activities;
 
 import android.os.Bundle;
 

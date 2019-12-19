@@ -21,7 +21,7 @@ import br.com.mauker.materialsearchview.MaterialSearchView
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.R
-import com.app.cheffyuser.cart.TabsFragment
+import com.app.cheffyuser.cart.fragments.TabsFragment
 import com.app.cheffyuser.create_account.fragments.NeedToLoginFragment
 import com.app.cheffyuser.custom_order.CustomOrderActivity
 import com.app.cheffyuser.food_category.FoodCategoryFragment

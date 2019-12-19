@@ -1,7 +1,6 @@
 package com.app.cheffyuser.cart.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.cheffyuser.R;
-import com.app.cheffyuser.cart.FoodTrackingActivity;
 import com.app.cheffyuser.cart.adapter.TrackingOrderAdapter;
 
 

@@ -37,8 +37,10 @@ data class Plate(
 )
 
 data class BasketListResponse(
+    @SerializedName("basketId")
+    val basketId: Double? = null,
     @SerializedName("delivery_fee")
-    val deliveryFee: Int? = null,
+    val deliveryFee: Double? = null,
     @SerializedName("items")
     val items: MutableList<Item?>? = null,
     @SerializedName("sub_total")

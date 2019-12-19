@@ -80,41 +80,11 @@
             android:orientation="horizontal"
             android:weightSum="2">
 
-            <LinearLayout
+            <include
+                layout="@layout/item_multiplier"
                 android:layout_width="0dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/plusminusbuttonstyle"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="10dp"
-                android:weightSum="2">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    app:srcCompat="@drawable/ic_remove_black_24dp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/sailec_regular"
-                    android:text="1"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="25sp" />
-
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:tint="@color/colorPrimary"
-                    app:srcCompat="@drawable/ic_add_black_24dp" />
-
-            </LinearLayout>
+                android:layout_height="60dp"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/buy_btn"

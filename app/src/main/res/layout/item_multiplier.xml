@@ -30,6 +30,8 @@
             android:contentDescription="@string/contentdesc"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/counter"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_remove_black_24dp" />
@@ -47,7 +49,9 @@
             android:textColor="@color/realblack"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/minus_img"
+            app:layout_constraintEnd_toStartOf="@+id/plus_img"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/minus_img"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -65,7 +69,8 @@
             android:tint="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/counter"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/counter"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_add_black_24dp" />
 
