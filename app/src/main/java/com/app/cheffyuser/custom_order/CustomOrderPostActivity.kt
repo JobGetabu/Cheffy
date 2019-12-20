@@ -6,14 +6,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
+import android.view.View
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.adapter.UploadImageAdapter
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.utils.PickerInterface
 import com.app.cheffyuser.utils.Tools
+import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.toast
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
@@ -27,6 +31,8 @@ import java.util.*
 
 
 class CustomOrderPostActivity : BaseActivity(), PickerInterface {
+
+    private var miles = 0.5
 
     companion object {
         fun newIntent(context: Context): Intent =
@@ -61,8 +67,8 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
 
 
         btn_post_order.setOnClickListener {
-            val intent = Intent(this@CustomOrderPostActivity, OrderCompleteActivity::class.java)
-            startActivity(intent)
+
+            saveCustomOrder()
         }
 
         uploadpicture.setOnClickListener {
@@ -72,6 +78,33 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
             launchPhotoPicker()
         }
 
+        distProgress.incrementProgressBy(1)
+        distProgress.setOnSeekBarChangeListener(seekBarChangeListener)
+
+    }
+
+    private val seekBarChangeListener = object : SeekBar.OnSeekBarChangeListener {
+
+        var seekV = 0
+
+        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            seekV = progress
+        }
+
+        override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+        }
+
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+            miles = seekV * 1.0
+            distTxt.text = "$miles"
+
+            if (seekV == 0) {
+                miles = 0.5
+                distTxt.text = "$miles"
+            }
+        }
 
     }
 
@@ -203,4 +236,28 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
     //endregion
 
 
+    private fun saveCustomOrder() {
+
+        val foodname = etFoodName.text.toString()
+        val fooddescription = etFoodDescription.text.toString()
+        val minPrice = etMinPrice.text.toString()
+        val maxPrice = etMaxPrice.text.toString()
+
+        if (foodname.isEmpty() && fooddescription.isEmpty() && minPrice.isEmpty() && maxPrice.isEmpty()) {
+            createSnack(ctx = this, txt = "All fields are required")
+            return
+        }
+
+        if (!isConnected) {
+            createSnack(
+                this, getString(R.string.you_not_connected), getString(R.string.retry),
+                View.OnClickListener { saveCustomOrder() })
+            return
+        }
+
+
+        val intent = Intent(this@CustomOrderPostActivity, OrderCompleteActivity::class.java)
+        startActivity(intent)
+
+    }
 }

@@ -44,6 +44,9 @@ interface ApiService {
     @POST("shipping")
     suspend fun setShipping(@Body shippingRequest: ShippingRequest): ShippingResponse
 
+    @GET("user/socialauth/register")
+    suspend fun socialRegister(): List<ShippingDataResponse>
+
     //endregion
 
     //region home apis
@@ -127,9 +130,17 @@ interface ApiService {
 
     //end region
 
+    @POST("custom-plate")
+    suspend fun createCustomPlate(): CreateCustomResponse
+
+    @Multipart
+    @POST("custom-plate/{customPlateId}/images")
+    suspend fun uploadCustomPlateImages(@Path(value = "customPlateId") customPlateId: Int, @Part file: MutableList<MultipartBody.Part>): UploadCustomImagesResponse
+
+    //custom plates
+
     @GET("user/searchPredictions")
     suspend fun getSearchPredictions(): PredictionsResponse
-
 
     //logout
     @POST("user/logout")
