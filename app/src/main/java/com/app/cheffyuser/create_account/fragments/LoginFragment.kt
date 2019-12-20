@@ -35,7 +35,6 @@ import timber.log.Timber
 class LoginFragment : BaseFragment() {
 
     companion object {
-        const val EMAIL_EXTRA: String = "EMAIL_EXTRA"
         const val CHECKOUT_IN_PROGRESS: String = "CHECKOUT_IN_PROGRESS"
         private const val RC_SIGN_IN = 1
     }
@@ -168,8 +167,6 @@ class LoginFragment : BaseFragment() {
                     }
 
                     activity!!.finish()
-
-                    //TODO: test this flow
                 }
                 Status.LOADING -> {
                     //still loading data
@@ -203,7 +200,6 @@ class LoginFragment : BaseFragment() {
         alertDialog = showDialogue(title = "Google Signing in")
     }
 
-
     private fun facebookLogin() {
         if (!isConnected) {
             activity?.let {
@@ -224,8 +220,11 @@ class LoginFragment : BaseFragment() {
                 facebookManager!!.clearSession()
                 alertDialog?.dismiss()
 
-                //TODO
-                // store auth
+                startActivity(BottomNavActivity.newIntent(context!!).apply {
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
+                })
+
+                activity?.finish()
 
             }
 
@@ -236,7 +235,6 @@ class LoginFragment : BaseFragment() {
             }
         })
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Timber.d("onActivityResult: $requestCode")
@@ -253,14 +251,19 @@ class LoginFragment : BaseFragment() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    GoogleManager(activity!!, account, object : GoogleManager.GoogleLoginListener {
+                    GoogleManager(vm, activity!!,false, account, object : GoogleManager.GoogleLoginListener {
                         override fun onSuccess() {
                             alertDialog?.dismiss()
 
                             // At this point user date has been saved to
                             // local shared preferences
+                            //goTo => HomeActivity
 
-                            //TODO: goTo => HomeActivity
+                            startActivity(BottomNavActivity.newIntent(context!!).apply {
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
+                            })
+
+                            activity?.finish()
 
                         }
 
@@ -271,7 +274,7 @@ class LoginFragment : BaseFragment() {
                 } else {
                     errorDialogue(alertDialog = alertDialog)
 
-                    Timber.d(task1.exception)
+                    Timber.d(task1.exception.toString())
                     Timber.e("onActivityResult:failed " + task1.exception!!.message)
                 }
             }
@@ -284,7 +287,7 @@ class LoginFragment : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
 
-        facebookManager?.onDestroy()
+        //facebookManager?.onDestroy()
     }
 
 }

@@ -83,7 +83,7 @@ class AccountFragment : BaseFragment() {
                 Status.ERROR -> {
 
                     if (BuildConfig.DEBUG)
-                        createSnack(ctx = activity!!, txt = "Address can't be fetched now")
+                        createSnack(ctx = activity!!, txt = "Debug only: Address can't be fetched now")
                 }
                 Status.SUCCESS -> {
                     if (!datas.isNullOrEmpty()) {

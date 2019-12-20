@@ -47,6 +47,7 @@ class CheffyApp : MultiDexApplication() {
         //Init fb sdk
         FacebookSdk.sdkInitialize(applicationContext)
         AppEventsLogger.activateApp(this)
+        //logger.logPurchase(BigDecimal.valueOf(4.32), Currency.getInstance("USD"));
 
         //Init Firebase notifications
         FirebaseInstanceId.getInstance().instanceId

@@ -203,7 +203,7 @@ dependencies {
     implementation 'com.karumi:dexter:5.0.0'
 
     // Facebook sdk
-    implementation 'com.facebook.android:facebook-android-sdk:5.1.1'
+    implementation 'com.facebook.android:facebook-login:5.0.0'
 
     // Google login sdk
     implementation 'com.google.android.gms:play-services-auth:17.0.0'

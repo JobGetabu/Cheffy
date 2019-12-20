@@ -27,7 +27,7 @@ class FacebookManager(
         private val PROVIDER = "facebook"
     }
 
-    private val callbackManager: CallbackManager?
+    private val callbackManager: CallbackManager? = CallbackManager.Factory.create()
     private var listener: FacebookLoginListener? = null
 
     //TODO: Add fbLogin API call
@@ -54,7 +54,6 @@ class FacebookManager(
     }
 
     init {
-        this.callbackManager = CallbackManager.Factory.create()
         LoginManager.getInstance().registerCallback(callbackManager!!, facebookCallback)
     }
 
@@ -63,10 +62,13 @@ class FacebookManager(
 
         if (AccessToken.getCurrentAccessToken() != null) {
             //Get the user
+            Timber.d("fb token: ${AccessToken.getCurrentAccessToken()}")
             fetchUser(AccessToken.getCurrentAccessToken())
         } else {
             LoginManager.getInstance()
                 .logInWithReadPermissions(activity, Arrays.asList("public_profile", "email"))
+
+            Timber.d("fb token already there: ${AccessToken.getCurrentAccessToken()}")
         }
 
     }
@@ -86,14 +88,9 @@ class FacebookManager(
                 }
                 val photoUrl = "https://graph.facebook.com/$id/picture?type=large"
 
-                //TODO: save to SharedPreferences
-                //tokenManager => save user data
-
                 if (isRegistration) {
-
                     getRegistration(firstName, lastName, email, PROVIDER, id, photoUrl)
                 } else {
-
                     getTokenFromBackend(firstName, lastName, email, PROVIDER, id, photoUrl)
                 }
 
@@ -196,6 +193,7 @@ class FacebookManager(
         if (call != null) {
             call!!.cancel()
         }
+
         call = null
         if (callbackManager != null) {
             LoginManager.getInstance().unregisterCallback(callbackManager)

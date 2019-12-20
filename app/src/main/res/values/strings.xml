@@ -3,6 +3,7 @@
 
     <string name="facebook_app_id">552711248798322</string>
     <string name="fb_login_protocol_scheme">fb552711248798322</string>
+
     <string name="default_notification_channel_id">com.app.cheffyuser.DEFAULT</string>
     <string name="places_apikey">AIzaSyCeHle5CvjUpU8mlK1hpeDGVmpu8kuET6o</string>
     <string name="maps_apikey">AIzaSyDkiiriAP2yyyDbw0Tenf0XkEAxzoL-agg</string>
