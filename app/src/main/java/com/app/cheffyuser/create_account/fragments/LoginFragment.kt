@@ -68,7 +68,7 @@ class LoginFragment : BaseFragment() {
         configureGoogleSignIn()
 
         activity?.let {
-            facebookManager = FacebookManager(it.applicationContext)
+            facebookManager = FacebookManager(vm, activity!!)
         }
 
         checkoutInProgress = activity!!.intent.getBooleanExtra(CHECKOUT_IN_PROGRESS, false)
@@ -214,7 +214,7 @@ class LoginFragment : BaseFragment() {
             return
         }
 
-        //alertDialog = showDialogue(title = "Facebook Signing in")
+        alertDialog = showDialogue(title = "Facebook Signing in")
 
         facebookManager!!.login(activity!!, object : FacebookManager.FacebookLoginListener {
             override fun onSuccess() {
@@ -279,6 +279,12 @@ class LoginFragment : BaseFragment() {
             facebookManager!!.onActivityResult(requestCode, resultCode, data!!)
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        facebookManager?.onDestroy()
     }
 
 }

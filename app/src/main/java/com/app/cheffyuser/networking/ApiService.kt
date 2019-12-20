@@ -28,6 +28,11 @@ interface ApiService {
     @POST("user/complete-registration")
     suspend fun registerAccount(@Body registrationRequest: RegistrationRequest): RegistrationResponse
 
+    @POST("user/socialauth")
+    suspend fun socialLogin(@Body socialLoginRequest: SocialLoginRequest): LoginResponse
+
+    @POST("user/socialauth/register")
+    suspend fun socialRegister(@Body socialRegRequest: SocialRegRequest): LoginResponse
 
     @POST("user/login")
     suspend fun loginUserAccount(@Body loginRequest: LoginRequest): LoginResponse
@@ -44,8 +49,6 @@ interface ApiService {
     @POST("shipping")
     suspend fun setShipping(@Body shippingRequest: ShippingRequest): ShippingResponse
 
-    @GET("user/socialauth/register")
-    suspend fun socialRegister(): List<ShippingDataResponse>
 
     //endregion
 

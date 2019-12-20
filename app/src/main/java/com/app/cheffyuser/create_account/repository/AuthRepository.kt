@@ -29,7 +29,7 @@ class AuthRepository {
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
-            Timber.tag("HTTP").e(e,"")
+            Timber.tag("HTTP").e(e, "")
             responseHandler.handleException(e)
         }
     }
@@ -40,7 +40,7 @@ class AuthRepository {
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
-            Timber.tag("HTTP").e(e,"")
+            Timber.tag("HTTP").e(e, "")
             responseHandler.handleException(e)
         }
     }
@@ -51,7 +51,7 @@ class AuthRepository {
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
-            Timber.tag("HTTP").e(e,"")
+            Timber.tag("HTTP").e(e, "")
             responseHandler.handleException(e)
         }
     }
@@ -62,7 +62,29 @@ class AuthRepository {
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
-            Timber.tag("HTTP").e(e,"")
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun socialLogin(socialLoginRequest: SocialLoginRequest): Resource<LoginResponse> {
+        return try {
+            val response = apiService.socialLogin(socialLoginRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun socialRegistration(socialRegRequest: SocialRegRequest): Resource<LoginResponse> {
+        return try {
+            val response = apiService.socialRegister(socialRegRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
             responseHandler.handleException(e)
         }
     }
@@ -73,7 +95,7 @@ class AuthRepository {
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
-            Timber.tag("HTTP").e(e,"")
+            Timber.tag("HTTP").e(e, "")
             responseHandler.handleException(e)
         }
     }
@@ -85,7 +107,7 @@ class AuthRepository {
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging
-            Timber.tag("HTTP").e(e,"")
+            Timber.tag("HTTP").e(e, "")
             responseHandler.handleException(e)
         }
     }

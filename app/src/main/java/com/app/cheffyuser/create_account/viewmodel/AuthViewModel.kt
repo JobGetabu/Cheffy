@@ -59,4 +59,19 @@ class AuthViewModel : ViewModel() {
         }
     }
 
+    fun socialLogin(socialLoginRequest: SocialLoginRequest): LiveData<Resource<LoginResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.socialLogin(socialLoginRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun socialRegistration(socialRegRequest: SocialRegRequest): LiveData<Resource<LoginResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.socialRegistration(socialRegRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
 }

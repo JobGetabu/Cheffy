@@ -259,3 +259,9 @@ data class SocialRegRequest(
     val providerUserId: String? = null,
     val userType: String? = null
 )
+
+data class SocialLoginRequest(
+    val email: String? = null,
+    val provider: String? = null,
+    val providerUserId: String? = null
+)

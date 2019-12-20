@@ -1,9 +1,14 @@
 package com.app.cheffyuser.create_account.social
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
+import com.app.cheffyuser.CheffyApp
+import com.app.cheffyuser.create_account.model.SocialLoginRequest
+import com.app.cheffyuser.create_account.model.SocialRegRequest
+import com.app.cheffyuser.create_account.viewmodel.AuthViewModel
+import com.app.cheffyuser.networking.Status
 import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
@@ -13,7 +18,9 @@ import timber.log.Timber
 import java.util.*
 
 class FacebookManager(
-    internal var context: Context
+    internal var vm: AuthViewModel,
+    internal var context: FragmentActivity,
+    internal val isRegistration: Boolean = false
 ) {
 
     companion object {
@@ -51,11 +58,6 @@ class FacebookManager(
         LoginManager.getInstance().registerCallback(callbackManager!!, facebookCallback)
     }
 
-    /*
-     * TODO: to fetch and save user details in the app
-     * */
-    fun fetchUser() {}
-
     fun login(activity: Activity, listener: FacebookLoginListener) {
         this.listener = listener
 
@@ -87,7 +89,14 @@ class FacebookManager(
                 //TODO: save to SharedPreferences
                 //tokenManager => save user data
 
-                getTokenFromBackend(firstName, lastName, email, PROVIDER, id, photoUrl)
+                if (isRegistration) {
+
+                    getRegistration(firstName, lastName, email, PROVIDER, id, photoUrl)
+                } else {
+
+                    getTokenFromBackend(firstName, lastName, email, PROVIDER, id, photoUrl)
+                }
+
             } catch (e: JSONException) {
                 e.printStackTrace()
                 listener!!.onError(e.message!!)
@@ -114,9 +123,69 @@ class FacebookManager(
         profile_image: String
     ) {
 
-        Timber.d("$firstName $provider")
-        //TODO: Make a social login call to backend to retrieve a token
-        // activate out listeners here
+        Timber.d(" social $firstName $provider")
+        val soc = SocialLoginRequest(email, provider, providerUserId)
+
+        vm.socialLogin(soc).observe(context, androidx.lifecycle.Observer {
+            when (it.status) {
+                Status.ERROR -> {
+                    listener!!.onError("${it.message}")
+                }
+                Status.SUCCESS -> {
+                    val dt = it.data
+                    val tk = CheffyApp.instance!!.tokenManager
+
+                    tk.user = dt
+                    tk.setIsLoggedIn()
+
+                    listener!!.onSuccess()
+                }
+            }
+        })
+    }
+
+    /*
+   * This should be an API call to save user returned by fb to our backend
+   * Retrieve Token
+   *
+   * */
+    private fun getRegistration(
+        firstName: String,
+        lastName: String,
+        email: String?,
+        provider: String,
+        providerUserId: String,
+        profile_image: String
+    ) {
+
+        Timber.d("social registration$firstName $provider")
+
+        Timber.d(" social $firstName $provider")
+        val soc = SocialRegRequest(
+            email,
+            profile_image,
+            "$firstName $lastName",
+            provider,
+            providerUserId,
+            userType = "user"
+        )
+
+        vm.socialRegistration(soc).observe(context, androidx.lifecycle.Observer {
+            when (it.status) {
+                Status.ERROR -> {
+                    listener!!.onError("${it.message}")
+                }
+                Status.SUCCESS -> {
+                    val dt = it.data
+                    val tk = CheffyApp.instance!!.tokenManager
+
+                    tk.user = dt
+                    tk.setIsLoggedIn()
+
+                    listener!!.onSuccess()
+                }
+            }
+        })
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
