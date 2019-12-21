@@ -95,12 +95,13 @@ dependencies {
     def retrofit2_version = "2.6.0"
     def arch_version = '2.2.0-alpha01'
     def kotlinCoroutineVersion = "1.0.1"
+    def multidex_version = "2.0.1"
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation "androidx.multidex:multidex:$multidex_version"
 
     //play services
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
