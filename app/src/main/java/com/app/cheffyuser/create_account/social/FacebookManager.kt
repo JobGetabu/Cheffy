@@ -1,27 +1,26 @@
 package com.app.cheffyuser.create_account.social
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
 import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.create_account.model.SocialLoginRequest
 import com.app.cheffyuser.create_account.model.SocialRegRequest
 import com.app.cheffyuser.create_account.viewmodel.AuthViewModel
+import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.networking.Status
 import com.facebook.*
 import com.facebook.AccessToken.getCurrentAccessToken
+import com.facebook.FacebookSdk.getApplicationContext
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import org.json.JSONException
 import retrofit2.Call
 import timber.log.Timber
-import java.util.*
 
 
 class FacebookManager(
     internal var vm: AuthViewModel,
-    internal var context: FragmentActivity,
+    internal var context: BaseFragment,
     internal val isRegistration: Boolean = false
 ) {
 
@@ -44,7 +43,6 @@ class FacebookManager(
 
         override fun onCancel() {
             Timber.d("fb cancelled: ")
-            //TODO: dismiss job + dialogues
         }
 
         override fun onError(error: FacebookException) {
@@ -58,6 +56,7 @@ class FacebookManager(
     }
 
     init {
+        FacebookSdk.sdkInitialize(getApplicationContext())
         accessTokenTracker = object : AccessTokenTracker() {
             override fun onCurrentAccessTokenChanged(
                 oldAccessToken: AccessToken?,
@@ -68,12 +67,11 @@ class FacebookManager(
             }
 
         }
-
-        LoginManager.getInstance().registerCallback(callbackManager, facebookCallback)
     }
 
-    fun login(activity: Activity, listener: FacebookLoginListener) {
+    fun login(activity: BaseFragment, listener: FacebookLoginListener) {
 
+        this.listener = listener
 
         val accessToken = getCurrentAccessToken()
         val isLoggedIn = accessToken != null && !accessToken.isExpired
@@ -84,13 +82,15 @@ class FacebookManager(
             Timber.d("fb token: ${getCurrentAccessToken()}")
             fetchUser(getCurrentAccessToken())
         } else {
-            LoginManager.getInstance()
-                .logInWithReadPermissions(activity, Arrays.asList("public_profile", "email"))
-
             Timber.d("fb token not there: ${getCurrentAccessToken()}")
+
+            LoginManager.getInstance()
+                .logInWithReadPermissions(activity, listOf("public_profile", "email"))
+
+            LoginManager.getInstance().registerCallback(callbackManager, facebookCallback)
+
         }
 
-        this.listener = listener
 
     }
 
@@ -191,7 +191,7 @@ class FacebookManager(
             "$firstName $lastName",
             provider,
             providerUserId,
-            userType = "user"
+            user_type = "user"
         )
 
         vm.socialRegistration(soc).observe(context, androidx.lifecycle.Observer {
@@ -224,7 +224,7 @@ class FacebookManager(
         call = null
         accessTokenTracker?.stopTracking()
 
-        LoginManager.getInstance().unregisterCallback(callbackManager)
+        //LoginManager.getInstance().unregisterCallback(callbackManager)
     }
 
     fun clearSession() {

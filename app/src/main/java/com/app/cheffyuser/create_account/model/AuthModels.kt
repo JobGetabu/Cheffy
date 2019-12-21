@@ -256,12 +256,12 @@ data class SocialRegRequest(
     val imagePath: String? = null,
     val name: String? = null,
     val provider: String? = null,
-    val providerUserId: String? = null,
-    val userType: String? = null
+    val provider_user_id: String? = null,
+    val user_type: String? = null
 )
 
 data class SocialLoginRequest(
     val email: String? = null,
     val provider: String? = null,
-    val providerUserId: String? = null
+    val provider_user_id: String? = null
 )

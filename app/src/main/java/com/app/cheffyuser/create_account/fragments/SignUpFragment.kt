@@ -1,5 +1,6 @@
 package com.app.cheffyuser.create_account.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -66,9 +67,7 @@ class SignUpFragment : BaseFragment() {
 
         configureGoogleSignIn()
 
-        activity?.let {
-            facebookManager = FacebookManager(vm, activity!!, true)
-        }
+        facebookManager = FacebookManager(vm, this, true)
 
         checkoutInProgress = activity!!.intent.getBooleanExtra(CHECKOUT_IN_PROGRESS, false)
     }
@@ -122,39 +121,36 @@ class SignUpFragment : BaseFragment() {
             return
         }
 
-        fbLoginInProgress = true
         alertDialog = showDialogue(title = "Facebook Signing in")
 
+        facebookManager!!.login(
+            this@SignUpFragment,
+            object : FacebookManager.FacebookLoginListener {
+                override fun onSuccess() {
+                    Toast.makeText(activity!!, "Welcome " + "${tokenManager.user?.data?.name} !", Toast.LENGTH_SHORT)
+                        .show()
 
-        facebookManager!!.login(activity!!, object : FacebookManager.FacebookLoginListener {
-            override fun onSuccess() {
-                Toast.makeText(activity!!, "Welcome " + " !", Toast.LENGTH_SHORT)
-                    .show()
+                    facebookManager!!.clearSession()
+                    alertDialog?.dismiss()
 
-                fbLoginInProgress = false
-                facebookManager!!.clearSession()
-                alertDialog?.dismiss()
+                    startActivity(BottomNavActivity.newIntent(context!!).apply {
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
+                    })
 
-                startActivity(BottomNavActivity.newIntent(context!!).apply {
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
-                })
+                    activity?.finish()
 
-                activity?.finish()
+                }
 
-            }
+                override fun onError(message: String) {
 
-            override fun onError(message: String) {
-
-                fbLoginInProgress = false
-                errorDialogue(alertDialog = alertDialog, descriptions = message)
-                Timber.d(message)
-            }
-        })
+                    errorDialogue(alertDialog = alertDialog, descriptions = message)
+                    Timber.d(message)
+                }
+            })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Timber.d("onActivityResult: $requestCode")
-        facebookManager!!.onActivityResult(requestCode, resultCode, data!!)
 
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -201,7 +197,10 @@ class SignUpFragment : BaseFragment() {
                     Timber.e("onActivityResult:failed " + task1.exception!!.message)
                 }
             }
-        } else {
+        }
+
+        if (resultCode == Activity.RESULT_OK) {
+            facebookManager!!.onActivityResult(requestCode, resultCode, data!!)
         }
 
         super.onActivityResult(requestCode, resultCode, data)

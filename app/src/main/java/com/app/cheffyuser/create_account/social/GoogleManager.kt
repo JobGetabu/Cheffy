@@ -45,7 +45,6 @@ class GoogleManager(
         } else {
             getTokenFromBackend(firstName, lastName, email, PROVIDER, id, photoUrl)
         }
-
     }
 
     /*
@@ -77,7 +76,7 @@ class GoogleManager(
                     tk.user = dt
                     tk.setIsLoggedIn()
 
-                    listener!!.onSuccess()
+                    listener.onSuccess()
                 }
             }
         })
@@ -106,13 +105,13 @@ class GoogleManager(
             "$firstName $lastName",
             provider,
             providerUserId,
-            userType = "user"
+            user_type = "user"
         )
 
         vm.socialRegistration(soc).observe(context, androidx.lifecycle.Observer {
             when (it.status) {
                 Status.ERROR -> {
-                    listener!!.onError("${it.message}")
+                    listener.onError("${it.message}")
                 }
                 Status.SUCCESS -> {
                     val dt = it.data
@@ -121,7 +120,7 @@ class GoogleManager(
                     tk.user = dt
                     tk.setIsLoggedIn()
 
-                    listener!!.onSuccess()
+                    listener.onSuccess()
                 }
             }
         })

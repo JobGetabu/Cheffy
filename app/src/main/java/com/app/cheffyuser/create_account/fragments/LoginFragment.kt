@@ -66,9 +66,7 @@ class LoginFragment : BaseFragment() {
 
         configureGoogleSignIn()
 
-        activity?.let {
-            facebookManager = FacebookManager(vm, activity!!)
-        }
+        facebookManager = FacebookManager(vm, this)
 
         checkoutInProgress = activity!!.intent.getBooleanExtra(CHECKOUT_IN_PROGRESS, false)
     }
@@ -212,9 +210,9 @@ class LoginFragment : BaseFragment() {
 
         alertDialog = showDialogue(title = "Facebook Signing in")
 
-        facebookManager!!.login(activity!!, object : FacebookManager.FacebookLoginListener {
+        facebookManager!!.login(this@LoginFragment, object : FacebookManager.FacebookLoginListener {
             override fun onSuccess() {
-                Toast.makeText(activity!!, "Welcome " + " !", Toast.LENGTH_SHORT)
+                Toast.makeText(activity!!, "Welcome back" + "${tokenManager.user?.data?.name}", Toast.LENGTH_SHORT)
                     .show()
 
                 facebookManager!!.clearSession()
@@ -251,26 +249,31 @@ class LoginFragment : BaseFragment() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    GoogleManager(vm, activity!!,false, account, object : GoogleManager.GoogleLoginListener {
-                        override fun onSuccess() {
-                            alertDialog?.dismiss()
+                    GoogleManager(
+                        vm,
+                        activity!!,
+                        false,
+                        account,
+                        object : GoogleManager.GoogleLoginListener {
+                            override fun onSuccess() {
+                                alertDialog?.dismiss()
 
-                            // At this point user date has been saved to
-                            // local shared preferences
-                            //goTo => HomeActivity
+                                // At this point user date has been saved to
+                                // local shared preferences
+                                //goTo => HomeActivity
 
-                            startActivity(BottomNavActivity.newIntent(context!!).apply {
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
-                            })
+                                startActivity(BottomNavActivity.newIntent(context!!).apply {
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
+                                })
 
-                            activity?.finish()
+                                activity?.finish()
 
-                        }
+                            }
 
-                        override fun onError(message: String) {
-                            errorDialogue(alertDialog = alertDialog, descriptions = message)
-                        }
-                    })
+                            override fun onError(message: String) {
+                                errorDialogue(alertDialog = alertDialog, descriptions = message)
+                            }
+                        })
                 } else {
                     errorDialogue(alertDialog = alertDialog)
 
