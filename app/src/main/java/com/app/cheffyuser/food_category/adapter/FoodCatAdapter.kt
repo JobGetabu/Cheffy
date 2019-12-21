@@ -15,7 +15,7 @@ import com.app.cheffyuser.utils.loadUrl
 
 class FoodCatAdapter(
     private val context: Context,
-    private val foodCats: MutableList<FoodCatModel>?,
+    private val foodCats: MutableList<FoodCatModel?>?,
     private val clickListener: RecyclerItemClickListener
 ) : RecyclerView.Adapter<BaseViewHolder>() {
     private lateinit var myHolder: BaseViewHolder

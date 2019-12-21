@@ -1,7 +1,7 @@
 package com.app.cheffyuser.networking
 
 import com.app.cheffyuser.create_account.model.*
-import com.app.cheffyuser.food_category.model.FoodCatModel
+import com.app.cheffyuser.food_category.model.FoodCategoryResponse
 import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.profile.model.ChefResponse
 import com.app.cheffyuser.profile.model.ProfPicResponse
@@ -86,7 +86,7 @@ interface ApiService {
     ): MutableList<PlatesResponse>
 
     @GET("category")
-    suspend fun getFoodCategory(): MutableList<FoodCatModel>
+    suspend fun getFoodCategory(): FoodCategoryResponse
 
     @POST("favourite/add")
     suspend fun addFavourite(@Body favouriteRequest: FavouriteRequest): FavouriteResponse

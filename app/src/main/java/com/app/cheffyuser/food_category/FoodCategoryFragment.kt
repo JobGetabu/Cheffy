@@ -149,9 +149,9 @@ class FoodCategoryFragment : BaseFragment() {
                     no_searchfood_layout.hideView()
                     catlist.showView()
 
-                    if (!datas.isNullOrEmpty()) {
+                    if (!datas!!.data.isNullOrEmpty()) {
 
-                        foodCatAdapter = FoodCatAdapter(context!!, datas,
+                        foodCatAdapter = FoodCatAdapter(context!!, datas!!.data,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as FoodCatModel

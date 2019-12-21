@@ -2,7 +2,7 @@ package com.app.cheffyuser.home.repository
 
 import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.create_account.model.*
-import com.app.cheffyuser.food_category.model.FoodCatModel
+import com.app.cheffyuser.food_category.model.FoodCategoryResponse
 import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.networking.ApiService
 import com.app.cheffyuser.networking.Resource
@@ -128,7 +128,7 @@ class HomeRepository {
         }
     }
 
-    suspend fun fetchFoodCategory(): Resource<MutableList<FoodCatModel>> {
+    suspend fun fetchFoodCategory(): Resource<FoodCategoryResponse> {
         return try {
             val response = apiService.getFoodCategory()
             responseHandler.handleSuccess(response)

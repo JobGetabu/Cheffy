@@ -5,7 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.app.cheffyuser.create_account.model.*
-import com.app.cheffyuser.food_category.model.FoodCatModel
+import com.app.cheffyuser.food_category.model.FoodCategoryResponse
 import com.app.cheffyuser.home.model.*
 import com.app.cheffyuser.home.repository.HomeRepository
 import com.app.cheffyuser.networking.Resource
@@ -122,7 +122,7 @@ class HomeViewModel : ViewModel() {
     }
 
 
-    fun fetchFoodCategory(): LiveData<Resource<MutableList<FoodCatModel>>> {
+    fun fetchFoodCategory(): LiveData<Resource<FoodCategoryResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchFoodCategory()
             emit(Resource.loading(null))
