@@ -26,7 +26,6 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_food_details.*
 import kotlinx.android.synthetic.main.common_star_time_delivey.*
 import kotlinx.android.synthetic.main.item_loading.*
-import timber.log.Timber
 import kotlin.math.abs
 
 
@@ -63,11 +62,6 @@ class FoodDetailsActivity : BaseActivity() {
         //get passed data
         vm.platesResponse.value =
             intent.getParcelableExtra(Constants.PLATES_RESPONSE_EXTRA)
-
-        val test: PlatesResponse = vm.platesResponse.value as PlatesResponse
-
-        Timber.d("${test}")
-        Timber.d("plate ID = ${test.id.toString()}")
 
         uiStuff()
 

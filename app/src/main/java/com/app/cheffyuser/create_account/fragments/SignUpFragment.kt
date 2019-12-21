@@ -47,6 +47,7 @@ class SignUpFragment : BaseFragment() {
     private var signInOptions: GoogleSignInOptions? = null
     private var googleSignInClient: GoogleSignInClient? = null
     private var alertDialog: LottieAlertDialog? = null
+    private var fbLoginInProgress = false
     private val tm = CheffyApp.instance!!.tokenManager
     private var checkoutInProgress = false
 
@@ -66,7 +67,7 @@ class SignUpFragment : BaseFragment() {
         configureGoogleSignIn()
 
         activity?.let {
-            facebookManager = FacebookManager(vm, activity!!)
+            facebookManager = FacebookManager(vm, activity!!, true)
         }
 
         checkoutInProgress = activity!!.intent.getBooleanExtra(CHECKOUT_IN_PROGRESS, false)
@@ -121,13 +122,16 @@ class SignUpFragment : BaseFragment() {
             return
         }
 
+        fbLoginInProgress = true
         alertDialog = showDialogue(title = "Facebook Signing in")
+
 
         facebookManager!!.login(activity!!, object : FacebookManager.FacebookLoginListener {
             override fun onSuccess() {
                 Toast.makeText(activity!!, "Welcome " + " !", Toast.LENGTH_SHORT)
                     .show()
 
+                fbLoginInProgress = false
                 facebookManager!!.clearSession()
                 alertDialog?.dismiss()
 
@@ -141,6 +145,7 @@ class SignUpFragment : BaseFragment() {
 
             override fun onError(message: String) {
 
+                fbLoginInProgress = false
                 errorDialogue(alertDialog = alertDialog, descriptions = message)
                 Timber.d(message)
             }
@@ -149,6 +154,8 @@ class SignUpFragment : BaseFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Timber.d("onActivityResult: $requestCode")
+        facebookManager!!.onActivityResult(requestCode, resultCode, data!!)
+
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             task.addOnCompleteListener { task1 ->
@@ -162,26 +169,31 @@ class SignUpFragment : BaseFragment() {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    GoogleManager(vm, activity!!,false, account, object : GoogleManager.GoogleLoginListener {
-                        override fun onSuccess() {
-                            alertDialog?.dismiss()
+                    GoogleManager(
+                        vm,
+                        activity!!,
+                        true,
+                        account,
+                        object : GoogleManager.GoogleLoginListener {
+                            override fun onSuccess() {
+                                alertDialog?.dismiss()
 
-                            // At this point user date has been saved to
-                            // local shared preferences
-                            //goTo => HomeActivity
+                                // At this point user date has been saved to
+                                // local shared preferences
+                                //goTo => HomeActivity
 
-                            startActivity(BottomNavActivity.newIntent(context!!).apply {
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
-                            })
+                                startActivity(BottomNavActivity.newIntent(context!!).apply {
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
+                                })
 
-                            activity?.finish()
+                                activity?.finish()
 
-                        }
+                            }
 
-                        override fun onError(message: String) {
-                            errorDialogue(alertDialog = alertDialog, descriptions = message)
-                        }
-                    })
+                            override fun onError(message: String) {
+                                errorDialogue(alertDialog = alertDialog, descriptions = message)
+                            }
+                        })
                 } else {
                     errorDialogue(alertDialog = alertDialog)
 
@@ -190,15 +202,20 @@ class SignUpFragment : BaseFragment() {
                 }
             }
         } else {
-            facebookManager!!.onActivityResult(requestCode, resultCode, data!!)
         }
+
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
-
-        facebookManager?.onDestroy()
+        facebookManager!!.onDestroy()
     }
 
     private fun signup() {

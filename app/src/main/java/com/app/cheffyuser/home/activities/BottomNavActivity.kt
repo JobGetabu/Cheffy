@@ -190,7 +190,7 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
         })
 
         vm.goToLoginTrigger.observe(this, Observer {
-            if (true){
+            if (true) {
                 nav_view.selectedItemId = R.id.nav_account
             }
         })
@@ -474,7 +474,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
 
                     if (!datas.typeChef.isNullOrEmpty()) {
                         datas.typeChef.forEach {
-                            temp.add(it!!.chef?.restaurantName!!)
+                            if (!it!!.chef?.restaurantName.isNullOrEmpty())
+                                temp.add(it!!.chef?.restaurantName!!)
                         }
                     }
 

@@ -10,12 +10,14 @@ import com.app.cheffyuser.create_account.model.SocialRegRequest
 import com.app.cheffyuser.create_account.viewmodel.AuthViewModel
 import com.app.cheffyuser.networking.Status
 import com.facebook.*
+import com.facebook.AccessToken.getCurrentAccessToken
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import org.json.JSONException
 import retrofit2.Call
 import timber.log.Timber
 import java.util.*
+
 
 class FacebookManager(
     internal var vm: AuthViewModel,
@@ -27,7 +29,8 @@ class FacebookManager(
         private val PROVIDER = "facebook"
     }
 
-    private val callbackManager: CallbackManager? = CallbackManager.Factory.create()
+    private var callbackManager: CallbackManager = CallbackManager.Factory.create()
+    private var accessTokenTracker: AccessTokenTracker?
     private var listener: FacebookLoginListener? = null
 
     //TODO: Add fbLogin API call
@@ -35,11 +38,12 @@ class FacebookManager(
 
     private val facebookCallback = object : FacebookCallback<LoginResult> {
         override fun onSuccess(loginResult: LoginResult) {
+            Timber.d("fb token loginResult: ${loginResult.accessToken}")
             fetchUser(loginResult.accessToken)
         }
 
         override fun onCancel() {
-
+            Timber.d("fb cancelled: ")
             //TODO: dismiss job + dialogues
         }
 
@@ -54,27 +58,49 @@ class FacebookManager(
     }
 
     init {
-        LoginManager.getInstance().registerCallback(callbackManager!!, facebookCallback)
+        accessTokenTracker = object : AccessTokenTracker() {
+            override fun onCurrentAccessTokenChanged(
+                oldAccessToken: AccessToken?,
+                currentAccessToken: AccessToken?
+            ) {
+                Timber.d("set fb token $currentAccessToken")
+                AccessToken.setCurrentAccessToken(currentAccessToken)
+            }
+
+        }
+
+        LoginManager.getInstance().registerCallback(callbackManager, facebookCallback)
     }
 
     fun login(activity: Activity, listener: FacebookLoginListener) {
-        this.listener = listener
 
-        if (AccessToken.getCurrentAccessToken() != null) {
+
+        val accessToken = getCurrentAccessToken()
+        val isLoggedIn = accessToken != null && !accessToken.isExpired
+
+
+        if (isLoggedIn) {
             //Get the user
-            Timber.d("fb token: ${AccessToken.getCurrentAccessToken()}")
-            fetchUser(AccessToken.getCurrentAccessToken())
+            Timber.d("fb token: ${getCurrentAccessToken()}")
+            fetchUser(getCurrentAccessToken())
         } else {
             LoginManager.getInstance()
                 .logInWithReadPermissions(activity, Arrays.asList("public_profile", "email"))
 
-            Timber.d("fb token already there: ${AccessToken.getCurrentAccessToken()}")
+            Timber.d("fb token not there: ${getCurrentAccessToken()}")
         }
+
+        this.listener = listener
 
     }
 
     private fun fetchUser(accessToken: AccessToken) {
+
         val request = GraphRequest.newMeRequest(accessToken) { body, response ->
+
+
+            Timber.d("fb res: ${response.rawResponse}")
+
             try {
                 val id = body.getString("id")
                 val firstName = body.getString("first_name")
@@ -96,6 +122,7 @@ class FacebookManager(
 
             } catch (e: JSONException) {
                 e.printStackTrace()
+                Timber.d("fb error: ${e.message}")
                 listener!!.onError(e.message!!)
             }
         }
@@ -186,7 +213,7 @@ class FacebookManager(
     }
 
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        callbackManager!!.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 
     fun onDestroy() {
@@ -195,9 +222,9 @@ class FacebookManager(
         }
 
         call = null
-        if (callbackManager != null) {
-            LoginManager.getInstance().unregisterCallback(callbackManager)
-        }
+        accessTokenTracker?.stopTracking()
+
+        LoginManager.getInstance().unregisterCallback(callbackManager)
     }
 
     fun clearSession() {

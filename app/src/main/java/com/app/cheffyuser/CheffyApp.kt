@@ -8,6 +8,7 @@ import com.app.cheffyuser.utils.AppExecutors
 import com.app.cheffyuser.utils.ReleaseLogTree
 import com.app.cheffyuser.utils.TokenManager
 import com.droidnet.DroidNet
+import com.facebook.AccessToken
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.tasks.OnCompleteListener
@@ -21,7 +22,8 @@ class CheffyApp : MultiDexApplication() {
 
     val tokenManager: TokenManager
         get() {
-            val preferences = getSharedPreferences(applicationContext.packageName, Context.MODE_PRIVATE)
+            val preferences =
+                getSharedPreferences(applicationContext.packageName, Context.MODE_PRIVATE)
             return TokenManager.getInstance(preferences)
         }
 
@@ -45,8 +47,11 @@ class CheffyApp : MultiDexApplication() {
 
 
         //Init fb sdk
-        FacebookSdk.sdkInitialize(applicationContext)
+        FacebookSdk.sdkInitialize(
+            applicationContext
+        ) { Timber.d("FacebookManager token ${AccessToken.getCurrentAccessToken()}") }
         AppEventsLogger.activateApp(this)
+
         //logger.logPurchase(BigDecimal.valueOf(4.32), Currency.getInstance("USD"));
 
         //Init Firebase notifications
