@@ -364,4 +364,15 @@ class UserHomeFragment : BaseFragment() {
             modal.show(childFragmentManager, SheetDeliveryFilter.TAG)
         }
     }
+
+    private fun checkShippingData() {
+
+        if (!tokenManager.isLoggedIn) return
+
+        val intent = Intent(
+            activity,
+            ShippingActivity::class.java
+        )
+        startActivity(intent)
+    }
 }

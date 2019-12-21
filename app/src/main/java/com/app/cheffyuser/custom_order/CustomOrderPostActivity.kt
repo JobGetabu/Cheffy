@@ -56,7 +56,7 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.app.cheffyuser.R.layout.activity_custom_order_post)
+        setContentView(R.layout.activity_custom_order_post)
 
         pickerInterface = this
 

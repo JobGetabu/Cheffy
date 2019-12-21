@@ -86,11 +86,13 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
         ship!!.zipCode = shipRes?.zipCode
         ship!!.deliveryNote = shipRes?.deliveryNote
 
-        primary_txt.text = "${ship?.addressLine1}"
-        primary_txt2.text = "${ship?.city}"
 
-        if (!ship?.addressLine1.isNullOrEmpty())
+        if (!ship?.addressLine1.isNullOrEmpty()) {
+
+            primary_txt.text = "${ship?.addressLine1}"
             etAddress.setText("${ship!!.addressLine1}")
+            primary_txt2.text = "${ship?.city}"
+        }
         if (!ship!!.addressLine2.isNullOrEmpty())
             etAddress2.setText("${ship?.addressLine2}")
         if (!ship?.zipCode.isNullOrEmpty())
@@ -129,6 +131,32 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
             return
         }
 
+        ship = ShippingRequest()
+        ship?.zipCode = etzip.text.toString()
+        ship?.addressLine1 = etAddress.text.toString()
+        ship?.addressLine2 = etAddress2.text.toString()
+        ship?.deliveryNote = deliverytext.text.toString()
+        ship?.state = "${dd!!.secondaryText}"
+        ship?.city = "${dd!!.secondaryText}"
+        ship?.lat = "${dd!!.place?.latLng?.latitude}"
+        ship?.lon = "${dd!!.place?.latLng?.longitude}"
+        tokenManager.shippingData2 = ship
+
+
+        if (ship!!.addressLine1!!.isEmpty()) {
+            createSnack(
+                this, txt = "Address line 1 is needed"
+            )
+            return
+        }
+
+        if (ship!!.zipCode!!.isEmpty()) {
+            createSnack(
+                this, txt = "Zipcode is needed"
+            )
+            return
+        }
+
         val dialog = showDialogue("Setting shipping location", "Please wait ...")
 
         //TODO: push shipping data to server
@@ -136,24 +164,14 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
             when (it.status) {
                 Status.ERROR -> {
                     if (BuildConfig.DEBUG)
-                        createSnack(ctx = this, txt = "${it?.data?.message}")
+                        createSnack(ctx = this, txt = "${it?.message}")
 
                     errorDialogue("Error", "You already have this address registered", dialog)
                     //checkNetwork()
                 }
                 Status.SUCCESS -> {
 
-                    ship = ShippingRequest()
-                    ship?.zipCode = etzip.text.toString()
-                    ship?.addressLine1 = etAddress.toString()
-                    ship?.addressLine2 = etAddress2.toString()
-                    ship?.deliveryNote = deliverytext.toString()
-                    ship?.state = "${dd!!.secondaryText}"
-                    ship?.city = "${dd!!.secondaryText}"
-                    ship?.lat = "${dd!!.place?.latLng?.latitude}"
-                    ship?.lon = "${dd!!.place?.latLng?.longitude}"
-
-                    tokenManager.shippingData2 = ship
+                    tokenManager.shippingData = it.data?.shipData?.get(0)
 
                     successDialogue(alertDialog = dialog, descriptions = "${it.data?.message}")
                     finish()
@@ -196,6 +214,9 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
 
         etAddress.setText("${dd.place?.address}")
 
+        ship?.lat = "${dd.place!!.latLng!!.latitude}"
+        ship?.lon = "${dd.place!!.latLng!!.longitude}"
+        tokenManager.shippingData2 = ship
 
         val loc = LatLng(ship?.lat!!.toDouble(), ship?.lon!!.toDouble())
         setupMarker(loc)

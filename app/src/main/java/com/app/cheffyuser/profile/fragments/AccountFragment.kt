@@ -16,6 +16,7 @@ import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.activities.EditProfileActivity
+import com.app.cheffyuser.profile.activities.ShippingActivity
 import com.app.cheffyuser.profile.adapter.ProfilebarAdapter
 import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.loadUrl
@@ -83,7 +84,10 @@ class AccountFragment : BaseFragment() {
                 Status.ERROR -> {
 
                     if (BuildConfig.DEBUG)
-                        createSnack(ctx = activity!!, txt = "Debug only: Address can't be fetched now")
+                        createSnack(
+                            ctx = activity!!,
+                            txt = "Debug only: Address can't be fetched now"
+                        )
                 }
                 Status.SUCCESS -> {
                     if (!datas.isNullOrEmpty()) {
@@ -105,6 +109,7 @@ class AccountFragment : BaseFragment() {
 
                     }
 
+                    checkShippingData()
 
                     datas.let {
                         if (!datas.isNullOrEmpty())
@@ -136,6 +141,17 @@ class AccountFragment : BaseFragment() {
 
         profile_tab_layout.setupWithViewPager(profile_view_pager)
 
+    }
+
+    private fun checkShippingData() {
+
+        if (!tokenManager.isLoggedIn) return
+
+        val intent = Intent(
+            activity,
+            ShippingActivity::class.java
+        )
+        startActivity(intent)
     }
 
 }
