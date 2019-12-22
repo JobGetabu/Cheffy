@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 
+
 data class CreateCustomResponse(
     @SerializedName("data")
     val customData: CustomData? = null,
@@ -93,4 +94,75 @@ data class UploadCustomImagesResponse(
 )
 
 
+data class CustomPlateResponse(
+    @SerializedName("data")
+    val customPlateResponseData: List<CustomPlateResponseData?>? = null,
+    @SerializedName("message")
+    val message: String? = null,
+    @SerializedName("page")
+    val page: Page? = null
+)
 
+data class CustomPlateResponseData(
+    @SerializedName("chef_location_radius")
+    val chefLocationRadius: Int? = null,
+    @SerializedName("close_date")
+    val closeDate: String? = null,
+    @SerializedName("createdAt")
+    val createdAt: String? = null,
+    @SerializedName("CustomPlateAuction")
+    val customPlateAuction: CustomPlateAuction? = null,
+    @SerializedName("CustomPlateImages")
+    val customPlateImages: List<CustomPlateImages?>? = null,
+    @SerializedName("description")
+    val description: String? = null,
+    @SerializedName("id")
+    val id: Int? = null,
+    @SerializedName("name")
+    val name: String? = null,
+    @SerializedName("price_max")
+    val priceMax: Int? = null,
+    @SerializedName("price_min")
+    val priceMin: Int? = null,
+    @SerializedName("quantity")
+    val quantity: Int? = null,
+    @SerializedName("updatedAt")
+    val updatedAt: String? = null,
+    @SerializedName("userId")
+    val userId: Int? = null
+)
+
+data class CustomPlateAuction(
+    @SerializedName("bidCount")
+    val bidCount: Int? = null,
+    @SerializedName("createdAt")
+    val createdAt: String? = null,
+    @SerializedName("id")
+    val id: Int? = null,
+    @SerializedName("state_type")
+    val stateType: String? = null,
+    @SerializedName("winner")
+    val winner: Any? = null
+)
+
+
+data class CustomPlateImages(
+    @SerializedName("createdAt")
+    val createdAt: String? = null,
+    @SerializedName("id")
+    val id: Int? = null,
+    @SerializedName("name")
+    val name: String? = null,
+    @SerializedName("updatedAt")
+    val updatedAt: String? = null,
+    @SerializedName("url")
+    val url: String? = null
+)
+
+
+data class Page(
+    @SerializedName("from")
+    val from: Int? = null,
+    @SerializedName("to")
+    val to: Int? = null
+)

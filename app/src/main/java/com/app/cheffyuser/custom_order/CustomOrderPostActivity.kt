@@ -2,6 +2,7 @@ package com.app.cheffyuser.custom_order
 
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -26,6 +27,7 @@ import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.ImageQuality
 import com.fxn.utility.PermUtil
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.labters.lottiealertdialoglibrary.DialogTypes
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog
 import kotlinx.android.synthetic.main.activity_custom_order_post.*
@@ -41,6 +43,7 @@ import java.util.*
 class CustomOrderPostActivity : BaseActivity(), PickerInterface {
 
     private var miles = 3.0
+    private var tries = 0
 
     companion object {
         fun newIntent(context: Context): Intent =
@@ -76,7 +79,7 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
 
         btn_post_order.setOnClickListener {
 
-            saveCustomOrder()
+            makeMyOrder()
         }
 
         uploadpicture.setOnClickListener {
@@ -86,8 +89,8 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
             launchPhotoPicker()
         }
 
+        distTxt.text = "$miles"
         distProgress.incrementProgressBy(1)
-        distProgress.progress = 3
         distProgress.setOnSeekBarChangeListener(seekBarChangeListener)
 
     }
@@ -232,6 +235,26 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
 
     //endregion
 
+    private fun makeMyOrder() {
+        if (vm.imagesUrls!!.isEmpty()) {
+            MaterialAlertDialogBuilder(this)
+                .setTitle("You've not uploaded an image")
+                .setMessage("It's recommended you upload at least one plate image")
+                .setPositiveButton("No need") { d: DialogInterface, _: Int ->
+                    saveCustomOrder()
+                    d.dismiss()
+                }
+                .setNegativeButton("Upload") { d: DialogInterface, _: Int ->
+                    launchPhotoPicker()
+                    d.dismiss()
+                }
+                .show()
+        } else {
+            saveCustomOrder()
+        }
+
+    }
+
 
     private fun saveCustomOrder() {
 
@@ -245,10 +268,6 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
             return
         }
 
-        if (vm.imagesUrls!!.isEmpty()) {
-            createSnack(ctx = this, txt = "Upload at least one image")
-            return
-        }
 
         if (!isConnected) {
             createSnack(
@@ -315,10 +334,24 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
                     if (filesToUpload.isNullOrEmpty()) {
                         if (BuildConfig.DEBUG)
                             createSnack(ctx = this, txt = "Debug: null upload images")
+
+                        //no plates selected
+
+                        successDialogue(
+                            alertDialog = dialog,
+                            descriptions = "${data?.message}"
+                        )
+
+                        val intent = Intent(
+                            this@CustomOrderPostActivity,
+                            OrderCompleteActivity::class.java
+                        )
+                        startActivity(intent)
+                        finish()
+
                     }
 
                     val customplate = it.data?.customData?.customPlate!!
-                    Timber.d("customplate id: $customplate")
 
                     vm.uploadCustomPlateImages(customplate.id!!, filesToUpload)
                         .observe(this, androidx.lifecycle.Observer {

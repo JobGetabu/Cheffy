@@ -135,6 +135,9 @@ interface ApiService {
 
     //custom plates
 
+    @GET("custom-plate/user/my/list")
+    suspend fun getCustomPlates(): CustomPlateResponse
+
     @POST("custom-plate")
     suspend fun createCustomPlate(@Body createCustomRequest: CreateCustomRequest): CreateCustomResponse
 

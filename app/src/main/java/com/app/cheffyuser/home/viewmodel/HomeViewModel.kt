@@ -242,6 +242,15 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun getCustomPlates(): LiveData<Resource<CustomPlateResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.getCustomPlates()
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+
 
     //endregion
 

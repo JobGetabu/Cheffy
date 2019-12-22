@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.adapter.CartItemsAdapter
@@ -57,9 +59,15 @@ class AddCartFragment : BaseFragment() {
 
         setupCartList()
 
+        swipeToRefresh.setOnRefreshListener {
+            setupCartList()
+        }
+
     }
 
     private fun setupCartList() {
+        val lm = LinearLayoutManager(activity!!, RecyclerView.VERTICAL, false)
+        recycler_view.layoutManager = lm
         recycler_view.setHasFixedSize(true)
         recycler_view.animate()
 
@@ -68,6 +76,7 @@ class AddCartFragment : BaseFragment() {
         loader_layout.showView()
 
         vm.getBasket().observe(this, Observer {
+            swipeToRefresh?.isRefreshing = false
             val data = it.data
 
             when (it.status) {
