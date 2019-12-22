@@ -212,7 +212,7 @@ class LoginFragment : BaseFragment() {
 
         facebookManager!!.login(this@LoginFragment, object : FacebookManager.FacebookLoginListener {
             override fun onSuccess() {
-                Toast.makeText(activity!!, "Welcome back" + "${tokenManager.user?.data?.name}", Toast.LENGTH_SHORT)
+                Toast.makeText(activity!!, "Welcome back " + "${tokenManager.user?.data?.name}", Toast.LENGTH_SHORT)
                     .show()
 
                 facebookManager!!.clearSession()

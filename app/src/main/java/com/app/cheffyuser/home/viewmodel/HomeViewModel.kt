@@ -220,6 +220,31 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+
+    //Region custom plates
+
+    fun uploadCustomPlateImages(
+        customPlateId: Int,
+        filesToUpload: MutableList<MultipartBody.Part>
+    ): LiveData<Resource<UploadCustomImagesResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.uploadCustomPlateImages(customPlateId, filesToUpload)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun createCustomPlate(createCustomRequest: CreateCustomRequest): LiveData<Resource<CreateCustomResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.createCustomPlate(createCustomRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+
+    //endregion
+
     //region foodDetails data
 
     var platesResponse: MediatorLiveData<PlatesResponse?> = MediatorLiveData()

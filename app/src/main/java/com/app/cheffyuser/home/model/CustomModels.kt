@@ -73,12 +73,12 @@ data class CustomPlate(
 )
 
 data class CreateCustomRequest(
-    val name: String? = null,
-    val description: String? = null,
-    val price_min: Double? = null,
-    val price_max: Double? = null,
-    val quantity: Int? = null,
-    val chef_location_radius: Double? = null
+    val name: String,
+    val description: String,
+    val price_min: Double,
+    val price_max: Double,
+    val quantity: Int,
+    val chef_location_radius: Double
 )
 
 data class UploadCustomImagesResponse(

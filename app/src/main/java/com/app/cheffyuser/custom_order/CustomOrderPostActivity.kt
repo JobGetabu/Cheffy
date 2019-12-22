@@ -10,11 +10,14 @@ import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.adapter.UploadImageAdapter
+import com.app.cheffyuser.home.model.CreateCustomRequest
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.PickerInterface
 import com.app.cheffyuser.utils.Tools
 import com.app.cheffyuser.utils.createSnack
@@ -23,7 +26,12 @@ import com.fxn.pix.Options
 import com.fxn.pix.Pix
 import com.fxn.utility.ImageQuality
 import com.fxn.utility.PermUtil
+import com.labters.lottiealertdialoglibrary.DialogTypes
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog
 import kotlinx.android.synthetic.main.activity_custom_order_post.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import timber.log.Timber
 import java.io.File
 import java.text.SimpleDateFormat
@@ -32,7 +40,7 @@ import java.util.*
 
 class CustomOrderPostActivity : BaseActivity(), PickerInterface {
 
-    private var miles = 0.5
+    private var miles = 3.0
 
     companion object {
         fun newIntent(context: Context): Intent =
@@ -79,6 +87,7 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
         }
 
         distProgress.incrementProgressBy(1)
+        distProgress.progress = 3
         distProgress.setOnSeekBarChangeListener(seekBarChangeListener)
 
     }
@@ -145,22 +154,11 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
             GALLERY_REQUEST_CODE -> {
                 val selectedImage = data?.data
                 if (selectedImage != null) {
-
-                    //TODO
-                    //image_got.setImageURI(selectedImage)
-                    //toUpload()
-                    // Save a file: path for using again
-
                     adapter.refreshList()
                 }
             }
             CAMERA_REQUEST_CODE -> {
                 if (cameraFilePath != null) {
-
-                    //TODO
-                    //image_got.setImageURI(selectedImage)
-                    //toUpload()
-
                     adapter.refreshList()
                 }
             }
@@ -199,7 +197,6 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
 
         return image
     }
-
 
     private fun launchPhotoPicker() {
         options = Options.init()
@@ -240,11 +237,16 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
 
         val foodname = etFoodName.text.toString()
         val fooddescription = etFoodDescription.text.toString()
-        val minPrice = etMinPrice.text.toString()
-        val maxPrice = etMaxPrice.text.toString()
+        val minPrice = etMinPrice.text.toString().trim().replace("$", "")
+        val maxPrice = etMaxPrice.text.toString().trim().replace("$", "")
 
         if (foodname.isEmpty() && fooddescription.isEmpty() && minPrice.isEmpty() && maxPrice.isEmpty()) {
             createSnack(ctx = this, txt = "All fields are required")
+            return
+        }
+
+        if (vm.imagesUrls!!.isEmpty()) {
+            createSnack(ctx = this, txt = "Upload at least one image")
             return
         }
 
@@ -256,8 +258,102 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
         }
 
 
-        val intent = Intent(this@CustomOrderPostActivity, OrderCompleteActivity::class.java)
-        startActivity(intent)
+        val dialog = showDialogue("Posting your order", "Please wait ...")
 
+        val createCustomRequest = CreateCustomRequest(
+            foodname,
+            fooddescription,
+            minPrice.toDouble(),
+            maxPrice.toDouble(),
+            1,
+            miles
+        )
+
+        vm.createCustomPlate(createCustomRequest).observe(this, androidx.lifecycle.Observer {
+
+            val data = it.data
+
+            when (it.status) {
+                Status.ERROR -> {
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = this, txt = "Debug: Error ${it.message}")
+
+                    errorDialogue("Error", "${data?.message}", dialog)
+                }
+                Status.SUCCESS -> {
+
+                    //prepare image download
+                    val builder = LottieAlertDialog.Builder(this, DialogTypes.TYPE_LOADING)
+                        .setTitle("Uploading images")
+
+                    dialog.setCancelable(true)
+                    dialog.changeDialog(builder)
+                    dialog.setOnCancelListener {
+                        toast("Uploading...")
+                    }
+
+                    val filesToUpload = mutableListOf<MultipartBody.Part>()
+
+                    vm.imagesUrls?.forEach { path ->
+                        val file = File(path)
+                        if (file.exists()) {
+
+                            val mFile: RequestBody =
+                                RequestBody.create(MediaType.parse("image/*"), file)
+                            val fileToUpload: MultipartBody.Part =
+                                MultipartBody.Part.createFormData(
+                                    "custom_plate_image",
+                                    file.name,
+                                    mFile
+                                )
+
+                            filesToUpload.add(fileToUpload)
+
+                        }
+                    }
+
+                    if (filesToUpload.isNullOrEmpty()){
+                        if (BuildConfig.DEBUG)
+                            createSnack(ctx = this, txt = "Debug: null upload images")
+                    }
+
+                    val customplate = it.data?.data?.plate!!
+
+                    vm.uploadCustomPlateImages(customplate.id!!, filesToUpload)
+                        .observe(this, androidx.lifecycle.Observer {
+                            when (it.status) {
+                                Status.ERROR -> {
+                                    if (BuildConfig.DEBUG)
+                                        createSnack(ctx = this, txt = "Debug: Error ${it.message}")
+                                    errorDialogue("Error", "${data?.message}", dialog)
+                                    toast("Error uploading...")
+                                }
+
+                                Status.SUCCESS -> {
+
+                                    successDialogue(
+                                        alertDialog = dialog,
+                                        descriptions = "${data?.message}"
+                                    )
+
+                                    val intent = Intent(
+                                        this@CustomOrderPostActivity,
+                                        OrderCompleteActivity::class.java
+                                    )
+                                    startActivity(intent)
+                                    finish()
+                                }
+
+                                else -> {
+                                    dialog?.dismiss()
+                                }
+                            }
+                        })
+                }
+
+                Status.LOADING -> {
+                }
+            }
+        })
     }
 }

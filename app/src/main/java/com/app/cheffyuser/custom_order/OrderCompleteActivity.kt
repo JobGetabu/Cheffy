@@ -8,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.BottomNavActivity
 
+
 class OrderCompleteActivity : AppCompatActivity() {
+
+    var active = false
 
     companion object {
         fun newIntent(context: Context): Intent =
@@ -23,13 +26,26 @@ class OrderCompleteActivity : AppCompatActivity() {
 
     }
 
-    private fun closeMe(){
+    override fun onStart() {
+        super.onStart()
+        active = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        active = false
+    }
+
+    private fun closeMe() {
 
         Handler().postDelayed({
-            startActivity(BottomNavActivity.newIntent(this).apply {
-                Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
-            })
-            finish()
-        },3000)
+
+            if (active) {
+                startActivity(BottomNavActivity.newIntent(this).apply {
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK
+                })
+                finish()
+            }
+        }, 3000)
     }
 }

@@ -133,14 +133,15 @@ interface ApiService {
 
     //end region
 
+    //custom plates
+
     @POST("custom-plate")
-    suspend fun createCustomPlate(): CreateCustomResponse
+    suspend fun createCustomPlate(@Body createCustomRequest: CreateCustomRequest): CreateCustomResponse
 
     @Multipart
     @POST("custom-plate/{customPlateId}/images")
     suspend fun uploadCustomPlateImages(@Path(value = "customPlateId") customPlateId: Int, @Part file: MutableList<MultipartBody.Part>): UploadCustomImagesResponse
 
-    //custom plates
 
     @GET("user/searchPredictions")
     suspend fun getSearchPredictions(): PredictionsResponse

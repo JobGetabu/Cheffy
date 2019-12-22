@@ -113,7 +113,6 @@ class HomeRepository {
     }
 
 
-
     suspend fun fetchFoodNearbyLocation(
         lat: String,
         lon: String,
@@ -267,5 +266,32 @@ class HomeRepository {
         }
     }
 
+    //Region custom plates
 
+    suspend fun uploadCustomPlateImages(
+        customPlateId: Int,
+        filesToUpload: MutableList<MultipartBody.Part>
+    ): Resource<UploadCustomImagesResponse> {
+        return try {
+            val response = apiServiceAuthed.uploadCustomPlateImages(customPlateId, filesToUpload)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun createCustomPlate(createCustomRequest: CreateCustomRequest): Resource<CreateCustomResponse> {
+        return try {
+            val response = apiServiceAuthed.createCustomPlate(createCustomRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    //endregion
 }

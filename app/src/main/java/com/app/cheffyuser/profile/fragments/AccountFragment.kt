@@ -146,6 +146,8 @@ class AccountFragment : BaseFragment() {
     private fun checkShippingData() {
 
         if (!tokenManager.isLoggedIn) return
+        if (tokenManager.shippingData2 != null) return
+        if (tokenManager.shippingData != null) return
 
         val intent = Intent(
             activity,
