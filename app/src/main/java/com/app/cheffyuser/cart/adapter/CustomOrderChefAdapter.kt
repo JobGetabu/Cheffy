@@ -94,8 +94,6 @@ class CustomOrderChefAdapter(
                     }
                 )
             }
-
-
         }
 
         private fun acceptBid(){
