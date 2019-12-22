@@ -3,9 +3,10 @@ package com.app.cheffyuser.home.model
 import com.google.gson.annotations.SerializedName
 
 
+
 data class CreateCustomResponse(
     @SerializedName("data")
-    val `data`: CustomData? = null,
+    val customData: CustomData? = null,
     @SerializedName("message")
     val message: String? = null
 )
@@ -13,10 +14,8 @@ data class CreateCustomResponse(
 data class CustomData(
     @SerializedName("auction")
     val auction: Auction? = null,
-    @SerializedName("images")
-    val images: List<CustomImage?>? = null,
-    @SerializedName("plate")
-    val plate: CustomPlate? = null,
+    @SerializedName("customPlate")
+    val customPlate: CustomPlate? = null,
     @SerializedName("status")
     val status: Int? = null
 )
@@ -24,32 +23,21 @@ data class CustomData(
 data class Auction(
     @SerializedName("createdAt")
     val createdAt: String? = null,
-    @SerializedName("CustomPlateID")
-    val customPlateID: Int? = null,
+    @SerializedName("customPlateId")
+    val customPlateId: Int? = null,
     @SerializedName("id")
     val id: Int? = null,
     @SerializedName("state_type")
     val stateType: String? = null,
     @SerializedName("updatedAt")
-    val updatedAt: String? = null
-)
-
-data class CustomImage(
-    @SerializedName("createdAt")
-    val createdAt: String? = null,
-    @SerializedName("CustomPlateID")
-    val customPlateID: Int? = null,
-    @SerializedName("id")
-    val id: Int? = null,
-    @SerializedName("name")
-    val name: String? = null,
-    @SerializedName("updatedAt")
     val updatedAt: String? = null,
-    @SerializedName("url")
-    val url: String? = null
+    @SerializedName("userId")
+    val userId: Int? = null
 )
 
 data class CustomPlate(
+    @SerializedName("chef_location_radius")
+    val chefLocationRadius: Int? = null,
     @SerializedName("close_date")
     val closeDate: String? = null,
     @SerializedName("createdAt")
@@ -72,6 +60,22 @@ data class CustomPlate(
     val userId: Int? = null
 )
 
+
+data class CustomImage(
+    @SerializedName("createdAt")
+    val createdAt: String? = null,
+    @SerializedName("CustomPlateID")
+    val customPlateID: Int? = null,
+    @SerializedName("id")
+    val id: Int? = null,
+    @SerializedName("name")
+    val name: String? = null,
+    @SerializedName("updatedAt")
+    val updatedAt: String? = null,
+    @SerializedName("url")
+    val url: String? = null
+)
+
 data class CreateCustomRequest(
     val name: String,
     val description: String,
@@ -87,3 +91,6 @@ data class UploadCustomImagesResponse(
     @SerializedName("images")
     val images: List<CustomImage?>? = null
 )
+
+
+

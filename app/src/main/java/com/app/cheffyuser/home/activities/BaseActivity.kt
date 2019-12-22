@@ -42,6 +42,7 @@ open class BaseActivity : AppCompatActivity(), DroidListener {
 
     override fun onInternetConnectivityChanged(isCon: Boolean) {
         isConnected = isCon
+        Timber.d("Base net state=> $isConnected")
     }
 
     override fun onDestroy() {

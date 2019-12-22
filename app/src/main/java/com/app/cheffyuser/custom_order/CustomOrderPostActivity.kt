@@ -312,12 +312,13 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
                         }
                     }
 
-                    if (filesToUpload.isNullOrEmpty()){
+                    if (filesToUpload.isNullOrEmpty()) {
                         if (BuildConfig.DEBUG)
                             createSnack(ctx = this, txt = "Debug: null upload images")
                     }
 
-                    val customplate = it.data?.data?.plate!!
+                    val customplate = it.data?.customData?.customPlate!!
+                    Timber.d("customplate id: $customplate")
 
                     vm.uploadCustomPlateImages(customplate.id!!, filesToUpload)
                         .observe(this, androidx.lifecycle.Observer {
