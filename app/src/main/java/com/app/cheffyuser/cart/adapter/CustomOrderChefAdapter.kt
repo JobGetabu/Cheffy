@@ -80,9 +80,7 @@ class CustomOrderChefAdapter(
 
         init {
 
-            btn_accept.setOnClickListener {
-                acceptBid()
-            }
+            btn_accept.setOnClickListener(this)
 
             btn_reject.setOnClickListener {
                 createSnack(
@@ -96,10 +94,6 @@ class CustomOrderChefAdapter(
             }
         }
 
-        private fun acceptBid(){
-
-        }
-
         private fun rejectBid() {
             //todo: remove bid
             remove(model!!)
@@ -108,7 +102,8 @@ class CustomOrderChefAdapter(
         override fun clear() {}
 
         override fun onClick(v: View?) {
-            clickListener.modelClick(model!!)
+            if (v!!.id == R.id.btn_reject)
+                clickListener.modelClick(model!!)
         }
     }
 

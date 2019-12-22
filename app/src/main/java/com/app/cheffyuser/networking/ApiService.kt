@@ -114,7 +114,7 @@ interface ApiService {
     //Region Basket API
 
     @POST("basket")
-    suspend fun addToBasket(@Body addToBasketRequest: AddToBasketRequest): List<AddToBasketResponse>
+    suspend fun addToBasket(@Body addToBasketRequest: AddToBasketRequest): List<BasketListResponse>
 
     @GET("basket")
     suspend fun getBasket(): BasketListResponse
@@ -148,9 +148,15 @@ interface ApiService {
     @POST("custom-plate/{customPlateId}/images")
     suspend fun uploadCustomPlateImages(@Path(value = "customPlateId") customPlateId: Int, @Part file: MutableList<MultipartBody.Part>): UploadCustomImagesResponse
 
+    @GET("custom-plate/accept/bid/{bidId}")
+    suspend fun acceptBid(@Path(value = "bidId") bidId: Int): BidAcceptanceResponse
+
+
+    //search API
 
     @GET("user/searchPredictions")
     suspend fun getSearchPredictions(): PredictionsResponse
+
 
     //logout
     @POST("user/logout")

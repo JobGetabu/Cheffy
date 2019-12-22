@@ -105,6 +105,8 @@ class CustomOrderListActivity : BaseActivity() {
                                 override fun modelClick(model: Any) {
                                     model as CustomPlateAuctionBids
 
+                                    acceptBid(model.id!!)
+
                                 }
                             })
                         recycler_view.adapter = customOrderAdapter
@@ -121,4 +123,22 @@ class CustomOrderListActivity : BaseActivity() {
         })
     }
 
+    private fun acceptBid(bidId: Int) {
+
+        val dialog = showDialogue("Adding item in cart", "Please wait ...")
+
+        vm.acceptBid(bidId).observe(this, Observer {
+
+            when (it.status) {
+                Status.ERROR -> {
+                    errorDialogue("Error", "${it.message}", dialog!!)
+                }
+                Status.SUCCESS -> {
+                    successDialogue(alertDialog = dialog)
+
+
+                }
+            }
+        })
+    }
 }

@@ -172,7 +172,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun addToBasket(addToBasketRequest: AddToBasketRequest): LiveData<Resource<List<AddToBasketResponse>>> {
+    fun addToBasket(addToBasketRequest: AddToBasketRequest): LiveData<Resource<List<BasketListResponse>>> {
         return liveData(Dispatchers.IO) {
             val data = repository.addToBasket(addToBasketRequest)
             emit(Resource.loading(null))
@@ -258,6 +258,13 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun acceptBid(bidId: Int): LiveData<Resource<BidAcceptanceResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.acceptBid(bidId)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
 
     //endregion
 

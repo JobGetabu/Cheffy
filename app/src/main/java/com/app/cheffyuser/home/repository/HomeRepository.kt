@@ -219,7 +219,7 @@ class HomeRepository {
 
     //Region Basket
 
-    suspend fun addToBasket(addToBasketRequest: AddToBasketRequest): Resource<List<AddToBasketResponse>> {
+    suspend fun addToBasket(addToBasketRequest: AddToBasketRequest): Resource<List<BasketListResponse>> {
         return try {
             val response = apiServiceAuthed.addToBasket(addToBasketRequest)
             responseHandler.handleSuccess(response)
@@ -307,6 +307,17 @@ class HomeRepository {
     suspend fun getCustomPlate(customPlateId: Int): Resource<CustomPlateResponseData> {
         return try {
             val response = apiServiceAuthed.getCustomPlate(customPlateId)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun acceptBid(bidId: Int): Resource<BidAcceptanceResponse> {
+        return try {
+            val response = apiServiceAuthed.acceptBid(bidId)
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging

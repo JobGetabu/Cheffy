@@ -181,25 +181,6 @@ data class CustomPlateAuctionBids(
     val winner: Boolean? = null
 )
 
-data class ChefData(
-    @SerializedName("country_code")
-    val countryCode: String? = null,
-    @SerializedName("email")
-    val email: String? = null,
-    @SerializedName("id")
-    val id: Int? = null,
-    @SerializedName("imagePath")
-    val imagePath: String? = null,
-    @SerializedName("location_lat")
-    val locationLat: Any? = null,
-    @SerializedName("location_lon")
-    val locationLon: Any? = null,
-    @SerializedName("name")
-    val name: String? = null,
-    @SerializedName("phone_no")
-    val phoneNo: String? = null
-)
-
 
 data class Page(
     @SerializedName("from")

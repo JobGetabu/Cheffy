@@ -101,7 +101,7 @@ class AddCartFragment : BaseFragment() {
                     if (!data!!.items.isNullOrEmpty()) {
                         cartItemsAdapter = CartItemsAdapter(
                             activity!!,
-                            data.items,
+                            data.items?.toMutableList(),
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     setupCartList()

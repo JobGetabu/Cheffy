@@ -1,11 +1,12 @@
 package com.app.cheffyuser.cart.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.adapter.ItemCartAdapter
+import com.app.cheffyuser.home.activities.BaseActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -14,8 +15,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_item_cart.*
 
-class ItemCartActivity : AppCompatActivity(), OnMapReadyCallback {
+class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
 
+    companion object {
+        fun newIntent(context: Context): Intent =
+            Intent(context, ItemCartActivity::class.java)
+
+    }
 
     internal var foodItemList = arrayOf("Grilled salmon", "Pasta Ham")
     internal var foodPriceList = doubleArrayOf(96.00, 120.00)

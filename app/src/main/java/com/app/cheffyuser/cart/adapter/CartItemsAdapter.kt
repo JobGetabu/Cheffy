@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.adapter.BaseViewHolder
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
-import com.app.cheffyuser.home.model.BasketListResponse
+import com.app.cheffyuser.home.model.BasketItems
 import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.loadUrl
 import com.app.cheffyuser.utils.toast
 
 class CartItemsAdapter(
     private val context: Activity,
-    private val items: MutableList<BasketListResponse.Item?>?,
+    private val items: MutableList<BasketItems?>?,
     private val clickListener: RecyclerItemClickListener
 ) : RecyclerView.Adapter<BaseViewHolder>() {
     private lateinit var myHolder: BaseViewHolder
@@ -39,12 +39,12 @@ class CartItemsAdapter(
         return items?.size ?: 0
     }
 
-    fun add(item: BasketListResponse.Item) {
+    fun add(item: BasketItems) {
         items!!.add(item)
         notifyItemInserted(items.size - 1)
     }
 
-    private fun remove(item: BasketListResponse.Item) {
+    private fun remove(item: BasketItems) {
         val position = items!!.indexOf(item)
         if (position > -1) {
             items.removeAt(position)
@@ -57,7 +57,7 @@ class CartItemsAdapter(
         private val clickListener: RecyclerItemClickListener
     ) : BaseViewHolder(itemView) {
 
-        private var model: BasketListResponse.Item? = null
+        private var model: BasketItems? = null
 
         //init views here
         private val foodimage = itemView.findViewById<ImageView>(R.id.img_food)
@@ -73,10 +73,19 @@ class CartItemsAdapter(
             super.onBind(position)
             this.model = items!![position]
 
-            foodimage.loadUrl(model!!.plate!!.imagePath)
-            foodname.text = "${model!!.plate!!.name}"
             itemCount.text = "${model!!.quantity}"
             price.text = "$" + "${model!!.totalValue}"
+
+            if (model?.customPlate != null) {
+                foodimage.loadUrl(model!!.customPlate!!.name)
+                foodname.text = "${model!!.customPlate!!.name}"
+
+            } else if (model?.plate != null) {
+                foodimage.loadUrl(model!!.plate!!.name)
+                foodname.text = "${model!!.plate!!.name}"
+
+            }
+
 
         }
 
