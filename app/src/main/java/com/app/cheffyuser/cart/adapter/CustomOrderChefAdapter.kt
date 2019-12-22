@@ -4,25 +4,27 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.adapter.BaseViewHolder
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
-import com.app.cheffyuser.home.model.CustomPlateResponseData
+import com.app.cheffyuser.home.model.CustomPlateAuctionBids
+import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.loadUrl
 
-class CustomOrderAdapter(
+class CustomOrderChefAdapter(
     private val context: Activity,
-    private val items: MutableList<CustomPlateResponseData?>?,
+    private val items: MutableList<CustomPlateAuctionBids>?,
     private val clickListener: RecyclerItemClickListener
 ) : RecyclerView.Adapter<BaseViewHolder>() {
     private lateinit var myHolder: BaseViewHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.single_custom_order_row, parent, false)
+        val view = inflater.inflate(R.layout.single_custom_order_list_row, parent, false)
         return ViewHolder(view, clickListener)
     }
 
@@ -36,12 +38,12 @@ class CustomOrderAdapter(
         return items?.size ?: 0
     }
 
-    fun add(item: CustomPlateResponseData) {
+    fun add(item: CustomPlateAuctionBids) {
         items!!.add(item)
         notifyItemInserted(items.size - 1)
     }
 
-    private fun remove(item: CustomPlateResponseData) {
+    private fun remove(item: CustomPlateAuctionBids) {
         val position = items!!.indexOf(item)
         if (position > -1) {
             items.removeAt(position)
@@ -54,35 +56,55 @@ class CustomOrderAdapter(
         private val clickListener: RecyclerItemClickListener
     ) : BaseViewHolder(itemView), View.OnClickListener {
 
-        private var model: CustomPlateResponseData? = null
+        private var model: CustomPlateAuctionBids? = null
 
         //init views here
-        private val foodimage = itemView.findViewById<ImageView>(R.id.img_food)
-        private val foodname = itemView.findViewById<TextView>(R.id.txt_item_name)
-        private val bids = itemView.findViewById<TextView>(R.id.txt_bids)
-        private val txt_viewall = itemView.findViewById<TextView>(R.id.txt_viewall)
+        private val chef_pic = itemView.findViewById<ImageView>(R.id.chef_pic)
+        private val txt_chef_name = itemView.findViewById<TextView>(R.id.txt_chef_name)
+        private val txt_price = itemView.findViewById<TextView>(R.id.txt_price)
+        private val times = itemView.findViewById<TextView>(R.id.times)
+
+        private val btn_accept = itemView.findViewById<Button>(R.id.btn_accept)
+        private val btn_reject = itemView.findViewById<Button>(R.id.btn_reject)
 
 
         override fun onBind(position: Int) {
             super.onBind(position)
             this.model = items!![position]
 
-            if (!model?.customPlateImages.isNullOrEmpty())
-                foodimage.loadUrl(model!!.customPlateImages!![0]!!.url)
-
-            foodname.text = "${model!!.name}"
-
-            val bidCount = model?.customPlateAuction?.bidCount
-            if (bidCount == null) bids.text = "(0) Chef"
-            else bids.text = "($bidCount) Chef"
+            chef_pic.loadUrl(model?.chef?.imagePath, R.drawable.avatar_placeholder)
+            txt_chef_name.text = model?.chef?.name
+            txt_price.text = "$" + "${model?.price}"
+            times.text = "${model!!.preparationTime!!.minus(5)}-${model?.preparationTime} min"
         }
 
         init {
-            txt_viewall.setOnClickListener(this)
-            foodimage.setOnClickListener(this)
-            foodname.setOnClickListener(this)
-            bids.setOnClickListener(this)
-            itemView.setOnClickListener(this)
+
+            btn_accept.setOnClickListener {
+                acceptBid()
+            }
+
+            btn_reject.setOnClickListener {
+                createSnack(
+                    ctx = context,
+                    txt = "Reject this bid",
+                    txtAction = "Confirm",
+                    action = View.OnClickListener {
+                        rejectBid()
+                    }
+                )
+            }
+
+
+        }
+
+        private fun acceptBid(){
+
+        }
+
+        private fun rejectBid() {
+            //todo: remove bid
+            remove(model!!)
         }
 
         override fun clear() {}

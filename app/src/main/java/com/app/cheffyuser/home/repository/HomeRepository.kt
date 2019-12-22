@@ -304,5 +304,16 @@ class HomeRepository {
         }
     }
 
+    suspend fun getCustomPlate(customPlateId: Int): Resource<CustomPlateResponseData> {
+        return try {
+            val response = apiServiceAuthed.getCustomPlate(customPlateId)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
     //endregion
 }

@@ -138,6 +138,9 @@ interface ApiService {
     @GET("custom-plate/user/my/list")
     suspend fun getCustomPlates(): CustomPlateResponse
 
+    @GET("custom-plate/{customPlateId}")
+    suspend fun getCustomPlate(@Path(value = "customPlateId") customPlateId: Int): CustomPlateResponseData
+
     @POST("custom-plate")
     suspend fun createCustomPlate(@Body createCustomRequest: CreateCustomRequest): CreateCustomResponse
 

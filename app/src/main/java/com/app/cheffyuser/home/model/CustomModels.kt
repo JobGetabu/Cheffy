@@ -3,8 +3,6 @@ package com.app.cheffyuser.home.model
 import com.google.gson.annotations.SerializedName
 
 
-
-
 data class CreateCustomResponse(
     @SerializedName("data")
     val customData: CustomData? = null,
@@ -142,7 +140,9 @@ data class CustomPlateAuction(
     @SerializedName("state_type")
     val stateType: String? = null,
     @SerializedName("winner")
-    val winner: Any? = null
+    val winner: Any? = null,
+    @SerializedName("CustomPlateAuctionBids")
+    val customPlateAuctionBids: MutableList<CustomPlateAuctionBids>? = null
 )
 
 
@@ -157,6 +157,47 @@ data class CustomPlateImages(
     val updatedAt: String? = null,
     @SerializedName("url")
     val url: String? = null
+)
+
+
+data class CustomPlateAuctionBids(
+    @SerializedName("Chef")
+    val chef: ChefData? = null,
+    @SerializedName("chefDeliveryAvailable")
+    val chefDeliveryAvailable: Boolean? = null,
+    @SerializedName("chefID")
+    val chefID: Int? = null,
+    @SerializedName("createdAt")
+    val createdAt: String? = null,
+    @SerializedName("delivery_time")
+    val deliveryTime: Any? = null,
+    @SerializedName("id")
+    val id: Int? = null,
+    @SerializedName("preparation_time")
+    val preparationTime: Int? = null,
+    @SerializedName("price")
+    val price: Double? = null,
+    @SerializedName("winner")
+    val winner: Boolean? = null
+)
+
+data class ChefData(
+    @SerializedName("country_code")
+    val countryCode: String? = null,
+    @SerializedName("email")
+    val email: String? = null,
+    @SerializedName("id")
+    val id: Int? = null,
+    @SerializedName("imagePath")
+    val imagePath: String? = null,
+    @SerializedName("location_lat")
+    val locationLat: Any? = null,
+    @SerializedName("location_lon")
+    val locationLon: Any? = null,
+    @SerializedName("name")
+    val name: String? = null,
+    @SerializedName("phone_no")
+    val phoneNo: String? = null
 )
 
 

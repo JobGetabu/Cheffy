@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
+import com.app.cheffyuser.cart.activities.CustomOrderListActivity
 import com.app.cheffyuser.cart.adapter.CustomOrderAdapter
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
+import com.app.cheffyuser.home.model.CustomPlateResponseData
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.createSnack
@@ -101,7 +103,28 @@ class CustomOrderFragment : Fragment() {
                             data.toMutableList(),
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
-                                    setupCustomOrderList()
+                                    model as CustomPlateResponseData
+
+                                    val bids = model.customPlateAuction!!.bidCount!!
+
+                                    if (bids > 0) {
+                                        val intent = CustomOrderListActivity.newIntent(activity!!)
+                                        intent.putExtra(
+                                            CustomOrderListActivity.CUSTOM_PLATE_ID,
+                                            model.customPlateAuction.id!!
+                                        )
+                                        activity?.startActivity(intent)
+
+                                    } else {
+                                        createSnack(
+                                            ctx = activity!!,
+                                            txt = "Your order has not received bids yet, we'll notify you",
+                                            txtAction = "Refresh",
+                                            action = View.OnClickListener {
+                                                setupCustomOrderList()
+                                            }
+                                        )
+                                    }
                                 }
                             })
                         recycler_view.adapter = customOrderAdapter
@@ -110,7 +133,6 @@ class CustomOrderFragment : Fragment() {
                         recycler_view.hideView()
                         noitem_layout.showView()
                         loader_layout.hideView()
-
                     }
                 }
                 Status.LOADING -> {
