@@ -13,10 +13,10 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
+import com.app.cheffyuser.cart.models.CreateCustomRequest
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.adapter.UploadImageAdapter
-import com.app.cheffyuser.home.model.CreateCustomRequest
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.PickerInterface
@@ -279,14 +279,15 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
 
         val dialog = showDialogue("Posting your order", "Please wait ...")
 
-        val createCustomRequest = CreateCustomRequest(
-            foodname,
-            fooddescription,
-            minPrice.toDouble(),
-            maxPrice.toDouble(),
-            1,
-            miles
-        )
+        val createCustomRequest =
+            CreateCustomRequest(
+                foodname,
+                fooddescription,
+                minPrice.toDouble(),
+                maxPrice.toDouble(),
+                1,
+                miles
+            )
 
         vm.createCustomPlate(createCustomRequest).observe(this, androidx.lifecycle.Observer {
 

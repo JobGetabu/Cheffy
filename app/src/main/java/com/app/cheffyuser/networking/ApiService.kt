@@ -1,5 +1,6 @@
 package com.app.cheffyuser.networking
 
+import com.app.cheffyuser.cart.models.*
 import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.food_category.model.FoodCategoryResponse
 import com.app.cheffyuser.home.model.*
@@ -118,6 +119,9 @@ interface ApiService {
 
     @GET("basket")
     suspend fun getBasket(): BasketListResponse
+
+    @GET("user/peopleAlsoAdded/{plateId}")
+    suspend fun getPeopleAlsoAdded(@Path(value = "plateId") plateId: Int): List<PeopleAddedResponse>
 
     //end region
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.app.cheffyuser.cart.models.*
 import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.food_category.model.FoodCategoryResponse
 import com.app.cheffyuser.home.model.*
@@ -180,6 +181,14 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun getPeopleAlsoAdded(plateId: Int): LiveData<Resource<List<PeopleAddedResponse>>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.getPeopleAlsoAdded(plateId)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
     fun uploadProfile(fileToUpload: MultipartBody.Part): LiveData<Resource<ProfPicResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.profileUpload(fileToUpload)
@@ -268,9 +277,12 @@ class HomeViewModel : ViewModel() {
 
     //endregion
 
+
     //region foodDetails data
 
     var platesResponse: MediatorLiveData<PlatesResponse?> = MediatorLiveData()
+
+    var ppleAddedSelected: MediatorLiveData<MutableList<PeopleAddedResponse>> = MediatorLiveData()
 
     //endregion
 

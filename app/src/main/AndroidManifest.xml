@@ -49,7 +49,7 @@
         <activity android:name=".cart.activities.CustomOrderListActivity" />
         <activity android:name=".profile.activities.ShippingActivity" />
         <activity android:name=".home.activities.ReceiptDetailsActivity" />
-        <activity android:name=".home.activities.FoodAddToCartActivity" />
+        <activity android:name=".cart.activities.FoodAddToCartActivity" />
         <activity
             android:name=".home.activities.FoodDetailsActivity"
             android:screenOrientation="portrait"

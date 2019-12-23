@@ -1,4 +1,4 @@
-package com.app.cheffyuser.home.adapter
+package com.app.cheffyuser.cart.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,11 +8,13 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
-import com.app.cheffyuser.home.model.PlatesResponse
+import com.app.cheffyuser.cart.models.PeopleAddedResponse
+import com.app.cheffyuser.home.adapter.BaseViewHolder
+import com.app.cheffyuser.home.adapter.RecyclerCheckBoxClickListener
 
 class FoodOtherSelectedAdapter(
     private val context: Context,
-    private val foodNearbyModels: MutableList<PlatesResponse>?,
+    private val items: MutableList<PeopleAddedResponse>?,
     private val clickListener: RecyclerCheckBoxClickListener
 ) : RecyclerView.Adapter<BaseViewHolder>() {
     private lateinit var myHolder: BaseViewHolder
@@ -31,25 +33,25 @@ class FoodOtherSelectedAdapter(
 
 
     override fun getItemCount(): Int {
-        return foodNearbyModels!!.size
+        return items!!.size
     }
 
-    fun add(platesResponse: PlatesResponse) {
-        foodNearbyModels!!.add(platesResponse)
-        notifyItemInserted(foodNearbyModels.size - 1)
+    fun add(item: PeopleAddedResponse) {
+        items!!.add(item)
+        notifyItemInserted(items.size - 1)
     }
 
-    private fun remove(platesResponse: PlatesResponse) {
-        val position = foodNearbyModels!!.indexOf(platesResponse)
+    private fun remove(item: PeopleAddedResponse) {
+        val position = items!!.indexOf(item)
         if (position > -1) {
-            foodNearbyModels.removeAt(position)
+            items.removeAt(position)
             notifyItemRemoved(position)
         }
     }
 
-    private fun getItem(position: Int): PlatesResponse? {
+    private fun getItem(position: Int): PeopleAddedResponse? {
         return if (position != RecyclerView.NO_POSITION)
-            foodNearbyModels!![position]
+            items!![position]
         else
             null
     }
@@ -59,7 +61,7 @@ class FoodOtherSelectedAdapter(
         private val clickListener: RecyclerCheckBoxClickListener
     ) :
         BaseViewHolder(itemView), View.OnClickListener {
-        private var model: PlatesResponse? = null
+        private var model: PeopleAddedResponse? = null
 
         //init views here
 
@@ -68,29 +70,25 @@ class FoodOtherSelectedAdapter(
         private val foodcheck = itemView.findViewById<CheckBox>(R.id.foodcheck)
 
         init {
-
-            foodcheck.setOnClickListener(this)
-        }
-
-        override fun onBind(position: Int) {
-            super.onBind(position)
-            this.model = foodNearbyModels!![position]
-
-            foodname.text = model?.name
-            foodprice.text = "$ ${model?.price}"
-
-
-        }
-
-        override fun onClick(view: View) {
-
             foodcheck.setOnCheckedChangeListener { _, isChecked ->
                 this.clickListener.modelClick(model!!, isChecked)
             }
 
         }
 
+        override fun onBind(position: Int) {
+            super.onBind(position)
+            this.model = items!![position]
+
+            foodname.text = model?.name
+            foodprice.text = "$ ${model?.price}"
+
+        }
+
         override fun clear() {}
+        override fun onClick(v: View?) {
+
+        }
     }
 
     fun refreshList() {

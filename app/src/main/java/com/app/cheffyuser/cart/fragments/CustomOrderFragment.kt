@@ -1,6 +1,7 @@
 package com.app.cheffyuser.cart.fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.activities.CustomOrderListActivity
+import com.app.cheffyuser.cart.activities.ItemCartActivity
 import com.app.cheffyuser.cart.adapter.CustomOrderAdapter
+import com.app.cheffyuser.cart.models.CustomPlateResponseData
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
-import com.app.cheffyuser.home.model.CustomPlateResponseData
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.createSnack
@@ -143,6 +145,11 @@ class CustomOrderFragment : Fragment() {
 
 
     private fun getBasket() {
+
+        layout_item_cart_body.setOnClickListener {
+            activity?.startActivity(Intent(activity, ItemCartActivity::class.java))
+        }
+
         vm.getBasket().observe(this, Observer {
             val data = it.data
 
@@ -159,8 +166,6 @@ class CustomOrderFragment : Fragment() {
                 }
             }
         })
-
-
     }
 
 }

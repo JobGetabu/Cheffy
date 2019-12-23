@@ -1,4 +1,4 @@
-package com.app.cheffyuser.home.model
+package com.app.cheffyuser.cart.models
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,6 +1,7 @@
 package com.app.cheffyuser.home.repository
 
 import com.app.cheffyuser.CheffyApp
+import com.app.cheffyuser.cart.models.*
 import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.food_category.model.FoodCategoryResponse
 import com.app.cheffyuser.home.model.*
@@ -233,6 +234,17 @@ class HomeRepository {
     suspend fun getBasket(): Resource<BasketListResponse> {
         return try {
             val response = apiServiceAuthed.getBasket()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun getPeopleAlsoAdded(plateId: Int): Resource<List<PeopleAddedResponse>> {
+        return try {
+            val response = apiService.getPeopleAlsoAdded(plateId)
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging

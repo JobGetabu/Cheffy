@@ -11,7 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
-import com.app.cheffyuser.home.activities.FoodAddToCartActivity
+import com.app.cheffyuser.cart.activities.FoodAddToCartActivity
+import com.app.cheffyuser.cart.activities.FoodAddToCartActivity.Companion.NUM_BUY_EXTRA
 import com.app.cheffyuser.home.activities.ReceiptDetailsActivity
 import com.app.cheffyuser.home.adapter.FoodRelatedAdapter
 import com.app.cheffyuser.home.adapter.IngredientsAdapter
@@ -27,7 +28,6 @@ import kotlinx.android.synthetic.main.fragment_plate_details.*
 import kotlinx.android.synthetic.main.item_loading.*
 import kotlinx.android.synthetic.main.item_multiplier.*
 import kotlinx.android.synthetic.main.single_ingredient_layout.*
-import timber.log.Timber
 
 
 /**
@@ -81,7 +81,7 @@ class PlateDetailsFragment : BaseFragment() {
     private fun counterForMultiplier() {
 
         minus_img.setOnClickListener {
-            if (numberWannaBuy < 2) return@setOnClickListener
+            if (numberWannaBuy < 2 && numberWannaBuy > 0) return@setOnClickListener
             numberWannaBuy--
             counter.text = "$numberWannaBuy"
 
@@ -101,7 +101,7 @@ class PlateDetailsFragment : BaseFragment() {
     private fun priceCounter() {
         //update price
 
-        buy_btn.text = "$"+"Buy ${foodPrice * numberWannaBuy}"
+        buy_btn.text = "$" + "Buy ${foodPrice * numberWannaBuy}"
     }
 
     private fun plateResObserver() {
@@ -110,7 +110,7 @@ class PlateDetailsFragment : BaseFragment() {
                 fooddescription.text = vm.platesResponse.value?.description
 
                 foodPrice = vm.platesResponse.value?.price!!
-                buy_btn.text = "$"+"Buy $foodPrice"
+                buy_btn.text = "$" + "Buy $foodPrice"
 
                 setIngredientsList()
 
@@ -128,6 +128,7 @@ class PlateDetailsFragment : BaseFragment() {
 
         val intent = FoodAddToCartActivity.newIntent(context!!)
         intent.putExtra(Constants.PLATES_RESPONSE_EXTRA, vm.platesResponse.value)
+        intent.putExtra(NUM_BUY_EXTRA, numberWannaBuy)
 
         startActivity(intent)
     }
@@ -211,33 +212,6 @@ class PlateDetailsFragment : BaseFragment() {
                 Status.LOADING -> {
                     //still loading data
                     loader_layout.showView()
-                }
-            }
-        })
-    }
-
-    private fun getBasket() {
-
-        vm.getBasket().observe(this, Observer {
-            val data = it.data
-
-            when (it.status) {
-                Status.ERROR -> {
-                    Timber.d("$it")
-
-                }
-                Status.SUCCESS -> {
-
-                    if (!data!!.items.isNullOrEmpty()) {
-
-                        //tv_total.text = "$" + "${data.total}"
-                        //tv_count.text = "${data.items?.count()}"
-
-                    } else {
-
-                    }
-                }
-                Status.LOADING -> {
                 }
             }
         })

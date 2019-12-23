@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.adapter.CustomOrderChefAdapter
+import com.app.cheffyuser.cart.models.CustomPlateAuctionBids
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
-import com.app.cheffyuser.home.model.CustomPlateAuctionBids
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.*

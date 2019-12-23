@@ -162,7 +162,5 @@ open class BaseActivity : AppCompatActivity(), DroidListener {
             //Occurs on very fast switching
             Timber.e(e)
         }
-
     }
-
 }

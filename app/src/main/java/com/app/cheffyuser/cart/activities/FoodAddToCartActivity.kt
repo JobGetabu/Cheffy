@@ -1,13 +1,16 @@
-package com.app.cheffyuser.home.activities
+package com.app.cheffyuser.cart.activities
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
-import com.app.cheffyuser.home.adapter.FoodOtherSelectedAdapter
+import com.app.cheffyuser.cart.adapter.FoodOtherSelectedAdapter
+import com.app.cheffyuser.cart.models.PeopleAddedResponse
+import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.RecyclerCheckBoxClickListener
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
@@ -17,7 +20,10 @@ import com.app.cheffyuser.utils.Tools.nestedScrollTo
 import com.app.cheffyuser.utils.Tools.toggleArrow
 import com.app.cheffyuser.utils.ViewAnimations.AnimListener
 import kotlinx.android.synthetic.main.activity_food_add_to_cart.*
+import kotlinx.android.synthetic.main.float_addtocart.*
 import kotlinx.android.synthetic.main.item_loading.*
+import kotlinx.android.synthetic.main.item_multiplier.*
+import timber.log.Timber
 
 
 class FoodAddToCartActivity : BaseActivity() {
@@ -28,25 +34,40 @@ class FoodAddToCartActivity : BaseActivity() {
         ViewModelProviders.of(this).get(HomeViewModel::class.java)
     }
 
+    private var numberWannaBuy = 1
+    private var foodPrice: Double = 0.00
+
+    val calList: MutableList<PeopleAddedResponse>? = mutableListOf()
     private var platesResponse: PlatesResponse? = null
 
     companion object {
         fun newIntent(context: Context): Intent =
             Intent(context, FoodAddToCartActivity::class.java)
+
+        const val NUM_BUY_EXTRA = "NUM_BUY_EXTRA"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_add_to_cart)
 
-        platesResponse = intent.getParcelableExtra(Constants.PLATES_RESPONSE_EXTRA)
+        platesResponse = intent.getParcelableExtra(Constants.PLATES_RESPONSE_EXTRA)!!
+
+        if (platesResponse == null) {
+            toast("Plate must be selected")
+            finish()
+        }
+
+        foodPrice = platesResponse!!.price!!
+        numberWannaBuy = intent.getIntExtra(NUM_BUY_EXTRA, 1)
 
         foodname.text = platesResponse?.name
         fooddescription.text = platesResponse?.description
 
-        bottomlay.setOnClickListener {
-            toast("Added to cart")
-            finish()
+        float_addtocart_body.setOnClickListener {
+            //TODO: check any additional items
+            toast("TODO: Added to cart")
+
         }
 
         imageButton2.setOnClickListener {
@@ -54,6 +75,47 @@ class FoodAddToCartActivity : BaseActivity() {
         }
 
         setRelatedFoodList()
+
+        priceCounter()
+        counterForMultiplier()
+        ppleAddedObserver()
+
+    }
+
+    private fun counterForMultiplier() {
+
+        minus_img.setOnClickListener {
+            if (numberWannaBuy < 2 && numberWannaBuy > 0) return@setOnClickListener
+            numberWannaBuy--
+            priceCounter()
+
+        }
+
+        plus_img.setOnClickListener {
+            if (numberWannaBuy > 19) return@setOnClickListener
+            numberWannaBuy++
+            priceCounter()
+        }
+    }
+
+    private fun priceCounter() {
+        //update price
+        counter.text = "$numberWannaBuy"
+        addtC_tv_price.text = "$" + "${foodPrice * numberWannaBuy}"
+
+        ppleAddedObserver()
+    }
+
+    private fun ppleAddedObserver() {
+        var pTotal = 0.0
+
+        calList!!.forEach { p ->
+            run {
+                pTotal += p.price!!
+            }
+        }
+
+        addtC_tv_price.text = "$" + "${(foodPrice * numberWannaBuy) + pTotal}"
 
     }
 
@@ -65,7 +127,7 @@ class FoodAddToCartActivity : BaseActivity() {
 
         val id = platesResponse?.id!!
 
-        vm.fetchRelatedFood(id).observe(this, androidx.lifecycle.Observer {
+        vm.getPeopleAlsoAdded(id).observe(this, Observer {
             val datas = it.data
 
             when (it.status) {
@@ -74,29 +136,33 @@ class FoodAddToCartActivity : BaseActivity() {
                     if (BuildConfig.DEBUG)
                         createSnack(ctx = this, txt = "Debug only: No related foods")
 
-                    //
                     loader_layout.hideView()
                     recycler_view.hideView()
                     textView12.hideView()
-
-
                 }
                 Status.SUCCESS -> {
                     recycler_view.showView()
                     loader_layout.hideView()
 
                     datas.let {
-                        relatedAdapter = FoodOtherSelectedAdapter(this, datas,
-                            object : RecyclerCheckBoxClickListener {
-                                override fun modelClick(model: Any, isChecked: Boolean) {
-                                    model as PlatesResponse
 
-                                    createSnack(
-                                        ctx = this@FoodAddToCartActivity,
-                                        txt = "$isChecked ${model.name}"
-                                    )
-                                }
-                            })
+                        relatedAdapter =
+                            FoodOtherSelectedAdapter(this,
+                                datas?.toMutableList(),
+                                object : RecyclerCheckBoxClickListener {
+                                    override fun modelClick(model: Any, isChecked: Boolean) {
+                                        model as PeopleAddedResponse
+
+                                        Timber.d("click check at =>$isChecked model=>${model.name}")
+
+                                        if (isChecked) calList!!.add(model)
+                                        else calList!!.remove(model)
+
+                                        calList.forEach { Timber.d("id =>${it.name} model=>${it.name}") }
+
+                                        ppleAddedObserver()
+                                    }
+                                })
                     }
 
                     recycler_view.adapter = relatedAdapter

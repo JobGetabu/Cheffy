@@ -25,6 +25,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_food_details.*
 import kotlinx.android.synthetic.main.common_star_time_delivey.*
+import kotlinx.android.synthetic.main.float_viewcart.*
 import kotlinx.android.synthetic.main.item_loading.*
 import kotlin.math.abs
 
@@ -107,16 +108,9 @@ class FoodDetailsActivity : BaseActivity() {
                 }
             }
         })
-
     }
 
     private fun uiStuff() {
-        bottomlay.setOnClickListener {
-
-            //TODO: Add check and verifications
-            startActivity(Intent(this, ItemCartActivity::class.java))
-
-        }
 
         chefname.setOnClickListener {
             goToChefProfile()
@@ -158,6 +152,8 @@ class FoodDetailsActivity : BaseActivity() {
             if (!chef.address.isNullOrEmpty())
                 address.text = chef.address[0].addressLine1.toString()
         }
+
+        getBasket()
 
     }
 
@@ -228,6 +224,8 @@ class FoodDetailsActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         hideSystemUI()
+
+        getBasket()
     }
 
     private val onOffsetChangedListener =
@@ -281,4 +279,30 @@ class FoodDetailsActivity : BaseActivity() {
             }
         }
     }
+
+
+    private fun getBasket() {
+
+        layout_item_cart_body.setOnClickListener {
+            startActivity(Intent(this, ItemCartActivity::class.java))
+        }
+
+        vm.getBasket().observe(this, Observer {
+            val data = it.data
+
+            when (it.status) {
+                Status.SUCCESS -> {
+                    if (!data!!.items.isNullOrEmpty()) {
+                        layout_item_cart.showView()
+                        tv_total.text = "$" + "${data.total}"
+                        tv_count.text = "${data.items?.count()}"
+
+                    } else {
+                        layout_item_cart.hideView()
+                    }
+                }
+            }
+        })
+    }
+
 }

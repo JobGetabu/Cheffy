@@ -7,5 +7,5 @@ package com.app.cheffyuser.home.adapter
  * and injects action
  */
 interface RecyclerCheckBoxClickListener {
-    fun modelClick(model: Any, check: Boolean)
+    fun modelClick(model: Any, isChecked: Boolean)
 }

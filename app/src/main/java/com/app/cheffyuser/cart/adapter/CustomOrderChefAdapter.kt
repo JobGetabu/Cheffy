@@ -9,9 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
+import com.app.cheffyuser.cart.models.CustomPlateAuctionBids
 import com.app.cheffyuser.home.adapter.BaseViewHolder
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
-import com.app.cheffyuser.home.model.CustomPlateAuctionBids
 import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.loadUrl
 
