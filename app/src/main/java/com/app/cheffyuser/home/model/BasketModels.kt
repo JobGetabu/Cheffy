@@ -13,7 +13,7 @@ data class AddToBasketRequest(
 
 data class BasketListResponse(
     @SerializedName("delivery_fee")
-    val deliveryFee: Int? = null,
+    val deliveryFee: Double? = null,
     @SerializedName("items")
     val items: List<BasketItems?>? = null,
     @SerializedName("sub_total")
@@ -36,7 +36,7 @@ data class BasketItems(
     @SerializedName("quantity")
     val quantity: Int? = null,
     @SerializedName("total_value")
-    val totalValue: Int? = null
+    val totalValue: Double? = null
 )
 
 data class BasketCustomPlate(
@@ -118,7 +118,7 @@ data class Plate(
     @SerializedName("name")
     val name: String? = null,
     @SerializedName("price")
-    val price: Int? = null,
+    val price: Double? = null,
     @SerializedName("userId")
     val userId: Int? = null
 )

@@ -219,7 +219,7 @@ class HomeRepository {
 
     //Region Basket
 
-    suspend fun addToBasket(addToBasketRequest: AddToBasketRequest): Resource<List<BasketListResponse>> {
+    suspend fun addToBasket(addToBasketRequest: AddToBasketRequest): Resource<BasketListResponse> {
         return try {
             val response = apiServiceAuthed.addToBasket(addToBasketRequest)
             responseHandler.handleSuccess(response)

@@ -99,9 +99,15 @@ class AddCartFragment : BaseFragment() {
                     loader_layout.hideView()
 
                     if (!data!!.items.isNullOrEmpty()) {
+
+                        //we only take ordinary plates
+                        val plateBaskets = data.items?.filter { b ->
+                            b!!.basketType.equals("plate")
+                        }?.toMutableList()
+
                         cartItemsAdapter = CartItemsAdapter(
                             activity!!,
-                            data.items?.toMutableList(),
+                            plateBaskets,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     setupCartList()

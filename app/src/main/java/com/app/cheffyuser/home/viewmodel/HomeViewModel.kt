@@ -172,7 +172,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun addToBasket(addToBasketRequest: AddToBasketRequest): LiveData<Resource<List<BasketListResponse>>> {
+    fun addToBasket(addToBasketRequest: AddToBasketRequest): LiveData<Resource<BasketListResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.addToBasket(addToBasketRequest)
             emit(Resource.loading(null))

@@ -76,16 +76,8 @@ class CartItemsAdapter(
             itemCount.text = "${model!!.quantity}"
             price.text = "$" + "${model!!.totalValue}"
 
-            if (model?.customPlate != null) {
-                foodimage.loadUrl(model!!.customPlate!!.name)
-                foodname.text = "${model!!.customPlate!!.name}"
-
-            } else if (model?.plate != null) {
-                foodimage.loadUrl(model!!.plate!!.name)
-                foodname.text = "${model!!.plate!!.name}"
-
-            }
-
+            foodimage.loadUrl(model!!.plate!!.name)
+            foodname.text = "${model!!.plate!!.name}"
 
         }
 
