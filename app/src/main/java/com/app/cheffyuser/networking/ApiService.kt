@@ -115,7 +115,7 @@ interface ApiService {
     //Region Basket API
 
     @POST("basket")
-    suspend fun addToBasket(@Body addToBasketRequest: AddToBasketRequest): BasketListResponse
+    suspend fun addToBasket(@Body addToBasketRequests: MutableList<AddToBasketRequest>): BasketListResponse
 
     @GET("basket")
     suspend fun getBasket(): BasketListResponse

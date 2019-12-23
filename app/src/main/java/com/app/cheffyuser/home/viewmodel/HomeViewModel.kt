@@ -173,7 +173,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun addToBasket(addToBasketRequest: AddToBasketRequest): LiveData<Resource<BasketListResponse>> {
+    fun addToBasket(addToBasketRequest:  MutableList<AddToBasketRequest>): LiveData<Resource<BasketListResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.addToBasket(addToBasketRequest)
             emit(Resource.loading(null))
@@ -281,8 +281,6 @@ class HomeViewModel : ViewModel() {
     //region foodDetails data
 
     var platesResponse: MediatorLiveData<PlatesResponse?> = MediatorLiveData()
-
-    var ppleAddedSelected: MediatorLiveData<MutableList<PeopleAddedResponse>> = MediatorLiveData()
 
     //endregion
 

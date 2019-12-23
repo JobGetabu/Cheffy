@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.adapter.FoodOtherSelectedAdapter
+import com.app.cheffyuser.cart.models.AddToBasketRequest
 import com.app.cheffyuser.cart.models.PeopleAddedResponse
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.RecyclerCheckBoxClickListener
@@ -65,9 +66,7 @@ class FoodAddToCartActivity : BaseActivity() {
         fooddescription.text = platesResponse?.description
 
         float_addtocart_body.setOnClickListener {
-            //TODO: check any additional items
-            toast("TODO: Added to cart")
-
+            addToCart()
         }
 
         imageButton2.setOnClickListener {
@@ -186,5 +185,37 @@ class FoodAddToCartActivity : BaseActivity() {
         } else {
             ViewAnimations.collapse(instructions)
         }
+    }
+
+
+    private fun addToCart() {
+        val dialog = showDialogue("Adding to cart", "Please wait ...")
+
+        val basketRequests: MutableList<AddToBasketRequest> = mutableListOf()
+
+        val req1 = AddToBasketRequest(platesResponse!!.id!!, numberWannaBuy)
+        basketRequests.add(req1)
+
+        calList?.forEach {
+            val req = AddToBasketRequest(it.id, 1)
+            basketRequests.add(req)
+        }
+
+
+        vm.addToBasket(basketRequests).observe(this, Observer {
+            when (it.status) {
+                Status.ERROR -> {
+                    errorDialogue("Error", "${it.message}", dialog!!)
+                }
+                Status.SUCCESS -> {
+                    successDialogue(alertDialog = dialog)
+                    dialog?.dismiss()
+                    toast("Added to cart")
+
+
+                    finish()
+                }
+            }
+        })
     }
 }
