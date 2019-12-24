@@ -215,8 +215,8 @@ dependencies {
     //play update core
     implementation 'com.google.android.play:core:1.6.4'
 
-    //stripe
-    implementation 'com.stripe:stripe-android:9.0.1'
+    //month - year picker
+    implementation 'com.whiteelephant:monthandyearpicker:1.3.0'
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$arch_version"

@@ -80,10 +80,6 @@ class CheffyApp : MultiDexApplication() {
             Timber.plant(ReleaseLogTree())
         }
 
-
-        //stripe
-        //Stripe(this, getString(R.string.stripe_pub_key))
-
     }
 
     override fun onLowMemory() {
