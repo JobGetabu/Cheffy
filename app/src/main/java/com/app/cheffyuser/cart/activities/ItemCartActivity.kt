@@ -3,11 +3,25 @@ package com.app.cheffyuser.cart.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
+import com.app.cheffyuser.cart.adapter.CartItemsFullAdapter
+import com.app.cheffyuser.cart.adapter.UpdateCartClickListener
+import com.app.cheffyuser.cart.models.BasketListResponse
 import com.app.cheffyuser.create_account.model.ShippingData
 import com.app.cheffyuser.home.activities.BaseActivity
+import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.networking.Status
+import com.app.cheffyuser.profile.activities.ShippingActivity
+import com.app.cheffyuser.utils.createSnack
+import com.app.cheffyuser.utils.hideView
+import com.app.cheffyuser.utils.loadAnim
+import com.app.cheffyuser.utils.showView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,6 +30,9 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_item_cart.*
+import kotlinx.android.synthetic.main.item_loading_full.*
+import kotlinx.android.synthetic.main.no_item_layout.*
+import timber.log.Timber
 
 class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
 
@@ -36,6 +53,8 @@ class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private var ship: ShippingData? = null
 
+    private lateinit var cartItemsAdapter: CartItemsFullAdapter
+
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(this).get(HomeViewModel::class.java)
     }
@@ -54,7 +73,7 @@ class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.mMap) as SupportMapFragment?)!!
         mapFragment.getMapAsync(this)
 
-        ship = tokenManager.shippingData
+        shippingDetails()
 
         btn_checkout.setOnClickListener {
             checkOut()
@@ -62,6 +81,37 @@ class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
 
         selectDeliveryFun()
         selectPayment()
+
+        //items
+        no_item_text.text = "Foods in cart appear here"
+
+        setupCartList()
+
+    }
+
+
+    private fun shippingDetails() {
+
+        ship = tokenManager.shippingData
+
+        if (!ship?.addressLine1.isNullOrEmpty()) {
+            primary_txt.text = "${ship?.addressLine1}"
+            primary_txt2.text = "${ship?.city}"
+        }
+
+        if (!ship?.deliveryNote.isNullOrEmpty()) {
+            edit_location.text = "Add delivery note"
+        } else {
+            edit_location.text = "Edit delivery note"
+        }
+
+        edit_location.setOnClickListener {
+            val intent = Intent(
+                this,
+                ShippingActivity::class.java
+            )
+            startActivity(intent)
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap?) {
@@ -148,6 +198,90 @@ class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
 
     private fun checkOut() {
 
+    }
+
+    private fun updateTotals(dt: BasketListResponse) {
+        tv_subtotal.text = "$ " + "${dt.subTotal}"
+        tv_deliveryfee.text = "$ " + "${dt.deliveryFee}"
+        tv_total.text = "$ " + "${dt.total}"
+    }
+
+    private fun setupCartList() {
+        val lm = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        recycler_view.layoutManager = lm
+        recycler_view.setHasFixedSize(true)
+        recycler_view.animate()
+
+        recycler_view.hideView()
+        noitem_layout.hideView()
+        loader_layout.showView()
+
+
+        vm.getBasket().observe(this, Observer {
+
+            val data = it.data
+
+            when (it.status) {
+                Status.ERROR -> {
+                    recycler_view.hideView()
+                    noitem_layout.showView()
+                    loader_layout.hideView()
+
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = this, txt = "Debug only: No cart foods")
+
+                    Timber.d("$it")
+
+                }
+                Status.SUCCESS -> {
+                    recycler_view.showView()
+                    recycler_view.loadAnim()
+
+                    noitem_layout.hideView()
+                    loader_layout.hideView()
+
+                    if (!data!!.items.isNullOrEmpty()) {
+
+                        updateTotals(data)
+
+                        cartItemsAdapter = CartItemsFullAdapter(
+                            this,
+                            vm,
+                            data.items?.toMutableList(),
+                            object : RecyclerItemClickListener {
+                                override fun modelClick(model: Any) {
+                                    //loading
+                                    recycler_view.hideView()
+                                    noitem_layout.hideView()
+                                    loader_layout.showView()
+                                }
+                            }, object : UpdateCartClickListener {
+                                override fun modelClick(model: Any, isUpdated: Boolean) {
+                                    //just got updated
+                                    recycler_view.showView()
+                                    noitem_layout.hideView()
+                                    loader_layout.hideView()
+
+                                    updateTotals(model as BasketListResponse)
+
+                                }
+                            })
+                        recycler_view.adapter = cartItemsAdapter
+
+                    } else {
+
+                        updateTotals(data)
+
+                        recycler_view.hideView()
+                        noitem_layout.showView()
+                        loader_layout.hideView()
+
+                    }
+                }
+                Status.LOADING -> {
+                }
+            }
+        })
     }
 
 }

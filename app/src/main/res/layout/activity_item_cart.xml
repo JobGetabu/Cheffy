@@ -177,13 +177,33 @@
                 android:id="@+id/layout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="top"
+                    android:gravity="top"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/single_cart_order_row" />
+
+                <include
+                    layout="@layout/no_item_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@id/layout_item_cart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="gone" />
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -301,12 +321,13 @@
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/tv_subtotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/sailec_medium"
                         android:gravity="end"
-                        android:text="$ 360.00"
+                        android:text="$ 0.00"
                         android:textColor="@color/black" />
                 </LinearLayout>
 
@@ -330,12 +351,13 @@
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/tv_deliveryfee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/sailec_medium"
                         android:gravity="end"
-                        android:text="$10.00"
+                        android:text="$ 0.00"
                         android:textColor="@color/black" />
                 </LinearLayout>
 
@@ -360,12 +382,13 @@
                         android:textColor="@color/black" />
 
                     <TextView
+                        android:id="@+id/tv_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/sailec_medium"
                         android:gravity="end"
-                        android:text="$ 370.00"
+                        android:text="$ 0.00"
                         android:textColor="@color/black" />
                 </LinearLayout>
             </LinearLayout>
@@ -477,6 +500,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/round_border2"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:padding="10dp">
 
                 <LinearLayout
@@ -531,11 +555,11 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:translationZ="18dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

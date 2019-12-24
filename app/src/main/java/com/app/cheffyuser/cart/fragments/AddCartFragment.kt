@@ -54,9 +54,6 @@ class AddCartFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-        //recycler_view.adapter = customAdapter // set the Adapter to RecyclerView
-
         no_item_text.text = "Foods in cart appear here"
         layout_item_cart.hideView()
 

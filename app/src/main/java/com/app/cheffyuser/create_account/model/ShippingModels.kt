@@ -62,5 +62,8 @@ data class ShippingData(
     @SerializedName("userId")
     val userId: Int? = null,
     @SerializedName("zipCode")
-    val zipCode: String? = null
+    val zipCode: String? = null,
+    @SerializedName("deliveryNote")
+    val deliveryNote: String? = null
 ) : Parcelable
+
