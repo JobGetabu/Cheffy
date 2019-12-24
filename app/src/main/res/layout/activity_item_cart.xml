@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_activity"
     tools:context=".cart.activities.ItemCartActivity">
 
     <com.google.android.material.card.MaterialCardView
@@ -46,20 +47,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                style="@style/Toolbar.Black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/sailec_medium"
-                android:text="Save"
-                android:textColor="@color/colorPrimary"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -77,68 +64,78 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/layout2"
+            <!--Top area for map-->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_weight="2"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                <fragment
+                    android:id="@+id/mMap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:context=".profile.activities.ShippingActivity" />
 
-                    <fragment
-                        android:id="@+id/map"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="5dp" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/primary_txt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="0.005"
+                    android:fontFamily="@font/sailec_regular"
+                    android:text="@string/txt_address"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/mMap"
+                    app:layout_constraintTop_toTopOf="@+id/mMap" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.8"
-                    android:orientation="vertical">
+                <TextView
+                    android:id="@+id/primary_txt2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="0.005"
+                    android:fontFamily="@font/sailec_light"
+                    android:text="New York"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@id/mMap"
+                    app:layout_constraintTop_toBottomOf="@+id/primary_txt" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.005"
-                        android:fontFamily="@font/sailec_regular"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="10dp"
-                        android:text="2179 Brooklyn Street"
-                        android:textColor="#3B3B3B" />
+                <TextView
+                    android:id="@+id/edit_location"
+                    style="@style/Toolbar.Black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/sailec_medium"
+                    android:text="Add delivery note"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/mMap"
+                    app:layout_constraintTop_toBottomOf="@+id/primary_txt2" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.01"
-                        android:fontFamily="@font/sailec_regular"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="New York"
-                        android:textColor="#3B3B3B" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="0.06"
-                        android:fontFamily="@font/sailec_regular"
-                        android:gravity="center"
-                        android:text="Add delivery note"
-                        android:textColor="#EA1D2C" />
-                </LinearLayout>
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/layout3"
@@ -164,14 +161,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:fontFamily="@font/sailec_medium"
                     android:gravity="end"
                     android:paddingLeft="10dp"
                     android:paddingTop="10dp"
                     android:paddingRight="10dp"
                     android:text="Add More"
-                    android:textColor="#EA1D2C"
-                    android:textSize="18sp" />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -213,29 +212,31 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/deliver_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:background="@drawable/btn_bg_default"
                         android:fontFamily="@font/sailec_medium"
                         android:gravity="center"
-                        android:layout_gravity="center"
-                        android:text="Delivery"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="10dp"
+                        android:text="@string/delivery"
                         android:textColor="@color/white" />
 
                     <Button
+                        android:id="@+id/pickup_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_weight="1"
                         android:background="@drawable/btn_bg_border"
                         android:fontFamily="@font/sailec_medium"
                         android:gravity="center"
-                        android:layout_gravity="center"
-                        android:text="Pickup order"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="10dp"
+                        android:text="@string/pickup_order"
                         android:textColor="@color/realblack" />
 
 
@@ -247,28 +248,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
-                android:weightSum="3"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="3">
 
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="2"
                     android:background="@drawable/round_border4"
                     android:fontFamily="@font/sailec_medium"
                     android:hint="Promo Code"
-                    android:layout_gravity="center"
-                    android:inputType="textCapWords"
+                    android:inputType="textCapCharacters"
                     android:padding="8dp" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
                     android:background="@drawable/btn_bg_default"
                     android:fontFamily="@font/sailec_medium"
                     android:gravity="center"
-                    android:layout_gravity="center"
                     android:text="Apply"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -390,11 +391,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/add_card_lay"
+                android:id="@+id/card_m_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:background="@drawable/button_round_1"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
@@ -418,6 +421,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/card_m_btn_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/sailec_medium"
@@ -428,11 +432,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/cash_m_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/layout3"
                 android:layout_margin="10dp"
                 android:background="@drawable/round_border2"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
@@ -454,12 +460,13 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/cash_m_btn_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:fontFamily="@font/sailec_medium"
                         android:text="Cash On Delivery"
-                        android:textColor="#000000" />
+                        android:textColor="@color/textPrimaryColor" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -500,28 +507,35 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btn_checkout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="20dp"
-                android:orientation="vertical">
-
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/btn_bg_default"
-                    android:elevation="10dp"
-                    android:fontFamily="@font/sailec_medium"
-                    android:text="Check Out"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                android:background="@drawable/btn_bg_default"
+                android:elevation="10dp"
+                android:fontFamily="@font/sailec_medium"
+                android:text="Check Out"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        layout="@layout/item_loading_full"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:translationZ="18dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

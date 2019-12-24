@@ -92,7 +92,6 @@
         app:layout_constraintStart_toEndOf="@id/mMap"
         app:layout_constraintTop_toTopOf="@+id/mMap" />
 
-
     <TextView
         android:id="@+id/primary_txt2"
         android:layout_width="0dp"

@@ -58,5 +58,7 @@
     <string name="search_food_txt">Find a food or Restaurant</string>
     <string name="view_item_cart">View Item Cart</string>
     <string name="add_to_cart">Add to Cart</string>
+    <string name="delivery">Delivery</string>
+    <string name="pickup_order">Pickup order</string>
 
 </resources>
