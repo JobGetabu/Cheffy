@@ -3,6 +3,8 @@ package com.app.cheffyuser.cart.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.adapter.CartItemsFullAdapter
 import com.app.cheffyuser.cart.adapter.UpdateCartClickListener
 import com.app.cheffyuser.cart.models.BasketListResponse
+import com.app.cheffyuser.cart.models.OrderRequest
 import com.app.cheffyuser.create_account.model.ShippingData
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
@@ -47,6 +50,9 @@ class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
         const val CREDITCARD = 0
         const val CASH = 1
         var SELECTPAYMENT = -1
+
+        var deliveryType: String? = null
+        var paymentType: String? = null
     }
 
     private lateinit var mapFragment: SupportMapFragment
@@ -144,15 +150,18 @@ class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun selectDeliveryFun() {
+        SELECTDELIVERY = 0
 
-        if (SELECTDELIVERY == 0) {
-            //logic
+        deliveryType = if (SELECTDELIVERY == 0) {
+            "user"
         } else {
-
+            "chef"
         }
 
         deliver_btn.setOnClickListener {
             SELECTDELIVERY = 0
+            deliveryType = "user"
+
             deliver_btn.background = getMyDrawable(R.drawable.btn_bg_default)
             deliver_btn.setTextColor(getMyColor(R.color.white))
 
@@ -161,6 +170,8 @@ class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
         }
         pickup_btn.setOnClickListener {
             SELECTDELIVERY = 1
+            deliveryType = "chef"
+
             pickup_btn.background = getMyDrawable(R.drawable.btn_bg_default)
             pickup_btn.setTextColor(getMyColor(R.color.white))
 
@@ -170,33 +181,75 @@ class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun selectPayment() {
-        if (SELECTPAYMENT == 0) {
-            //logic
-        } else {
+        SELECTPAYMENT = 0
 
+        if (SELECTPAYMENT == 0) {
+            paymentType = "card"
+        } else {
+            paymentType = "cash"
         }
 
         card_m_btn.setOnClickListener {
             SELECTPAYMENT = 0
+            paymentType = "card"
             card_m_btn.background = getMyDrawable(R.drawable.button_round_1)
             card_m_btn_txt.setTextColor(getMyColor(R.color.white))
 
             cash_m_btn.background = getMyDrawable(R.drawable.round_border2)
             cash_m_btn_txt.setTextColor(getMyColor(R.color.realblack))
+
+            if (tokenManager.creditCardData == null) {
+                startActivity(AddCardActivity.newIntent(this))
+            }
         }
 
         cash_m_btn.setOnClickListener {
             SELECTPAYMENT = 1
+            paymentType = "cash"
             cash_m_btn.background = getMyDrawable(R.drawable.button_round_1)
             cash_m_btn_txt.setTextColor(getMyColor(R.color.white))
 
             card_m_btn.background = getMyDrawable(R.drawable.round_border2)
             card_m_btn_txt.setTextColor(getMyColor(R.color.realblack))
         }
-
     }
 
     private fun checkOut() {
+
+        //check card
+        if (tokenManager.creditCardData == null && paymentType.equals("card")) {
+            createSnack(
+                this, "Add a card payment for payment", "Ok",
+                View.OnClickListener {
+                    startActivity(AddCardActivity.newIntent(this))
+                })
+            return
+        }
+
+        val dialog = showDialogue("Making order", "Please wait ...")
+
+        //TODO: select corrrect shipping address
+        val shipping_id: Int = ship?.id!!
+
+        val req = OrderRequest(shipping_id = shipping_id, deliveryType = deliveryType)
+
+        vm.makeOrder(req).observe(this, Observer {
+            when (it.status) {
+                Status.ERROR -> {
+                    errorDialogue("Error", "${it.message}", dialog!!)
+                }
+                Status.SUCCESS -> {
+                    successDialogue(alertDialog = dialog!!)
+
+
+                    val res = it.data
+
+                    Handler().postDelayed({
+                        finish()
+                    }, 2500)
+                }
+            }
+        })
 
     }
 

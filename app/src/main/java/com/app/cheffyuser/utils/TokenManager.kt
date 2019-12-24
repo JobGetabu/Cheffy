@@ -2,6 +2,7 @@ package com.app.cheffyuser.utils
 
 import android.content.SharedPreferences
 import com.app.cheffyuser.BuildConfig
+import com.app.cheffyuser.cart.models.CreditCardRequest
 import com.app.cheffyuser.create_account.model.*
 import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.utils.Constants.PREF_ACCESS_TOKEN
@@ -19,6 +20,7 @@ import com.app.cheffyuser.utils.Constants.PREF_LAST_LON
 import com.app.cheffyuser.utils.Constants.PREF_LAUNCH_TIMES
 import com.app.cheffyuser.utils.Constants.PREF_PHONE_NUMBER
 import com.app.cheffyuser.utils.Constants.PREF_REFRESH_TOKEN
+import com.app.cheffyuser.utils.Constants.PREF_USER_CARD
 import com.app.cheffyuser.utils.Constants.PREF_USER_DATA_CLASS
 import com.app.cheffyuser.utils.Constants.PREF_USER_EMAIL
 import com.app.cheffyuser.utils.Constants.PREF_USER_ISLOGIN
@@ -100,6 +102,17 @@ class TokenManager(private val prefs: SharedPreferences) {
         set(userData) {
             val shippingString = gson.toJson(userData)
             editor.putString(PREF_FULLUSER_DATA_CLASS, shippingString).apply()
+        }
+
+    var creditCardData: CreditCardRequest?
+        get() {
+            val string = prefs.getString(PREF_USER_CARD, null)
+            val type = object : TypeToken<CreditCardRequest>() {}.type
+            return gson.fromJson(string, type)
+        }
+        set(creditCardData) {
+            val string = gson.toJson(creditCardData)
+            editor.putString(PREF_USER_CARD, string).apply()
         }
 
     var stripeId: String?

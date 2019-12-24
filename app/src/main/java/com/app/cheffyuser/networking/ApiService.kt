@@ -115,7 +115,7 @@ interface ApiService {
     //Region Basket API
 
     @POST("basket")
-    suspend fun addToBasket(@Body addToBasketRequests: MutableList<AddToBasketRequest>): BasketListResponse
+    suspend fun addToBasket(@Body addToBasketRequests: AddToBasketRequest): BasketListResponse
 
     @GET("basket")
     suspend fun getBasket(): BasketListResponse
@@ -177,6 +177,10 @@ interface ApiService {
 
     @GET("user/card")
     suspend fun getCreditCards(): MutableList<CreditCardResponse>
+
+    //order
+    @POST("order")
+    suspend fun makeOrder(@Body orderRequest: OrderRequest): OrderResponse
 
     //logout
     @POST("user/logout")

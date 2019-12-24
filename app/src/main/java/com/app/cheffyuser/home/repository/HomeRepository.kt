@@ -220,7 +220,7 @@ class HomeRepository {
 
     //Region Basket
 
-    suspend fun addToBasket(addToBasketRequest: MutableList<AddToBasketRequest>): Resource<BasketListResponse> {
+    suspend fun addToBasket(addToBasketRequest: AddToBasketRequest): Resource<BasketListResponse> {
         return try {
             val response = apiServiceAuthed.addToBasket(addToBasketRequest)
             responseHandler.handleSuccess(response)
@@ -395,4 +395,17 @@ class HomeRepository {
             responseHandler.handleException(e)
         }
     }
+
+    //order
+    suspend fun makeOrder(orderRequest: OrderRequest): Resource<OrderResponse> {
+        return try {
+            val response = apiServiceAuthed.makeOrder(orderRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
 }

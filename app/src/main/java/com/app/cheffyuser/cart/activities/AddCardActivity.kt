@@ -180,18 +180,15 @@ class AddCardActivity : BaseActivity() {
         } else null
         val number = card_num_label.toString().trim()
 
-        if (nameTxt.isEmpty() || number.isEmpty() || expiryno == null || yearno != null || cvvno == null ) {
+        if (nameTxt.isEmpty() || number.isEmpty() || expiryno == null || yearno == null || cvvno == null ) {
             createSnack(ctx = this, txt = "All fields are required")
-
             return
         }
 
         if (!isConnected) {
-
             createSnack(
                 this, getString(R.string.you_not_connected), getString(R.string.retry),
                 View.OnClickListener { saveCard() })
-
             return
         }
 
@@ -205,12 +202,13 @@ class AddCardActivity : BaseActivity() {
                     errorDialogue("Error", "${it.message}", dialog!!)
                 }
                 Status.SUCCESS -> {
-                    successDialogue(alertDialog = dialog)
+                    successDialogue(alertDialog = dialog!!)
 
                     val res = it.data
 
                     //save in prefs
                     tokenManager.stripeId = res?.id
+                    tokenManager.creditCardData = req
                     finish()
                 }
             }

@@ -10,6 +10,7 @@ import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.adapter.FoodOtherSelectedAdapter
 import com.app.cheffyuser.cart.models.AddToBasketRequest
+import com.app.cheffyuser.cart.models.BasketRequest
 import com.app.cheffyuser.cart.models.PeopleAddedResponse
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.RecyclerCheckBoxClickListener
@@ -191,18 +192,19 @@ class FoodAddToCartActivity : BaseActivity() {
     private fun addToCart() {
         val dialog = showDialogue("Adding to cart", "Please wait ...")
 
-        val basketRequests: MutableList<AddToBasketRequest> = mutableListOf()
+        val basketRequests: MutableList<BasketRequest> = mutableListOf()
 
-        val req1 = AddToBasketRequest(platesResponse!!.id!!, numberWannaBuy)
+        val req1 = BasketRequest(platesResponse!!.id!!, numberWannaBuy)
         basketRequests.add(req1)
 
         calList?.forEach {
-            val req = AddToBasketRequest(it.id, 1)
+            val req = BasketRequest(it.id, 1)
             basketRequests.add(req)
         }
 
+        val req = AddToBasketRequest(plates = basketRequests)
 
-        vm.addToBasket(basketRequests).observe(this, Observer {
+        vm.addToBasket(req).observe(this, Observer {
             when (it.status) {
                 Status.ERROR -> {
                     errorDialogue("Error", "${it.message}", dialog!!)

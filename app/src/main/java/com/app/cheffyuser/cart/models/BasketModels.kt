@@ -3,8 +3,11 @@ package com.app.cheffyuser.cart.models
 import com.google.gson.annotations.SerializedName
 
 
-
 data class AddToBasketRequest(
+    val plates: MutableList<BasketRequest>
+)
+
+data class BasketRequest(
     @SerializedName("plateId")
     val plateId: Int? = null,
     @SerializedName("quantity")

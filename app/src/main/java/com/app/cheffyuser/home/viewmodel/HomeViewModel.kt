@@ -197,7 +197,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun addToBasket(addToBasketRequest: MutableList<AddToBasketRequest>): LiveData<Resource<BasketListResponse>> {
+    fun addToBasket(addToBasketRequest: AddToBasketRequest): LiveData<Resource<BasketListResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.addToBasket(addToBasketRequest)
             emit(Resource.loading(null))
@@ -319,7 +319,14 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-
+    //order
+    fun makeOrder(orderRequest: OrderRequest): LiveData<Resource<OrderResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.makeOrder(orderRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
 
 
     //region foodDetails data

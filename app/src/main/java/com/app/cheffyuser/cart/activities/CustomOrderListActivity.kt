@@ -136,7 +136,6 @@ class CustomOrderListActivity : BaseActivity() {
                 Status.SUCCESS -> {
                     successDialogue(alertDialog = dialog)
 
-
                 }
             }
         })
