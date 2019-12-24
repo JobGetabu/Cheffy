@@ -130,6 +130,15 @@ class AddCartFragment : BaseFragment() {
                                     recycler_view.showView()
                                     noitem_layout.hideView()
                                     loader_layout.hideView()
+
+                                    //check new data
+                                    if (!data.items.isNullOrEmpty()) {
+                                        layout_item_cart.showView()
+                                        tv_total.text = "$" + "${data.total}"
+                                        tv_count.text = "${data.items.count()}"
+                                    } else {
+                                        layout_item_cart.hideView()
+                                    }
                                 }
                             })
                         recycler_view.adapter = cartItemsAdapter
