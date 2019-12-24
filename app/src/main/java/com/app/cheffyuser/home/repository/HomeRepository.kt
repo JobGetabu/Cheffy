@@ -149,7 +149,7 @@ class HomeRepository {
         }
     }
 
-    suspend fun fetchShipping(): Resource<List<ShippingDataResponse>> {
+    suspend fun fetchShipping(): Resource<ShippingAddressResponse> {
         return try {
             val response = apiServiceAuthed.getShipping()
             responseHandler.handleSuccess(response)
@@ -160,7 +160,7 @@ class HomeRepository {
         }
     }
 
-    suspend fun setShipping(shippingRequest: ShippingRequest): Resource<ShippingResponse> {
+    suspend fun setShipping(shippingRequest: ShippingRequest): Resource<SetShippingResponse> {
         return try {
             val response = apiServiceAuthed.setShipping(shippingRequest)
             responseHandler.handleSuccess(response)
@@ -220,7 +220,7 @@ class HomeRepository {
 
     //Region Basket
 
-    suspend fun addToBasket(addToBasketRequest:  MutableList<AddToBasketRequest>): Resource<BasketListResponse> {
+    suspend fun addToBasket(addToBasketRequest: MutableList<AddToBasketRequest>): Resource<BasketListResponse> {
         return try {
             val response = apiServiceAuthed.addToBasket(addToBasketRequest)
             responseHandler.handleSuccess(response)
@@ -234,6 +234,39 @@ class HomeRepository {
     suspend fun getBasket(): Resource<BasketListResponse> {
         return try {
             val response = apiServiceAuthed.getBasket()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun addItemby1(basketId: Int): Resource<BasketListResponse> {
+        return try {
+            val response = apiServiceAuthed.addItemby1(basketId)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun subtractItemby1(basketId: Int): Resource<BasketListResponse> {
+        return try {
+            val response = apiServiceAuthed.subtractItemby1(basketId)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun deleteItem(basketId: Int): Resource<BasketListResponse> {
+        return try {
+            val response = apiServiceAuthed.deleteItem(basketId)
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             //just extra logging

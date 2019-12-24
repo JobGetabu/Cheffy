@@ -1,31 +1,35 @@
 package com.app.cheffyuser.cart.adapter
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.models.BasketItems
 import com.app.cheffyuser.home.adapter.BaseViewHolder
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
-import com.app.cheffyuser.utils.createSnack
+import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.loadUrl
 import com.app.cheffyuser.utils.toast
 
 class CartItemsAdapter(
-    private val context: Activity,
-    private val items: MutableList<BasketItems?>?,
-    private val clickListener: RecyclerItemClickListener
+    private val context: FragmentActivity,
+    private val vm: HomeViewModel,
+    private var items: MutableList<BasketItems?>?,
+    private val clickListener: RecyclerItemClickListener,
+    private val cartUpdateListener: UpdateCartClickListener
 ) : RecyclerView.Adapter<BaseViewHolder>() {
     private lateinit var myHolder: BaseViewHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.single_cart_order_row, parent, false)
-        return ViewHolder(view, clickListener)
+        return ViewHolder(view, clickListener, cartUpdateListener)
 
     }
 
@@ -41,20 +45,21 @@ class CartItemsAdapter(
 
     fun add(item: BasketItems) {
         items!!.add(item)
-        notifyItemInserted(items.size - 1)
+        notifyItemInserted(items!!.size - 1)
     }
 
     private fun remove(item: BasketItems) {
         val position = items!!.indexOf(item)
         if (position > -1) {
-            items.removeAt(position)
+            items!!.removeAt(position)
             notifyItemRemoved(position)
         }
     }
 
     internal inner class ViewHolder(
         itemView: View,
-        private val clickListener: RecyclerItemClickListener
+        private val clickListener: RecyclerItemClickListener,
+        private val cartUpdateListener: UpdateCartClickListener
     ) : BaseViewHolder(itemView) {
 
         private var model: BasketItems? = null
@@ -83,24 +88,86 @@ class CartItemsAdapter(
 
         init {
             minus.setOnClickListener {
-                this.clickListener.modelClick(model!!)
-                context.toast("TODO: Minus item ${model?.plate?.name}")
+                subtractItemBy1(model!!)
             }
 
             plus.setOnClickListener {
-                this.clickListener.modelClick(model!!)
-                context.toast("TODO: Plus item ${model?.plate?.name}")
+                addItemBy1(model!!)
             }
 
             delImg.setOnClickListener {
-                this.clickListener.modelClick(model!!)
-                createSnack(ctx = context, txt = "Removed ${model?.plate?.name}")
+                deleteItem(model!!)
                 remove(model!!)
             }
-
         }
 
         override fun clear() {}
+
+        private fun addItemBy1(model: BasketItems) {
+            context.toast("Updating cart")
+            this.clickListener.modelClick(model)
+
+            vm.addItemby1(model.basketItemId!!).observe(context, Observer {
+                when (it.status) {
+                    Status.ERROR -> {
+                        this.cartUpdateListener.modelClick(model, true)
+                        context.toast("Couldn't update cart")
+                    }
+                    Status.SUCCESS -> {
+                        this.cartUpdateListener.modelClick(model, true)
+
+                        items = it.data?.items?.filter { b ->
+                            b!!.basketType.equals("plate")
+                        }?.toMutableList()
+
+                        notifyDataSetChanged()
+                    }
+                }
+            })
+        }
+
+        private fun subtractItemBy1(model: BasketItems) {
+            context.toast("Updating cart")
+            this.clickListener.modelClick(model)
+
+            vm.subtractItemby1(model.basketItemId!!).observe(context, Observer {
+                when (it.status) {
+                    Status.ERROR -> {
+                        this.cartUpdateListener.modelClick(model, true)
+                        context.toast("Couldn't update cart")
+                    }
+                    Status.SUCCESS -> {
+                        this.cartUpdateListener.modelClick(model, true)
+                        items = it.data?.items?.filter { b ->
+                            b!!.basketType.equals("plate")
+                        }?.toMutableList()
+                        notifyDataSetChanged()
+                    }
+                }
+            })
+        }
+
+        private fun deleteItem(model: BasketItems) {
+            context.toast("Updating cart")
+            this.clickListener.modelClick(model)
+
+            vm.deleteItem(model.basketItemId!!).observe(context, Observer {
+                when (it.status) {
+                    Status.ERROR -> {
+                        this.cartUpdateListener.modelClick(model, true)
+                        context.toast("Couldn't update cart")
+                    }
+                    Status.SUCCESS -> {
+                        this.cartUpdateListener.modelClick(model, true)
+                        items = it.data?.items?.filter { b ->
+                            b!!.basketType.equals("plate")
+                        }?.toMutableList()
+                        notifyDataSetChanged()
+                    }
+                }
+            })
+        }
+
     }
 
     fun refreshList() {
@@ -109,7 +176,7 @@ class CartItemsAdapter(
 
     fun clearList() {
         val size = items!!.size
-        items.clear()
+        items!!.clear()
         notifyItemRangeRemoved(0, size)
     }
 }

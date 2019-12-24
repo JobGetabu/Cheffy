@@ -69,7 +69,7 @@ data class LoginResponse(
 @Parcelize
 data class UserData(
     @SerializedName("address")
-    val address: List<ShippingResponse>? = null,
+    val address: List<ShippingData>? = null,
     @SerializedName("auth_token")
     val authToken: String? = null,
     @SerializedName("country_code")
@@ -124,58 +124,6 @@ data class ProfileResponse(
     @SerializedName("data")
     val `data`: UserData? = null
 ) : Parcelable
-
-data class ShippingRequest(
-    var addressLine1: String? = null,
-    var addressLine2: String? = null,
-    var city: String? = null,
-    var lat: String? = null,
-    var lon: String? = null,
-    var state: String? = null,
-    var zipCode: String? = null,
-    var deliveryNote: String? = null
-)
-
-@SuppressLint("ParcelCreator")
-@Parcelize
-data class ShippingResponse(
-    @SerializedName("message")
-    val message: String? = null,
-    @SerializedName("data")
-    val shipData: List<ShippingDataResponse>? = null
-) : Parcelable
-
-@SuppressLint("ParcelCreator")
-@Parcelize
-data class ShippingDataResponse(
-    @SerializedName("addressLine1")
-    val addressLine1: String? = null,
-    @SerializedName("addressLine2")
-    val addressLine2: String? = null,
-    @SerializedName("city")
-    val city: String? = null,
-    @SerializedName("createdAt")
-    val createdAt: String? = null,
-    @SerializedName("id")
-    val id: Int? = null,
-    @SerializedName("lat")
-    val lat: String? = null,
-    @SerializedName("lon")
-    val lon: String? = null,
-    @SerializedName("state")
-    val state: String? = null,
-    @SerializedName("updatedAt")
-    val updatedAt: String? = null,
-    @SerializedName("userId")
-    val userId: Int? = null,
-    @SerializedName("UserId")
-    val userId2: Int? = null,
-    @SerializedName("zipCode")
-    val zipCode: String? = null,
-    @SerializedName("deliveryNote")
-    val deliveryNote: String? = null
-) : Parcelable
-
 
 data class VerifyRequest(
     val email: String?,

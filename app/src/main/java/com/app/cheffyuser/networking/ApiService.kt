@@ -45,10 +45,10 @@ interface ApiService {
     suspend fun getUser(): ProfileResponse
 
     @GET("shipping")
-    suspend fun getShipping(): List<ShippingDataResponse>
+    suspend fun getShipping(): ShippingAddressResponse
 
     @POST("shipping")
-    suspend fun setShipping(@Body shippingRequest: ShippingRequest): ShippingResponse
+    suspend fun setShipping(@Body shippingRequest: ShippingRequest): SetShippingResponse
 
 
     //endregion
@@ -119,6 +119,15 @@ interface ApiService {
 
     @GET("basket")
     suspend fun getBasket(): BasketListResponse
+
+    @PUT("basket/add/{basketId}")
+    suspend fun addItemby1(@Path(value = "basketId") basketId: Int): BasketListResponse
+
+    @PUT("basket/subtract/{basketId}")
+    suspend fun subtractItemby1(@Path(value = "basketId") basketId: Int): BasketListResponse
+
+    @DELETE("basket/delete/{basketId}")
+    suspend fun deleteItem(@Path(value = "basketId") basketId: Int): BasketListResponse
 
     @GET("user/peopleAlsoAdded/{plateId}")
     suspend fun getPeopleAlsoAdded(@Path(value = "plateId") plateId: Int): List<PeopleAddedResponse>

@@ -25,7 +25,7 @@ class HomeViewModel : ViewModel() {
     var mCurrentLatitude: MediatorLiveData<Double?> = MediatorLiveData()
     var mAddressText: MediatorLiveData<String?> = MediatorLiveData()
 
-    var shippingData: MediatorLiveData<ShippingDataResponse> = MediatorLiveData()
+    var shippingData: MediatorLiveData<ShippingData> = MediatorLiveData()
 
     var pagerCurrentItem: MediatorLiveData<Int> = MediatorLiveData()
 
@@ -139,7 +139,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun fetchShipping(): LiveData<Resource<List<ShippingDataResponse>>> {
+    fun fetchShipping(): LiveData<Resource<ShippingAddressResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchShipping()
             emit(Resource.loading(null))
@@ -147,7 +147,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun setShipping(shippingRequest: ShippingRequest): LiveData<Resource<ShippingResponse>> {
+    fun setShipping(shippingRequest: ShippingRequest): LiveData<Resource<SetShippingResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.setShipping(shippingRequest)
             emit(Resource.loading(null))
@@ -173,7 +173,31 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun addToBasket(addToBasketRequest:  MutableList<AddToBasketRequest>): LiveData<Resource<BasketListResponse>> {
+    fun addItemby1(basketId: Int): LiveData<Resource<BasketListResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.addItemby1(basketId)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun subtractItemby1(basketId: Int): LiveData<Resource<BasketListResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.subtractItemby1(basketId)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun deleteItem(basketId: Int): LiveData<Resource<BasketListResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.deleteItem(basketId)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun addToBasket(addToBasketRequest: MutableList<AddToBasketRequest>): LiveData<Resource<BasketListResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.addToBasket(addToBasketRequest)
             emit(Resource.loading(null))

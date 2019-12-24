@@ -15,6 +15,7 @@ import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.activities.ItemCartActivity
 import com.app.cheffyuser.cart.adapter.CartItemsAdapter
+import com.app.cheffyuser.cart.adapter.UpdateCartClickListener
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
@@ -114,10 +115,21 @@ class AddCartFragment : BaseFragment() {
 
                         cartItemsAdapter = CartItemsAdapter(
                             activity!!,
+                            vm,
                             plateBaskets,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
-                                    setupCartList()
+                                    //loading
+                                    recycler_view.hideView()
+                                    noitem_layout.hideView()
+                                    loader_layout.showView()
+                                }
+                            }, object : UpdateCartClickListener {
+                                override fun modelClick(model: Any, isUpdated: Boolean) {
+                                    //just got updated
+                                    recycler_view.showView()
+                                    noitem_layout.hideView()
+                                    loader_layout.hideView()
                                 }
                             })
                         recycler_view.adapter = cartItemsAdapter

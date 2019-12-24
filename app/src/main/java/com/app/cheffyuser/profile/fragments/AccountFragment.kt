@@ -78,7 +78,7 @@ class AccountFragment : BaseFragment() {
         })
 
         vm.fetchShipping().observe(this, Observer {
-            val datas = it.data
+            val datas = it.data?.shippingResponseData
 
             when (it.status) {
                 Status.ERROR -> {

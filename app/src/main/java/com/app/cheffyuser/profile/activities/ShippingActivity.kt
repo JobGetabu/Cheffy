@@ -171,7 +171,7 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
                 }
                 Status.SUCCESS -> {
 
-                    tokenManager.shippingData = it.data?.shipData?.get(0)
+                    tokenManager.shippingData = it.data?.shippingResponseData
 
                     successDialogue(alertDialog = dialog, descriptions = "${it.data?.message}")
                     finish()

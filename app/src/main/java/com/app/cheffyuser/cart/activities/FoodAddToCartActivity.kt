@@ -212,6 +212,7 @@ class FoodAddToCartActivity : BaseActivity() {
                     dialog?.dismiss()
                     toast("Added to cart")
 
+                    //TODO: goToChef now
 
                     finish()
                 }
