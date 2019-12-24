@@ -372,4 +372,27 @@ class HomeRepository {
     }
 
     //endregion
+
+    //Card API
+    suspend fun addCreditCard(cardRequest: CreditCardRequest): Resource<CreditCardResponse> {
+        return try {
+            val response = apiServiceAuthed.addCreditCard(cardRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
+    suspend fun getCreditCard(): Resource<MutableList<CreditCardResponse>> {
+        return try {
+            val response = apiServiceAuthed.getCreditCards()
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
 }

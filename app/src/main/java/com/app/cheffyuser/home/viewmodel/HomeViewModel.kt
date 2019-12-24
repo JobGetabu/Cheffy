@@ -301,6 +301,26 @@ class HomeViewModel : ViewModel() {
 
     //endregion
 
+    //cards
+
+    fun addCreditCard(cardRequest: CreditCardRequest): LiveData<Resource<CreditCardResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.addCreditCard(cardRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+    fun getCreditCards(): LiveData<Resource<MutableList<CreditCardResponse>>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.getCreditCard()
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
+
+
 
     //region foodDetails data
 

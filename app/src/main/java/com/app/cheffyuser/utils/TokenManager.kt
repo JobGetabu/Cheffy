@@ -24,6 +24,7 @@ import com.app.cheffyuser.utils.Constants.PREF_USER_EMAIL
 import com.app.cheffyuser.utils.Constants.PREF_USER_ISLOGIN
 import com.app.cheffyuser.utils.Constants.PREF_USER_SHIPPINGREQ_CLASS
 import com.app.cheffyuser.utils.Constants.PREF_USER_SHIPPING_CLASS
+import com.app.cheffyuser.utils.Constants.PREF_USER_STRIPEID
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -101,6 +102,9 @@ class TokenManager(private val prefs: SharedPreferences) {
             editor.putString(PREF_FULLUSER_DATA_CLASS, shippingString).apply()
         }
 
+    var stripeId: String?
+        get() = prefs.getString(PREF_USER_STRIPEID, null)
+        set(stripeId) = editor.putString(PREF_USER_STRIPEID, stripeId).apply()
 
     var email: String?
         get() = prefs.getString(PREF_USER_EMAIL, null)

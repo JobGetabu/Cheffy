@@ -107,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:fontFamily="@font/sailec_medium"
-                        android:text="8450   3939   0449   9384"
+                        tools:text="8450   3939   0449   9384"
                         android:textColor="@color/red"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -137,7 +137,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/sailec_medium"
-                        android:text="9/20"
+                        tools:text="9/20"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -296,10 +296,6 @@
                         android:paddingBottom="10dp"
                         android:textAlignment="center" />
 
-
-
-
-
                 </LinearLayout>
 
             </HorizontalScrollView>
@@ -344,7 +340,10 @@
                     android:fontFamily="@font/sailec_regular"
                     android:gravity="center"
                     android:hint="Month"
-                    android:inputType="number"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:inputType="none"
                     android:padding="10dp" />
 
                 <EditText
@@ -360,7 +359,9 @@
                     android:fontFamily="@font/sailec_regular"
                     android:gravity="center"
                     android:hint="2019"
-                    android:inputType="number"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:inputType="none"
                     android:padding="10dp" />
             </LinearLayout>
 
@@ -413,6 +414,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/save_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -428,6 +430,5 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

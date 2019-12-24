@@ -47,9 +47,12 @@
         <activity android:name=".custom_order.CustomOrderActivity" />
         <activity android:name=".cart.activities.CustomOrderCheckoutActivity" />
         <activity android:name=".cart.activities.CustomOrderListActivity" />
-        <activity android:name=".profile.activities.ShippingActivity" />
+        <activity android:name=".profile.activities.ShippingActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".home.activities.ReceiptDetailsActivity" />
-        <activity android:name=".cart.activities.FoodAddToCartActivity" />
+        <activity android:name=".cart.activities.FoodAddToCartActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".home.activities.FoodDetailsActivity"
             android:screenOrientation="portrait"
@@ -64,10 +67,10 @@
         <activity android:name=".cart.activities.FoodTrackingActivity" />
         <activity
             android:name=".cart.activities.AddCardActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing" />
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".cart.activities.ItemCartActivity" />
+        <activity android:name=".cart.activities.ItemCartActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".home.activities.BottomNavActivity"
             android:label="@string/title_activity_bottom_nav"

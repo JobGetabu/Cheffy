@@ -171,6 +171,13 @@ interface ApiService {
     suspend fun getSearchPredictions(): PredictionsResponse
 
 
+    // card API
+    @POST("/card")
+    suspend fun addCreditCard(@Body cardRequest: CreditCardRequest): CreditCardResponse
+
+    @GET("user/card")
+    suspend fun getCreditCards(): MutableList<CreditCardResponse>
+
     //logout
     @POST("user/logout")
     suspend fun logout(): LogoutResponse

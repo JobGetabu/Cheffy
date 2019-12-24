@@ -17,6 +17,7 @@ import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.activities.EditProfileActivity
 import com.app.cheffyuser.profile.activities.ShippingActivity
+import com.app.cheffyuser.utils.Tools.directLinkToBrowser
 import com.app.cheffyuser.utils.createSnack
 import kotlinx.android.synthetic.main.fragment_accounts_setting.*
 
@@ -40,6 +41,8 @@ class AccountsSettingFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val BASE_URL = "https://mycheffy.herokuapp.com/"
+
         layout_payment.setOnClickListener {
             val intent = Intent(activity, AddCardActivity::class.java)
             startActivity(intent)
@@ -56,6 +59,15 @@ class AccountsSettingFragment : BaseFragment() {
         layout_profile_edit.setOnClickListener {
             val intent = Intent(activity, EditProfileActivity::class.java)
             startActivity(intent)
+        }
+
+        layout_support.setOnClickListener {
+            createSnack(ctx = activity!!, txt = "TODO: Add support link")
+            directLinkToBrowser(activity!!, BASE_URL)
+        }
+        layout_legal.setOnClickListener {
+            createSnack(ctx = activity!!, txt = "TODO: Add legal link")
+            directLinkToBrowser(activity!!, BASE_URL)
         }
 
     }

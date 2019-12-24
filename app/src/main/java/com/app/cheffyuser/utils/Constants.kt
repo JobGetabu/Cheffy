@@ -7,6 +7,7 @@ object Constants {
     const val PREF_PHONE_NUMBER = "PREF_PHONE_NUMBER"
 
     const val PREF_USER_ISLOGIN = "PREF_USER_ISLOGIN"
+    const val PREF_USER_STRIPEID = "PREF_USER_STRIPEID"
     const val PREF_USER_NAME = "PREF_USER_NAME"
     const val PREF_USER_EMAIL = "PREF_USER_EMAIL"
     const val PREF_USER_PIC = "PREF_USER_PIC"

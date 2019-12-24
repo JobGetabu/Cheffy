@@ -5,10 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.R
+import com.app.cheffyuser.cart.models.CreditCardRequest
 import com.app.cheffyuser.home.activities.BaseActivity
+import com.app.cheffyuser.home.viewmodel.HomeViewModel
+import com.app.cheffyuser.networking.Status
+import com.app.cheffyuser.utils.createSnack
+import com.whiteelephant.monthpicker.MonthPickerDialog
 import kotlinx.android.synthetic.main.activity_add_card.*
+import java.util.*
 
 class AddCardActivity : BaseActivity() {
 
@@ -16,6 +25,10 @@ class AddCardActivity : BaseActivity() {
     companion object {
         fun newIntent(context: Context): Intent =
             Intent(context, AddCardActivity::class.java)
+    }
+
+    private val vm: HomeViewModel by lazy {
+        ViewModelProviders.of(this).get(HomeViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +48,15 @@ class AddCardActivity : BaseActivity() {
         et2.addTextChangedListener(myCardTextWatcher(et2))
         et3.addTextChangedListener(myCardTextWatcher(et3))
         et4.addTextChangedListener(myCardTextWatcher(et4))
+
+        expiry.setOnClickListener { dateSetter() }
+        year.setOnClickListener { dateSetter() }
+
+        save_btn.setOnClickListener {
+            saveCard()
+        }
+
+        name.setText(tokenManager.user?.data?.name)
 
     }
 
@@ -107,4 +129,88 @@ class AddCardActivity : BaseActivity() {
 
     }
 
+    private fun dateSetter() {
+        val today = Calendar.getInstance()
+        val picker = MonthPickerDialog.Builder(
+            this,
+            { selectedMonth: Int, selectedYear: Int ->
+                expiry!!.setText("${selectedMonth + 1}")
+                year!!.setText("$selectedYear")
+            },
+            today.get(Calendar.YEAR),
+            today.get(Calendar.MONTH)
+        )
+
+
+        var minY = if (expiry?.text?.toString()!!.isNotEmpty()) {
+            expiry?.text.toString().toInt()
+        } else today.get(Calendar.YEAR)
+
+        var minM = if (year?.text?.toString()!!.isNotEmpty()) {
+            year?.text.toString().toInt()
+        } else today.get(Calendar.YEAR)
+
+        minM = today.get(Calendar.MONTH)
+        minY = today.get(Calendar.YEAR)
+
+        picker
+            .setMinYear(minY)
+            .setActivatedYear(minY)
+            .setMaxYear(minY + 10)
+            .setActivatedMonth(minM)
+            .setTitle("Select expiry")
+            .setOnMonthChangedListener { expiry!!.setText("${it + 1}") }
+            .setOnYearChangedListener { year!!.setText("$it") }
+            .build()
+            .show()
+    }
+
+    private fun saveCard() {
+        val nameTxt: String = name?.text.toString()
+        val expiryno: Int? = if (expiry?.text?.toString()!!.isNotEmpty()) {
+            expiry?.text.toString().toInt()
+        } else null
+
+        val yearno: Int? = if (year?.text?.toString()!!.isNotEmpty()) {
+            year?.text.toString().toInt()
+        } else null
+
+        val cvvno: Int = cvv?.text.toString().toInt()
+        val number = card_num_label.toString().trim()
+
+        if (nameTxt.isEmpty() && number.isEmpty() && expiryno != null && yearno != null) {
+            createSnack(ctx = this, txt = "All fields are required")
+            return
+        }
+
+        if (!isConnected) {
+
+            createSnack(
+                this, getString(R.string.you_not_connected), getString(R.string.retry),
+                View.OnClickListener { saveCard() })
+
+            return
+        }
+
+        val dialog = showDialogue("Saving card", "Please wait ...")
+
+        val req = CreditCardRequest(cvvno, expiryno!!, yearno!!, number)
+
+        vm.addCreditCard(req).observe(this, Observer {
+            when (it.status) {
+                Status.ERROR -> {
+                    errorDialogue("Error", "${it.message}", dialog!!)
+                }
+                Status.SUCCESS -> {
+                    successDialogue(alertDialog = dialog)
+
+                    val res = it.data
+
+                    //save in prefs
+                    tokenManager.stripeId = res?.id
+                    finish()
+                }
+            }
+        })
+    }
 }
