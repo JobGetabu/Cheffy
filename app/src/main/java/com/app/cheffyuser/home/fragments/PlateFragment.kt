@@ -42,9 +42,8 @@ open class PlateFragment : BaseFragment() {
 
         initTablayout()
 
-
         foodname.text = vm.platesResponse.value?.name
-        val tym = vm.platesResponse.value!!.deliveryTime
+        val tym = vm.platesResponse.value?.deliveryTime
         if (tym != null) times.text = "${tym.minus(5)}-${tym} min"
         foodprice.text = "$" + vm.platesResponse.value?.price
 
