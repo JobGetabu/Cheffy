@@ -11,7 +11,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 
 ext.versionMajor = 1
-ext.versionMinor = 0
+ext.versionMinor = 1
 ext.versionPatch = 1
 ext.versionClassifier = null
 ext.isSnapshot = true  //only true while in development

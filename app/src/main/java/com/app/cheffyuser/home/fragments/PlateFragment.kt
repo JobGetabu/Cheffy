@@ -44,8 +44,9 @@ open class PlateFragment : BaseFragment() {
 
 
         foodname.text = vm.platesResponse.value?.name
-        times.text = "${vm.platesResponse.value!!.deliveryTime!!.minus(5)}-${vm.platesResponse.value?.deliveryTime} min"
-        foodprice.text = "$"+vm.platesResponse.value?.price
+        val tym = vm.platesResponse.value!!.deliveryTime
+        if (tym != null) times.text = "${tym.minus(5)}-${tym} min"
+        foodprice.text = "$" + vm.platesResponse.value?.price
 
     }
 
