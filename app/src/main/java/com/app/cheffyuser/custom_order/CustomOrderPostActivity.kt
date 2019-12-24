@@ -263,7 +263,7 @@ class CustomOrderPostActivity : BaseActivity(), PickerInterface {
         val minPrice = etMinPrice.text.toString().trim().replace("$", "")
         val maxPrice = etMaxPrice.text.toString().trim().replace("$", "")
 
-        if (foodname.isEmpty() && fooddescription.isEmpty() && minPrice.isEmpty() && maxPrice.isEmpty()) {
+        if (foodname.isEmpty() || fooddescription.isEmpty() || minPrice.isEmpty() || maxPrice.isEmpty()) {
             createSnack(ctx = this, txt = "All fields are required")
             return
         }

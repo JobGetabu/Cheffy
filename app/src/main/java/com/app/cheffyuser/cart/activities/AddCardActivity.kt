@@ -175,11 +175,14 @@ class AddCardActivity : BaseActivity() {
             year?.text.toString().toInt()
         } else null
 
-        val cvvno: Int = cvv?.text.toString().toInt()
+        val cvvno: Int? =  if (cvv?.text?.toString()!!.isNotEmpty()) {
+            cvv?.text.toString().toInt()
+        } else null
         val number = card_num_label.toString().trim()
 
-        if (nameTxt.isEmpty() && number.isEmpty() && expiryno != null && yearno != null) {
+        if (nameTxt.isEmpty() || number.isEmpty() || expiryno == null || yearno != null || cvvno == null ) {
             createSnack(ctx = this, txt = "All fields are required")
+
             return
         }
 
@@ -194,7 +197,7 @@ class AddCardActivity : BaseActivity() {
 
         val dialog = showDialogue("Saving card", "Please wait ...")
 
-        val req = CreditCardRequest(cvvno, expiryno!!, yearno!!, number)
+        val req = CreditCardRequest(cvvno!!, expiryno!!, yearno!!, number)
 
         vm.addCreditCard(req).observe(this, Observer {
             when (it.status) {
