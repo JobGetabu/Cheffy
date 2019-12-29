@@ -141,6 +141,7 @@ data class RegistrationRequest(
     val email: String?,
     val name: String?,
     val password: String?,
+    val promotionalContent: Boolean?,
     val user_type: String = "user"
 )
 

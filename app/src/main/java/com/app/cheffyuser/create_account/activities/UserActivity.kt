@@ -71,7 +71,13 @@ class UserActivity : BaseActivity() {
         }
 
         val dialog = showDialogue("Registering account", "Please wait ...")
-        val req = RegistrationRequest(tokenManager.email!!, name, password, "user")
+        val req = RegistrationRequest(
+            tokenManager.email!!,
+            name,
+            password,
+            promotionalContent.isChecked,
+            "user"
+        )
 
         vm.registerAccount(req).observe(this, Observer {
             when (it.status) {
