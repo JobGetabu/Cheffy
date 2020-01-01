@@ -73,7 +73,7 @@ class HomeRepository {
         }
     }
 
-    suspend fun fetchFoodPopular(): Resource<MutableList<PlatesResponse>> {
+    suspend fun fetchFoodPopular(): Resource<GetPlateResponse> {
         return try {
             val response = apiService.getFoodPopular()
             responseHandler.handleSuccess(response)
@@ -83,7 +83,7 @@ class HomeRepository {
         }
     }
 
-    suspend fun fetchFoodNewest(): Resource<MutableList<PlatesResponse>> {
+    suspend fun fetchFoodNewest(): Resource<GetPlateResponse> {
         return try {
             val response = apiService.getFoodNewest()
             responseHandler.handleSuccess(response)
@@ -93,7 +93,7 @@ class HomeRepository {
         }
     }
 
-    suspend fun fetchRelatedFood(foodId: Int): Resource<MutableList<PlatesResponse>> {
+    suspend fun fetchRelatedFood(foodId: Int): Resource<GetPlateResponse> {
         return try {
             val response = apiService.getRelatedFood(foodId)
             responseHandler.handleSuccess(response)
@@ -103,7 +103,7 @@ class HomeRepository {
         }
     }
 
-    suspend fun getPlatesByCategory(categoryId: Int): Resource<MutableList<PlatesResponse>> {
+    suspend fun getPlatesByCategory(categoryId: Int): Resource<GetPlateResponse> {
         return try {
             val response = apiService.getPlatesByCategory(categoryId)
             responseHandler.handleSuccess(response)
@@ -118,7 +118,7 @@ class HomeRepository {
         lat: String,
         lon: String,
         radiusMiles: String
-    ): Resource<MutableList<PlatesResponse>> {
+    ): Resource<GetPlateResponse> {
         return try {
             val response = apiService.getFoodNearbyLocation(lat, lon, radiusMiles)
             responseHandler.handleSuccess(response)

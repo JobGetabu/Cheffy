@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
-import com.app.cheffyuser.home.model.PlatesResponse
+import com.app.cheffyuser.home.model.Review
 import com.app.cheffyuser.utils.Tools.getFormattedDateSimple
 import com.app.cheffyuser.utils.loadUrl
 import de.hdodenhof.circleimageview.CircleImageView
@@ -15,7 +15,7 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar
 
 class ReviewsAdapter(
     private val context: Context,
-    private val reviews: MutableList<PlatesResponse.Reviews>?
+    private val reviews: MutableList<Review>?
 ) : RecyclerView.Adapter<BaseViewHolder>() {
     private var isLoaderVisible = false
     private lateinit var myHolder: BaseViewHolder
@@ -37,12 +37,12 @@ class ReviewsAdapter(
         return reviews?.size ?: 0
     }
 
-    fun add(review: PlatesResponse.Reviews) {
+    fun add(review: Review) {
         reviews!!.add(review)
         notifyItemInserted(reviews.size - 1)
     }
 
-    private fun remove(review: PlatesResponse.Reviews) {
+    private fun remove(review: Review) {
         val position = reviews!!.indexOf(review)
         if (position > -1) {
             reviews.removeAt(position)
@@ -50,7 +50,7 @@ class ReviewsAdapter(
         }
     }
 
-    private fun getItem(position: Int): PlatesResponse.Reviews? {
+    private fun getItem(position: Int): Review? {
         return if (position != RecyclerView.NO_POSITION)
             reviews!![position]
         else
@@ -61,7 +61,7 @@ class ReviewsAdapter(
         itemView: View
     ) :
         BaseViewHolder(itemView) {
-        private var model: PlatesResponse.Reviews? = null
+        private var model: Review? = null
 
         //init views here
         private val reviewface = itemView.findViewById<CircleImageView>(R.id.reviewface)
@@ -75,9 +75,9 @@ class ReviewsAdapter(
             this.model = reviews!![position]
 
             // set whatever you want. for instance;
-            reviewface.loadUrl(model?.user?.name)
+            reviewface.loadUrl(model?.user?.imagePath)
             name.text = model?.user?.name
-            date.text = "${getFormattedDateSimple(System.currentTimeMillis())}"
+            date.text = "${getFormattedDateSimple(model?.createdAt!!)}"
             rate.rating = model?.rating!!.toFloat()
             comment.text = model?.comment
 

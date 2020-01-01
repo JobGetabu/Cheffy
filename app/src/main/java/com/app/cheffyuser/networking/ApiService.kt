@@ -54,6 +54,7 @@ interface ApiService {
     //endregion
 
     //region home apis
+    //TODO: classify these plates
 
     @GET("plate/show/{plateId}")
     suspend fun getPlate(
@@ -64,27 +65,27 @@ interface ApiService {
     suspend fun getFoodNearBy(
         @Query("latitude") lat: String,
         @Query("longitude") lon: String,
-        @Query("radius") radius: String
+        @Query("radiusMiles") radius: String
     ): MutableList<FoodNearByModel>
 
-    @GET("plate/?newest")
-    suspend fun getFoodPopular(): MutableList<PlatesResponse>
+    @GET("plate/")
+    suspend fun getFoodPopular(): GetPlateResponse
 
-    @GET("plate/?popular")
-    suspend fun getFoodNewest(): MutableList<PlatesResponse>
+    @GET("plate/")
+    suspend fun getFoodNewest(): GetPlateResponse
 
     @GET("plate/{foodId}/related")
-    suspend fun getRelatedFood(@Path("foodId") foodId: Int): MutableList<PlatesResponse>
+    suspend fun getRelatedFood(@Path("foodId") foodId: Int): GetPlateResponse
 
-    @GET("category/{categoryId}/plates")
-    suspend fun getPlatesByCategory(@Path("categoryId") categoryId: Int): MutableList<PlatesResponse>
+    @GET("plate/category/{categoryId}")
+    suspend fun getPlatesByCategory(@Path("categoryId") categoryId: Int): GetPlateResponse
 
     @GET("plate/")
     suspend fun getFoodNearbyLocation(
         @Query("latitude") lat: String,
         @Query("longitude") lon: String,
-        @Query("radius") radiusMiles: String
-    ): MutableList<PlatesResponse>
+        @Query("radiusMiles") radiusMiles: String
+    ): GetPlateResponse
 
     @GET("category")
     suspend fun getFoodCategory(): FoodCategoryResponse

@@ -261,9 +261,9 @@ class FoodCategoryFragment : BaseFragment() {
                     no_searchfood_layout.hideView()
                     catlist.showView()
 
-                    if (!datas.isNullOrEmpty()) {
+                    if (!datas?.platesResponse.isNullOrEmpty()) {
 
-                        foodPopularAdapter = FoodPopularAdapter(activity!!, vm, datas,
+                        foodPopularAdapter = FoodPopularAdapter(activity!!, vm, datas?.platesResponse,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse

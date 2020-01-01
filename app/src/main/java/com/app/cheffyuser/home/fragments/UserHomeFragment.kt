@@ -127,6 +127,7 @@ class UserHomeFragment : BaseFragment() {
 
         //TODO: pass in location coordinates
         vm.fetchFoodNearbyLocation().observe(this, Observer {
+
             val datas = it.data
 
             when (it.status) {
@@ -153,9 +154,9 @@ class UserHomeFragment : BaseFragment() {
                     shimmer_view_container.hideView()
                     main_content.showView()
 
-                    if (!datas.isNullOrEmpty()) {
+                    if (!datas?.platesResponse.isNullOrEmpty()) {
 
-                        foodNearbyAdapter = FoodNearbyAdapter(activity!!, vm, datas,
+                        foodNearbyAdapter = FoodNearbyAdapter(activity!!, vm, datas?.platesResponse,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse
@@ -194,8 +195,8 @@ class UserHomeFragment : BaseFragment() {
                 }
                 Status.SUCCESS -> {
 
-                    if (!datas.isNullOrEmpty()) {
-                        foodNearbyAdapter2 = FoodNearbyAdapter(activity!!, vm, datas,
+                    if (!datas?.platesResponse.isNullOrEmpty()) {
+                        foodNearbyAdapter2 = FoodNearbyAdapter(activity!!, vm, datas?.platesResponse,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse
@@ -242,9 +243,9 @@ class UserHomeFragment : BaseFragment() {
                 }
                 Status.SUCCESS -> {
 
-                    if (!datas.isNullOrEmpty()) {
+                    if (!datas?.platesResponse.isNullOrEmpty()) {
 
-                        foodPopularAdapter = FoodPopularAdapter(activity!!, vm, datas,
+                        foodPopularAdapter = FoodPopularAdapter(activity!!, vm, datas?.platesResponse,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse

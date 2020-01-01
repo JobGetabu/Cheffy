@@ -196,7 +196,7 @@ class PlateDetailsFragment : BaseFragment() {
                     loader_layout.hideView()
 
                     datas.let {
-                        relatedAdapter = FoodRelatedAdapter(context!!, datas,
+                        relatedAdapter = FoodRelatedAdapter(context!!, datas?.platesResponse,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
                                     model as PlatesResponse

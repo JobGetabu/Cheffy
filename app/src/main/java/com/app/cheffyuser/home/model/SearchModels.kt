@@ -27,12 +27,12 @@ data class TypeCategory(
 
 data class TypeChef(
     @SerializedName("chef")
-    val chef: Chef? = null,
+    val chef: ChefName? = null,
     @SerializedName("userId")
     val userId: Int? = null
 )
 
-data class Chef(
+data class ChefName(
     @SerializedName("restaurant_name")
     val restaurantName: String? = null
 )

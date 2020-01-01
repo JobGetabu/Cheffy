@@ -168,7 +168,7 @@ class FoodPopularAdapter(
             var rating = 0
 
             model?.reviews?.forEach {
-                ratingSum += it.rating!!
+                //ratingSum += it.rating!!
             }
 
             model?.reviews?.let {

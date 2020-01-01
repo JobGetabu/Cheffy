@@ -136,7 +136,7 @@ class FoodDetailsActivity : BaseActivity() {
             var rating = 0
 
             vm.platesResponse.value?.reviews?.forEach {
-                ratingSum += it.rating!!
+                //ratingSum += it.rating!!
             }
 
             vm.platesResponse.value?.reviews?.let {

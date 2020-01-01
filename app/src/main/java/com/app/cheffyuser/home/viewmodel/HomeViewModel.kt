@@ -78,7 +78,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun fetchFoodPopular(): LiveData<Resource<MutableList<PlatesResponse>>> {
+    fun fetchFoodPopular(): LiveData<Resource<GetPlateResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchFoodPopular()
             emit(Resource.loading(null))
@@ -86,7 +86,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun fetchFoodNewest(): LiveData<Resource<MutableList<PlatesResponse>>> {
+    fun fetchFoodNewest(): LiveData<Resource<GetPlateResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchFoodNewest()
             emit(Resource.loading(null))
@@ -94,7 +94,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun fetchRelatedFood(foodId: Int): LiveData<Resource<MutableList<PlatesResponse>>> {
+    fun fetchRelatedFood(foodId: Int): LiveData<Resource<GetPlateResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchRelatedFood(foodId)
             emit(Resource.loading(null))
@@ -102,7 +102,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun getPlatesByCategory(categoryId: Int): LiveData<Resource<MutableList<PlatesResponse>>> {
+    fun getPlatesByCategory(categoryId: Int): LiveData<Resource<GetPlateResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.getPlatesByCategory(categoryId)
             emit(Resource.loading(null))
@@ -111,10 +111,10 @@ class HomeViewModel : ViewModel() {
     }
 
     fun fetchFoodNearbyLocation(
-        lat: String = "-5.03284353",
-        lon: String = "-42.8176576",
-        radius: String = "100"
-    ): LiveData<Resource<MutableList<PlatesResponse>>> {
+        lat: String = "-5.0323423",
+        lon: String = "-42.8150343",
+        radius: String = "10"
+    ): LiveData<Resource<GetPlateResponse>> {
         return liveData(Dispatchers.IO) {
             val data = repository.fetchFoodNearbyLocation(lat, lon, radius)
             emit(Resource.loading(null))

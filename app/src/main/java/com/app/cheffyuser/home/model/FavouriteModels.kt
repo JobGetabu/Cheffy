@@ -129,10 +129,3 @@ data class FavPlate(
     @SerializedName("UserId")
     val userId: Int? = null
 )
-
-data class PlateImage(
-    @SerializedName("id")
-    val id: Int? = null,
-    @SerializedName("url")
-    val url: String? = null
-)

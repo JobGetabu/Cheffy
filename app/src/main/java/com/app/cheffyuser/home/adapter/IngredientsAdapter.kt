@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
-import com.app.cheffyuser.home.model.PlatesResponse
+import com.app.cheffyuser.home.model.Ingredient
 
 class IngredientsAdapter(
     private val countTo3: Boolean = false,
     private val context: Context,
-    private val ingredients: MutableList<PlatesResponse.Ingredient?>?
+    private val ingredients: MutableList<Ingredient?>?
 ) : RecyclerView.Adapter<BaseViewHolder>() {
     private lateinit var myHolder: BaseViewHolder
 
@@ -35,7 +35,7 @@ class IngredientsAdapter(
     }
 
 
-    private fun getItem(position: Int): PlatesResponse.Ingredient? {
+    private fun getItem(position: Int): Ingredient? {
         return if (position != RecyclerView.NO_POSITION)
             ingredients?.get(position)
         else
@@ -46,7 +46,7 @@ class IngredientsAdapter(
         itemView: View
     ) :
         BaseViewHolder(itemView) {
-        private var model: PlatesResponse.Ingredient? = null
+        private var model: Ingredient? = null
 
         //init views here
         private val counter = itemView.findViewById<TextView>(R.id.counter)
