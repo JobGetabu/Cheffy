@@ -165,16 +165,19 @@ class FoodNearbyAdapter(
             super.onBind(position)
             this.model = foodNearbyModels!![position]
 
-            var ratingSum = 0
-            var rating = 0
+            var ratingSum = 0.0
+            var rating = 0.0
+            var raters = 0
 
             model?.reviews?.forEach {
-                //ratingSum += it.rating!!
+                ratingSum += it.rating!!
             }
 
             model?.reviews?.let {
-                if (it.count() != 0)
+                if (it.count() != 0){
                     rating = ratingSum / it.count()
+                    raters = it.count()
+                }
             }
 
 
@@ -183,7 +186,7 @@ class FoodNearbyAdapter(
                 foodimage.loadUrl(model?.plateImages?.get(0)?.url)
 
             foodname.text = model?.name
-            food_ratings.text = "$rating(${ratingSum})"
+            food_ratings.text = "${rating.toInt()}(${raters})"
 
             times.text = "${model!!.deliveryTime!!.minus(5)}-${model?.deliveryTime} min"
 

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.model.Review
-import com.app.cheffyuser.utils.Tools.getFormattedDateSimple
+import com.app.cheffyuser.utils.Tools.cheffTimeConverter
 import com.app.cheffyuser.utils.loadUrl
 import de.hdodenhof.circleimageview.CircleImageView
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
@@ -77,7 +77,7 @@ class ReviewsAdapter(
             // set whatever you want. for instance;
             reviewface.loadUrl(model?.user?.imagePath)
             name.text = model?.user?.name
-            date.text = "${getFormattedDateSimple(model?.createdAt!!)}"
+            date.text = "${cheffTimeConverter(model?.createdAt!!)}"
             rate.rating = model?.rating!!.toFloat()
             comment.text = model?.comment
 

@@ -14,6 +14,7 @@ import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.libraries.places.api.Places
 import com.google.firebase.iid.FirebaseInstanceId
+import com.jakewharton.threetenabp.AndroidThreeTen
 import timber.log.Timber
 
 class CheffyApp : MultiDexApplication() {
@@ -79,6 +80,9 @@ class CheffyApp : MultiDexApplication() {
             //Release mode
             Timber.plant(ReleaseLogTree())
         }
+
+        //init timezone time
+        AndroidThreeTen.init(this)
 
     }
 

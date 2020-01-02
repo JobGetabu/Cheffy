@@ -26,6 +26,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import org.threeten.bp.LocalDateTime
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -123,16 +124,17 @@ object Tools {
     }
 
 
-    /*
+    /*what kinda date format is this "2019-12-08T16:33:56.000Z" ?
+    could you provide me with its format? example like => "yyyy-MM-dd HH:mm:ss"
+    So that I can parse it locally.*/
 
-            what kinda date format is this "2019-12-08T16:33:56.000Z" ?
-            could you provide me with its format? example like => "yyyy-MM-dd HH:mm:ss"
-            So that I can parse it locally.
-    fun cheffTimeConverter(date: String = "2019-12-08T16:33:56.000Z"): String{
-        val localDateTime = LocalDateTime.parse("2018-09-16T08:00:00")
+    fun cheffTimeConverter(date: String = "2019-12-08T16:33:56.000Z"): String {
+        val dt =date.replace(".000Z","")
+        val localDateTime = LocalDateTime.parse(dt)
+        val formatter =
+            org.threeten.bp.format.DateTimeFormatter.ofPattern("MMM dd, yyyy")
+        return formatter.format(localDateTime)
     }
-     */
-
 
 
     fun getFormattedDateSimple(dateTime: String): String {

@@ -218,6 +218,9 @@ dependencies {
     //month - year picker
     implementation 'com.whiteelephant:monthandyearpicker:1.3.0'
 
+    //backport for android date and time
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$arch_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_version"
