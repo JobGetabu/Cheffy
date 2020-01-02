@@ -111,6 +111,17 @@ interface ApiService {
         @Path(value = "chefId") chefId: Int
     ): ChefResponse
 
+    //review
+
+    @POST("order/{orderId}/review")
+    suspend fun createPlateReview(@Path(value = "orderId") orderId: Int, @Body reviewRequest: ReviewRequest): ReviewResponse
+
+    @GET("rating/{reviewType}/{reviewTypeId}")
+    suspend fun getRating(
+        @Path(value = "reviewType") reviewType: Int,
+        @Path(value = "reviewTypeId") reviewTypeId: Int
+    ): AggregateRatingResponse
+
     //endregion
 
     //Region Basket API

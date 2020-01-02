@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.app.cheffyuser.BuildConfig
+import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.activities.ItemCartActivity
 import com.app.cheffyuser.home.adapter.DetailMainbarAdapter
 import com.app.cheffyuser.home.fragments.KitchenFragment
@@ -130,21 +131,24 @@ class FoodDetailsActivity : BaseActivity() {
         //setup chef details
         if (chef != null) {
             chefname.text = chef.name
-            chefpic.loadUrl(chef.imagePath)
+            chefpic.loadUrl(chef.imagePath, R.drawable.avatar_placeholder)
 
-            var ratingSum = 0
-            var rating = 0
+            var ratingSum = 0.0
+            var rating = 0.0
+            var raters = 0
 
             vm.platesResponse.value?.reviews?.forEach {
-                //ratingSum += it.rating!!
+                ratingSum += it.rating!!
             }
 
             vm.platesResponse.value?.reviews?.let {
-                if (it.count() != 0)
+                if (it.count() != 0) {
                     rating = ratingSum / it.count()
+                    raters = it.count()
+                }
             }
 
-            food_ratings.text = "$rating(${ratingSum})"
+            food_ratings.text = "${rating.toInt()}(${raters})"
 
             times.text =
                 "${vm.platesResponse.value!!.deliveryTime!!.minus(5)}-${vm.platesResponse.value?.deliveryTime} min"
