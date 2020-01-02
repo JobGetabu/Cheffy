@@ -16,6 +16,8 @@ import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.loadUrl
+import com.app.cheffyuser.utils.showView
+import com.github.florent37.shapeofview.shapes.RoundRectView
 import com.varunest.sparkbutton.SparkButton
 import com.varunest.sparkbutton.SparkEventListener
 import timber.log.Timber
@@ -80,6 +82,7 @@ class FoodNearbyAdapter(
         private val times = itemView.findViewById<TextView>(R.id.times)
         private val deliverytext = itemView.findViewById<TextView>(R.id.deliverytext)
         private val sparkButton = itemView.findViewById<SparkButton>(R.id.spark_button)
+        private val float_availability = itemView.findViewById<RoundRectView>(R.id.float_availability)
 
         init {
 
@@ -189,6 +192,10 @@ class FoodNearbyAdapter(
             food_ratings.text = "${rating.toInt()}(${raters})"
 
             times.text = "${model!!.deliveryTime!!.minus(5)}-${model?.deliveryTime} min"
+
+            if (!model?.available!!){
+                float_availability.showView()
+            }
 
         }
 

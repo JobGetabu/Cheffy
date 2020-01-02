@@ -9,17 +9,23 @@
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:theme="@style/Theme.MaterialComponents.Light"
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
+        android:theme="@style/Theme.MaterialComponents.Light"
         app:cardCornerRadius="6dp"
         app:cardElevation="10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/float_availability"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/foodimage"
@@ -37,10 +43,10 @@
                 android:layout_margin="10dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -48,9 +54,9 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/background_activity"
                     android:clickable="true"
-                    android:focusable="true"
-                    android:background="@color/background_activity">
+                    android:focusable="true">
 
                     <com.varunest.sparkbutton.SparkButton
                         android:id="@+id/spark_button"

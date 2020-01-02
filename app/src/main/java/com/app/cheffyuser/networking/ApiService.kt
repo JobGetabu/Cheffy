@@ -182,6 +182,8 @@ interface ApiService {
     @GET("user/searchPredictions")
     suspend fun getSearchPredictions(): PredictionsResponse
 
+    @GET("user/search/{text}")
+    suspend fun getSearchResults(@Path(value = "text") text: String): PlateSearchResponse
 
     // card API
     @POST("/card")

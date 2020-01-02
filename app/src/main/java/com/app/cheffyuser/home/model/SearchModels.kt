@@ -2,6 +2,7 @@ package com.app.cheffyuser.home.model
 
 import com.google.gson.annotations.SerializedName
 
+
 const val SEARCH_PLATE = "plate"
 const val SEARCH_CATEGORY = "category"
 const val SEARCH_CHEF= "chef"
@@ -47,4 +48,46 @@ data class TypePlate(
 data class SearchResult(
     val type: String? = null,
     val id: Int? = null
+)
+
+
+data class PlateSearchResponse(
+    @SerializedName("status")
+    val status: Int? = null,
+    @SerializedName("plates")
+    val plates: List<PlateSearch?>? = null,
+    @SerializedName("restaurants")
+    val restaurants: List<Any?>? = null
+)
+
+
+data class PlateSearch(
+    @SerializedName("id")
+    val id: Int? = null,
+    @SerializedName("name")
+    val name: String? = null,
+    @SerializedName("description")
+    val description: String? = null,
+    @SerializedName("price")
+    val price: Int? = null,
+    @SerializedName("delivery_time")
+    val deliveryTime: Int? = null,
+    @SerializedName("sell_count")
+    val sellCount: Int? = null,
+    @SerializedName("delivery_type")
+    val deliveryType: String? = null,
+    @SerializedName("available")
+    val available: Boolean? = null,
+    @SerializedName("chefDeliveryAvailable")
+    val chefDeliveryAvailable: Boolean? = null,
+    @SerializedName("userId")
+    val userId: Int? = null,
+    @SerializedName("categoryId")
+    val categoryId: Int? = null,
+    @SerializedName("rating")
+    val rating: Int? = null,
+    @SerializedName("createdAt")
+    val createdAt: String? = null,
+    @SerializedName("updatedAt")
+    val updatedAt: String? = null
 )

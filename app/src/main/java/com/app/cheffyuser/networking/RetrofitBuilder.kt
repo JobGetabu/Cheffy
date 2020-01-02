@@ -1,7 +1,5 @@
 package com.app.cheffyuser.networking
 
-import android.widget.Toast
-import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.utils.AppExecutors
 import com.app.cheffyuser.utils.TokenManager
@@ -49,12 +47,8 @@ object RetrofitBuilder {
                         tm.deleteIsLoggedIn()
                         tm.deleteToken()
 
-                        if (BuildConfig.DEBUG)
-                            Toast.makeText(
-                                CheffyApp.instance!!,
-                                "Debug only: Not authenticated",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                        Timber.d("Not authenticated")
+
                     }
                 }
 

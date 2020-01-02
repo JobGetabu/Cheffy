@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.model.PlatesResponse
 import com.app.cheffyuser.utils.loadUrl
-import timber.log.Timber
 
 class FoodRelatedAdapter(
     private val context: Context,
@@ -35,7 +34,7 @@ class FoodRelatedAdapter(
 
 
     override fun getItemCount(): Int {
-        if(foodNearbyModels!!.size > 2){
+        if (foodNearbyModels!!.size > 2) {
             return countIsTwo
         }
         return foodNearbyModels!!.size
@@ -76,7 +75,8 @@ class FoodRelatedAdapter(
         private val times = itemView.findViewById<TextView>(R.id.times)
         private val deliverytext = itemView.findViewById<TextView>(R.id.deliverytext)
         private val badge_price = itemView.findViewById<TextView>(R.id.badge_price)
-        private val holder_foodother = itemView.findViewById<LinearLayout>(R.id.holder_foodother)
+        private val holder_foodother =
+            itemView.findViewById<ConstraintLayout>(R.id.holder_foodother)
 
         init {
 
@@ -90,9 +90,7 @@ class FoodRelatedAdapter(
 
         override fun onBind(position: Int) {
             super.onBind(position)
-            Timber.d("item at => $position")
             this.model = foodNearbyModels!![position]
-            Timber.d("item at => $model")
 
             // set whatever you want. for instance;
             if (!model?.plateImages.isNullOrEmpty())
