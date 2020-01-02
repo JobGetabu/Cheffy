@@ -14,10 +14,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
 
         <TextView
+            android:padding="10dp"
             android:id="@+id/fooddescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,9 @@
             android:textColor="@color/textPrimaryColor"
             android:textSize="14sp" />
 
-        <include layout="@layout/single_ingredient_layout" />
+        <include
+            layout="@layout/single_ingredient_layout"
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/viewReceipt"
@@ -58,6 +60,7 @@
             android:textSize="18sp" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:padding="10dp"
             android:id="@+id/recyclerview_plate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,6 +70,7 @@
             tools:listitem="@layout/single_foodother_plate" />
 
         <include
+            android:padding="10dp"
             layout="@layout/item_loading"
             android:visibility="gone"
             tools:visibility="visible" />
@@ -78,6 +82,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:orientation="horizontal"
+            android:padding="10dp"
             android:weightSum="2">
 
             <include

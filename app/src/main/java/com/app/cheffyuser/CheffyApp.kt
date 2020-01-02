@@ -17,6 +17,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.jakewharton.threetenabp.AndroidThreeTen
 import timber.log.Timber
 
+
 class CheffyApp : MultiDexApplication() {
 
     private val executors: AppExecutors? = null
@@ -101,5 +102,4 @@ class CheffyApp : MultiDexApplication() {
             AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         }
     }
-
 }

@@ -178,7 +178,7 @@ class AddCardActivity : BaseActivity() {
         val cvvno: Int? =  if (cvv?.text?.toString()!!.isNotEmpty()) {
             cvv?.text.toString().toInt()
         } else null
-        val number = card_num_label.toString().trim()
+        val number = card_num_label.text.toString().trim()
 
         if (nameTxt.isEmpty() || number.isEmpty() || expiryno == null || yearno == null || cvvno == null ) {
             createSnack(ctx = this, txt = "All fields are required")

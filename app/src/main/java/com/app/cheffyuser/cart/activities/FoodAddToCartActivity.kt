@@ -7,11 +7,13 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
+import com.app.cheffyuser.CheffyApp
 import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.adapter.FoodOtherSelectedAdapter
 import com.app.cheffyuser.cart.models.AddToBasketRequest
 import com.app.cheffyuser.cart.models.BasketRequest
 import com.app.cheffyuser.cart.models.PeopleAddedResponse
+import com.app.cheffyuser.create_account.activities.CreateAccountActivity
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.RecyclerCheckBoxClickListener
 import com.app.cheffyuser.home.model.PlatesResponse
@@ -190,6 +192,24 @@ class FoodAddToCartActivity : BaseActivity() {
 
 
     private fun addToCart() {
+        if (!CheffyApp.instance!!.tokenManager.isLoggedIn) {
+            createSnack(
+                ctx = this,
+                txt = "Login to create order",
+                txtAction = "Login",
+                isDefinate = true,
+                action = View.OnClickListener {
+
+                    val intent = Intent(
+                        this,
+                        CreateAccountActivity::class.java
+                    )
+                    startActivity(intent)
+                })
+
+            return
+        }
+
         val dialog = showDialogue("Adding to cart", "Please wait ...")
 
         val basketRequests: MutableList<BasketRequest> = mutableListOf()

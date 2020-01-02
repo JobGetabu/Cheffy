@@ -253,6 +253,14 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun getSearchResults(searchTermId: String): LiveData<Resource<PlateSearchResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.getSearchResults(searchTermId)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
+
 
     //Region custom plates
 

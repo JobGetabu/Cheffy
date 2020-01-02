@@ -1,5 +1,6 @@
 package com.app.cheffyuser.home.activities
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -33,6 +34,7 @@ import com.app.cheffyuser.home.model.CurrentLocation
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.fragments.AccountFragment
+import com.app.cheffyuser.utils.DialogUtils
 import com.app.cheffyuser.utils.TokenManager
 import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.toast
@@ -48,6 +50,11 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.activity_bottom_nav.*
 import timber.log.Timber
 
@@ -246,16 +253,43 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
     }
 
     private fun requestMyCurrentLocation() {
-        val locationRequest = LocationRequest()
-            .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-            .setInterval(5000)
-            .setFastestInterval(5000)
-        val droidLocationRequest = DroidLocationRequestBuilder()
-            .setLocationRequest(locationRequest)
-            .setFallBackToLastLocationTime(3000)
-            .build()
-        //requestSingleLocationFix(droidLocationRequest)
-        requestLocationUpdates(droidLocationRequest)
+
+        Dexter.withActivity(this)
+            .withPermissions(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+
+                    if (report!!.isAnyPermissionPermanentlyDenied) {
+                        // navigate user to app settings
+                        DialogUtils.showSettingsDialog(this@BottomNavActivity)
+                    } else if (report.areAllPermissionsGranted()) {
+
+                        //permissions granted
+                        val locationRequest = LocationRequest()
+                            .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                            .setInterval(5000)
+                            .setFastestInterval(5000)
+                        val droidLocationRequest = DroidLocationRequestBuilder()
+                            .setLocationRequest(locationRequest)
+                            .setFallBackToLastLocationTime(3000)
+                            .build()
+                        //requestSingleLocationFix(droidLocationRequest)
+                        requestLocationUpdates(droidLocationRequest)
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: MutableList<PermissionRequest>?,
+                    token: PermissionToken?
+                ) {
+                    token?.continuePermissionRequest()
+                }
+
+            }).check()
+
     }
 
     override fun onDestroy() {

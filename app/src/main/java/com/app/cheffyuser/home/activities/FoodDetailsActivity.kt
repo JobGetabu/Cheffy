@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.app.cheffyuser.BuildConfig
-import com.app.cheffyuser.R
 import com.app.cheffyuser.cart.activities.ItemCartActivity
 import com.app.cheffyuser.home.adapter.DetailMainbarAdapter
 import com.app.cheffyuser.home.fragments.KitchenFragment
@@ -131,7 +130,7 @@ class FoodDetailsActivity : BaseActivity() {
         //setup chef details
         if (chef != null) {
             chefname.text = chef.name
-            chefpic.loadUrl(chef.imagePath, R.drawable.avatar_placeholder)
+            chefpic.loadUrl(chef.imagePath)
 
             var ratingSum = 0.0
             var rating = 0.0
