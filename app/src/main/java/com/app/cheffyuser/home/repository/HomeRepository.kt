@@ -311,6 +311,17 @@ class HomeRepository {
         }
     }
 
+    suspend fun getSearchResults(searchTermId: String): Resource<PlateSearchResponse> {
+        return try {
+            val response = apiService.getSearchResults(searchTermId)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
     //Region custom plates
 
     suspend fun uploadCustomPlateImages(

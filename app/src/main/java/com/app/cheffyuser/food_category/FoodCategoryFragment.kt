@@ -19,6 +19,7 @@ import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.custom_order.CustomOrderActivity
 import com.app.cheffyuser.food_category.adapter.FoodCatAdapter
+import com.app.cheffyuser.food_category.adapter.PlateSearchAdapter
 import com.app.cheffyuser.food_category.model.FoodCatModel
 import com.app.cheffyuser.home.activities.BottomNavActivity
 import com.app.cheffyuser.home.activities.FoodDetailsActivity
@@ -49,8 +50,9 @@ class FoodCategoryFragment : BaseFragment() {
 
     private lateinit var foodCatAdapter: FoodCatAdapter
 
-    //TODO: Replace with a search Adapter
+
     private lateinit var foodPopularAdapter: FoodPopularAdapter
+    private lateinit var plateSearchAdapter: PlateSearchAdapter
 
     private val vm: HomeViewModel by lazy {
         ViewModelProviders.of(getActivity()!!).get(HomeViewModel::class.java)
@@ -209,7 +211,7 @@ class FoodCategoryFragment : BaseFragment() {
                     listWithCategoryResult(it, vm.searchResult.id!!)
                 }
                 SEARCH_TEXT -> {
-                    createSnack(ctx = activity!!, txt = "Search text API not ready")
+                    listWithFoodResult("${vm.searchTerm.value}")
                 }
             }
 
@@ -263,15 +265,92 @@ class FoodCategoryFragment : BaseFragment() {
 
                     if (!datas?.platesResponse.isNullOrEmpty()) {
 
-                        foodPopularAdapter = FoodPopularAdapter(activity!!, vm, datas?.platesResponse,
-                            object : RecyclerItemClickListener {
-                                override fun modelClick(model: Any) {
-                                    model as PlatesResponse
+                        foodPopularAdapter =
+                            FoodPopularAdapter(activity!!, vm, datas?.platesResponse,
+                                object : RecyclerItemClickListener {
+                                    override fun modelClick(model: Any) {
+                                        model as PlatesResponse
 
-                                    goToFoodDetails(model)
-                                }
-                            })
+                                        goToFoodDetails(model)
+                                    }
+                                })
                         catlist.adapter = foodPopularAdapter
+
+                    } else {
+                        no_searchfood_layout.showView()
+                        catlist.hideView()
+                    }
+
+                }
+                Status.LOADING -> {
+                    //still loading data
+                }
+            }
+
+        })
+    }
+
+    private fun listWithFoodResult(searchTermId: String) {
+
+        search_et.setText(searchTermId)
+
+        catlist.setHasFixedSize(true)
+
+        shimmer_view_container.startShimmer()
+        shimmer_view_container.showView()
+        catlist.hideView()
+        no_searchfood_layout.hideView()
+
+        //this one is Grid
+        val lManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        catlist.layoutManager = lManager
+
+        vm.getSearchResults(searchTermId).observe(this, Observer {
+            val datas = it.data
+
+            when (it.status) {
+                Status.ERROR -> {
+
+                    no_searchfood_layout.showView()
+                    shimmer_view_container.hideView()
+                    shimmer_view_container.stopShimmer()
+                    catlist.hideView()
+
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = activity!!, txt = "Debug only: No foods found")
+
+                    //check for net
+                    try {
+                        val act: BottomNavActivity = getActivity()!! as BottomNavActivity
+                        act.checkNetwork()
+                    } catch (e: Exception) {
+                        Timber.wtf(e)
+                    }
+
+                }
+                Status.SUCCESS -> {
+
+                    shimmer_view_container.stopShimmer()
+                    shimmer_view_container.hideView()
+                    no_searchfood_layout.hideView()
+                    catlist.showView()
+
+                    if (!datas?.plates.isNullOrEmpty()) {
+
+                        plateSearchAdapter =
+                            PlateSearchAdapter(activity!!, datas?.plates?.toMutableList(),
+                                object : RecyclerItemClickListener {
+                                    override fun modelClick(model: Any) {
+                                        model as PlateSearch
+
+                                        val plateId = model.id!!
+
+                                        val intent = FoodDetailsActivity.newIntent(context!!)
+                                        intent.putExtra("plateId", plateId)
+                                        startActivity(intent)
+                                    }
+                                })
+                        catlist.adapter = plateSearchAdapter
 
                     } else {
                         no_searchfood_layout.showView()

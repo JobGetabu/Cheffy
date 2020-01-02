@@ -69,7 +69,7 @@ data class PlateSearch(
     @SerializedName("description")
     val description: String? = null,
     @SerializedName("price")
-    val price: Int? = null,
+    val price: Double? = null,
     @SerializedName("delivery_time")
     val deliveryTime: Int? = null,
     @SerializedName("sell_count")
@@ -85,7 +85,7 @@ data class PlateSearch(
     @SerializedName("categoryId")
     val categoryId: Int? = null,
     @SerializedName("rating")
-    val rating: Int? = null,
+    val rating: Double? = null,
     @SerializedName("createdAt")
     val createdAt: String? = null,
     @SerializedName("updatedAt")
