@@ -171,6 +171,20 @@ class HomeRepository {
         }
     }
 
+    suspend fun setDefaultShipping(
+        shippingId: Int,
+        shippingRequest: ShippingRequest
+    ): Resource<SetShippingResponse> {
+        return try {
+            val response = apiServiceAuthed.setDefaultShipping(shippingId, shippingRequest)
+            responseHandler.handleSuccess(response)
+        } catch (e: Exception) {
+            //just extra logging
+            Timber.tag("HTTP").e(e, "")
+            responseHandler.handleException(e)
+        }
+    }
+
     suspend fun addFavourite(favouriteRequest: FavouriteRequest): Resource<FavouriteResponse> {
         return try {
             val response = apiServiceAuthed.addFavourite(favouriteRequest)

@@ -155,6 +155,16 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun setDefaultShipping(
+        shippingId: Int,
+        shippingRequest: ShippingRequest
+    ): LiveData<Resource<SetShippingResponse>> {
+        return liveData(Dispatchers.IO) {
+            val data = repository.setDefaultShipping(shippingId, shippingRequest)
+            emit(Resource.loading(null))
+            emit(data)
+        }
+    }
 
     fun getChefData(chefId: Int): LiveData<Resource<ChefResponse>> {
         return liveData(Dispatchers.IO) {

@@ -92,18 +92,19 @@ class AccountFragment : BaseFragment() {
                 Status.SUCCESS -> {
                     if (!datas.isNullOrEmpty()) {
 
-                        tokenManager.shippingData = datas[0]
+                        val data = datas.first { d -> d.isDefaultAddress == true }
 
-                        vm.shippingData.value = datas[0]
+                        tokenManager.shippingData = data
+                        vm.shippingData.value = data
 
                         val ship = ShippingRequest()
-                        ship.lat = datas[0].lat
-                        ship.lon = datas[0].lon
-                        ship.state = datas[0].state
-                        ship.city = datas[0].city
-                        ship.addressLine1 = datas[0].addressLine1
-                        ship.addressLine2 = datas[0].addressLine2
-                        ship.zipCode = datas[0].zipCode
+                        ship.lat = data.lat
+                        ship.lon = data.lon
+                        ship.state = data.state
+                        ship.city = data.city
+                        ship.addressLine1 = data.addressLine1
+                        ship.addressLine2 = data.addressLine2
+                        ship.zipCode = data.zipCode
 
                         tokenManager.shippingData2 = ship
 

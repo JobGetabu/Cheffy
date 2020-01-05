@@ -15,7 +15,8 @@ data class ShippingRequest(
     var lon: String? = null,
     var state: String? = null,
     var zipCode: String? = null,
-    var deliveryNote: String? = null
+    var deliveryNote: String? = null,
+    var isDefaultAddress: Boolean? = null
 )
 
 @SuppressLint("ParcelCreator")

@@ -5,13 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.create_account.model.ShippingData
+import com.app.cheffyuser.create_account.model.ShippingRequest
 import com.app.cheffyuser.home.activities.BaseActivity
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.adapter.AddressAdapter
+import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.hideView
 import com.app.cheffyuser.utils.loadAnim
 import com.app.cheffyuser.utils.showView
@@ -87,7 +90,7 @@ class ListShippingActivity : BaseActivity() {
                             override fun modelClick(model: Any) {
                                 model as ShippingData
 
-                                //set default address
+                                setShipping(model)
                             }
                         })
 
@@ -99,4 +102,43 @@ class ListShippingActivity : BaseActivity() {
         })
     }
 
+    private fun setShipping(model: ShippingData) {
+
+        val ship = ShippingRequest()
+        ship.zipCode = model.zipCode
+        ship.addressLine1 = model.addressLine1
+        ship.addressLine2 = model.addressLine2
+        ship.deliveryNote = model.deliveryNote
+        ship.state = model.state
+        ship.city = model.city
+        ship.lat = model.lat
+        ship.lon = model.lon
+        ship.isDefaultAddress = true
+
+
+        val dialog = showDialogue("Switching shipping address", "Please wait ...")
+
+        vm.setDefaultShipping(model.id!!, ship).observe(this, Observer {
+            when (it.status) {
+                Status.ERROR -> {
+                    if (BuildConfig.DEBUG)
+                        createSnack(ctx = this, txt = "${it?.message}")
+
+                    errorDialogue("Error", "Something went wrong", dialog)
+                    //checkNetwork()
+                }
+                Status.SUCCESS -> {
+
+                    tokenManager.shippingData2 = ship
+                    tokenManager.shippingData = it.data?.shippingResponseData
+
+                    successDialogue(alertDialog = dialog, descriptions = "${it.data?.message}")
+                    finish()
+                }
+                Status.LOADING -> {
+
+                }
+            }
+        })
+    }
 }

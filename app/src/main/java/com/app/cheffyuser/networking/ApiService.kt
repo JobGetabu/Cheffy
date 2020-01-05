@@ -50,6 +50,9 @@ interface ApiService {
     @POST("shipping")
     suspend fun setShipping(@Body shippingRequest: ShippingRequest): SetShippingResponse
 
+    @PUT("shipping/{shippingId}")
+    suspend fun setDefaultShipping( @Path(value = "shippingId") shippingId: Int, @Body shippingRequest: ShippingRequest): SetShippingResponse
+
 
     //endregion
 

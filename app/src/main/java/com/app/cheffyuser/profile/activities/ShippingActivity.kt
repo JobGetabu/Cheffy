@@ -87,6 +87,7 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
         ship!!.deliveryNote = shipRes?.deliveryNote
 
 
+
         if (!ship?.addressLine1.isNullOrEmpty()) {
 
             primary_txt.text = "${ship?.addressLine1}"
@@ -140,7 +141,7 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
         ship?.city = "${dd!!.secondaryText}"
         ship?.lat = "${dd!!.place?.latLng?.latitude}"
         ship?.lon = "${dd!!.place?.latLng?.longitude}"
-        tokenManager.shippingData2 = ship
+        ship!!.isDefaultAddress = true
 
 
         if (ship!!.addressLine1!!.isEmpty()) {
@@ -159,18 +160,18 @@ class ShippingActivity : BaseActivity(), OnMapReadyCallback {
 
         val dialog = showDialogue("Setting shipping location", "Please wait ...")
 
-        //TODO: push shipping data to server
         vm.setShipping(ship!!).observe(this, Observer {
             when (it.status) {
                 Status.ERROR -> {
                     if (BuildConfig.DEBUG)
                         createSnack(ctx = this, txt = "${it?.message}")
 
-                    errorDialogue("Error", "You already have this address registered", dialog)
+                    errorDialogue("Error", "Something went wrong", dialog)
                     //checkNetwork()
                 }
                 Status.SUCCESS -> {
 
+                    tokenManager.shippingData2 = ship
                     tokenManager.shippingData = it.data?.shippingResponseData
 
                     successDialogue(alertDialog = dialog, descriptions = "${it.data?.message}")
