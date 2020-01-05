@@ -305,8 +305,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
+                    android:minWidth="107dp"
+                    android:minHeight="109dp"
                     android:padding="10dp"
-                    android:scaleType="center"
+                    android:scaleType="centerCrop"
+                    tools:scaleType="center"
                     android:src="@drawable/dummy_chef"
                     android:transitionName="slider1" />
 
