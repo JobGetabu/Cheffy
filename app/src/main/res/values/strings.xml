@@ -61,5 +61,6 @@
     <string name="delivery">Delivery</string>
     <string name="pickup_order">Pickup order</string>
     <string name="your_address_appear">Your addresses appear here</string>
+    <string name="your_fav_appear">Your favourites appear here</string>
 
 </resources>

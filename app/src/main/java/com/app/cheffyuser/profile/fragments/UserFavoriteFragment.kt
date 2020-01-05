@@ -1,5 +1,6 @@
 package com.app.cheffyuser.profile.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,11 @@ import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
 import com.app.cheffyuser.home.activities.BottomNavActivity
+import com.app.cheffyuser.home.activities.FoodDetailsActivity
 import com.app.cheffyuser.home.adapter.RecyclerItemClickListener
 import com.app.cheffyuser.home.fragments.BaseFragment
+import com.app.cheffyuser.home.model.CustomPlates
+import com.app.cheffyuser.home.model.FavPlate
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.adapter.FoodFavouriteAdapter
@@ -19,13 +23,13 @@ import com.app.cheffyuser.utils.createSnack
 import com.app.cheffyuser.utils.hideView
 import com.app.cheffyuser.utils.showView
 import kotlinx.android.synthetic.main.fragment_profile_chef.*
+import kotlinx.android.synthetic.main.no_item_layout.*
 import timber.log.Timber
 
 /**
  * A simple [Fragment] subclass.
  */
 class UserFavoriteFragment : BaseFragment() {
-
 
     private lateinit var foodFavAdapter: FoodFavouriteAdapter
 
@@ -43,6 +47,7 @@ class UserFavoriteFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        no_item_text.text = getString(R.string.your_fav_appear)
 
         setFavouriteList()
 
@@ -57,6 +62,7 @@ class UserFavoriteFragment : BaseFragment() {
         recyclerview_food_menu.setHasFixedSize(true)
 
         recyclerview_food_menu.hideView()
+        noitem_layout.hideView()
         shimmer_view_container.showView()
 
 
@@ -83,6 +89,7 @@ class UserFavoriteFragment : BaseFragment() {
 
                     recyclerview_food_menu.hideView()
                     shimmer_view_container.showView()
+                    noitem_layout.hideView()
 
                 }
                 Status.SUCCESS -> {
@@ -96,7 +103,6 @@ class UserFavoriteFragment : BaseFragment() {
                     datas?.data?.forEach { d ->
                         if (d != null) {
                             if (d.customPlates != null) {
-
                                 myFavs.add(d.customPlates)
                             }
 
@@ -106,12 +112,23 @@ class UserFavoriteFragment : BaseFragment() {
                         }
                     }
 
+                    if (datas!!.data.isNullOrEmpty()) {
+                        noitem_layout.showView()
+                    }
+
                     myFavs.let {
                         foodFavAdapter = FoodFavouriteAdapter(activity!!, vm, myFavs,
                             object : RecyclerItemClickListener {
                                 override fun modelClick(model: Any) {
-                                    model as Any
 
+                                    var id = 0
+                                    if (model is CustomPlates) id = model.id!!
+                                    if (model is FavPlate) id = model.id!!
+
+
+                                    val intent = Intent(FoodDetailsActivity.newIntent(activity!!))
+                                    intent.putExtra(FoodDetailsActivity.plateId, id)
+                                    startActivity(intent)
                                 }
                             })
                     }
