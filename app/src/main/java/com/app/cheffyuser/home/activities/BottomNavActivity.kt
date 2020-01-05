@@ -138,9 +138,6 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
     override fun onStart() {
         super.onStart()
 
-        //Request location update
-        requestMyCurrentLocation()
-
         //delay a sec to see there's net
         Handler().postDelayed({
             if (!isCon) {
@@ -186,6 +183,8 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
         appUpdatePrep()
 
         searchPredcts()
+
+        doWeNeedLocation()
     }
 
     private fun currentItemObserver() {
@@ -201,6 +200,20 @@ class BottomNavActivity : DroidLocationAppCompatActivity(), DroidListener,
                 nav_view.selectedItemId = R.id.nav_account
             }
         })
+    }
+
+    private fun doWeNeedLocation(){
+
+        if (!CheffyApp.instance!!.tokenManager.isLoggedIn) {
+
+            if (tokenManager.mCurrentLocation.lat == 0.0){
+
+                //Request location update
+                requestMyCurrentLocation()
+            }
+
+        }
+
     }
 
     override fun onLocationPermissionGranted() {

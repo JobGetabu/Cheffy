@@ -160,8 +160,8 @@ class TokenManager(private val prefs: SharedPreferences) {
     var mCurrentLocation: CurrentLocation
         get() = CurrentLocation(
             prefs.getString(PREF_CURRENT_ADDRESS, "Unnamed Road"),
-            prefs.getString(PREF_CURRENT_LAT, "0")?.toDouble(),
-            prefs.getString(PREF_CURRENT_LON, "0")?.toDouble()
+            prefs.getString(PREF_CURRENT_LAT, "0.0")?.toDouble(),
+            prefs.getString(PREF_CURRENT_LON, "0.0")?.toDouble()
         )
         set(mCurrentLocation) {
             editor.putBoolean(PREF_CURRENT_LOCATION, true)

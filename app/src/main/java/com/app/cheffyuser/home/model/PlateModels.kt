@@ -9,6 +9,7 @@ import kotlinx.android.parcel.RawValue
 
 
 
+
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class GetPlateResponse(
@@ -62,6 +63,8 @@ data class PlatesResponse(
     val chef: Chef? = null,
     @SerializedName("category")
     val category: Category? = null,
+    @SerializedName("AggregateReview")
+    val aggregateReview: AggregateReview? = null,
     @SerializedName("DietCategories")
     val dietCategories: List<DietCategory?>? = null,
     @SerializedName("Ingredients")
@@ -271,4 +274,29 @@ data class User(
     val email: String? = null,
     @SerializedName("imagePath")
     val imagePath: String? = null
+) : Parcelable
+
+@SuppressLint("ParcelCreator")
+@Parcelize
+data class AggregateReview(
+    @SerializedName("id")
+    val id: Int? = null,
+    @SerializedName("review_type")
+    val reviewType: String? = null,
+    @SerializedName("chefID")
+    val chefID: Int? = null,
+    @SerializedName("driverID")
+    val driverID: Int? = null,
+    @SerializedName("plateId")
+    val plateId: Int? = null,
+    @SerializedName("userCount")
+    val userCount: Int? = null,
+    @SerializedName("rating")
+    val rating: Double? = null,
+    @SerializedName("createdAt")
+    val createdAt: String? = null,
+    @SerializedName("updatedAt")
+    val updatedAt: String? = null,
+    @SerializedName("driverId")
+    val driverId: Int? = null
 ) : Parcelable
