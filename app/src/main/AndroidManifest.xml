@@ -31,7 +31,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
-        <activity android:name=".profile.activities.ListShippingActivity"></activity>
+        <activity android:name=".cart.activities.PaymentOptionsActivity"></activity>
+        <activity android:name=".profile.activities.ListShippingActivity" />
         <activity
             android:name=".cart.activities.MapTrackActivity"
             android:screenOrientation="portrait"

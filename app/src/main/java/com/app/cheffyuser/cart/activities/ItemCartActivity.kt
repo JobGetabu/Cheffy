@@ -221,7 +221,7 @@ class ItemCartActivity : BaseActivity(), OnMapReadyCallback {
             createSnack(
                 this, "Add a card payment for payment", "Ok",
                 View.OnClickListener {
-                    startActivity(AddCardActivity.newIntent(this))
+                    startActivity(PaymentOptionsActivity.newIntent(this))
                 })
             return
         }

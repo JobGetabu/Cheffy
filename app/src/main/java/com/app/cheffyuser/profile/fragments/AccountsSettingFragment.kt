@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.app.cheffyuser.BuildConfig
 import com.app.cheffyuser.R
-import com.app.cheffyuser.cart.activities.AddCardActivity
+import com.app.cheffyuser.cart.activities.PaymentOptionsActivity
 import com.app.cheffyuser.create_account.activities.CreateAccountActivity
 import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
@@ -44,7 +44,7 @@ class AccountsSettingFragment : BaseFragment() {
         val BASE_URL = "https://mycheffy.herokuapp.com/"
 
         layout_payment.setOnClickListener {
-            val intent = Intent(activity, AddCardActivity::class.java)
+            val intent = Intent(activity, PaymentOptionsActivity::class.java)
             startActivity(intent)
         }
 
