@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/upload_thumbnail" />
 
             <com.github.florent37.shapeofview.shapes.CircleView

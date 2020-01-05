@@ -37,7 +37,7 @@
                 android:layout_height="150dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/contentdesc"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:src="@drawable/upload_thumbnail"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
