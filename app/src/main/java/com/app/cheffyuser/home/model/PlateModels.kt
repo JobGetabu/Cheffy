@@ -8,8 +8,6 @@ import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
 
-
-
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class GetPlateResponse(
@@ -85,7 +83,7 @@ data class Chef(
     @SerializedName("address")
     val address: List<AddressData>? = null,
     @SerializedName("auth_token")
-    val authToken:  String? = null,
+    val authToken: String? = null,
     @SerializedName("country_code")
     val countryCode: String? = null,
     @SerializedName("createdAt")
@@ -127,7 +125,7 @@ data class Chef(
     @SerializedName("verification_phone_status")
     val verificationPhoneStatus: String? = null,
     @SerializedName("verification_phone_token")
-    val verificationPhoneToken:  String? = null
+    val verificationPhoneToken: String? = null
 ) : Parcelable
 
 @SuppressLint("ParcelCreator")

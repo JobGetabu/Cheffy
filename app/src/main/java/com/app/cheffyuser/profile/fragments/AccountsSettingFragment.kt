@@ -16,7 +16,7 @@ import com.app.cheffyuser.home.fragments.BaseFragment
 import com.app.cheffyuser.home.viewmodel.HomeViewModel
 import com.app.cheffyuser.networking.Status
 import com.app.cheffyuser.profile.activities.EditProfileActivity
-import com.app.cheffyuser.profile.activities.ShippingActivity
+import com.app.cheffyuser.profile.activities.ListShippingActivity
 import com.app.cheffyuser.utils.Tools.directLinkToBrowser
 import com.app.cheffyuser.utils.createSnack
 import kotlinx.android.synthetic.main.fragment_accounts_setting.*
@@ -49,7 +49,7 @@ class AccountsSettingFragment : BaseFragment() {
         }
 
         layout_shipping.setOnClickListener {
-            val intent = Intent(activity, ShippingActivity::class.java)
+            val intent = Intent(activity, ListShippingActivity::class.java)
             startActivity(intent)
         }
 

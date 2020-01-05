@@ -127,7 +127,6 @@
         app:layout_constraintStart_toEndOf="@+id/mMap"
         app:layout_constraintTop_toBottomOf="@+id/primary_txt2" />
 
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
