@@ -217,7 +217,6 @@ class UserHomeFragment : BaseFragment() {
             }
 
         })
-
     }
 
     private fun setPopularList() {
